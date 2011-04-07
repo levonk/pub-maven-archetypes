@@ -7,7 +7,7 @@
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
 	<version>${version}</version>
-	<packaging>pom</packaging>
+	<packaging>apk</packaging>
 
 	<name>${project.name}</name>
 	<url>${project.url}</url>
@@ -17,29 +17,18 @@
 		<url>${project.url}</url>
 	</organization>
 
+	<parent>
+		<!-- this should probably reference a parent -->
+		<groupId>${groupId}</groupId>
+		<artifactId>modules</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
 	<modules>
 		<!--
 		<module>myModule</module>
 		-->
 	</modules>
-
-	<repositories>
-		<repository>
-			<id>maven2-repository.java.net</id>
-			<name>Java.net maven repository</name>
-			<url>http://download.java.net/maven/2/</url>
-			<layout>default</layout>
-		</repository>
-
-		<repository>
-			<id>codehaus-snapshots</id>
-			<name>CodeHaus Snapshots</name>
-			<url>https://nexus.codehaus.org/content/repositories/codehaus-snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<!-- If you have arbitrary jar that want to deploy into a central maven repository you can use
@@ -47,300 +36,32 @@
 					-Dversion=1-levonkVersion -Dpackaging=jar -Dfile=otherjar.jar \
 					-Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
 		-->
-		<!-- Unit Testing Dependencies -->
+		<!-- Android Dependencies -->
 		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>5.14.2</version>
-			<scope>test</scope>
-		</dependency>
-		<!--
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
-			<scope>test</scope>
-		</dependency>
-		-->
-
-		<!-- Mock framework -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all<artifactId>
-			<version>1.8.5</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Static Analysis -->
-		<dependency>
-			<groupId>net.sourceforge.findbugs</groupId>
-			<artifactId>annotations<artifactId>
-			<version>${plugin.version.findbugs.extra}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sourceforge.findbugs</groupId>
-			<artifactId>jsr305<artifactId>
-			<version>${plugin.version.findbugs.extra}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Logging Dependencies -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>0.9.28</version>
-			<scope>runtime</scope>
-		</dependency>
-		<!--
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${dep.version.log4j}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${dep.version.slf4j}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${dep.version.slf4j}</version>
-			<scope>runtime</scope>
-		</dependency>
-		-->
-
-		<!-- Code Generation Dependencies -->
-		<dependency>
-			<!-- http://pojomatic.sourceforge.net/pojomatic/index.html -->
-			<groupId>org.pojomatic</groupId>
-			<artifactId>pojomatic</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-		<dependency>
-			<!-- Lombok requires Javac v1.6 compiler or higher -->
-			<!-- You still need to doubleclick the lombok.jar
-				 file downloaded by maven to install lombok into
-				 eclipse.
-			-->
-			<!-- http://projectlombok.org/features/index.html -->
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>0.9.3</version>
+			<!--  http://www.sonatype.com/books/mvnref-book/reference/android-dev-sect-using.html -->
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<version>2.1_r1</version>
 			<scope>provided</scope>
-		</dependency>
-
-		<!-- Add Cofoja Design By Contract lib when available -->
-
-		<!-- General Utility Libraries -->
-		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
-			<version>3.0</version>
-		</dependency>
-		<dependency>
-			<!-- Apache -->
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.2</version>
 		</dependency>
 	</dependencies>
 
 	<build>
-		<pluginManagement>
-			<plugins>
-				<!-- General Settings -->
-				<plugin>
-					<!-- compiler version -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${plugin.version.maven-compiler}</version>
-					<configuration>
-						<showDeprecation>true</showDeprecation>
-						<showWarnings>true</showWarnings>
-						<source>${project.java.version}</source>
-						<target>${project.java.version}</target>
-						<optimize>true</optimize>
-						<debug>true</debug>
-						<fork>true</fork>
-						<meminitial>128m</meminitial>
-						<maxmem>512m</maxmem>
-					</configuration>
-				</plugin>
-
-				<!-- Static Analysis Tools -->
-				<plugin>
-					<!-- Checkstyle -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>${plugin.version.checkstyle}</version>
-					<dependencies>
-						<dependency>
-							<groupId>com.levonk.build</groupId>
-							<artifactId>build-tools</artifactId>
-							<version>${levonk.dep.version.build-tools}</version>
-						</dependency>
-					</dependencies>
-					<configuration>
-						<configLocation>static-analysis/checkstyle.xml</configLocation>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<!-- PMD -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-pmd-plugin</artifactId>
-					<version>${plugin.version.pmd}</version>
-					<dependencies>
-						<dependency>
-							<groupId>com.levonk.build</groupId>
-							<artifactId>build-tools</artifactId>
-							<version>${levonk.dep.version.build-tools}</version>
-						</dependency>
-					</dependencies>
-					<configuration>
-						<rulesets>
-							<ruleset>do-not-user/pmd.xml</ruleset>
-						</rulesets>
-						<targetJdk>${project.java.version}</targetJdk>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<!-- Findbugs -->
-					<groupId>org.codehouse.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>${plugin.version.findbugs}</version>
-					<dependencies>
-						<dependency>
-							<groupId>com.levonk.build</groupId>
-							<artifactId>build-tools</artifactId>
-							<version>${levonk.dep.version.build-tools}</version>
-						</dependency>
-					</dependencies>
-					<configuration>
-						<excludeFilterFile>do-not-user/findbugs-exclude.xml</excludeFilterFile>
-						<threshold>Low</threshold>
-					</configuration>
-				</plugin>
-
-
-			</plugins>
-		</pluginManagement>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>maven-android-plugin</artifactId>
 				<configuration>
-					<docletArtifact>
-						<!-- http://code.google.com/p/doclava/wiki/GettingStarted -->
-						<groupId>com.google.doclava</groupId>
-						<artifactId>doclava</artifactId>
-						<version>1.0.3</version>
-					</docletArtifact>
-					<doclet>com.google.doclava.Doclava</doclet>
-					<!--
-						bootclasspath required by Sun's JVM
-					-->
-					<bootclasspath>${sun.boot.class.path}</bootclasspath>
-					<additionalparams>
-						-quiet
-						-federate JDK http://doclava.googlecode.com/svn/static/api/openjdk-6.xml
-						-hdf project.name "${project.name}"
-						-d ${project.build.directory}/apidocs
-					</additionalparams>
-					<useStandardDocletOptions>false</useStandardDocletOptions>
-					<!-- Apple's JVM sometimes requires more memory -->
-					<additionalJOptions>-J-Xmx1024m</additionalJOptions>
+					<sdk>
+						<platform>3</platform>
+					</sdk>
+					<emulator>
+						<avd>3</avd>
+					</emulator>
+					<deleteConflictingFiles>true</deleteConflictingFiles>
+					<undeployBeforeDeploy>true</undeployBeforeDeploy>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.8</version>
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jalopy-maven-plugin</artifactId>
-				<version>1.0-SNAPSHOT</version>
-				<configuration>
-					<convention>source-munge/jalopy.xml</convention>
-					<failOnError>false</failOnError>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.levonk.build</groupId>
-						<artifactId>build-tools</artifactId>
-						<version>${levonk.dep.version.build-tools}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.2</version>
-				<executions>
-					<execution>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<!-- lets get rid .class that are effected through
-				dependencies using ant -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.6</version>
-				<executions>
-					<!-- handle regular sources -->
-					<execution>
-						<id>depend-sources</id>
-						<phase>process-sources</phase>
-						<configuration>
-							<target>
-								<depend
-									srcDir="${project.build.sourceDirectory}"
-									destDir="${project.build.outputDirectory}"
-									cache="${project.build.outputDirectory}"
-								/>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-					<!-- handle test files -->
-					<execution>
-						<id>depend-test-sources</id>
-						<phase>process-test-sources</phase>
-						<configuration>
-							<target>
-								<depend
-									srcDir="${project.build.testSourceDirectory}"
-									destDir="${project.build.testOutputDirectory}"
-									cache="${project.build.testOutputDirectory}"
-									classpath="${project.build.outputDirectory}"
-								/>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
+				<extensions>true</extensions>
 			</plugin>
 		</plugins>
 	</build>

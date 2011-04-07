@@ -49,12 +49,6 @@
 	-->
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version> </version>
-			</dependency>
-
 			<!-- Unit Testing Dependencies -->
 			<dependency>
 				<groupId>junit</groupId>
@@ -177,80 +171,90 @@
 
 	<build>
 		<plugins>
-			<!-- General Settings -->
-			<plugin>
-				<!-- compiler version -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<showDeprecation>true</showDeprecation>
-					<showWarnings>true</showWarnings>
-					<source>${project.java.version}</source>
-					<target>${project.java.version}</target>
-					<optimize>true</optimize>
-					<debug>true</debug>
-					<fork>true</fork>
-					<meminitial>128m</meminitial>
-					<maxmem>512m</maxmem>
-				</configuration>
-			</plugin>
+			<pluginManagement>
+				<!-- General Settings -->
+				<plugin>
+					<!-- compiler version -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<showDeprecation>true</showDeprecation>
+						<showWarnings>true</showWarnings>
+						<source>${project.java.version}</source>
+						<target>${project.java.version}</target>
+						<optimize>true</optimize>
+						<debug>true</debug>
+						<fork>true</fork>
+						<meminitial>128m</meminitial>
+						<maxmem>512m</maxmem>
+					</configuration>
+				</plugin>
 
-			<!-- Static Analysis Tools -->
-			<plugin>
-				<!-- Checkstyle -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${plugin.version.checkstyle}</version>
-				<dependencies>
-					<dependency>
-						<groupId>com.levonk.build</groupId>
-						<artifactId>build-tools</artifactId>
-						<version>${levonk.dep.version.build-tools}</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<configLocation>static-analysis/checkstyle.xml</configLocation>
-				</configuration>
-			</plugin>
+				<!-- Static Analysis Tools -->
+				<plugin>
+					<!-- Checkstyle -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${plugin.version.checkstyle}</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.levonk.build</groupId>
+							<artifactId>build-tools</artifactId>
+							<version>${levonk.dep.version.build-tools}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<configLocation>static-analysis/checkstyle.xml</configLocation>
+					</configuration>
+				</plugin>
 
-			<plugin>
-				<!-- PMD -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${plugin.version.pmd}</version>
-				<dependencies>
-					<dependency>
-						<groupId>com.levonk.build</groupId>
-						<artifactId>build-tools</artifactId>
-						<version>${levonk.dep.version.build-tools}</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<rulesets>
-						<ruleset>do-not-user/pmd.xml</ruleset>
-					</rulesets>
-					<targetJdk>${project.java.version}</targetJdk>
-				</configuration>
-			</plugin>
+				<plugin>
+					<!-- PMD -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>${plugin.version.pmd}</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.levonk.build</groupId>
+							<artifactId>build-tools</artifactId>
+							<version>${levonk.dep.version.build-tools}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<rulesets>
+							<ruleset>do-not-user/pmd.xml</ruleset>
+						</rulesets>
+						<targetJdk>${project.java.version}</targetJdk>
+					</configuration>
+				</plugin>
 
-			<plugin>
-				<!-- Findbugs -->
-				<groupId>org.codehouse.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${plugin.version.findbugs}</version>
-				<dependencies>
-					<dependency>
-						<groupId>com.levonk.build</groupId>
-						<artifactId>build-tools</artifactId>
-						<version>${levonk.dep.version.build-tools}</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<excludeFilterFile>do-not-user/findbugs-exclude.xml</excludeFilterFile>
-					<threshold>Low</threshold>
-				</configuration>
-			</plugin>
+				<plugin>
+					<!-- Findbugs -->
+					<groupId>org.codehouse.mojo</groupId>
+					<artifactId>findbugs-maven-plugin</artifactId>
+					<version>${plugin.version.findbugs}</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.levonk.build</groupId>
+							<artifactId>build-tools</artifactId>
+							<version>${levonk.dep.version.build-tools}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<excludeFilterFile>do-not-user/findbugs-exclude.xml</excludeFilterFile>
+						<threshold>Low</threshold>
+					</configuration>
+				</plugin>
+
+				<!-- android plugin -->
+				<plugin>
+					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+					<artifactId>maven-android-plugin</artifactId>
+					<version>2.8.4</version>
+				</plugin>
+			</pluginManagement>
+
 
 			<plugin>
 				<!--
