@@ -2,11 +2,14 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
 		xmlns="http://maven.apache.org/POM/4.0.0"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!--
 	<parent>
 		<groupId>com.levonk</groupId>
 		<artifactId>modules</artifactId>
 		<version>1.0</version>
 	</parent>
+	-->
+		<groupId>com.levonk</groupId>
 	<artifactId>codequality</artifactId>
 	<version>1.0</version>
 	<name>Code Quality Tools</name>
@@ -44,5 +47,16 @@
 			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+		<!-- move this block to parent -->
+		<repository>
+			<id>repo</id>
+			<url>https://github.com/levonk/pub-maven-repo/raw/master/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot-repo</id>
+			<url>https://github.com/levonk/pub-maven-repo/raw/master/releases</url>
+		</snapshotRepository>
+	</distributionManagement>
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </project>
