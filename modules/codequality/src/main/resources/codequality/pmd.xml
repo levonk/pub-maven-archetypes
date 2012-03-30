@@ -77,15 +77,7 @@
 	<rule ref="rulesets/finalizers.xml" />
 	<rule ref="rulesets/imports.xml">
 		<!-- introduce with parameters below -->
-		<exclude name="ExcessiveImports" />
-		<!-- introduce with parameters below -->
 		<exclude name="TooManyStaticImports" />
-	</rule>
-	<rule ref="rulesets/imports.xml/ExcessiveImports">
-		<properties>
-			<!-- default of 30, services can have a log -->
-			<property name="minimum" value="45" />
-		</properties>
 	</rule>
 	<rule ref="rulesets/imports.xml/TooManyStaticImports">
 		<properties>
