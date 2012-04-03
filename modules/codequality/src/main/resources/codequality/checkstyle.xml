@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+		"http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<module name="Checker">
+	<!--
+		FileSetCheck TreeWalker checks individual Java source
+		files and defines properties that are applicable to
+		checking such files.
+	-->
+	<module name="TreeWalker">
+		<!-- -->
+		<!-- Section: Annotations -->
+		<!-- -->
+		<!--
+			This check controls the style with the usage of annotations.
+		-->
+		<module name="AnnotationUseStyle">
+			<property name="ElementStyle" vaule="compact_no_array" />
+			<!-- <property name="ElementStyle" vaule="expanded" /> -->
+
+			<property name="TrailingArrayComma" vaule="never" />
+			<!-- <property name="TrailingArrayComma" vaule="always" /> -->
+
+			<property name="ClosingParens" vaule="always" />
+			<!-- <property name="ClosingParens" vaule="never" /> -->
+		</module>
+		<!--
+			Verifies that both the java.lang.Deprecated annotation
+			is present and the @deprecated Javadoc tag is present
+			when either is present.
+		-->
+		<module name="MissingDeprecated" />
+		<!--
+			Verifies that the java.lang.Override annotation is
+			present when the {@inheritDoc} javadoc tag is present.
+		-->
+		<module name="MissingOverride" />
+		<!--
+			This check makes sure that all package annotations are in the
+			package-info.java file.
+
+			According to the Java JLS 3rd ed.
+
+			The JLS does not enforce the placement of package
+			annotations. This placement may vary based on implementation. The
+			JLS does highly recommend that all package annotations are placed
+			in the package-info.java file. See Java Language specification,
+			sections 7.4.1.1.
+		-->
+		<module name="PackageAnnotation">
+			<property name="javaFiveCompatibility" value="false" />
+			<!-- <property name="javaFiveCompatibility" value="true" /> -->
+		</module>
+		<!--
+			This check allows you to specify what warnings that
+			SuppressWarnings is not allowed to suppress. You can
+			also specify a list of TokenTypes that the configured
+			warning(s) cannot be suppressed on.
+
+			Limitations: This check does not consider conditionals
+			inside the SuppressWarnings annotation.
+
+			For example: @SupressWarnings((false) ? (true)
+			? "unchecked" : "foo" : "unused") According to the above
+			example, the "unused" warning is being suppressed not the
+			"unchecked" or "foo" warnings. All of these warnings
+			will be considered and matched against regardless of
+			what the conditional evaluates to.
+		-->
+		<module name="SuppressWarnings">
+			<!--
+				The warnings property is a regex pattern. Any
+				warning being suppressed matching this pattern
+				will be flagged.
+				default: "^$|^\s+$"
+
+			<property name="regexp" value="^$|^\s+$" />
+			-->
+			<!--
+				tokens to check
+
+				default: CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
+				ANNOTATION_DEF, ANNOTATION_FIELD_DEF
+				ENUM_CONSTANT_DEF PARAMETER_DEF VARIABLE_DEF
+				METHOD_DEF CTOR_DEF
+
+				options: CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
+				ANNOTATION_DEF, ANNOTATION_FIELD_DEF
+				ENUM_CONSTANT_DEF PARAMETER_DEF VARIABLE_DEF
+				METHOD_DEF CTOR_DEF
+			<property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF ENUM_CONSTANT_DEF PARAMETER_DEF VARIABLE_DEF METHOD_DEF CTOR_DEF" />
+			-->
+		</module>
+
+		<!-- -->
+		<!-- Block Checks -->
+		<!-- -->
+
+		<!--
+			Finds nested blocks, i.e. blocks that are used freely in the code.
+
+			Rationale: Nested blocks are often leftovers from the
+			debugging process, they confuse the reader.
+
+			LZK: I believe this helps readability, so no warning
+		<module name="AvoidNestedBlocks">
+			<property name="allowInSwitchCase" value="true" />
+		</module>
+		-->
+		
+		<!--
+			Checks for empty blocks.
+		-->
+		<module name="EmptyBlock">
+			<!-- policy on block contents. default is stmt -->
+			<property name="option" value="text" />
+			<!-- property name="option" value="stmt" / -->
+
+			<!-- 
+				blocks to check
+				default all tokens: LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, INSTANCE_INIT STATIC_INIT
+			<property name="tokens" value="LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, INSTANCE_INIT STATIC_INIT" />
+			-->
+		</module>
+
+		<!--
+			Checks for the placement of left curly braces ('{')
+			for code blocks. The policy to verify is specified using
+			property option. Policies eol and nlow take into account
+			property maxLineLength.
+		-->
+		<module name="Lcurly">
+			<!-- policy on placement of a left curly brace ('{'). default is eol -->
+			<property name="option" value="nl" />
+			<!--
+			<property name="option" value="eol" />
+			<property name="option" value="nlow" />
+			-->
+
+			<!-- maximum number of characters in a line. default is 80 -->
+			<property name="maxLineLength" value="120" />
+
+			<!-- Blocks to check: default all tokens:LASS_DEF, CTOR_DEF, INTERFACE_DEF, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF
+			<property name="tokens" value="CLASS_DEF, CTOR_DEF, INTERFACE_DEF, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF" />
+			-->
+		</module>
+
+		<!--
+			Checks for braces around code blocks.
+		-->
+		<module name="NeedBraces">
+			<!--
+				blocks to check.
+				default all tokens: LITERAL_DO, LITERAL_ELSE, LITERAL_IF, LITERAL_FOR, LITERAL_WHILE
+			-->
+		</module>
+
+		<!--
+			Checks the placement of right curly braces ('}') for else,
+			try, and catch tokens. The policy to verify is specified
+			using property option.
+		-->
+		<module name="Rcurly">
+			<!-- policy on placement of a right curly brace ('}'). default is same -->
+			<property name="option" value="alone" />
+			<!--
+			<property name="option" value="same" />
+			-->
+
+
+			<!-- Blocks to check: default subset tokens:LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE
+			<property name="tokens" value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE" />
+			-->
+
+			<!-- should we check if '}' starts line. default is: true -->
+			<property name="shouldStartLine" value="true" />
+			<!-- <property name="shouldStartLine" value="false" /> -->
+		</module>
+
+		<!-- -->
+		<!-- Section: Class Design -->
+		<!-- -->
+
+		<!--
+			Checks that classes are designed for extension. More
+			specifically, it enforces a programming style where
+			superclasses provide empty "hooks" that can be implemented
+			by subclasses.
+
+			The exact rule is that nonprivate, nonstatic methods of
+			classes that can be subclassed must either be
+
+				* abstract or
+				* final or
+				* have an empty implementation
+
+			Rationale: This API design style protects superclasses
+			against beeing broken by subclasses. The downside is
+			that subclasses are limited in their flexibility, in
+			particular they cannot prevent execution of code in the
+			superclass, but that also means that subclasses cannot
+			corrupt the state of the superclass by forgetting to
+			call the super method.
+		-->
+		<module name="DesignForExtension" />
+
+		<!--
+			Checks that a class which has only private constructors
+			is declared as final.
+		-->
+		<module name="FinalClass" />
+
+		<!--
+			Make sure that utility classes (classes that contain
+			only static methods or fields in their API) do not have
+			a public constructor.
+
+			Rationale: Instantiating utility classes does not make
+			sense. Hence the constructors should either be private or
+			(if you want to allow subclassing) protected. A common
+			mistake is forgetting to hide the default constructor.
+
+			If you make the constructor protected you may want
+			to consider the following constructor implementation
+			technique to disallow instantiating subclasses:
+
+			public class StringUtils // not final to allow subclassing
+			{
+				protected StringUtils() {
+					// prevents calls from subclass
+					throw new UnsupportedOperationException();
+				}
+
+				public static int count(char c, String s) {
+					// ...
+				}
+			}
+		-->
+		<module name="HideUtilityClassConstructor" />
+
+
+		<!--
+			Check nested (internal) classes/interfaces are
+			declared at the bottom of the class after all
+			method and field declarations.
+		-->
+		<!-- LZK: Give developer freedom to improve readability
+		<module name="InnerTypeLast" />
+		-->
+
+		<!--
+			Implements Bloch, Effective Java, Item 17 - Use Interfaces
+			only to define types.
+
+			According to Bloch, an interface should describe a
+			type. It is therefore inappropriate to define an interface
+			that does not contain any methods but only constants. The
+			Standard class javax.swing.SwingConstants is an example
+			of a class that would be flagged by this check.
+
+			The check can be configured to also disallow marker
+			interfaces like java.io.Serializable, that do not contain
+			methods or constants at all.
+		-->
+		<module name="InterfaceIsType" />
+
+		<!--
+			Ensures that exceptions (defined as any class name
+			conforming to some regular expression) are immutable. That
+			is, have only final fields.
+
+			The current algorithm is very simple it checks that
+			all members of exception are final. User can still
+			mutates an exception's instance (e.g. Throwable has
+			setStackTrace(StackTraceElement[] stackTrace) method
+			which changes stack trace). But, at least, all information
+			provided by this exception type is unchangable.
+
+			Rationale: Exception instances should represent an error
+			condition. Having non final fields not only allows the
+			state to be modified by accident and therefore mask
+			the original condition but also allows developers to
+			accidentally forget to initialise state thereby leading to
+			code catching the exception to draw incorrect conclusions
+			based on the state.
+		-->
+		<module name="MutableException">
+			<!--
+				pattern for name of exception class.
+				default: "^.*Exception$|^.*Error$"
+			<property name="format" value="^.*Exception$|^.*Error$" />
+			-->
+		</module>
+
+		<!--
+			Restricts throws statements to a specified count (default = 1).
+
+			Rationale: Exceptions form part of a methods
+			interface. Declaring a method to throw too many
+			differently rooted exceptions makes exception handling
+			onerous and leads to poor programming practices such as
+			catch (Exception). This check forces developers to put
+			exceptions into a heirachy such that in the simplest
+			case, only one type of exception need be checked for
+			by a caller but allows any sub-classes to be caught
+			specifically if necessary.
+		-->
+		<module name="ThrowsCount">
+			<!-- maximum allowed number of throws statments. default 1 -->
+			<property name="max" value="3" />
+		</module>
+
+		<!--
+			Checks visibility of class members. Only static final
+			members may be public; other class members must be private
+			unless property protectedAllowed or packageAllowed is set.
+
+			Public members are not flagged if the name matches
+			the public member regular expression (contains
+			"^serialVersionUID$" by default). Note: Checkstyle 2 used
+			to include "^f[A-Z][a-zA-Z0-9]*$" in the default pattern
+			to allow CMP for EJB 1.1 with the default settings. With
+			EJB 2.0 it is not longer necessary to have public access
+			for persistent fields, hence the default has been changed.
+
+			Rationale: Enforce encapsulation.
+		-->
+		<module name="VisibilityModifier">
+			<!-- whether package visible members are allowed. default: false -->
+			<property name="packageAllowed" value="true" />
+			<!-- whether protected members are allowed. default: false -->
+			<property name="protectedAllowed" value="true" />
+			<!--
+				pattern for public members that should be ignored.
+				default: "^serialVersionUID$"
+			<property name="publicMemberPattern" value="^serialVersionUID$" />
+			-->
+		</module>
+		<!-- -->
+		<!-- Section: Coding -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Duplicate Code -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Headers -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Imports -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Javadoc Comments -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Metrics -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Miscellaneous -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Modifiers -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Naming Conventions -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Regexp -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Size Violations -->
+		<!-- -->
+		</module>
+		<!-- -->
+		<!-- Section: Whitespace -->
+		<!-- -->
+		</module>
+	</module> <!-- name="TreeWalker" -->
+	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
+</module>
