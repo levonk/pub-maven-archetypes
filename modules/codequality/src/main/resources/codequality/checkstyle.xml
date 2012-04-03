@@ -11,6 +11,7 @@
 		<!-- -->
 		<!-- Section: Annotations -->
 		<!-- -->
+
 		<!--
 			This check controls the style with the usage of annotations.
 		-->
@@ -24,17 +25,20 @@
 			<property name="ClosingParens" vaule="always" />
 			<!-- <property name="ClosingParens" vaule="never" /> -->
 		</module>
+
 		<!--
 			Verifies that both the java.lang.Deprecated annotation
 			is present and the @deprecated Javadoc tag is present
 			when either is present.
 		-->
 		<module name="MissingDeprecated" />
+
 		<!--
 			Verifies that the java.lang.Override annotation is
 			present when the {@inheritDoc} javadoc tag is present.
 		-->
 		<module name="MissingOverride" />
+
 		<!--
 			This check makes sure that all package annotations are in the
 			package-info.java file.
@@ -51,6 +55,7 @@
 			<property name="javaFiveCompatibility" value="false" />
 			<!-- <property name="javaFiveCompatibility" value="true" /> -->
 		</module>
+
 		<!--
 			This check allows you to specify what warnings that
 			SuppressWarnings is not allowed to suppress. You can
@@ -101,12 +106,12 @@
 
 			Rationale: Nested blocks are often leftovers from the
 			debugging process, they confuse the reader.
-
-			LZK: I believe this helps readability, so no warning
+		-->
 		<module name="AvoidNestedBlocks">
 			<property name="allowInSwitchCase" value="true" />
+			<!-- LZK: I believe this helps readability, so no warning -->
+			<property name="severity" value="ignore" />
 		</module>
-		-->
 		
 		<!--
 			Checks for empty blocks.
@@ -202,7 +207,9 @@
 			corrupt the state of the superclass by forgetting to
 			call the super method.
 		-->
-		<module name="DesignForExtension" />
+		<module name="DesignForExtension">
+			<property name="severity" value="warning" />
+		</module>
 
 		<!--
 			Checks that a class which has only private constructors
@@ -244,9 +251,10 @@
 			declared at the bottom of the class after all
 			method and field declarations.
 		-->
-		<!-- LZK: Give developer freedom to improve readability
 		<module name="InnerTypeLast" />
-		-->
+			<!-- LZK: Give developer freedom to improve readability -->
+			<property name="severity" value="ignore" />
+		</module>
 
 		<!--
 			Implements Bloch, Effective Java, Item 17 - Use Interfaces
@@ -308,6 +316,7 @@
 		<module name="ThrowsCount">
 			<!-- maximum allowed number of throws statments. default 1 -->
 			<property name="max" value="3" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -336,10 +345,303 @@
 			<property name="publicMemberPattern" value="^serialVersionUID$" />
 			-->
 		</module>
+
 		<!-- -->
 		<!-- Section: Coding -->
 		<!-- -->
+
+		<!--
+			Checks that array initialization contains a trailing comma.
+
+			int[] a = new int[]
+			{
+			1,
+			2,
+			3,
+			};
+					
+			The check allows to not add a comma if both left
+			and right curlys are on the same line.
+
+			return new int[] { 0 };
+						
+			Rationale: Putting this comma in makes it easier
+			to change the order of the elements or add new
+			elements on the end.
+		-->
+		<module name="ArrayTrailingComma">
+			<property name="severity" value="error" />
 		</module>
+
+		<!--
+			Detects inline conditionals. An example inline conditional is this:
+
+			String a = getParameter("a");
+			String b = (a==null || a.length<1) ? null : a.substring(1);
+			        
+			Rationale: Some developers find inline
+			conditionals hard to read, so their company's
+			coding standards forbids them.
+		-->
+		<module name="AvoidInlineConditionals">
+			<!-- this makes things easier to read -->
+			<property name="severity" value="ignore" />
+		</module>
+
+		<!--
+			Checks that classes that define a covariant
+			equals() method also override method
+			equals(java.lang.Object). Inspired by findbugs.
+
+			Rationale: Mistakenly defining a covariant
+			equals() method without overriding method
+			equals(java.lang.Object) can produce unexpected
+			runtime behaviour.
+		-->
+		<module name="CovariantEquals">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			The "double-checked locking" idiom (DCL) tries
+			to avoid the runtime cost of synchronization. An
+			example that uses the DCL idiom is this:
+
+			public class MySingleton
+			{
+			    private static theInstance = null;
+
+				private MySingleton() {}
+
+				public MySingleton getInstance() {
+					if ( theInstance == null ) { // synchronize only if necessary
+						synchronized( MySingleton.class ) {
+							if ( theInstance == null ) {
+								theInstance = new MySingleton();
+							}
+						}
+					}
+				}
+			}
+																														        
+			The problem with the DCL idiom in Java is that it
+			just does not work correctly. Using it introduces
+			bugs that are extremely hard to track down and
+			reproduce. The "Double-Checked Locking is Broken"
+			Declaration has an in depth explanation of the
+			exact problem which has to do with the semantics
+			of the Java memory model.
+
+			The DoubleCheckedLocking check will find source
+			code where a test is wrapped in a synchronized
+			block that is wrapped in the same test, like in
+			the example above.
+		-->
+		<module name="DoubleCheckedLocking">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Detects empty statements (standalone ;).
+		-->
+		<module name="EmptyStatement">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks that any combination of String literals
+			with optional assignment is on the left side of
+			an equals() comparison. The check also processes
+			String.equalsIgnoreCase() invocations (which
+			can be suppressed).
+
+			Rationale: Calling the equals() method
+			on String literals will avoid a potential
+			NullPointerException. Also, it is pretty common
+			to see null check right before equals comparisons
+			which is not necessary in the below example.
+
+			For example:
+
+			String nullString = null;
+			nullString.equals("My_Sweet_String");
+			        
+			should be refactored to:
+
+			String nullString = null;
+			"My_Sweet_String".equals(nullString);
+					
+			Limitations: If the equals method is overridden
+			or a covariant equals method is defined and the
+			implementation is incorrect (where s.equals(t)
+			does not return the same result as t.equals(s))
+			then rearranging the called on object and
+			parameter may have unexpected results
+
+			Java's Autoboxing feature has an affect on how
+			this check is implemented. Pre Java 5 all IDENT
+			+ IDENT object concatenations would not cause
+			a NullPointerException even if null. Those
+			situations could have been included in this
+			check. They would simply act as if they surrounded
+			by String.valueof() which would concatenate the
+			String null.
+
+			The following example will cause a
+			NullPointerException as a result of what
+			autoboxing does.
+
+			Integer i = null, j = null;
+			String number = "5"
+			number.equals(i + j);
+							        
+			Since, it is difficult to determine what kind
+			of Object is being concatenated all ident
+			concatenation is considered unsafe.
+		-->
+		<module name="EqualsAvoidNull">
+			<!-- whether to ignore String.equalsIgnoreCase() invocations -->
+			<property name="ignoreEqualsIgnoreCase" value="false" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks that classes that override equals()
+			also override hashCode().
+
+			Rationale: The contract of equals() and
+			hashCode() requires that equal objects have
+			the same hashCode. Hence, whenever you override
+			equals() you must override hashCode() to ensure
+			that your class can be used in collections that
+			are hash based.
+		-->
+		<module name="EqualsHashCode">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks that local variables that never have their
+			values changed are declared final. The check
+			can be configured to also check that unchanged
+			parameters are declared final.
+
+			Notes:
+			When configured to check parameters, the check
+			ignores parameters of interface methods and
+			abstract methods.
+		-->
+		<module name="FinalLocalVariable">
+			<property name="severity" value="error" />
+			<!-- tokens to check. default: VARIABLE_DEF -->
+			<property name="tokens" value="PARAMETER_DEF, VARIABLE_DEF" />
+		</module>
+
+		<!--
+			Checks that a local variable or a parameter
+			does not shadow a field that is defined in the
+			same class.
+		-->
+		<module name="HiddenField">
+			<!-- Controls whether to ignore parameters of abstract methods.
+				default: false 
+			<property name="ignoreAbstractMethods" value="false" />
+			-->
+
+			<!-- Controls whether to ignore constructor parameters.
+				default: false 
+			<property name="ignoreConstructorParameter" value="false" />
+			-->
+
+			<!-- pattern for names to ignore. default: empty 
+			<property name="ignoreFormat" value="" />
+			-->
+
+			<!-- Controls whether to ignore the parameter
+				of a property setter method, where the property
+				setter method for field "xyz" has name "setXyz",
+				one parameter named "xyz", and return type void.
+
+				default: empty 
+			<property name="ignoreSetter" value="false" />
+			-->
+
+			<property name="severity" value="error" />
+
+			<!-- tokens to check. default: PARAMETER_DEF, VARIABLE_DEF -->
+			<property name="tokens" value="PARAMETER_DEF, VARIABLE_DEF" />
+		</module>
+
+		<!--
+			Checks for illegal instantiations where a factory
+			method is preferred.
+
+			Rationale: Depending on the project, for
+			some classes it might be preferable to create
+			instances through factory methods rather than
+			calling the constructor.
+
+			A simple example is the java.lang.Boolean
+			class. In order to save memory and CPU cycles,
+			it is preferable to use the predefined constants
+			TRUE and FALSE. Constructor invocations should
+			be replaced by calls to Boolean.valueOf().
+
+			Some extremely performance sensitive projects
+			may require the use of factory methods for other
+			classes as well, to enforce the usage of number
+			caches or object pools.
+		-->
+		<module name="IllegalInstantiation">
+			<property name="classes" value="java.lang.Boolean" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for illegal tokens.
+
+			Rational: Certain language features often lead
+			to hard to maintain code or are non-obvious
+			to novice developers. Other features may be
+			discouraged in certain frameworks, such as not
+			having native methods in EJB components.
+		-->
+		<module name="IllegalToken">
+			<property name="severity" value="warning" />
+			<!-- tokens to check. default: LITERAL_SWITCH, POST_INC, POST_DEC
+			<property name="tokens" value="LITERAL_NATIVE, LITERAL_SWITCH, POST_INC, POST_DEC" />
+			-->
+			<property name="tokens" value="LITERAL_NATIVE" />
+		</module>
+
+		<!--
+			Checks for illegal token text.
+		-->
+		<module name="IllegalTokenText">
+			<!-- regexp of social security number? -->
+			<property name="format" value="[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]" />
+			<property name="ignoreCase" value="false" />
+			<property name="message" value="No Social Security numbers in code!!" />
+			<property name="severity" value="error" />
+			<property name="tokens" value="STRING_LITERAL" />
+		</module>
+
+		<!--
+			Detects empty statements (standalone ;).
+		-->
+		<module name="EmptyStatement">
+			<property name="severity" value="error" />
+		</module>
+
+
+
+
+
+
+
+
+
+
 		<!-- -->
 		<!-- Section: Duplicate Code -->
 		<!-- -->
