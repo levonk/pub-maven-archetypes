@@ -627,29 +627,620 @@
 		</module>
 
 		<!--
-			Detects empty statements (standalone ;).
+			Checks for assignments in subexpressions, such
+			as in String s = Integer.toString(i = 2);.
+
+			Rationale: With the exception of for iterators,
+			all assignments should occur in their own toplevel
+			statement to increase readability. With inner
+			assignments like the above it is difficult to
+			see all places where a variable is set.
 		-->
-		<module name="EmptyStatement">
+		<module name="InnerAssignment">
+			<property name="severity" value="error" />
+			<!-- assignments to check
+				default=ASSIGN, BAND_ASSIGN, BOR_ASSIGN, BSR_ASSIGN, BXOR_ASSIGN, DIV_ASSIGN, MINUS_ASSIGN, MOD_ASSIGN, PLUS_ASSIGN, SL_ASSIGN, SR_ASSIGN, STAR_ASSIGN
+			<property name="tokens" value="error" />
+			-->
+		</module>
+
+		<!--
+			Checks that there are no "magic numbers", where
+			a magic number is a numeric literal that is not
+			defined as a constant. By default, -1, 0, 1,
+			and 2 are not considered to be magic numbers.
+		-->
+		<module name="MagicNumber">
+			<!-- ignore magic numbers in annotation declarations. default: false -->
+			<property name="ignoreAnnotation" value="false" />
+			<!-- ignore magic numbers in hashCode methods default: false -->
+			<property name="ignoreHashCodeMethod" value="false" />
+			<!-- non-magic numbers. default: -1, 0, 1, 2 -->
+			<property name="ignoreNumbers" value="-1, 0, 1" />
+			<property name="severity" value="error" />
+			<!-- tokens to check.
+				default: NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG
+			-->
+			<property name="tokens" value="NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG" />
+		</module>
+
+		<!--
+			Checks that switch statement has "default" clause.
+
+			Rationale: It's usually a good idea to introduce
+			a default case in every switch statement. Even
+			if the developer is sure that all currently
+			possible cases are covered, this should be
+			expressed in the default branch, e.g. by using
+			an assertion. This way the code is protected
+			aginst later changes, e.g. introduction of new
+			types in an enumeration type.
+		-->
+		<module name="MissingSwitchDefault">
 			<property name="severity" value="error" />
 		</module>
 
+		<!--
+			Check for ensuring that for loop control
+			variables are not modified inside the for
+			block. An example is:
 
-
-
-
-
-
-
-
-
-		<!-- -->
-		<!-- Section: Duplicate Code -->
-		<!-- -->
+			for (int i = 0; i < 1; i++) {
+			    i++;
+			}
+				        
+			Rationale: If the control variable is modified
+			inside the loop body, the program flow becomes
+			more difficult to follow. An option is to replace
+			the for loop with a while loop.
+		-->
+		<module name="ModifiedControlVariable">
+			<property name="severity" value="error" />
 		</module>
-		<!-- -->
-		<!-- Section: Headers -->
-		<!-- -->
+
+		<!--
+			Checks for redundant exceptions declared in throws
+			clause such as duplicates, unchecked exceptions
+			or subclasses of another declared exception.
+		-->
+		<module name="RedundantThrows">
+			<!-- whether unchecked exceptions in throws are allowed or not
+				default: false
+				LZK: be explicit to the caller
+			-->
+			<property name="allowUnchecked" value="true" />
+			<!-- whether subclass of another declared
+				exception is allowed in throws clause.
+				default: false
+				LZK: be explicit to the caller
+			-->
+			<property name="allowSubclasses" value="true" />
+			<!-- This check may need to load exception
+				classes mentioned in the @throws tag to check
+				whether they are RuntimeExceptions. If loading
+				the class fails, this property allows to control
+				checkstyle's error handling. If set to false
+				a classpath configuration problem is assumed
+				and the TreeWalker stops operating on the
+				class completely. If set to true (the default),
+				checkstyle assumes a typo or refactoring problem
+				in the javadoc and logs the problem in the
+				normal checkstyle report (potentially masking
+				a configuration error).
+				default: true
+			-->
+			<property name="logLoadErrors" value="true" />
+			<property name="severity" value="error" />
+			<!-- When logLoadErrors is set to true, the
+				TreeWalker completely processes a class and
+				displays any problems with loading exceptions
+				as checkstyle violations. When this property
+				is set to true, the violations generated when
+				logLoadErrors is set true are suppressed from
+				being reported as violations in the checkstyle
+				report.
+				default: false
+			-->
+			<property name="suppressLoadErrors" value="false" />
 		</module>
+
+		<!--
+			Checks for overly complicated boolean
+			expressions. Currently finds code like if (b ==
+			true), b || true, !false, etc.
+
+			Rationale: Complex boolean logic makes code hard
+			to understand and maintain.
+		-->
+		<module name="SimplifyBooleanExpression">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for overly complicated boolean return
+			statements. For example the following code
+
+			if (valid())
+			    return false;
+			else
+				return true;
+					
+			could be written as:
+
+			return !valid();
+					
+			The Idea for this Check has been shamelessly
+			stolen from the equivalent PMD rule.
+		-->
+		<module name="SimplifyBooleanReturn">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks that string literals are not used with == or !=.
+
+			Rationale: Novice Java programmers often use code like:
+
+			if (x == "something")
+			        
+			when they mean
+
+			if ("something".equals(x))
+		-->
+		<module name="StringLiteralEquality">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Restricts nested for blocks to a specified depth (default = 1).
+		-->
+		<module name="NestedForDepth">
+			<!-- allowed nesting depth. default: 1 -->
+			<property name="max" value="2" />
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Restricts nested if-else blocks to a specified depth (default = 1).
+		-->
+		<module name="NestedIfDepth">
+			<!-- allowed nesting depth. default: 1 -->
+			<property name="max" value="3" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Restricts nested try blocks to a specified depth (default = 1).
+		-->
+		<module name="NestedTryDepth">
+			<!-- allowed nesting depth. default: 1 -->
+			<property name="max" value="2" />
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Checks that the clone method is not overridden
+			from the Object class.
+
+			Rationale: The clone method relies on
+			strange/hard to follow rules that do not work in
+			all situations. Consequently, it is difficult
+			to override correctly. Below are some of the
+			rules/reasons why the clone method should
+			be avoided.
+
+			*  Classes supporting the clone method should
+			implement the Cloneable interface but the
+			Cloneable interface does not include the clone
+			method. As a result, it doesn't enforce the
+			method override.
+			*  The Cloneable interface forces the Object's clone
+			method to work correctly. Without implementing
+			it, the Object's clone method will throw a
+			CloneNotSupportedException.
+			*  Non-final classes must return the object returned
+			from a call to super.clone().
+			*  Final classes can use a constructor to create
+			a clone which is different from non-final classes.
+			*  If a super class implements the clone method
+			incorrectly all subclasses calling super.clone()
+			are doomed to failure.
+			*  If a class has references to mutable objects
+			then those object references must be replaced
+			with copies in the clone method after calling
+			super.clone().
+			*  The clone method does not work correctly with
+			final mutable object references because final
+			references cannot be reassigned.
+			*  If a super class overrides the clone method
+			then all subclasses must provide a correct
+			clone implementation.
+
+			Two alternatives to the clone method,
+			in some cases, is a copy constructor or a
+			static factory method to return copies of an
+			object. Both of these approaches are simpler
+			and do not conflict with final fields. The
+			do not force the calling client to handle a
+			CloneNotSuportException. They also are typed
+			therefore no casting is necessary. Finally, they
+			are more flexible since they can take interface
+			types rather than concrete classes.
+
+			Sometimes a copy constructor or static factory
+			is not an acceptable alternative to the clone
+			method. The example below highlights the
+			limitation of a copy constructor (or static
+			factory). Assume Square is a subclass for Shape.
+
+			Shape s1 = new Square();
+			System.out.println(s1 instanceof Square); //true
+
+			...assume at this point the code knows nothing
+			of s1 being a Square that's the beauty of
+			polymorphism but the code wants to copy the Square
+			which is declared as a Shape, its super type...
+
+			Shape s2 = new Shape(s1); //using the copy constructor
+			System.out.println(s2 instanceof Square); //false
+
+			The working solution (without knowing about all
+			subclasses and doing many casts) is to do the
+			following (assuming correct clone implementation).
+
+			Shape s2 = s1.clone();
+			System.out.println(s2 instanceof Square); //true
+
+			Just keep in mind if this type of polymorphic
+			cloning is required then a properly implemented
+			clone method may be the best choice.
+
+			Much of this information was taken from Effective
+			Java: Programming Language Guide First Edition
+			by Joshua Bloch pages 45-52. Give Bloch credit
+			for writing an excellent book.
+
+			This check is almost exactly the same as the
+			{@link NoFinalizerCheck}
+		-->
+		<module name="NoClone">
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Verifies there are no finalize() methods defined in a class.
+		-->
+		<module name="NoFinalizer">
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Checks that an overriding clone() method invokes super.clone().
+
+			Reference: Object.clone().
+			http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Object.html#clone()
+		-->
+		<module name="SuperClone">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks that an overriding finalize() method invokes super.finalize().
+
+			Reference: Cleaning Up Unused Objects.
+			http://java.sun.com/docs/books/tutorial/java/data/garbagecollection.html
+		-->
+		<module name="SuperFinalize">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Catching java.lang.Exception, java.lang.Error
+			or java.lang.RuntimeException is almost never
+			acceptable.
+
+			Rationale: Junior developers often simply
+			catch Exception in an attempt to handle
+			multiple exception classes. This unfortunately
+			leads to code that inadvertantly catchs NPE,
+			OutOfMemoryErrors, etc.
+		-->
+		<module name="IllegalCatch">
+			<!-- exception class names to reject.
+				default: "java.lang.Exception, java.lang.Throwable, java.lang.RuntimeException"
+			<property name="illegalClassNames" value="java.lang.Exception, java.lang.Throwable, java.lang.RuntimeException" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			This check can be used to ensure that types are
+			not declared to be thrown. Declaring to throw
+			java.lang.Error or java.lang.RuntimeException
+			is almost never acceptable.
+		-->
+		<module name="IllegalThrows">
+			<!-- names of methods to ignore. default: finalize
+			<property name="ignoredMethodNames" value="finalize" />
+			-->
+			<!-- throw class names to reject.
+				default: java.lang.Throwable, java.lang.Error,
+						java.lang.RuntimeExcpetion
+			-->
+			<property name="illegalClassNames" value="java.lang.Throwable, java.lang.Error, java.lang.RuntimeExcpetion, java.io.IOException" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Ensure a class has a package declaration, and
+			(optionally) whether the package name matches
+			the directory name for the source file.
+
+			Rationale: Classes that live in the null package
+			cannot be imported. Many novice developers are
+			not aware of this.
+		-->
+		<module name="PackageDeclaration">
+			<!-- whether to ignore checking that the
+				package declaration matches the source directory
+				name. default: false
+			-->
+			<property name="ignoreDirectoryName" value="false" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Ensures that the setUp(), tearDown()methods are
+			named correctly, have no arguments, return void
+			and are either public or protected.
+
+			Also ensures that suite() is named correctly,
+			have no arguments, return junit.framewotk.Test,
+			public and static.
+
+			Rationale: often times developers will misname
+			one or more of these methods and not realise
+			that the method is not being called.
+		-->
+		<module name="JUnitTestCase">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Restricts the number of return statements. Default
+			= 2. Ignores specified methods (equals()
+			by default).
+
+			Rationale: Too many return points can be
+			indication that code is attempting to do too
+			much or may be difficult to understand.
+		-->
+		<module name="ReturnCount">
+			<!-- method names to ingore. default "^equals$" -->
+			<property name="format" value="^equals$" />
+			<!-- maximum allowed number of return statements. default: 2 -->
+			<property name="max" value="3" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks that particular class are never used as
+			types in variable declarations, return values
+			or parameters. Includes a pattern check that by
+			default disallows abstract classes.
+
+			Rationale: Helps reduce coupling on concrete
+			classes. In addition abstract classes should
+			be thought of a convenience base class
+			implementations of interfaces and as such are
+			not types themselves.
+		-->
+		<module name="IllegalType">
+			<!-- pattern for illegal class name.
+				default: ^(.*[\\.])?Abstract.*$
+			<property name="format" value="^(.*[\\.])?Abstract.*$" />
+			-->
+			<!-- methods that should not be checked.
+				default: getInitialContext, getEnvironment
+			<property name="ignoredMethodNames" value="getInitialContext, getEnvironment" />
+			-->
+			<!-- classes that should not be used as types
+				in variable declarations, return values or
+				parameters.
+				default: "java.util.GregorianCalendar,
+				java.util.Hashtable, java.util.HashSet,
+				java.util.HashMap, java.util.ArrayList,
+				java.util.LinkedList,
+				java.util.LinkedHashMap,
+				java.util.LinkedHashSet,
+				java.util.TreeSet, java.util.TreeMap,
+				java.util.Vector"
+				LZK: adding Thread since we should be using concurrent library now
+			-->
+			<property name="illegalClassNames" value="java.lang.Thread, java.util.GregorianCalendar, java.util.Hashtable, java.util.HashSet, java.util.HashMap, java.util.ArrayList, java.util.LinkedList, java.util.LinkedHashMap, java.util.LinkedHashSet, java.util.TreeSet, java.util.TreeMap, java.util.Vector" />
+			<!-- abstract classes that may be used as types.
+				default: ""
+			<property name="legalAbstractClassNames" value="" />
+			-->
+			<property name="severity" value="error" />
+			<!-- tokens to check default: "PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF" -->
+			<property name="tokens" value="PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF" />
+		</module>
+
+		<!--
+			According to Code Conventions for the Java
+			Programming Language , the parts of a class
+			or interface declaration should appear in the
+			following order:
+
+			1. Class (static) variables. First the public
+			class variables, then the protected, then package
+			level (no access modifier), and then the private.
+			2. Instance variables. First the public class
+			variables, then the protected, then package level
+			(no access modifier), and then the private.
+			3. Constructors
+			4. Methods
+		-->
+		<module name="DeclarationOrder">
+			<!-- default: false -->
+			<property name="ignoreConstructors" value="false" />
+			<!-- default: false -->
+			<property name="ignoreMethods" value="false" />
+			<!-- default: false -->
+			<property name="ignoreModifiers" value="false" />
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Check that the default is after all the cases
+			in a switch statement.
+
+			Rationale: Java allows default anywhere within
+			the switch statement. But it is more readable
+			if it comes after the last case.
+		-->
+		<module name="DefaultComesLast">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks if any class or object member explicitly
+			initialized to default for its type value (null
+			for object references, zero for numeric types
+			and char and false for boolean.
+
+			Rationale: each instance variable gets initialized
+			twice, to the same value. Java initializes each
+			instance variable to its default value (0 or null)
+			before performing any initialization specified
+			in the code. So in this case, x gets initialized
+			to 0 twice, and bar gets initialized to null
+			twice. So there is a minor inefficiency. This
+			style of coding is a hold-over from C/C++ style
+			coding, and it shows that the developer isn't
+			really confident that Java really initializes
+			instance variables to default values.
+		-->
+		<module name="ExplicitInitialization">
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Checks for fall through in switch statements
+			Finds locations where a case contains Java code
+			- but lacks a break, return, throw or continue
+			statement.
+
+			The check honores special comments to supress
+			the warning. By default the text "fallthru",
+			"fall through", "fallthrough", "falls through"
+			and "fallsthrough" are recognized (case
+			sensitive). The comment containing this words
+			must be a one-liner and must be on the last
+			none-empty line before the case triggering the
+			warning or on the same line before the case
+			(urgly, but possible).
+
+			switch (i){
+				case 0:
+					i++; // fall through
+
+				case 1:
+					i++;
+					// falls through
+				case 2: {
+					i++;
+				}
+				// fallthrough
+				case 3:
+					i++;
+				/* fallthru */
+				case 4:
+					i++
+					break;
+			}
+										
+			Note: the check works in assumption that there
+			is no unreachable code in the case.
+		-->
+		<module name="FallThrough">
+			<!-- Whether we need to check last case group or not. -->
+			<property name="checkLastCaseGroup" value="false" />
+			<!-- Regulare expression to match the relief
+				comment that supresses the warning about a
+				fall through.
+				default: "fallthru|falls? ?through"
+			<property name="reliefPattern" value="fallthru|falls? ?through" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks that each variable declaration is in its
+			own statement and on its own line.
+
+			Rationale: the SUN Code conventions chapter
+			6.1 recommends that declarations should be one
+			per line/statement.
+			http://java.sun.com/docs/codeconv/html/CodeConventions.doc5.html#2991
+		-->
+		<module name="MultipleVariableDeclarations">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Disallow assignment of parameters.
+
+			Rationale: Parameter assignment is often
+			considered poor programming practice. Forcing
+			developers to declare parameters as final is often
+			onerous. Having a check ensure that parameters are
+			never assigned would give the best of both worlds.
+		-->
+		<module name="ParameterAssignment">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks that classes (except abtract one) define
+			a ctor and don't rely on the default one.
+		-->
+		<module name="MissingCtor">
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Checks that code doesn't rely on the
+			"this." default, i.e. references to instance
+			variables and methods of the present object
+			are explicitly of the form "this.varName" or
+			"this.methodName(args)".
+		-->
+		<module name="RequireThis">
+			<property name="checkFields" value="true" />
+			<property name="checkMethods" value="true" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for the use of unnecessary parentheses.
+			LZK: I think this increases readability
+		-->
+		<module name="EmptyStatement">
+			<property name="severity" value="ignore" />
+		</module>
+
+		<!--
+			Checks there is only one statement per line. The
+			following line will be flagged as an error:
+
+			x = 1; y = 2; // Two statments on a single line.
+		-->
+		<module name="OneStatementPerLine">
+			<property name="severity" value="error" />
+		</module>
+
 		<!-- -->
 		<!-- Section: Imports -->
 		<!-- -->
@@ -687,5 +1278,158 @@
 		<!-- -->
 		</module>
 	</module> <!-- name="TreeWalker" -->
+
+	<!-- -->
+	<!-- Section: Duplicate Code -->
+	<!-- -->
+	<module name="StrictDuplicateCode">
+		<!-- file type extension of files to process.
+			default: {}
+		<property name="fileExtensions" value="{}" />
+		-->
+		<!-- how many lines must be equal to be considered a duplicate.
+			default: 12
+		-->
+		<property name="min" value="10" />
+		<property name="severity" value="error" />
+	</module>
+
+	<!-- -->
+	<!-- Section: Headers -->
+	<!-- -->
+
+	<!--
+		Checks that a source file begins with a specified
+		header. Property headerFile specifies a file that
+		contains the required header. Alternatively,
+		the header specification can be set directly
+		in the header property without the need for an
+		external file.
+
+		Property ignoreLines specifies the line numbers to
+		ignore when matching lines in a header file. This
+		property is very useful for supporting headers
+		that contain copyright dates. For example,
+		consider the following header:
+
+		line 1: ////////////////////////////////////////////////////////////////////
+		line 2: // checkstyle:
+		line 3: // Checks Java source code for adherence to a set of rules.
+		line 4: // Copyright (C) 2002  Oliver Burn
+		line 5: ////////////////////////////////////////////////////////////////////
+				
+		Since the year information will change over
+		time, you can tell Checkstyle to ignore line 4
+		by setting property ignoreLines to 4.
+	-->
+	<module name="Header">
+		<!-- character encoding to use when reading the headerFile
+			default: the charset property of the parent Checker module
+		<property name="charset" value="UTF-8" />
+		-->
+		<!-- the required header specified
+			inline. Individual header lines must be separated
+			by the string "\n" (even on platforms with a
+			different line separator), see examples below.
+		<property name="header" value="" />
+		-->
+		<!-- name of the file containing the required header.
+		<property name="headerFile" value="" />
+		-->
+		<!-- file type extension of files to process
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- line numbers to ignore
+		<property name="ignoreLines" value="" />
+		-->
+		<property name="severity" value="ignore" />
+	</module>
+
+	<!--
+		Checks the header of a source file against a
+		header that contains a regular expression for
+		each line of the source header.
+
+		Rationale: In some projects checking against a
+		fixed header is not sufficient, e.g. the header
+		might require a copyright line where the year
+		information is not static.
+
+		For example, consider the following header:
+
+		line  1: ^/{71}$
+		line  2: ^// checkstyle:$
+		line  3: ^// Checks Java source code for adherence to a set of rules\.$
+		line  4: ^// Copyright \(C\) \d\d\d\d  Oliver Burn$
+		line  5: ^// Last modification by \$Author.*\$$
+		line  6: ^/{71}$
+		line  7:
+		line  8: ^package
+		line  9:
+		line 10: ^import
+		line 11:
+		line 12: ^/\*\*
+		line 13: ^ \*([^/]|$)
+		line 14: ^ \*/
+				
+		Lines 1 and 6 demonstrate a more compact notation
+		for 71 '/' characters. Line 4 enforces that the
+		copyright notice includes a four digit year. Line
+		5 is an example how to enforce revision control
+		keywords in a file header. Lines 12-14 is a
+		template for javadoc (line 13 is so complicated
+		to remove conflict with and of javadoc comment).
+
+		Different programming languages have different
+		comment syntax rules, but all of them start a
+		comment with a non-word character. Hence you
+		can often use the non-word character class to
+		abstract away the concrete comment syntax and
+		allow checking the header for different languages
+		with a single header definition. For example,
+		consider the following header specification (note
+		that this is not the full Apache license header):
+
+		line 1: ^#!
+		line 2: ^<\?xml.*>$
+		line 3: ^\W*$
+		line 4: ^\W*Copyright 2006 The Apache Software Foundation or its licensors, as applicable\.$
+		line 5: ^\W*Licensed under the Apache License, Version 2\.0 \(the "License"\);$
+		line 6: ^\W*$
+				
+		Lines 1 and 2 leave room for technical header
+		lines, e.g. the "#!/bin/sh" line in Unix shell
+		scripts, or the xml file header of XML files. Set
+		the multiline property to "1, 2" so these lines
+		can be ignored for file types where they do no
+		apply. Lines 3 through 6 define the actual header
+		content. Note how lines 2, 4 and 5 use escapes
+		for characters that have special regexp semantics.
+	-->
+	<module name="RegexpHeader">
+		<!-- character encoding to use when reading the headerFile
+			default: the charset property of the parent Checker module
+		<property name="charset" value="UTF-8" />
+		-->
+		<!-- the required header specified
+			inline. Individual header lines must be separated
+			by the string "\n" (even on platforms with a
+			different line separator),  and regular
+			expressions must not span multiple lines.
+			see examples below.
+		<property name="header" value="" />
+		-->
+		<!-- file type extension of files to process
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- name of the file containing the required header.
+		<property name="headerFile" value="" />
+		-->
+		<!-- line numbers to repeat (zero or more times)
+		<property name="multiLines" value="" />
+		-->
+		<property name="severity" value="ignore" />
+	</module>
+	
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </module>
