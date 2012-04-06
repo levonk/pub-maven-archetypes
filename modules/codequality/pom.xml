@@ -47,6 +47,20 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencies>
+		<dependency>
+			<groupId>
+				com.mebigfatguy
+			</groupId>
+			<artifactId>
+				fb-contrib
+			</artifactId>
+			<version>
+				4.6.1
+			</version>
+		</dependency>
+	</dependencies>
+
 	<distributionManagement>
 		<!-- move this block to parent -->
 		<repository>
@@ -58,5 +72,41 @@
 			<url>https://github.com/levonk/pub-maven-repo/raw/master/releases</url>
 		</snapshotRepository>
 	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<releases>
+				<enabled>
+					true
+				</enabled>
+				<updatePolicy>
+					always
+				</updatePolicy>
+				<checksumPolicy>
+					warn
+				</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>
+					true
+				</enabled>
+				<updatePolicy>
+					never
+				</updatePolicy>
+				<checksumPolicy>
+					fail
+				</checksumPolicy>
+			</snapshots>
+			<id>
+				fb
+			</id>
+			<url>
+				http://master.dl.sourceforge.net/project/fb-contrib/repo
+			</url>
+			<layout>
+				default
+			</layout>
+		</repository>
+	</repositories>
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </project>
