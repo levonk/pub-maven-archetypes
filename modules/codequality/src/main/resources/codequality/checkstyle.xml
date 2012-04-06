@@ -1056,6 +1056,9 @@
 				java.util.TreeSet, java.util.TreeMap,
 				java.util.Vector"
 				LZK: adding Thread since we should be using concurrent library now
+				//LZK: adding StringBuffer since
+						StringBuilder is unsynchronized and
+						thats what you want usually
 			-->
 			<property name="illegalClassNames" value="java.lang.Thread, java.util.GregorianCalendar, java.util.Hashtable, java.util.HashSet, java.util.HashMap, java.util.ArrayList, java.util.LinkedList, java.util.LinkedHashMap, java.util.LinkedHashSet, java.util.TreeSet, java.util.TreeMap, java.util.Vector" />
 			<!-- abstract classes that may be used as types.
@@ -1244,39 +1247,649 @@
 		<!-- -->
 		<!-- Section: Imports -->
 		<!-- -->
+
+		<!--
+			Checks that there are no import statements that
+			use the * notation.
+
+			Rationale: Importing all classes from a package
+			or static members from a class leads to tight
+			coupling between packages or classes and might
+			lead to problems when a new version of a library
+			introduces name clashes.
+		-->
+		<module name="AvoidStarImport">
+			<!--	whether to allow starred class imports
+				like import java.util.*;.
+				default: false
+			<property name="allowClassImports" value="false" />
+			-->
+			<!-- whether to allow starred static
+				member imports like import static
+				org.junit.Assert.*;
+				default: false
+			<property name="allowStaticMemberImports" value="false" />
+			-->
+			<!-- packages where star imports are allowed. Note
+				that this property is not recursive, subpackages
+				of excluded packages are not automatically
+				excluded.
+				default: ""
+			<property name="excludes" value="" />
+			-->
+			<property name="severity" value="error" />
 		</module>
+
+		<!--
+			Checks that there are no static import statements.
+
+			Rationale: Importing static members can lead to
+			naming conflicts between class' members. It may
+			lead to poor code readability since it may no
+			longer be clear what class a member resides in
+			(without looking at the import statement).
+		-->
+		<module name="AvoidStaticImport">
+			<!-- Allows for certain classes via a
+				star notation to be excluded such
+				as java.lang.Math.* or specific
+				static members to be excluded like
+				java.lang.System.out for a variable or
+				java.lang.Math.random for a method.
+
+				If you exclude a starred import on a
+				class this automatically excludes each
+				member individually.
+
+				For example: Excluding
+				java.lang.Math.*. will allow the import
+				of each static member in the Math class
+				individually like java.lang.Math.PI.
+				default: ""
+			<property name="excludes" value="" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for imports from a set of illegal
+			packages. By default, the check rejects all sun.*
+			packages since programs that contain direct calls
+			to the sun.* packages are not 100% Pure Java. To
+			reject other packages, set property illegalPkgs
+			to a list of the illegal packages.
+			http://java.sun.com/products/jdk/faq/faq-sun-packages.html
+		-->
+		<module name="IllegalImport">
+			<!--
+				packages to reject.
+				default: sun
+			<property name="illegalPkgs" value="sun" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for redundant import statements. An import
+			statement is considered redundant if:
+
+			    * It is a duplicate of another import. This
+			    is, when a class is imported more than once.
+
+				* The class imported is from the java.lang
+				package, e.g. importing java.lang.String.
+
+				* The class imported is from the same
+				package.
+
+		-->
+		<module name="RedundantImport">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for unused import statements. Checkstyle
+			uses a simple but very reliable algorithm to
+			report on unused import statements. An import
+			statement is considered unused if:
+
+			It is not referenced in the file. The algorithm
+			does not support wild-card imports like import
+			java.io.*;. Most IDE's provide very sophisticated
+			checks for imports that handle wild-card imports.
+
+			It is a duplicate of another import. This is
+			when a class is imported more than once.
+
+			The class imported is from the java.lang
+			package. For example importing java.lang.String.
+
+			The class imported is from the same package.
+
+			Optionally: it is referenced in Javadoc
+			comments. This check is off by default, as it is
+			considered bad practice to introduce a compile
+			time dependency for documentation purposes
+			only. As an example, the import java.util.Date
+			would be considered referenced with the Javadoc
+			comment {@link Date}. The alternative to avoid
+			introducing a compile time dependency would
+			be to write the Javadoc comment as {@link
+			java.util.Date}.
+
+			The main limitation of this check is handling
+			the case where an imported type has the same
+			name as a declaration, such as a member variable.
+
+			For example, in the following case the import
+			java.awt.Component will not be flagged as unused:
+
+			import java.awt.Component;
+			class FooBar {
+				private Object Component; // IMHO bad practise
+				...
+			}
+			-->
+		<module name="UnusedImports">
+			<!-- Whether to process Javadoc
+				default: false
+			-->
+			<property name="processJavadoc" value="true" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks the ordering/grouping of imports. Features are:
+
+			* groups imports: ensures that groups of imports
+			come in a specific order (e.g., java. comes first,
+			javax. comes second, then everything else)
+
+			* adds a separation between groups : ensures
+			that a blank line sit between each group
+
+			* sorts imports inside each group: ensures that
+			imports within each group are in lexicographic
+			order
+
+			* sorts according to case: ensures that the
+			comparison between imports is case sensitive
+
+			* groups static imports: ensures the relative
+			order between regular imports and static imports
+			(see import orders)
+		
+			http://checkstyle.sourceforge.net/property_types.html#importOrder
+		-->
+		<module name="ImportOrder">
+			<!-- list of imports groups (every group
+				identified either by a common prefix
+				string, or by a regular expression
+				enclosed in forward slashes
+				(e.g. /regexp/).
+			<property name="groups" value="" />
+			-->
+			<!-- policy on the relative order between
+				regular imports and static imports.
+				default: under
+			<property name="option" value="under" />
+			-->
+			<!-- whether imports within group should
+				be sorted.
+				default: true
+			<property name="ordered" value="true" />
+			-->
+			<!-- whether imports groups should be separated
+				by, at least, one blank line.
+				default: false
+			-->
+			<property name="seperated" value="true" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Controls what can be imported in each
+			package. Useful for ensuring that application
+			layering rules are not violated, especially on
+			large projects.
+
+			The DTD for a import control XML document is at
+			http://www.puppycrawl.com/dtds/import_control_1_1.dtd.
+			It contains documentation on each of the elements
+			and attributes.
+
+			The check validates a XML document when it loads
+			the document. To validate against the above DTD,
+			include the following document type declaration
+			in your XML document:
+
+			<!DOCTYPE import-control PUBLIC
+			    "-//Puppy Crawl//DTD Import Control 1.1//EN"
+				"http://www.puppycrawl.com/dtds/import_control_1_1.dtd">
+
+			EXAMPLE:
+			To configure the check using a import control
+			file called "import-control.xml", then have
+			the following:
+
+			<module name="ImportControl">
+			    <property name="file" value="import-control.xml"/>
+			</module>
+				        
+			In the example below, all classes beginning with
+			an I in the package java.awt are allowed. In
+			the package java.io only the classes File and
+			InputStream are allowed.
+
+			<import-control pkg="com.puppycrawl.tools.checkstyle">
+				<allow class="java\.awt\.I.*" regex="true"/>
+				<allow class="java\.io\.(File|InputStream)" local-only="true"
+						regex="true"/>
+			</import-control>
+									
+			For an example import control file, look at the
+			file called import-control.xml which is part of
+			the Checkstyle distribution.
+			http://checkstyle.svn.sourceforge.net/viewvc/checkstyle/trunk/checkstyle/import-control.xml?view=markup
+		-->
+		<module name="ImportControl">
+			<!-- name of the file containing the import
+				control configuration.
+				default: null
+			-->
+			<property name="file" value="" />
+			<property name="severity" value="ignore" />
+			<!-- url of the file containing the import
+				control configuration.
+				default: null
+			<property name="url" value="" />
+			-->
+		</module>
+
+
+
+
+
+
+
 		<!-- -->
 		<!-- Section: Javadoc Comments -->
+		<!-- http://checkstyle.sourceforge.net/config_javadoc.html -->
 		<!-- -->
+
+		<!--
+			Checks that each Java package has a Javadoc file
+			used for commenting. By default it only allows
+			a package-info.java file, but can be configured
+			to allow a package.html file.
+
+			An error will be reported if both files exist
+			as this is not allowed by the Javadoc tool.
+		-->
+		<module name="JavadocPackage">
+			<!-- If set then allow the use of a package.html file.
+				default: false
+			<property name="allowLegacy" value="false" />
+			-->
+			<property name="severity" value="warning" />
 		</module>
-		<!-- -->
+
+		<!--
+			Checks Javadoc comments for class and interface
+			definitions. By default, does not check for
+			author or version tags. The scope to verify is
+			specified using the Scope class and defaults
+			to Scope.PRIVATE. To verify another scope, set
+			property scope to one of the Scope constants. To
+			define the format for an author tag or a version
+			tag, set property authorFormat or versionFormat
+			respectively to a regular expression.
+
+			Error messages about type parameters for which
+			no param tags are present can be suppressed by
+			defining property allowMissingParamTags.
+		-->
+		<module name="JavadocType">
+			<!-- whether to ignore errors when a class
+				has type parameters but does not have
+				matching param tags in the javadoc.
+				default: false
+			<property name="allowMissingParamTags" value="false" />
+			-->
+			<!-- whether to ignore errors when a Javadoc
+				tag is not recognised.
+				default: false
+			<property name="allowUnknownTags" value="false" />
+			-->
+			<!--
+				pattern for @author tag
+				default: null (tag not required)
+			-->
+			<property name="authorFormat" value="^\s*\S \S.* <\S.*@\S.*\.\S>$" />
+			<!--
+				visibility scope where Javadoc comments
+				are not checked.
+				default: null
+			<property name="excludeScope" value="null" />
+			-->
+			<!-- visibility scope where Javadoc comments
+				are checked.
+				default: private
+			<property name="scope" value="private" />
+			-->
+			<property name="severity" value="warning" />
+			<!--
+				pattern for @version tag
+				default: null (tag not required)
+			-->
+			<property name="versionFormat" value="^[0-9]+\.[0-9]+.*$" />
+			<!-- definations to check
+				default: INTERFACE_DEF, CLASS_DEF
+			<property name="tokens" value="INTERFACE_DEF, CLASS_DEF" />
+			-->
+		</module>
+
+		<!--
+			Checks the Javadoc of a method or constructor. By
+			default, does not check for unused throws. To
+			allow documented java.lang.RuntimeExceptions that
+			are not declared, set property allowUndeclaredRTE
+			to true. The scope to verify is specified using
+			the Scope class and defaults to Scope.PRIVATE. To
+			verify another scope, set property scope to a
+			different scope.
+
+			Error messages about parameters and type
+			parameters for which no param tags are
+			present can be suppressed by defining property
+			allowMissingParamTags. Error messages about
+			exceptions which are declared to be thrown,
+			but for which no throws tag is present
+			can be suppressed by defining property
+			allowMissingThrowsTags. Error messages about
+			methods which return non-void but for which
+			no return tag is present can be suppressed by
+			defining property allowMissingReturnTag.
+
+			Javadoc is not required on a method that is
+			tagged with the @Override annotation. However
+			under Java 5 it is not possible to mark a method
+			required for an interface (this was corrected
+			under Java 6). Hence Checkstyle supports using
+			the convention of using a single {@inheritDoc}
+			tag instead of all the other tags.
+
+			Note that only inheritable items will allow
+			the {@inheritDoc} tag to be used in place of
+			comments. Static methods at all visibilities,
+			private non-static methods and constructors are
+			not inheritable.
+
+			For example, if the following method is
+			implementing a method required by an interface,
+			then the Javadoc could be done as:
+
+			/** {@inheritDoc} */
+			public int checkReturnTag(final int aTagIndex,
+					JavadocTag[] aTags,
+					int aLineNo)
+
+			The classpath may need to be configured to
+			locate the class information. The classpath
+			configuration is dependent on the mechanism used
+			to invoke Checkstyle.
+		-->
+		<module name="JavadocMethod">
+			<!-- whether to ignore errors when a method
+				javadoc is missed.
+				default: false
+			<property name="allowMissingJavadoc" value="false" />
+			-->
+			<!-- whether to ignore errors when a method
+				has parameters but does not have matching
+				param tags in the javadoc.
+				default: false
+			<property name="allowMissingParamTags" value="false" />
+			-->
+			<!-- Whether to allow missing Javadoc
+				on accessor methods for properties
+				(setters and getters). The setter and
+				getter methods must match exactly the
+				structures below.
+
+				public void setNumber(final int number)
+				{
+				    mNumber = number;
+				}
+
+				public int getNumber()
+				{
+					return mNumber;
+				}
+
+				public boolean isSomething()
+				{
+					return false;
+				}
+				default: false
+			-->
+			<property name="allowMissingPropertyJavadoc" value="true" />
+			<!-- whether to ignore errors when a method
+				returns non-void type does have a return
+				tag in the javadoc.
+				default: false
+			<property name="allowMissingReturnTag" value="false" />
+			-->
+			<!-- whether to ignore errors when a method
+				declares that it throws exceptions
+				but does have matching throws tags in
+				the javadoc.
+				default: false
+			<property name="allowMissingThrowsTags" value="false" />
+			-->
+			<!-- whether to allow documented exceptions
+				that are subclass of one of declared
+				exception.
+				default: false
+			<property name="allowThrowsTagsForSubclasses" value="false" />
+			-->
+			<!-- whether to allow documented exceptions
+				that are not declared if they are a
+				subclass of java.lang.RuntimeException.
+				default: false
+			<property name="allowUndeclaredRTE" value="false" />
+			-->
+			<!-- visibility scope where Javadoc comments
+				are not checked.
+				defualt: null
+			<property name="excludeScope" value="" />
+			-->
+			<!-- This check may need to load
+				exception classes mentioned in the
+				@throws tag to check whether they are
+				RuntimeExceptions. If loading the class
+				fails, this property allows to control
+				checkstyle's error handling. If set to
+				false a classpath configuration problem
+				is assumed and the TreeWalker stops
+				operating on the class completely. If
+				set to true (the default) , checkstyle
+				assumes a typo or refactoring problem in
+				the javadoc and logs the problem in the
+				normal checkstyle report (potentially
+				masking a configuration error).
+				default: true
+			<property name="logLoadErrors" value="true" />
+			-->
+			<!-- visibility scope where Javadoc comments
+				are checked.
+				default: private
+			<property name="scope" value="private" />
+			-->
+			<property name="severity" value="warning" />
+			<!-- When logLoadErrors is set to true,
+				the TreeWalker completely processes
+				a class and displays any problems
+				with loading exceptions as checkstyle
+				violations. When this property is set
+				to true, the violations generated when
+				logLoadErrors is set true are suppressed
+				from being reported as violations in
+				the checkstyle report.
+				default: false
+			<property name="suppressLoadErrors" value="false" />
+			-->
+			<!-- definations to check.
+				default: METHOD_DEF,CTOR_DEF
+			<property name="tokens" value="METHOD_DEF,CTOR_DEF" />
+			-->
+		</module>
+
+		<!--
+			Checks that variables have Javadoc comments.
+		-->
+		<module name="JavadocVariable">
+			<!-- visibility scope where Javadoc comments
+				are NOT checked.
+				default: null
+			<property name="excludeScope" value="private" />
+			-->
+			<!-- visibility scope where Javadoc comments
+				are checked.
+				default: private
+			<property name="scope" value="private" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Validates Javadoc comments to help ensure they are
+			well formed. The following checks are performed:
+
+			Ensures the first sentence ends with proper
+			punctuation (That is a period, question mark,
+			or exclamation mark, by default). Javadoc
+			automatically places the first sentence in the
+			method summary table and index. With out proper
+			punctuation the Javadoc may be malformed. All
+			items eligible for the {@inheritDoc} tag are
+			exempt from this requirement.
+
+			Check text for Javadoc statements that do not have
+			any description. This includes both completely
+			empty Javadoc, and Javadoc with only tags such
+			as @param and @return.
+
+			Check text for incomplete HTML tags. Verifies that
+			HTML tags have corresponding end tags and issues
+			an "Unclosed HTML tag found:" error if not. An
+			"Extra HTML tag found:" error is issued if an
+			end tag is found without a previous open tag.
+
+			Check that a package Javadoc comment is
+			well-formed (as described above) and NOT missing
+			from any package-info.java files.
+
+			Check for allowed HTML tags. The list of allowed
+			HTML tags is "a", "abbr", "acronym", "address",
+			"area", "b", "bdo", "big", "blockquote", "br",
+			"caption", "cite", "code", "colgroup", "del",
+			"div", "dfn", "dl", "em", "fieldset", "h1" to
+			"h6", "hr", "i", "img", "ins", "kbd", "li",
+			"ol", "p", "pre", "q", "samp", "small", "span",
+			"strong", "sub", "sup", "table", "tbody", "td",
+			"tfoot", "th", "thread", "tr", "tt", "ul".
+
+			These checks were patterned after the checks
+			made by the DocCheck doclet available from Sun.
+		-->
+		<module name="JavadocStyle">
+			<!-- Whether to check if the Javadoc is
+				missing a describing text.
+				default: false
+			<property name="checkEmptyJavadoc" value="false" />
+			-->
+			<!-- Whether to check the first sentence for
+				proper end of sentence.
+				default: true
+			<property name="checkFirstSentance" value="true" />
+			-->
+			<!-- Whether to check for incomplete html tags.
+				default: true
+			<property name="checkHtml" value="true" />
+			-->
+			<!-- Format for matching the end of a sentence.
+				default: ([.?!][ \t\n\r\f<])|([.?!]$)
+			<property name="endOfSentenceFormat" value="([.?!][ \t\n\r\f<])|([.?!]$)" />
+			-->
+			<!-- visibility scope where Javadoc comments
+				are NOT checked.
+				default: null
+			<property name="excludeScope" value="" />
+			-->
+			<!-- visibility scope where Javadoc comments
+				are checked.
+				default: private
+			<property name="scope" value="private" />
+			-->
+			<property name="severity" value="warning" />
+			<!-- definations to check.
+				default: INTERFACE_DEF, CLASS_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF
+			<property name="tokens" value="INTERFACE_DEF, CLASS_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF" />
+			-->
+		</module>
+
+		<!--
+			Outputs a JavaDoc tag as information. Can be used
+			e.g. with the stylesheets that sort the report by
+			author name. To define the format for a tag, set
+			property tagFormat to a regular expression. This
+			check uses two different severity levels. The
+			normal one is used for reporting when the tag is
+			missing. The additional one (tagSeverity) is used
+			for the level of reporting when the tag exists.
+		-->
+		<module name="WriteTag">
+			<property name="severity" value="ignore"/>
+			<!-- Name of tag
+				default: null
+			-->
+			<property name="tag" value="@incomplete"/>
+			<!-- Regular Expression representing format of tag.
+				default: null
+			-->
+			<property name="tagFormat" value="\S"/>
+			<!-- Severity level when tag is found and printed.
+				default: info
+			<property name="tagSeverity" value="info"/>
+			-->
+		</module>
+
+
+
+
+
+
 		<!-- Section: Metrics -->
 		<!-- -->
-		</module>
 		<!-- -->
 		<!-- Section: Miscellaneous -->
 		<!-- -->
-		</module>
 		<!-- -->
 		<!-- Section: Modifiers -->
 		<!-- -->
-		</module>
 		<!-- -->
 		<!-- Section: Naming Conventions -->
 		<!-- -->
-		</module>
 		<!-- -->
 		<!-- Section: Regexp -->
 		<!-- -->
-		</module>
 		<!-- -->
 		<!-- Section: Size Violations -->
 		<!-- -->
-		</module>
 		<!-- -->
 		<!-- Section: Whitespace -->
 		<!-- -->
-		</module>
 	</module> <!-- name="TreeWalker" -->
 
 	<!-- -->
