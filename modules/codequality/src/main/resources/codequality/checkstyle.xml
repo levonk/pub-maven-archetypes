@@ -1866,30 +1866,355 @@
 		</module>
 
 
-
-
-
-
+		<!-- -->
 		<!-- Section: Metrics -->
+		<!-- http://checkstyle.sourceforge.net/config_metrics.html -->
 		<!-- -->
-		<!-- -->
+
+		<!--
+			Restrict the number of number of &&, ||, &, |
+			and ^ in an expression.
+
+			Rationale: Too many conditions leads to code that
+			is difficult to read and hence debug and maintain.
+
+			Note that the operators & and | are not only
+			integer bitwise operators, they are also the
+			non-shortcut versions of the boolean operators &&
+			and ||.
+		-->
+		<module name="BooleanExpressionComplexity">
+			<!-- the maximum allowed number of boolean
+				operations in one expression.
+				default: 3
+			-->
+			<property name="max" value="2" />
+			<property name="severity" value="error" />
+			<!-- tokens to check.
+				default: LAND, BAND, LOR, BOR, BXOR
+			<property name="tokens" value="LAND, BAND, LOR, BOR, BXOR" />
+			-->
+		</module>
+
+		<!--
+			This metric measures the number of instantiations
+			of other classes within the given class. This
+			type of coupling is not caused by inheritance or
+			the object oriented paradigm. Generally speaking,
+			any abstract data type with other abstract data
+			types as members has data abstraction coupling;
+			therefore, if a class has a local variable that
+			is an instantiation (object) of another class,
+			there is data abstraction coupling. The higher
+			the DAC, the more complex the data structure
+			(classes) of the system.
+		-->
+		<module name="ClassDataAbstractionCoupling">
+			<!-- the maximum threshold allowed.
+				default: 7
+			-->
+			<property name="max" value="22" />
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			The number of other classes a given class relies
+			on. Also the square of this has been shown to
+			indicate the amount of maintenence required in
+			functional programs (on a file basis) at least.
+		-->
+		<module name="ClassFanOutComplexit">
+			<!-- the maximum threshold allowed.
+				default: 20
+			-->
+			<property name="max" value="22" />
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Checks cyclomatic complexity against a specified
+			limit. The complexity is measured by the number
+			of if, while, do, for, ?:, catch, switch, case
+			statements, and operators && and || (plus one)
+			in the body of a constructor, method, static
+			initializer, or instance initializer. It is a
+			measure of the minimum number of possible paths
+			through the source and therefore the number of
+			required tests. Generally 1-4 is considered good,
+			5-7 ok, 8-10 consider re-factoring, and 11+
+			re-factor now!
+		-->
+		<module name="CyclomaticComplexity">
+			<!-- the maximum threshold allowed.
+				default: 7
+			-->
+			<property name="max" value="22" />
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			The NPATH metric computes the number of possible
+			execution paths through a function. It takes into
+			account the nesting of conditional statements
+			and multi-part boolean expressions (e.g., A &&
+			B, C || D, etc.).
+
+			Rationale: Nejmeh says that his group had
+			an informal NPATH limit of 200 on individual
+			routines; functions that exceeded this value
+			were candidates for further decomposition -
+			or at least a closer look.
+		-->
+		<module name="NPathComplexity">
+			<!-- the maximum threshold allowed.
+				default: 200
+			-->
+			<property name="max" value="250" />
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Determines complexity of methods, classes and
+			files by counting the Non Commenting Source
+			Statements (NCSS). This check adheres to the
+			specification for the JavaNCSS-Tool written by
+			Chr. Clemens Lee.
+
+			Rougly said the NCSS metric is calculated by
+			counting the source lines which are not comments,
+			(nearly) equivalent to counting the semicolons
+			and opening curly braces.
+
+			The NCSS for a class is summarized from the NCSS
+			of all its methods, the NCSS of its nested classes
+			and the number of member variable declarations.
+
+			The NCSS for a file is summarized from the ncss
+			of all its top level classes, the number of
+			imports and the package declaration.
+
+			Rationale: Too large methods and classes are hard
+			to read and costly to maintain. A large NCSS
+			number often means that a method or class has
+			too many responsabilities and/or functionalities
+			which should be decomposed into smaller units.
+		-->
+		<module name="JavaNCSS">
+			<!-- the maximum allowed number of non
+				commenting lines in a class.
+				default: 1500
+			<property name="classMaximum" value="1500" />
+			-->
+			<!-- the maximum allowed number of non commenting
+				lines in a file including all top level and
+				nested classes.
+				default: 2000
+			<property name="fileMaximum" value="2000" />
+			-->
+			<!-- the maximum allowed number of non
+				commenting lines in a method.
+				default: 50
+			<property name="methodMaximum" value="50" />
+			-->
+			<property name="severity" value="warning" />
+		</module>
+
 		<!-- Section: Miscellaneous -->
+		<!-- http://checkstyle.sourceforge.net/config_misc.html -->
 		<!-- -->
-		<!-- -->
+
+		<!--
+			Checks the style of array type definitions. Some
+			like Java-style: public static void main(String[]
+			args) and some like C-style: public static void
+			main(String args[])
+		-->
+		<module name="ArrayTypeStyle">
+			<!--
+				Controls whether to enforce Java style
+				(true) or C style (false).
+				default: true
+			<property name="javaStyle" value="true" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for restricted tokens beneath other tokens.
+
+			WARNING: This is a very powerful and flexible
+			check, but, at the same time, it is low level and
+			very implementation dependent because its results
+			depend on the grammar we use to build abstract
+			syntax trees. Thus we recomend using other checks
+			when they provide the desired funcionality. All
+			in all, this check just works on the level of an
+			abstract tree and knows nothing about language
+			structures.
+		-->
+		<module name="DescendantToken">
+			<!--
+				tokens	token types to check	subset of tokens declared in TokenTypes	empty set
+				limitedTokens	set of tokens with limited occurances as descendants	subset of tokens declared in TokenTypes	empty set
+				minimumDepth	the mimimum depth for descendant counts	Integer	0
+				maximumDepth	the maximum depth for descendant counts	Integer	java.lang.Integer.MAX_VALUE
+				minimumNumber	a minimum count for descendants	Integer	0
+				maximumNumber	a maximum count for descendants	Integer	java.lang.Integer.MAX_VALUE
+				sumTokenCounts	 whether the number of tokens found should be calculated from the sum of the individual token counts	Boolean	false
+				minimumMessage	error message when minimum count not reached	String	"descendant.token.min"
+				maximumMessage	error message when maximum count exceeded	String	"descendant.token.max"
+			-->
+			<property name="severity" value="ignore" />
+		</module>
+
+		<!--
+			Check that method/constructor/catch block
+			parameters are final. Interface and abstract
+			methods are not checked - the final keyword does
+			not make sense for interface and abstract method
+			parameters as there is no code that could modify
+			the parameter.
+
+			Rationale: Changing the value of parameters
+			during the execution of the method's algorithm
+			can be confusing and should be avoided. A great
+			way to let the Java compiler prevent this coding
+			style is to declare parameters final.
+		-->
+		<module name="FinalParameters">
+			<property name="severity" value="error" />
+			<!--
+				subset of tokens METHOD_DEF, CTOR_DEF, LITERAL_CATCH
+				default: METHOD_DEF,CTOR_DEF
+			-->
+			<property name="tokens" value="METHOD_DEF,CTOR_DEF,LITERAL_CATCH" />
+		</module>
+
+		<!--
+			Checks correct indentation of Java Code.
+
+			The basic idea behind this is that while pretty
+			printers are sometimes convienent for bulk
+			reformats of legacy code, they often either aren't
+			configurable enough or just can't anticipate
+			how format should be done. Sometimes this is
+			personal preference, other times it is practical
+			experience. In any case, this check should just
+			ensure that a minimal set of indentation rules
+			are followed.
+		-->
+		<module name="Indentiation">
+			<!--
+				how many spaces to use for new indentation level.
+				default: 4
+			<property name="vasicOffset" value="4" />
+			-->
+			<!--
+				how far brace should be indented when on next line.
+				default: 0
+			<property name="braceAdjustment" value="0" />
+			-->
+			<!--
+				how much to indent a case label.
+				default: 4
+			<property name="caseIndent" value="4" />
+			-->
+			<property name="severity" value="ignore" />
+		</module>
+
+		<!--
+			FIXME LZK
+			The check to ensure that requires that comments be the only thing on a line. For the case of // comments that means that the only thing that should precede it is whitespace. It doesn't check comments if they do not end line, i.e. it accept the following: Thread.sleep( 10 <some comment here> ); Format property is intended to deal with the "} // while" example.
+
+			Rationale: Steve McConnel in "Code Complete" suggests that endline comments are a bad practice. An end line comment would be one that is on the same line as actual code. For example:
+
+			a = b + c;      // Some insightful comment
+			d = e / f;        // Another comment for this line
+			        
+					Quoting "Code Complete" for the justfication:
+
+					"The comments have to be aligned so that they do not interfere with the visual structure of the code. If you don't align them neatly, they'll make your listing look like it's been through a washing machine."
+					"Endline comments tend to be hard to format...It takes time to align them. Such time is not spent learning more about the code; it's dedicated solely to the tedious task of pressing the spacebar or tab key."
+					"Endline comments are also hard to maintain. If the code on any line containing an endline comment grows, it bumps the comment farther out, and all the other endline comments will have to bumped out to match. Styles that are hard to maintain aren't maintained...."
+					"Endline comments also tend to be cryptic. The right side of the line doesn't offer much room and the desire to keep the comment on one line means the comment must be short. Work then goes into making the line as short as possible instead of as clear as possible. The comment usually ends up as cryptic as possible...."
+					"A systemic problem with endline comments is that it's hard to write a meaningful comment for one line of code. Most endline comments just repeat the line of code, which hurts more than it helps."
+					His comments on being hard to maintain when the size of the line changes are even more important in the age of automated refactorings.
+		-->
+		<module name="EmptyStatement">
+			<property name="severity" value="error" />
+		</module>
+
+
+
+
+		<!--
+			A check for TODO: comments. Actually it is
+			a generic regular expression matcher on Java
+			comments. To check for other patterns in Java
+			comments, set property format.
+		-->
+		<module name="TodoComment">
+			<!-- pattern to check
+				default: TODO:
+			-->
+			<property name="format" value="TODO|WARN|FIXME|BUG|ERROR|TOREFACTOR" />
+			<property name="severity" value="warning" />
+		</module>
+
+		<!--
+			Checks for uncommented main() methods (debugging
+			leftovers).
+
+			Rationale: A main() method is often used for debug
+			puposes. When debugging is finished, developers
+			often forget to remove the method, which changes
+			the API and increases the size of the resulting
+			class/jar file. With the exception of the real
+			program entry points, all main() methods should
+			be removed/commented out of the sources.
+		-->
+		<module name="UncommentedMain">
+			<!-- Regular expression pattern for qualified
+				names of classes which are allowed to
+				have a main method.
+				default: ^$
+			<property name="excludedClasses" value="^$" />
+			-->
+			<!-- I don't think class size with main methods
+			is that big of a deal - LZK
+			-->
+			<property name="severity" value="ignore" />
+		</module>
+
+		<!--
+			Checks that long constants are defined with an
+			upper ell. That is ' L' and not 'l'. This is in
+			accordance to the Java Language Specification,
+			Section 3.10.1.
+			http://java.sun.com/docs/books/jls/second_edition/html/lexical.doc.html#48282
+
+			looks a lot like 1.
+		-->
+		<module name="UpperEll">
+			<property name="severity" value="error" />
+		</module>
+
+
+
 		<!-- Section: Modifiers -->
-		<!-- -->
+		<!-- http://checkstyle.sourceforge.net/config_modifier.html -->
 		<!-- -->
 		<!-- Section: Naming Conventions -->
-		<!-- -->
+		<!-- http://checkstyle.sourceforge.net/config_naming.html -->
 		<!-- -->
 		<!-- Section: Regexp -->
-		<!-- -->
+		<!-- http://checkstyle.sourceforge.net/config_regexp.html -->
 		<!-- -->
 		<!-- Section: Size Violations -->
-		<!-- -->
+		<!-- http://checkstyle.sourceforge.net/config_sizes.html -->
 		<!-- -->
 		<!-- Section: Whitespace -->
-		<!-- -->
+		<!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
 	</module> <!-- name="TreeWalker" -->
 
 	<!-- -->
@@ -2043,6 +2368,77 @@
 		-->
 		<property name="severity" value="ignore" />
 	</module>
+
+	<!-- Section: Miscellaneous -->
+	<!-- http://checkstyle.sourceforge.net/config_misc.html -->
+	<!-- -->
+
+	<!--
+		Checks whether files end with a new line.
+
+		Rationale: Any source files and text files in
+		general should end with a newline character,
+		especially when using SCM systems such as CVS. CVS
+		will even print a warning when it encounters a
+		file that doesn't end with a newline.
+	-->
+	<module name="NewlineAtEndOfFile">
+		<!--
+			file type extension of the files to check.
+			default: all files
+		<property name="fileExtensions" value="" />
+		-->
+		<!--
+			One of "system" (system default), "crlf"
+			(Windows-style), "cr" (Mac-style) and "lf"
+			(Unix-style)
+			default: system
+		-->
+		<property name="lineSeparator" value="lf" />
+		<property name="severity" value="error" />
+	</module>
+
+	<!--
+		A FileSetCheck that ensures the correct translation of
+		code by checking property files for consistency regarding
+		their keys. Two property files describing one and the
+		same context are consistent if they contain the same keys.
+
+		Consider the following properties file in the same
+		directory:
+
+		#messages.properties
+		hello=Hello
+		cancel=Cancel
+
+		#messages_de.properties
+		hell=Hallo
+		ok=OK
+		        
+		The Translation check will find the typo in the german
+		hello key, the missing ok key in the default resource file
+		and the missing cancel key in the german resource file:
+
+		messages_de.properties: Key 'hello' missing.
+		messages_de.properties: Key 'cancel' missing.
+		messages.properties: Key 'hell' missing.
+		messages.properties: Key 'ok' missing.
+				
+	-->
+	<module name="EmptyStatement">
+		<!--
+			file type extension to identify translation
+			files. Setting this property is typically
+			only required if your translation files are
+			preprocessed and the original files do not have
+			the extension .properties
+			default: properties
+		<property name="fileExtensions" value="properties" />
+		-->
+		<property name="severity" value="error" />
+	</module>
+
+
 	
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </module>
