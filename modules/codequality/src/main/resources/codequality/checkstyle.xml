@@ -2123,25 +2123,139 @@
 		</module>
 
 		<!--
-			FIXME LZK
-			The check to ensure that requires that comments be the only thing on a line. For the case of // comments that means that the only thing that should precede it is whitespace. It doesn't check comments if they do not end line, i.e. it accept the following: Thread.sleep( 10 <some comment here> ); Format property is intended to deal with the "} // while" example.
+			Checks that the outer type name and the file
+			name match. For example, the class Foo must be
+			in a file named Foo.java.
+		-->
+		<module name="OuterTypeFilename">
+			<property name="severity" value="error" />
+		</module>
 
-			Rationale: Steve McConnel in "Code Complete" suggests that endline comments are a bad practice. An end line comment would be one that is on the same line as actual code. For example:
+		<!--
+			FIXME LZK
+			A check that makes sure that a specified pattern
+			exists, exists less than a set number of times,
+			or does not exist in the file.
+
+			This check combines all the functionality
+			provided by RegexpHeader, GenericIllegalRegexp
+			and RequiredRegexp, except supplying the regular
+			expression from a file.
+
+			It differs from them in that it works in multiline
+			mode. It's regular expression can span multiple
+			lines and it checks this against the whole file at
+			once. The others work in singleline mode. Their
+			single or multiple regular expressions can only
+			span one line. They check each of these against
+			each line in the file in turn.
+
+			Note: Because of the different mode of operation
+			there may be some changes in the regular
+			expressions used to achieve a particular end.
+
+			In multiline mode...
+
+				*  ^ means beginning of a line, as oposed
+				to beginning of input.
+
+				*  For beginning of input use \A.
+
+				*  $ means end of a line, as oposed to
+				end of input.
+
+				*  For end of input use \Z.
+
+				*  Each line in the file is terminated
+				with a newline character.
+
+			Note: Not all regexp engines are created
+			equal. Some provide extra functions that others do
+			not and some elements of the syntax may vary. This
+			check makes use of the java.util.regex package,
+			please check its documentation for details of
+			how to construct a regular expression to achive
+			a particular goal.
+
+			Note: When entering a regular expression as a
+			parameter in the xml config file you must also
+			take into account the xml rules. e.g. if you want
+			to match a < symbol you need to enter &lt;. The
+			regular expression should be entered on one line.
+		-->
+		<module name="Regexp">
+			<property name="severity" value="ignore" />
+		</module>
+
+		<!--
+			The check to ensure that requires that comments
+			be the only thing on a line. For the case of //
+			comments that means that the only thing that
+			should precede it is whitespace. It doesn't check
+			comments if they do not end line, i.e. it accept
+			the following: Thread.sleep( 10 <some comment
+			here> ); Format property is intended to deal
+			with the "} // while" example.
+
+			Rationale: Steve McConnel in "Code Complete"
+			suggests that endline comments are a bad
+			practice. An end line comment would be one that
+			is on the same line as actual code. For example:
 
 			a = b + c;      // Some insightful comment
 			d = e / f;        // Another comment for this line
 			        
-					Quoting "Code Complete" for the justfication:
+			Quoting "Code Complete" for the justfication:
 
-					"The comments have to be aligned so that they do not interfere with the visual structure of the code. If you don't align them neatly, they'll make your listing look like it's been through a washing machine."
-					"Endline comments tend to be hard to format...It takes time to align them. Such time is not spent learning more about the code; it's dedicated solely to the tedious task of pressing the spacebar or tab key."
-					"Endline comments are also hard to maintain. If the code on any line containing an endline comment grows, it bumps the comment farther out, and all the other endline comments will have to bumped out to match. Styles that are hard to maintain aren't maintained...."
-					"Endline comments also tend to be cryptic. The right side of the line doesn't offer much room and the desire to keep the comment on one line means the comment must be short. Work then goes into making the line as short as possible instead of as clear as possible. The comment usually ends up as cryptic as possible...."
-					"A systemic problem with endline comments is that it's hard to write a meaningful comment for one line of code. Most endline comments just repeat the line of code, which hurts more than it helps."
-					His comments on being hard to maintain when the size of the line changes are even more important in the age of automated refactorings.
+			*  "The comments have to be aligned so that they do
+			not interfere with the visual structure of the
+			code. If you don't align them neatly, they'll
+			make your listing look like it's been through
+			a washing machine."
+
+			*  "Endline comments tend to be hard to format...It
+			takes time to align them. Such time is not spent
+			learning more about the code; it's dedicated
+			solely to the tedious task of pressing the
+			spacebar or tab key."
+
+			*  "Endline comments are also hard to maintain. If
+			the code on any line containing an endline comment
+			grows, it bumps the comment farther out, and all
+			the other endline comments will have to bumped
+			out to match. Styles that are hard to maintain
+			aren't maintained...."
+
+			*  "Endline comments also tend to be cryptic. The
+			right side of the line doesn't offer much room and
+			the desire to keep the comment on one line means
+			the comment must be short. Work then goes into
+			making the line as short as possible instead of
+			as clear as possible. The comment usually ends
+			up as cryptic as possible...."
+
+			*  "A systemic problem with endline comments is that
+			it's hard to write a meaningful comment for one
+			line of code. Most endline comments just repeat
+			the line of code, which hurts more than it helps."
+
+			His comments on being hard to maintain when the
+			size of the line changes are even more important
+			in the age of automated refactorings.
 		-->
-		<module name="EmptyStatement">
-			<property name="severity" value="error" />
+		<module name="TrailingComment">
+			<!-- pattern for string allowed before comment.
+				default: "^[\\s\\}\\);]*$"
+			<property name="format" value="^[\\s\\}\\);]*$" />
+			-->
+			<!-- pattern for text of trailing comment
+				which is allowed. (this patter will not be
+				applied to multiline comments and text of
+				comment will be trimmed before matching)
+				default: (not set)
+			<property name="legalComment" value="" />
+			-->
+			<property name="severity" value="ignore" />
 		</module>
 
 
@@ -2204,6 +2318,67 @@
 		<!-- Section: Modifiers -->
 		<!-- http://checkstyle.sourceforge.net/config_modifier.html -->
 		<!-- -->
+
+		<!--
+			Checks that the order of modifiers conforms to the
+			suggestions in the Java Language specification,
+			sections 8.1.1, 8.3.1 and 8.4.3. The correct
+			order is:
+
+			1. public
+			2. protected
+			3. private
+			4. abstract
+			5. static
+			6. final
+			7. transient
+			8. volatile
+			9. synchronized
+			10. native
+			11. strictfp
+		-->
+		<module name="ModifierOrder">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for redundant modifiers in:
+
+				1. interface and annotation definitions,
+
+				2. the final modifier on methods of
+				final classes, and
+
+				3. inner interface declarations that
+				are declared as static
+
+			Rationale: The Java Language Specification
+			strongly discourages the usage of "public" and
+			"abstract" for method declarations in interface
+			definitions as a matter of style.
+
+			Variables in interfaces and annotations are
+			automatically public, static and final, so these
+			modifiers are redundant as well.
+
+			As annotations are a form of interface, their
+			fields are also automatically public, static
+			and final just as their annotation fields are
+			automatically public and abstract.
+
+			Final classes by definition can not be extended
+			so the final modifier on the method of a final
+			class is redundant.
+		-->
+		<module name="RedundantModifier">
+			<property name="severity" value="error" />
+			<!--
+				default: METHOD_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF
+			<property name="tokens" value="METHOD_DEF, VARIABLE_DEF, ANNOTATION_FIELD_DEF, INTERFACE_DEF" />
+			-->
+		</module>
+
+
 		<!-- Section: Naming Conventions -->
 		<!-- http://checkstyle.sourceforge.net/config_naming.html -->
 		<!-- -->
