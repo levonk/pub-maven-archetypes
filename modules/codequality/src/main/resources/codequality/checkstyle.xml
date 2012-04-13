@@ -2688,8 +2688,426 @@
 		<!-- Section: Size Violations -->
 		<!-- http://checkstyle.sourceforge.net/config_sizes.html -->
 		<!-- -->
+
+		<!--
+			Checks for long anonymous inner classes.
+
+			Rationale: If an anonymous inner class becomes
+			very long it is hard to understand and to
+			see the flow of the method where the class is
+			defined. Therefore long anonymous inner classes
+			should usually be refactored into a named inner
+			class. See also Bloch, Effective Java, p. 93.
+		-->
+		<module name="AnnonInnerLength">
+			<!-- maximum allowable number of lines.
+				default: 20
+			<property name="max" value="20" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+
+		<!--
+			Restricts the number of executable statements
+			to a specified limit.
+		-->
+		<module name="ExecutableStatementCount">
+			<property name="max" value="50" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for long source files.
+
+			Rationale: If a source file becomes very long it
+			is hard to understand. Therefore long classes
+			should usually be refactored into several
+			individual classes that focus on a specific task.
+		-->
+		<module name="FileLength">
+			<!-- file type extension of files to process.
+				default: {}
+			<property name="fileExtensions" value="" />
+			-->
+			<!-- maximum allowable number of lines.
+				default: 2000
+			<property name="max" value="2000" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks for long lines.
+
+			Rationale: Long lines are hard to read in
+			printouts or if developers have limited screen
+			space for the source code, e.g. if the IDE
+			displays additional information like project tree,
+			class hierarchy, etc.
+
+			Notes:
+			*  The calculation of the length of a line takes into
+			account the number of expanded spaces for a tab
+			character ('\t'). The default number of spaces
+			is 8. To specify a different number of spaces,
+			the user can set TreeWalker property tabWidth
+			which applies to all Checks, including LineLength;
+			or can set property tabWidth for LineLength alone.
+
+			*  Support for the special handling of imports
+			in CheckStyle Version 2 has been dropped as it
+			is a special case of regexp: The user can set
+			property ignorePattern to ^import and achieve
+			the same effect.
+		-->
+		<module name="LineLength">
+			<!-- pattern for lines to ignore.
+				default: ^$
+			<property name="ignorePattern" value="^$" />
+			-->
+			<!-- maximum allowable line length.
+				default: 80
+			-->
+			<property name="max" value="110" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks the number of methods declared in each
+			type. This includes the number of each scope
+			(private, package, protected and public) as well
+			as an overall total.
+		-->
+		<module name="MethodCount">
+			<!--
+				maximum allowable number of
+				package methods
+				default: 100
+			<property name="maxPackage" value="100" />
+			-->
+			<!--
+				maximum allowable number of
+				private methods
+				default: 100
+			<property name="maxPrivate" value="100" />
+			-->
+			<!--
+				maximum allowable number of
+				protected methods
+				default: 100
+			<property name="maxProtected" value="100" />
+			-->
+			<!--
+				maximum allowable number of
+				public methods
+				default: 100
+			<property name="maxPublic" value="100" />
+			-->
+			<!--
+				maximum allowable number of
+				methods at all scope levels
+				default: 100
+			<property name="maxTotal" value="100" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+
+		<!--
+			Checks for long methods and constructors.
+
+			Rationale: If a method becomes very long it is
+			hard to understand. Therefore long methods should
+			usually be refactored into several individual
+			methods that focus on a specific task.
+		-->
+		<module name="MethodLength">
+			<!-- whether to count empty lines and single
+				line comments of the form //
+				default: true
+			-->
+			<property name="countEmpty" value="false" />
+			<!-- maximum allowable number of lines.
+				default: 150
+			-->
+			<property name="max" value="60" />
+			<property name="severity" value="error" />
+			<!-- blocks to check.
+				default: METHOD_DEF, CTOR_DEF
+			<property name="tokens" value="METHOD_DEF, CTOR_DEF" />
+			-->
+		</module>
+
+		<!--
+			Checks for the number of types declared at the
+			outer (or root) level in a file.
+
+			Rationale: It is considered good practice to
+			only define one outer type per file.
+		-->
+		<module name="OuterTypeNumber">
+			<!-- maximum allowable number of outer types
+				default: 1
+			<property name="max" value="1" />
+			-->
+			<property name="severity" value="error" />
+		</module>
+
+
+		<!--
+			Checks the number of parameters of a method
+			or constructor.
+		-->
+		<module name="ParameterNumber">
+			<!-- maximum allowable number of parameters
+				default: 7
+			-->
+			<property name="max" value="10" />
+			<property name="severity" value="error" />
+			<!-- declarations to check
+				default: METHOD_DEF, CTOR_DEF
+			<property name="tokens" value="METHOD_DEF, CTOR_DEF" />
+			-->
+		</module>
+
 		<!-- Section: Whitespace -->
 		<!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
+
+		<!--
+			Checks the padding of an empty for initializer;
+			that is whether white space is required at an
+			empty for initializer, or such white space is
+			forbidden. No check occurs if there is a line
+			wrap at the initializer, as in
+
+			for (
+			      ; i < j; i++, --j)
+		-->
+		<module name="EmptyForInitializerPad">
+			<!--
+				policy on how to pad an empty for iterator.
+				options: nospace or space
+				default: nospace
+			-->
+			<property name="option" value="nospace" />
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks the padding of an empty for iterator;
+			that is whether white space is required at
+			an empty for iterator, or such white space is
+			forbidden. No check occurs if there is a line
+			wrap at the iterator, as in
+
+			for (Iterator foo = very.long.line.iterator();
+				foo.hasNext();
+			)
+		-->
+		<module name="EmptyForIteratorPad">
+			<!-- policy on how to pad an empty for iterator.
+				options: nospace or space
+				default: nospace
+			-->
+			<property name="option" value="nospace" />
+			<property name="severity" value="error" />
+		</module>
+
+
+		<!--
+			Checks that the whitespace around the Generic
+			tokens < and > is correct to the typical
+			convention. The convention is not configurable.
+
+			For example the following is legal:
+
+			List<Integer> x = new ArrayList<Integer>();
+			List<List<Integer>> y = new ArrayList<List<Integer>>();
+			        
+			But the following example is not:
+
+			List < Integer > x = new ArrayList < Integer > ();
+			List < List < Integer > > y = new ArrayList < List < Integer > > ();
+		-->
+		<module name="GenericWhitespace">
+			<property name="severity" value="error" />
+		</module>
+
+		<!--
+			Checks the padding between the identifier of
+			a method definition, constructor definition,
+			method call, or constructor invocation; and the
+			left parenthesis of the parameter list. That is,
+			if the identifier and left parenthesis are on
+			the same line, checks whether a space is required
+			immediately after the identifier or such a space
+			is forbidden. If they are not on the same line,
+			reports an error, unless configured to allow line
+			breaks. To allow linebreaks after the identifier,
+			set property allowLineBreaks to true.
+		-->
+		<module name="MethodParamPad">
+				<!-- whether a line break between the
+					identifier and left parenthesis
+					is allowed
+				default: false
+			<property name="allowLineBreaks" value="false" />
+			-->
+			<!-- policy on how to pad method parameter
+				options: nospace or space
+				default: nospace
+			-->
+			<property name="option" value="nospace" />
+			<property name="severity" value="warning" />
+			<!-- tokens to check
+				default: CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF, SUPER_CTOR_CALL
+			<property name="tokens" value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF, SUPER_CTOR_CALL" />
+			-->
+		</module>
+
+		<!--
+			Checks that there is no whitespace after a
+			token. More specifically, it checks that it is
+			not followed by whitespace, or (if linebreaks
+			are allowed) all characters on the line after are
+			whitespace. To forbid linebreaks after a token,
+			set property allowLineBreaks to false.
+		-->
+		<module name="NoWhitespaceAfter">
+			<!-- whether whitespace is allowed if the
+				token is at a linebreak.
+				default: true
+			<property name="allowLineBreaks" value="true" />
+			-->
+			<property name="severity" value="warning" />
+			<!-- tokens to check
+				options: ARRAY_INIT, BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS, TYPECAST
+				default: ARRAY_INIT, BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS
+			<property name="tokens" value="ARRAY_INIT, BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS" />
+			-->
+		</module>
+
+		<!--
+			Checks that there is no whitespace before a
+			token. More specifically, it checks that it is not
+			preceded with whitespace, or (if linebreaks are
+			allowed) all characters on the line before are
+			whitespace. To allow linebreaks before a token,
+			set property allowLineBreaks to true.
+		-->
+		<module name="NoWhitespaceBefore">
+			<!-- whether whitespace is allowed if the
+				token is at a linebreak.
+				default: false
+			<property name="allowLineBreaks" value="false" />
+			-->
+			<property name="severity" value="warning" />
+			<!-- tokens to check
+				options: SEMI, DOT, POST_DEC, POST_INC
+				default: SEMI, POST_DEC, POST_INC
+			<property name="tokens" value="SEMI, POST_DEC, POST_INC" />
+			-->
+		</module>
+
+		<!--
+			Checks the policy on how to wrap lines on
+			operators.
+		-->
+		<module name="OperatorWrap">
+			<!-- Policy on how to wrap lines
+				default: nl
+			<property name="option" value="nl" />
+			-->
+			<property name="severity" value="warning" />
+			<!-- tokens to check
+				options: ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, SL, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN
+				default: BAND, BOR, BSR, BXOR, COLON, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR
+				default is all tokens except assignment operators
+			<property name="tokens" value="BAND, BOR, BSR, BXOR, COLON, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR" />
+			-->
+		</module>
+
+		<!--
+			Checks the policy on the padding of parentheses;
+			i.e. whether a space is required after a left
+			parenthesis and before a right parenthesis,
+			or such spaces are forbidden.
+		-->
+		<module name="ParenPad">
+			<!-- policy on how to pad parens.
+				default: nospace
+			<property name="option" value="nospace" />
+			-->
+			<property name="severity" value="warning" />
+			<!-- tokens to check.
+				default: CTOR_CALL, LPAREN, METHOD_CALL, RPAREN, SUPER_CTOR_CALL
+			<property name="tokens" value="CTOR_CALL, LPAREN, METHOD_CALL, RPAREN, SUPER_CTOR_CALL" />
+			-->
+		</module>
+
+		<!--
+			Checks the policy on the padding of parentheses
+			for typecasts. That is, whether a space is
+			required after a left parenthesis and before a
+			right parenthesis, or such spaces are forbidden.
+		-->
+		<module name="TypecastParenPad">
+			<!-- policy on how to pad parentheses.
+				options: space or nospace
+				default: nospace
+			<property name="option" value="nospace" />
+			-->
+			<property name="severity" value="warning" />
+			<!-- toekns to check.
+				default: TYPECAST, RPAREN
+			-->
+			<property name="tokens" value="TYPECAST, RPAREN" />
+		</module>
+
+		<!--
+			Checks that a token is followed by whitespace.
+		-->
+		<module name="WhitespaceAfter">
+			<property name="severity" value="warning" />
+			<property name="tokens" value="COMMA, SEMI, TYPECAST" />
+		</module>
+
+		<!--
+			Checks that a token is surrounded by
+			whitespace. Empty constructor and method bodies
+			(blocks) of the form
+
+			public MyClass() {}      // empty constructor
+			public void func() {}    // empty method
+
+			may optionally be exempted from the policy using
+			the allowEmptyMethods and allowEmptyConstructors
+			properties.
+		-->
+		<module name="WhitespaceAround">
+			<!-- default: false
+			-->
+			<property name="allowEmptyConstructors" value="true" />
+			<!-- default: false
+			-->
+			<property name="allowEmptyMethods" value="true" />
+			<property name="severity" value="error" />
+			<!--
+				options: ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LCURLY, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN TYPE_EXTENSION_AND
+			<property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LCURLY, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN TYPE_EXTENSION_AND" />
+			-->
+		</module>
+
+
+
+
+
+
+
+
+
+
 	</module> <!-- name="TreeWalker" -->
 
 	<!-- -->
@@ -2957,7 +3375,79 @@
 		<property name="severity" value="error" />
 	</module>
 
+	<!--
+		A check for detecting that matches across multiple
+		lines. Works with any file type.
 
-	
+		Rationale: This check can be used to when the regular
+		expression can be span multiple lines.
+	-->
+	<module name="RegexpMultiline">
+		<!-- file type extension of files to process
+			default: {}
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- Illegal pattern
+			default: ^$
+		<property name="format" value="^$" />
+		-->
+		<!-- Controls whether to ignore case when searching.
+			default: false
+		<property name="ignoreCase" value="false" />
+		-->
+		<!-- message which is used to notify
+			about violations, if empty then
+			default(hard-coded) message is used.
+			default: ""
+		-->
+		<!--
+			message which is used to notify about violations,
+			if empty then default(hard-coded) message is used.
+			default: ""
+		<property name="message" value="" />
+		-->
+		<!-- The minimum number of matches required in each file.
+			default: 0
+		<property name="minimum" value="0" />
+		-->
+		<!-- The maximum number of matches required in each file.
+			default: 0
+		<property name="maximum" value="0" />
+		-->
+		<property name="severity" value="ignore" />
+	</module>
+
+	<!-- -->
+	<!-- Section: Whitespace -->
+	<!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
+	<!-- -->
+
+	<!--
+		Checks that there are no tab characters ('\t') in the
+		source code.
+
+		Rationale: Developers should not need to configure the
+		tab width of their text editors in order to be able to
+		read source code.
+
+		From the Apache jakarta coding standards: In a distributed
+		development environment, when the commit messages get
+		sent to a mailing list, they are almost impossible to
+		read if you use tabs.
+	-->
+	<module name="FileTabCharacter">
+		<!-- whether to report on each line containing a tab,
+			or just the first instance.
+			default: false
+		-->
+		<property name="eachLine" value="false" />
+		<!-- file type extension of files to process
+			default: {}
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- LZK much better to have tabs -->
+		<property name="severity" value="ignore" />
+	</module>
+
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </module>
