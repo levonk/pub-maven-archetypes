@@ -1,0 +1,37 @@
+#printMsg {
+	display: block;
+}
+
+#nav, #sidebar, #ads, #menu, .noprint {
+	display: none;
+}
+
+#content {
+	width: 100%;
+	margin: 0;
+	float: none;
+}
+
+#content {
+	background: transparent;
+}
+
+body {
+	background: white;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+a:link:after {
+	content: " (" attr(href) ") ";
+}
+
+a:link {
+	font-weight: bold;
+	text-decoration: underline;
+	color: #06c;
+}
+
