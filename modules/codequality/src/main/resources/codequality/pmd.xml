@@ -35,8 +35,12 @@
 	</rule>
 
 	<rule ref="rulesets/controversial.xml">
+		<!-- If you don't one will be created for you -->
+		<exclude name="AtLeastOneConstructor" />
 		<!-- This is a good pattern to remove magic numbers and null args -->
 		<exclude name="AvoidFinalLocalVariable" />
+		<!-- should have been defined as a constant elsewhere -->
+		<exclude name="AvoidLiteralsInIfCondition" />
 		<!-- sometimes this is what's needed, if somebody puts in the extra work... -->
 		<exclude name="AvoidUsingVolatile" />
 		<!-- readability is more important -->
@@ -49,6 +53,16 @@
 		<exclude name="NullAssignment" />
 		<!-- readability can be sometimes improved, nice to have, but don't enforce -->
 		<exclude name="OnlyOneReturn" />
+	</rule>
+
+	<rule ref="rulesets/controversial.xml/AtLeastOneConstructor">
+		<!-- If you don't one will be created for you -->
+		<priority>4</priority>
+	</rule>
+
+	<rule ref="rulesets/controversial.xml/AvoidLiteralsInIfCondition">
+		<!-- This should have been defined as a final elsewhere -->
+		<priority>4</priority>
 	</rule>
 
 	<rule ref="rulesets/coupling.xml">
