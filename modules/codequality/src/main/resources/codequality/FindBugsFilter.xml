@@ -7,9 +7,7 @@
 	</Match>
 	<!--
 	<Match>
-		<!-- explicit class match -->
 		<Class name="foo.bar.clazz" />
-		<!-- regex class match -->
 		<Class name="~foo\.bar\.clazz[0-9]" />
 		<Method name="gobblyglob" />
 		<Bug pattern="NM_CONFUSING" />
