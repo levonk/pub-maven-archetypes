@@ -16,14 +16,14 @@
 			This check controls the style with the usage of annotations.
 		-->
 		<module name="AnnotationUseStyle">
-			<property name="ElementStyle" vaule="compact_no_array" />
-			<!-- <property name="ElementStyle" vaule="expanded" /> -->
+			<property name="ElementStyle" value="compact_no_array" />
+			<!-- <property name="ElementStyle" value="expanded" /> -->
 
-			<property name="TrailingArrayComma" vaule="never" />
-			<!-- <property name="TrailingArrayComma" vaule="always" /> -->
+			<property name="TrailingArrayComma" value="never" />
+			<!-- <property name="TrailingArrayComma" value="always" /> -->
 
-			<property name="ClosingParens" vaule="always" />
-			<!-- <property name="ClosingParens" vaule="never" /> -->
+			<property name="ClosingParens" value="always" />
+			<!-- <property name="ClosingParens" value="never" /> -->
 		</module>
 
 		<!--
