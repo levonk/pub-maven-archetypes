@@ -45,7 +45,9 @@
 		time, you can tell Checkstyle to ignore line 4
 		by setting property ignoreLines to 4.
 	-->
+<!--
 	<module name="Header">
+-->
 		<!-- character encoding to use when reading the headerFile
 			default: the charset property of the parent Checker module
 		<property name="charset" value="UTF-8" />
@@ -65,8 +67,10 @@
 		<!-- line numbers to ignore
 		<property name="ignoreLines" value="" />
 		-->
+<!--
 		<property name="severity" value="ignore" />
 	</module>
+-->
 
 	<!--
 		Checks the header of a source file against a
@@ -129,7 +133,9 @@
 		content. Note how lines 2, 4 and 5 use escapes
 		for characters that have special regexp semantics.
 	-->
+<!--
 	<module name="RegexpHeader">
+-->
 		<!-- character encoding to use when reading the headerFile
 			default: the charset property of the parent Checker module
 		<property name="charset" value="UTF-8" />
@@ -151,8 +157,33 @@
 		<!-- line numbers to repeat (zero or more times)
 		<property name="multiLines" value="" />
 		-->
+<!--
 		<property name="severity" value="ignore" />
 	</module>
+-->
+
+	<!-- -->
+	<!-- Section: Javadoc Comments -->
+	<!-- http://checkstyle.sourceforge.net/config_javadoc.html -->
+	<!-- -->
+
+	<!--
+		Checks that each Java package has a Javadoc file
+		used for commenting. By default it only allows
+		a package-info.java file, but can be configured
+		to allow a package.html file.
+
+		An error will be reported if both files exist
+		as this is not allowed by the Javadoc tool.
+	-->
+	<module name="JavadocPackage">
+		<!-- If set then allow the use of a package.html file.
+			default: false
+		<property name="allowLegacy" value="false" />
+		-->
+		<property name="severity" value="warning" />
+	</module>
+
 
 	<!-- Section: Miscellaneous -->
 	<!-- http://checkstyle.sourceforge.net/config_misc.html -->
@@ -210,7 +241,7 @@
 		messages.properties: Key 'ok' missing.
 				
 	-->
-	<module name="EmptyStatement">
+	<module name="Translation">
 		<!--
 			file type extension to identify translation
 			files. Setting this property is typically
@@ -255,7 +286,7 @@
 			default(hard-coded) message is used.
 			default: ""
 		-->
-		<property name="message" value="no trailing whitespace" />
+		<property name="message" value="no trailing whitespace should be in the files" />
 		<!-- The minimum number of matches required in each file.
 			default: 0
 		<property name="minimum" value="0" />
@@ -274,7 +305,9 @@
 		Rationale: This check can be used to when the regular
 		expression can be span multiple lines.
 	-->
+<!--
 	<module name="RegexpMultiline">
+-->
 		<!-- file type extension of files to process
 			default: {}
 		<property name="fileExtensions" value="" />
@@ -306,8 +339,35 @@
 			default: 0
 		<property name="maximum" value="0" />
 		-->
+<!--
 		<property name="severity" value="ignore" />
 	</module>
+-->
+
+	<!-- Section: Size Violations -->
+	<!-- http://checkstyle.sourceforge.net/config_sizes.html -->
+	<!-- -->
+
+	<!--
+		Checks for long source files.
+
+		Rationale: If a source file becomes very long it
+		is hard to understand. Therefore long classes
+		should usually be refactored into several
+		individual classes that focus on a specific task.
+	-->
+	<module name="FileLength">
+		<!-- file type extension of files to process.
+			default: {}
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- maximum allowable number of lines.
+			default: 2000
+		<property name="max" value="2000" />
+		-->
+		<property name="severity" value="error" />
+	</module>
+
 
 	<!-- -->
 	<!-- Section: Whitespace -->
@@ -355,13 +415,13 @@
 			This check controls the style with the usage of annotations.
 		-->
 		<module name="AnnotationUseStyle">
-			<property name="ElementStyle" value="compact_no_array" />
+			<property name="elementStyle" value="compact_no_array" />
 			<!-- <property name="ElementStyle" value="expanded" /> -->
 
-			<property name="TrailingArrayComma" value="never" />
+			<property name="trailingArrayComma" value="never" />
 			<!-- <property name="TrailingArrayComma" value="always" /> -->
 
-			<property name="ClosingParens" value="always" />
+			<property name="closingParens" value="always" />
 			<!-- <property name="ClosingParens" value="never" /> -->
 		</module>
 
@@ -376,7 +436,11 @@
 			Verifies that the java.lang.Override annotation is
 			present when the {@inheritDoc} javadoc tag is present.
 		-->
-		<module name="MissingOverride" />
+		<module name="MissingOverride">
+			<!-- We'll be using Java 6 or higher -->
+			<property name="javaFiveCompatibility" value="false" />
+			<!-- <property name="javaFiveCompatibility" value="true" /> -->
+		</module>
 
 		<!--
 			This check makes sure that all package annotations are in the
@@ -390,10 +454,7 @@
 			in the package-info.java file. See Java Language specification,
 			sections 7.4.1.1.
 		-->
-		<module name="PackageAnnotation">
-			<property name="javaFiveCompatibility" value="false" />
-			<!-- <property name="javaFiveCompatibility" value="true" /> -->
-		</module>
+		<module name="PackageAnnotation"/>
 
 		<!--
 			This check allows you to specify what warnings that
@@ -473,7 +534,7 @@
 			property option. Policies eol and nlow take into account
 			property maxLineLength.
 		-->
-		<module name="Lcurly">
+		<module name="LeftCurly">
 			<!-- policy on placement of a left curly brace ('{'). default is eol -->
 			<property name="option" value="nl" />
 			<!--
@@ -504,7 +565,7 @@
 			try, and catch tokens. The policy to verify is specified
 			using property option.
 		-->
-		<module name="Rcurly">
+		<module name="RightCurly">
 			<!-- policy on placement of a right curly brace ('}'). default is same -->
 			<property name="option" value="alone" />
 			<!--
@@ -1782,7 +1843,7 @@
 				by, at least, one blank line.
 				default: false
 			-->
-			<property name="seperated" value="true" />
+			<property name="separated" value="true" />
 			<property name="severity" value="error" />
 		</module>
 
@@ -1848,30 +1909,10 @@
 
 
 
-
-
-
 		<!-- -->
 		<!-- Section: Javadoc Comments -->
 		<!-- http://checkstyle.sourceforge.net/config_javadoc.html -->
 		<!-- -->
-
-		<!--
-			Checks that each Java package has a Javadoc file
-			used for commenting. By default it only allows
-			a package-info.java file, but can be configured
-			to allow a package.html file.
-
-			An error will be reported if both files exist
-			as this is not allowed by the Javadoc tool.
-		-->
-		<module name="JavadocPackage">
-			<!-- If set then allow the use of a package.html file.
-				default: false
-			<property name="allowLegacy" value="false" />
-			-->
-			<property name="severity" value="warning" />
-		</module>
 
 		<!--
 			Checks Javadoc comments for class and interface
@@ -2262,7 +2303,7 @@
 			indicate the amount of maintenence required in
 			functional programs (on a file basis) at least.
 		-->
-		<module name="ClassFanOutComplexit">
+		<module name="ClassFanOutComplexity">
 			<!-- the maximum threshold allowed.
 				default: 20
 			-->
@@ -2442,11 +2483,11 @@
 			ensure that a minimal set of indentation rules
 			are followed.
 		-->
-		<module name="Indentiation">
+		<module name="Indentation">
 			<!--
 				how many spaces to use for new indentation level.
 				default: 4
-			<property name="vasicOffset" value="4" />
+			<property name="basicOffset" value="4" />
 			-->
 			<!--
 				how far brace should be indented when on next line.
@@ -3038,7 +3079,7 @@
 			should usually be refactored into a named inner
 			class. See also Bloch, Effective Java, p. 93.
 		-->
-		<module name="AnnonInnerLength">
+		<module name="AnonInnerLength">
 			<!-- maximum allowable number of lines.
 				default: 20
 			<property name="max" value="20" />
@@ -3053,26 +3094,6 @@
 		-->
 		<module name="ExecutableStatementCount">
 			<property name="max" value="50" />
-			<property name="severity" value="error" />
-		</module>
-
-		<!--
-			Checks for long source files.
-
-			Rationale: If a source file becomes very long it
-			is hard to understand. Therefore long classes
-			should usually be refactored into several
-			individual classes that focus on a specific task.
-		-->
-		<module name="FileLength">
-			<!-- file type extension of files to process.
-				default: {}
-			<property name="fileExtensions" value="" />
-			-->
-			<!-- maximum allowable number of lines.
-				default: 2000
-			<property name="max" value="2000" />
-			-->
 			<property name="severity" value="error" />
 		</module>
 
