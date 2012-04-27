@@ -14,7 +14,7 @@
 			default: 12
 		-->
 		<property name="min" value="6" />
-		<property name="severity" value="error" />
+		<property name="severity" value="warning" />
 	</module>
 
 	<!-- -->
@@ -211,7 +211,7 @@
 			default: system
 		-->
 		<property name="lineSeparator" value="lf" />
-		<property name="severity" value="error" />
+		<property name="severity" value="warning" />
 	</module>
 
 	<!--
@@ -295,7 +295,7 @@
 			default: 0
 		<property name="maximum" value="0" />
 		-->
-		<property name="severity" value="error" />
+		<property name="severity" value="warning" />
 	</module>
 
 	<!--
@@ -3038,8 +3038,8 @@
 			-->
 			<!-- Illegal pattern
 				default: ^$
-			<property name="format" value="\s+$" />
 			-->
+			<property name="format" value="^\t* +\t*\S" />
 			<!-- Controls whether to ignore case when searching.
 				default: false
 			<property name="ignoreCase" value="false" />
@@ -3052,8 +3052,8 @@
 				about violations, if empty then
 				default(hard-coded) message is used.
 				default: ""
-			<property name="message" value="no trailing whitespace" />
 			-->
+			<property name="message" value="Line has leading space characters; indentation should be performed with tabs only." />
 			<!-- The minimum number of matches required in each file.
 				default: 0
 			<property name="minimum" value="0" />
@@ -3062,7 +3062,7 @@
 				default: 0
 			<property name="maximum" value="0" />
 			-->
-			<property name="severity" value="ignore" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!-- Section: Size Violations -->
@@ -3094,7 +3094,7 @@
 		-->
 		<module name="ExecutableStatementCount">
 			<property name="max" value="50" />
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -3130,7 +3130,7 @@
 				default: 80
 			-->
 			<property name="max" value="110" />
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -3170,7 +3170,7 @@
 				default: 100
 			<property name="maxTotal" value="100" />
 			-->
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 		</module>
 
 
