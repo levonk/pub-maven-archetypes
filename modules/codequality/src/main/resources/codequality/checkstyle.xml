@@ -2,6 +2,405 @@
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
 		"http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
+	<!-- -->
+	<!-- Section: Duplicate Code -->
+	<!-- -->
+	<module name="StrictDuplicateCode">
+		<!-- file type extension of files to process.
+			default: {}
+		<property name="fileExtensions" value="{}" />
+		-->
+		<!-- how many lines must be equal to be considered a duplicate.
+			default: 12
+		-->
+		<property name="min" value="6" />
+		<property name="severity" value="warning" />
+	</module>
+
+	<!-- -->
+	<!-- Section: Headers -->
+	<!-- -->
+
+	<!--
+		Checks that a source file begins with a specified
+		header. Property headerFile specifies a file that
+		contains the required header. Alternatively,
+		the header specification can be set directly
+		in the header property without the need for an
+		external file.
+
+		Property ignoreLines specifies the line numbers to
+		ignore when matching lines in a header file. This
+		property is very useful for supporting headers
+		that contain copyright dates. For example,
+		consider the following header:
+
+		line 1: ////////////////////////////////////////////////////////////////////
+		line 2: // checkstyle:
+		line 3: // Checks Java source code for adherence to a set of rules.
+		line 4: // Copyright (C) 2002  Oliver Burn
+		line 5: ////////////////////////////////////////////////////////////////////
+				
+		Since the year information will change over
+		time, you can tell Checkstyle to ignore line 4
+		by setting property ignoreLines to 4.
+	-->
+<!--
+	<module name="Header">
+-->
+		<!-- character encoding to use when reading the headerFile
+			default: the charset property of the parent Checker module
+		<property name="charset" value="UTF-8" />
+		-->
+		<!-- the required header specified
+			inline. Individual header lines must be separated
+			by the string "\n" (even on platforms with a
+			different line separator), see examples below.
+		<property name="header" value="" />
+		-->
+		<!-- name of the file containing the required header.
+		<property name="headerFile" value="" />
+		-->
+		<!-- file type extension of files to process
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- line numbers to ignore
+		<property name="ignoreLines" value="" />
+		-->
+<!--
+		<property name="severity" value="ignore" />
+	</module>
+-->
+
+	<!--
+		Checks the header of a source file against a
+		header that contains a regular expression for
+		each line of the source header.
+
+		Rationale: In some projects checking against a
+		fixed header is not sufficient, e.g. the header
+		might require a copyright line where the year
+		information is not static.
+
+		For example, consider the following header:
+
+		line  1: ^/{71}$
+		line  2: ^// checkstyle:$
+		line  3: ^// Checks Java source code for adherence to a set of rules\.$
+		line  4: ^// Copyright \(C\) \d\d\d\d  Oliver Burn$
+		line  5: ^// Last modification by \$Author.*\$$
+		line  6: ^/{71}$
+		line  7:
+		line  8: ^package
+		line  9:
+		line 10: ^import
+		line 11:
+		line 12: ^/\*\*
+		line 13: ^ \*([^/]|$)
+		line 14: ^ \*/
+				
+		Lines 1 and 6 demonstrate a more compact notation
+		for 71 '/' characters. Line 4 enforces that the
+		copyright notice includes a four digit year. Line
+		5 is an example how to enforce revision control
+		keywords in a file header. Lines 12-14 is a
+		template for javadoc (line 13 is so complicated
+		to remove conflict with and of javadoc comment).
+
+		Different programming languages have different
+		comment syntax rules, but all of them start a
+		comment with a non-word character. Hence you
+		can often use the non-word character class to
+		abstract away the concrete comment syntax and
+		allow checking the header for different languages
+		with a single header definition. For example,
+		consider the following header specification (note
+		that this is not the full Apache license header):
+
+		line 1: ^#!
+		line 2: ^<\?xml.*>$
+		line 3: ^\W*$
+		line 4: ^\W*Copyright 2006 The Apache Software Foundation or its licensors, as applicable\.$
+		line 5: ^\W*Licensed under the Apache License, Version 2\.0 \(the "License"\);$
+		line 6: ^\W*$
+				
+		Lines 1 and 2 leave room for technical header
+		lines, e.g. the "#!/bin/sh" line in Unix shell
+		scripts, or the xml file header of XML files. Set
+		the multiline property to "1, 2" so these lines
+		can be ignored for file types where they do no
+		apply. Lines 3 through 6 define the actual header
+		content. Note how lines 2, 4 and 5 use escapes
+		for characters that have special regexp semantics.
+	-->
+<!--
+	<module name="RegexpHeader">
+-->
+		<!-- character encoding to use when reading the headerFile
+			default: the charset property of the parent Checker module
+		<property name="charset" value="UTF-8" />
+		-->
+		<!-- the required header specified
+			inline. Individual header lines must be separated
+			by the string "\n" (even on platforms with a
+			different line separator),  and regular
+			expressions must not span multiple lines.
+			see examples below.
+		<property name="header" value="" />
+		-->
+		<!-- file type extension of files to process
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- name of the file containing the required header.
+		<property name="headerFile" value="" />
+		-->
+		<!-- line numbers to repeat (zero or more times)
+		<property name="multiLines" value="" />
+		-->
+<!--
+		<property name="severity" value="ignore" />
+	</module>
+-->
+
+	<!-- -->
+	<!-- Section: Javadoc Comments -->
+	<!-- http://checkstyle.sourceforge.net/config_javadoc.html -->
+	<!-- -->
+
+	<!--
+		Checks that each Java package has a Javadoc file
+		used for commenting. By default it only allows
+		a package-info.java file, but can be configured
+		to allow a package.html file.
+
+		An error will be reported if both files exist
+		as this is not allowed by the Javadoc tool.
+	-->
+	<module name="JavadocPackage">
+		<!-- If set then allow the use of a package.html file.
+			default: false
+		<property name="allowLegacy" value="false" />
+		-->
+		<property name="severity" value="warning" />
+	</module>
+
+
+	<!-- Section: Miscellaneous -->
+	<!-- http://checkstyle.sourceforge.net/config_misc.html -->
+	<!-- -->
+
+	<!--
+		Checks whether files end with a new line.
+
+		Rationale: Any source files and text files in
+		general should end with a newline character,
+		especially when using SCM systems such as CVS. CVS
+		will even print a warning when it encounters a
+		file that doesn't end with a newline.
+	-->
+	<module name="NewlineAtEndOfFile">
+		<!--
+			file type extension of the files to check.
+			default: all files
+		<property name="fileExtensions" value="" />
+		-->
+		<!--
+			One of "system" (system default), "crlf"
+			(Windows-style), "cr" (Mac-style) and "lf"
+			(Unix-style)
+			default: system
+		-->
+		<property name="lineSeparator" value="lf" />
+		<property name="severity" value="warning" />
+	</module>
+
+	<!--
+		A FileSetCheck that ensures the correct translation of
+		code by checking property files for consistency regarding
+		their keys. Two property files describing one and the
+		same context are consistent if they contain the same keys.
+
+		Consider the following properties file in the same
+		directory:
+
+		#messages.properties
+		hello=Hello
+		cancel=Cancel
+
+		#messages_de.properties
+		hell=Hallo
+		ok=OK
+		        
+		The Translation check will find the typo in the german
+		hello key, the missing ok key in the default resource file
+		and the missing cancel key in the german resource file:
+
+		messages_de.properties: Key 'hello' missing.
+		messages_de.properties: Key 'cancel' missing.
+		messages.properties: Key 'hell' missing.
+		messages.properties: Key 'ok' missing.
+				
+	-->
+	<module name="Translation">
+		<!--
+			file type extension to identify translation
+			files. Setting this property is typically
+			only required if your translation files are
+			preprocessed and the original files do not have
+			the extension .properties
+			default: properties
+		<property name="fileExtensions" value="properties" />
+		-->
+		<property name="severity" value="error" />
+	</module>
+
+	<!-- Section: Regexp -->
+	<!-- http://checkstyle.sourceforge.net/config_regexp.html -->
+	<!-- -->
+
+	<!--
+		A check for detecting single lines that match
+		a supplied regular expression. Works with any
+		file type.
+
+		Rationale: This check can be used to prototype
+		checks and to find common bad practice
+		such as calling ex.printStacktrace(),
+		System.out.println(), System.exit(), etc.
+	-->
+	<module name="RegexpSingleline">
+		<!-- file type extension of files to process
+			default: {}
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- Illegal pattern
+			default: ^$
+		-->
+		<property name="format" value="\s+$" />
+		<!-- Controls whether to ignore case when searching.
+			default: false
+		<property name="ignoreCase" value="false" />
+		-->
+		<!-- message which is used to notify
+			about violations, if empty then
+			default(hard-coded) message is used.
+			default: ""
+		-->
+		<property name="message" value="no trailing whitespace should be in the files" />
+		<!-- The minimum number of matches required in each file.
+			default: 0
+		<property name="minimum" value="0" />
+		-->
+		<!-- The maximum number of matches required in each file.
+			default: 0
+		<property name="maximum" value="0" />
+		-->
+		<property name="severity" value="warning" />
+	</module>
+
+	<!--
+		A check for detecting that matches across multiple
+		lines. Works with any file type.
+
+		Rationale: This check can be used to when the regular
+		expression can be span multiple lines.
+	-->
+<!--
+	<module name="RegexpMultiline">
+-->
+		<!-- file type extension of files to process
+			default: {}
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- Illegal pattern
+			default: ^$
+		<property name="format" value="^$" />
+		-->
+		<!-- Controls whether to ignore case when searching.
+			default: false
+		<property name="ignoreCase" value="false" />
+		-->
+		<!-- message which is used to notify
+			about violations, if empty then
+			default(hard-coded) message is used.
+			default: ""
+		-->
+		<!--
+			message which is used to notify about violations,
+			if empty then default(hard-coded) message is used.
+			default: ""
+		<property name="message" value="" />
+		-->
+		<!-- The minimum number of matches required in each file.
+			default: 0
+		<property name="minimum" value="0" />
+		-->
+		<!-- The maximum number of matches required in each file.
+			default: 0
+		<property name="maximum" value="0" />
+		-->
+<!--
+		<property name="severity" value="ignore" />
+	</module>
+-->
+
+	<!-- Section: Size Violations -->
+	<!-- http://checkstyle.sourceforge.net/config_sizes.html -->
+	<!-- -->
+
+	<!--
+		Checks for long source files.
+
+		Rationale: If a source file becomes very long it
+		is hard to understand. Therefore long classes
+		should usually be refactored into several
+		individual classes that focus on a specific task.
+	-->
+	<module name="FileLength">
+		<!-- file type extension of files to process.
+			default: {}
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- maximum allowable number of lines.
+			default: 2000
+		<property name="max" value="2000" />
+		-->
+		<property name="severity" value="error" />
+	</module>
+
+
+	<!-- -->
+	<!-- Section: Whitespace -->
+	<!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
+	<!-- -->
+
+	<!--
+		Checks that there are no tab characters ('\t') in the
+		source code.
+
+		Rationale: Developers should not need to configure the
+		tab width of their text editors in order to be able to
+		read source code.
+
+		From the Apache jakarta coding standards: In a distributed
+		development environment, when the commit messages get
+		sent to a mailing list, they are almost impossible to
+		read if you use tabs.
+	-->
+	<module name="FileTabCharacter">
+		<!-- whether to report on each line containing a tab,
+			or just the first instance.
+			default: false
+		-->
+		<property name="eachLine" value="false" />
+		<!-- file type extension of files to process
+			default: {}
+		<property name="fileExtensions" value="" />
+		-->
+		<!-- LZK much better to have tabs -->
+		<property name="severity" value="ignore" />
+	</module>
+
 	<!--
 		FileSetCheck TreeWalker checks individual Java source
 		files and defines properties that are applicable to
@@ -16,14 +415,14 @@
 			This check controls the style with the usage of annotations.
 		-->
 		<module name="AnnotationUseStyle">
-			<property name="ElementStyle" vaule="compact_no_array" />
-			<!-- <property name="ElementStyle" vaule="expanded" /> -->
+			<property name="elementStyle" value="compact_no_array" />
+			<!-- <property name="ElementStyle" value="expanded" /> -->
 
-			<property name="TrailingArrayComma" vaule="never" />
-			<!-- <property name="TrailingArrayComma" vaule="always" /> -->
+			<property name="trailingArrayComma" value="never" />
+			<!-- <property name="TrailingArrayComma" value="always" /> -->
 
-			<property name="ClosingParens" vaule="always" />
-			<!-- <property name="ClosingParens" vaule="never" /> -->
+			<property name="closingParens" value="always" />
+			<!-- <property name="ClosingParens" value="never" /> -->
 		</module>
 
 		<!--
@@ -37,7 +436,11 @@
 			Verifies that the java.lang.Override annotation is
 			present when the {@inheritDoc} javadoc tag is present.
 		-->
-		<module name="MissingOverride" />
+		<module name="MissingOverride">
+			<!-- We'll be using Java 6 or higher -->
+			<property name="javaFiveCompatibility" value="false" />
+			<!-- <property name="javaFiveCompatibility" value="true" /> -->
+		</module>
 
 		<!--
 			This check makes sure that all package annotations are in the
@@ -51,10 +454,7 @@
 			in the package-info.java file. See Java Language specification,
 			sections 7.4.1.1.
 		-->
-		<module name="PackageAnnotation">
-			<property name="javaFiveCompatibility" value="false" />
-			<!-- <property name="javaFiveCompatibility" value="true" /> -->
-		</module>
+		<module name="PackageAnnotation"/>
 
 		<!--
 			This check allows you to specify what warnings that
@@ -134,7 +534,7 @@
 			property option. Policies eol and nlow take into account
 			property maxLineLength.
 		-->
-		<module name="Lcurly">
+		<module name="LeftCurly">
 			<!-- policy on placement of a left curly brace ('{'). default is eol -->
 			<property name="option" value="nl" />
 			<!--
@@ -165,7 +565,7 @@
 			try, and catch tokens. The policy to verify is specified
 			using property option.
 		-->
-		<module name="Rcurly">
+		<module name="RightCurly">
 			<!-- policy on placement of a right curly brace ('}'). default is same -->
 			<property name="option" value="alone" />
 			<!--
@@ -251,7 +651,7 @@
 			declared at the bottom of the class after all
 			method and field declarations.
 		-->
-		<module name="InnerTypeLast" />
+		<module name="InnerTypeLast">
 			<!-- LZK: Give developer freedom to improve readability -->
 			<property name="severity" value="ignore" />
 		</module>
@@ -1443,7 +1843,7 @@
 				by, at least, one blank line.
 				default: false
 			-->
-			<property name="seperated" value="true" />
+			<property name="separated" value="true" />
 			<property name="severity" value="error" />
 		</module>
 
@@ -1509,30 +1909,10 @@
 
 
 
-
-
-
 		<!-- -->
 		<!-- Section: Javadoc Comments -->
 		<!-- http://checkstyle.sourceforge.net/config_javadoc.html -->
 		<!-- -->
-
-		<!--
-			Checks that each Java package has a Javadoc file
-			used for commenting. By default it only allows
-			a package-info.java file, but can be configured
-			to allow a package.html file.
-
-			An error will be reported if both files exist
-			as this is not allowed by the Javadoc tool.
-		-->
-		<module name="JavadocPackage">
-			<!-- If set then allow the use of a package.html file.
-				default: false
-			<property name="allowLegacy" value="false" />
-			-->
-			<property name="severity" value="warning" />
-		</module>
 
 		<!--
 			Checks Javadoc comments for class and interface
@@ -1565,7 +1945,7 @@
 				pattern for @author tag
 				default: null (tag not required)
 			-->
-			<property name="authorFormat" value="^\s*\S \S.* <\S.*@\S.*\.\S>$" />
+			<property name="authorFormat" value="^\s*\S \S.* &lt;\S.*@\S.*\.\S&gt;$" />
 			<!--
 				visibility scope where Javadoc comments
 				are not checked.
@@ -1923,7 +2303,7 @@
 			indicate the amount of maintenence required in
 			functional programs (on a file basis) at least.
 		-->
-		<module name="ClassFanOutComplexit">
+		<module name="ClassFanOutComplexity">
 			<!-- the maximum threshold allowed.
 				default: 20
 			-->
@@ -2103,11 +2483,11 @@
 			ensure that a minimal set of indentation rules
 			are followed.
 		-->
-		<module name="Indentiation">
+		<module name="Indentation">
 			<!--
 				how many spaces to use for new indentation level.
 				default: 4
-			<property name="vasicOffset" value="4" />
+			<property name="basicOffset" value="4" />
 			-->
 			<!--
 				how far brace should be indented when on next line.
@@ -2658,8 +3038,8 @@
 			-->
 			<!-- Illegal pattern
 				default: ^$
-			<property name="format" value="\s+$" />
 			-->
+			<property name="format" value="^\t* +\t*\S" />
 			<!-- Controls whether to ignore case when searching.
 				default: false
 			<property name="ignoreCase" value="false" />
@@ -2672,8 +3052,8 @@
 				about violations, if empty then
 				default(hard-coded) message is used.
 				default: ""
-			<property name="message" value="no trailing whitespace" />
 			-->
+			<property name="message" value="Line has leading space characters; indentation should be performed with tabs only." />
 			<!-- The minimum number of matches required in each file.
 				default: 0
 			<property name="minimum" value="0" />
@@ -2682,7 +3062,7 @@
 				default: 0
 			<property name="maximum" value="0" />
 			-->
-			<property name="severity" value="ignore" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!-- Section: Size Violations -->
@@ -2699,7 +3079,7 @@
 			should usually be refactored into a named inner
 			class. See also Bloch, Effective Java, p. 93.
 		-->
-		<module name="AnnonInnerLength">
+		<module name="AnonInnerLength">
 			<!-- maximum allowable number of lines.
 				default: 20
 			<property name="max" value="20" />
@@ -2714,27 +3094,7 @@
 		-->
 		<module name="ExecutableStatementCount">
 			<property name="max" value="50" />
-			<property name="severity" value="error" />
-		</module>
-
-		<!--
-			Checks for long source files.
-
-			Rationale: If a source file becomes very long it
-			is hard to understand. Therefore long classes
-			should usually be refactored into several
-			individual classes that focus on a specific task.
-		-->
-		<module name="FileLength">
-			<!-- file type extension of files to process.
-				default: {}
-			<property name="fileExtensions" value="" />
-			-->
-			<!-- maximum allowable number of lines.
-				default: 2000
-			<property name="max" value="2000" />
-			-->
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -2770,7 +3130,7 @@
 				default: 80
 			-->
 			<property name="max" value="110" />
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -2810,7 +3170,7 @@
 				default: 100
 			<property name="maxTotal" value="100" />
 			-->
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 		</module>
 
 
@@ -2882,7 +3242,7 @@
 			wrap at the initializer, as in
 
 			for (
-			      ; i < j; i++, --j)
+			      ; i < j; i++, j = j-1)
 		-->
 		<module name="EmptyForInitializerPad">
 			<!--
@@ -3110,344 +3470,6 @@
 
 	</module> <!-- name="TreeWalker" -->
 
-	<!-- -->
-	<!-- Section: Duplicate Code -->
-	<!-- -->
-	<module name="StrictDuplicateCode">
-		<!-- file type extension of files to process.
-			default: {}
-		<property name="fileExtensions" value="{}" />
-		-->
-		<!-- how many lines must be equal to be considered a duplicate.
-			default: 12
-		-->
-		<property name="min" value="6" />
-		<property name="severity" value="error" />
-	</module>
-
-	<!-- -->
-	<!-- Section: Headers -->
-	<!-- -->
-
-	<!--
-		Checks that a source file begins with a specified
-		header. Property headerFile specifies a file that
-		contains the required header. Alternatively,
-		the header specification can be set directly
-		in the header property without the need for an
-		external file.
-
-		Property ignoreLines specifies the line numbers to
-		ignore when matching lines in a header file. This
-		property is very useful for supporting headers
-		that contain copyright dates. For example,
-		consider the following header:
-
-		line 1: ////////////////////////////////////////////////////////////////////
-		line 2: // checkstyle:
-		line 3: // Checks Java source code for adherence to a set of rules.
-		line 4: // Copyright (C) 2002  Oliver Burn
-		line 5: ////////////////////////////////////////////////////////////////////
-				
-		Since the year information will change over
-		time, you can tell Checkstyle to ignore line 4
-		by setting property ignoreLines to 4.
-	-->
-	<module name="Header">
-		<!-- character encoding to use when reading the headerFile
-			default: the charset property of the parent Checker module
-		<property name="charset" value="UTF-8" />
-		-->
-		<!-- the required header specified
-			inline. Individual header lines must be separated
-			by the string "\n" (even on platforms with a
-			different line separator), see examples below.
-		<property name="header" value="" />
-		-->
-		<!-- name of the file containing the required header.
-		<property name="headerFile" value="" />
-		-->
-		<!-- file type extension of files to process
-		<property name="fileExtensions" value="" />
-		-->
-		<!-- line numbers to ignore
-		<property name="ignoreLines" value="" />
-		-->
-		<property name="severity" value="ignore" />
-	</module>
-
-	<!--
-		Checks the header of a source file against a
-		header that contains a regular expression for
-		each line of the source header.
-
-		Rationale: In some projects checking against a
-		fixed header is not sufficient, e.g. the header
-		might require a copyright line where the year
-		information is not static.
-
-		For example, consider the following header:
-
-		line  1: ^/{71}$
-		line  2: ^// checkstyle:$
-		line  3: ^// Checks Java source code for adherence to a set of rules\.$
-		line  4: ^// Copyright \(C\) \d\d\d\d  Oliver Burn$
-		line  5: ^// Last modification by \$Author.*\$$
-		line  6: ^/{71}$
-		line  7:
-		line  8: ^package
-		line  9:
-		line 10: ^import
-		line 11:
-		line 12: ^/\*\*
-		line 13: ^ \*([^/]|$)
-		line 14: ^ \*/
-				
-		Lines 1 and 6 demonstrate a more compact notation
-		for 71 '/' characters. Line 4 enforces that the
-		copyright notice includes a four digit year. Line
-		5 is an example how to enforce revision control
-		keywords in a file header. Lines 12-14 is a
-		template for javadoc (line 13 is so complicated
-		to remove conflict with and of javadoc comment).
-
-		Different programming languages have different
-		comment syntax rules, but all of them start a
-		comment with a non-word character. Hence you
-		can often use the non-word character class to
-		abstract away the concrete comment syntax and
-		allow checking the header for different languages
-		with a single header definition. For example,
-		consider the following header specification (note
-		that this is not the full Apache license header):
-
-		line 1: ^#!
-		line 2: ^<\?xml.*>$
-		line 3: ^\W*$
-		line 4: ^\W*Copyright 2006 The Apache Software Foundation or its licensors, as applicable\.$
-		line 5: ^\W*Licensed under the Apache License, Version 2\.0 \(the "License"\);$
-		line 6: ^\W*$
-				
-		Lines 1 and 2 leave room for technical header
-		lines, e.g. the "#!/bin/sh" line in Unix shell
-		scripts, or the xml file header of XML files. Set
-		the multiline property to "1, 2" so these lines
-		can be ignored for file types where they do no
-		apply. Lines 3 through 6 define the actual header
-		content. Note how lines 2, 4 and 5 use escapes
-		for characters that have special regexp semantics.
-	-->
-	<module name="RegexpHeader">
-		<!-- character encoding to use when reading the headerFile
-			default: the charset property of the parent Checker module
-		<property name="charset" value="UTF-8" />
-		-->
-		<!-- the required header specified
-			inline. Individual header lines must be separated
-			by the string "\n" (even on platforms with a
-			different line separator),  and regular
-			expressions must not span multiple lines.
-			see examples below.
-		<property name="header" value="" />
-		-->
-		<!-- file type extension of files to process
-		<property name="fileExtensions" value="" />
-		-->
-		<!-- name of the file containing the required header.
-		<property name="headerFile" value="" />
-		-->
-		<!-- line numbers to repeat (zero or more times)
-		<property name="multiLines" value="" />
-		-->
-		<property name="severity" value="ignore" />
-	</module>
-
-	<!-- Section: Miscellaneous -->
-	<!-- http://checkstyle.sourceforge.net/config_misc.html -->
-	<!-- -->
-
-	<!--
-		Checks whether files end with a new line.
-
-		Rationale: Any source files and text files in
-		general should end with a newline character,
-		especially when using SCM systems such as CVS. CVS
-		will even print a warning when it encounters a
-		file that doesn't end with a newline.
-	-->
-	<module name="NewlineAtEndOfFile">
-		<!--
-			file type extension of the files to check.
-			default: all files
-		<property name="fileExtensions" value="" />
-		-->
-		<!--
-			One of "system" (system default), "crlf"
-			(Windows-style), "cr" (Mac-style) and "lf"
-			(Unix-style)
-			default: system
-		-->
-		<property name="lineSeparator" value="lf" />
-		<property name="severity" value="error" />
-	</module>
-
-	<!--
-		A FileSetCheck that ensures the correct translation of
-		code by checking property files for consistency regarding
-		their keys. Two property files describing one and the
-		same context are consistent if they contain the same keys.
-
-		Consider the following properties file in the same
-		directory:
-
-		#messages.properties
-		hello=Hello
-		cancel=Cancel
-
-		#messages_de.properties
-		hell=Hallo
-		ok=OK
-		        
-		The Translation check will find the typo in the german
-		hello key, the missing ok key in the default resource file
-		and the missing cancel key in the german resource file:
-
-		messages_de.properties: Key 'hello' missing.
-		messages_de.properties: Key 'cancel' missing.
-		messages.properties: Key 'hell' missing.
-		messages.properties: Key 'ok' missing.
-				
-	-->
-	<module name="EmptyStatement">
-		<!--
-			file type extension to identify translation
-			files. Setting this property is typically
-			only required if your translation files are
-			preprocessed and the original files do not have
-			the extension .properties
-			default: properties
-		<property name="fileExtensions" value="properties" />
-		-->
-		<property name="severity" value="error" />
-	</module>
-
-	<!-- Section: Regexp -->
-	<!-- http://checkstyle.sourceforge.net/config_regexp.html -->
-	<!-- -->
-
-	<!--
-		A check for detecting single lines that match
-		a supplied regular expression. Works with any
-		file type.
-
-		Rationale: This check can be used to prototype
-		checks and to find common bad practice
-		such as calling ex.printStacktrace(),
-		System.out.println(), System.exit(), etc.
-	-->
-	<module name="RegexpSingleline">
-		<!-- file type extension of files to process
-			default: {}
-		<property name="fileExtensions" value="" />
-		-->
-		<!-- Illegal pattern
-			default: ^$
-		-->
-		<property name="format" value="\s+$" />
-		<!-- Controls whether to ignore case when searching.
-			default: false
-		<property name="ignoreCase" value="false" />
-		-->
-		<!-- message which is used to notify
-			about violations, if empty then
-			default(hard-coded) message is used.
-			default: ""
-		-->
-		<property name="message" value="no trailing whitespace" />
-		<!-- The minimum number of matches required in each file.
-			default: 0
-		<property name="minimum" value="0" />
-		-->
-		<!-- The maximum number of matches required in each file.
-			default: 0
-		<property name="maximum" value="0" />
-		-->
-		<property name="severity" value="error" />
-	</module>
-
-	<!--
-		A check for detecting that matches across multiple
-		lines. Works with any file type.
-
-		Rationale: This check can be used to when the regular
-		expression can be span multiple lines.
-	-->
-	<module name="RegexpMultiline">
-		<!-- file type extension of files to process
-			default: {}
-		<property name="fileExtensions" value="" />
-		-->
-		<!-- Illegal pattern
-			default: ^$
-		<property name="format" value="^$" />
-		-->
-		<!-- Controls whether to ignore case when searching.
-			default: false
-		<property name="ignoreCase" value="false" />
-		-->
-		<!-- message which is used to notify
-			about violations, if empty then
-			default(hard-coded) message is used.
-			default: ""
-		-->
-		<!--
-			message which is used to notify about violations,
-			if empty then default(hard-coded) message is used.
-			default: ""
-		<property name="message" value="" />
-		-->
-		<!-- The minimum number of matches required in each file.
-			default: 0
-		<property name="minimum" value="0" />
-		-->
-		<!-- The maximum number of matches required in each file.
-			default: 0
-		<property name="maximum" value="0" />
-		-->
-		<property name="severity" value="ignore" />
-	</module>
-
-	<!-- -->
-	<!-- Section: Whitespace -->
-	<!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
-	<!-- -->
-
-	<!--
-		Checks that there are no tab characters ('\t') in the
-		source code.
-
-		Rationale: Developers should not need to configure the
-		tab width of their text editors in order to be able to
-		read source code.
-
-		From the Apache jakarta coding standards: In a distributed
-		development environment, when the commit messages get
-		sent to a mailing list, they are almost impossible to
-		read if you use tabs.
-	-->
-	<module name="FileTabCharacter">
-		<!-- whether to report on each line containing a tab,
-			or just the first instance.
-			default: false
-		-->
-		<property name="eachLine" value="false" />
-		<!-- file type extension of files to process
-			default: {}
-		<property name="fileExtensions" value="" />
-		-->
-		<!-- LZK much better to have tabs -->
-		<property name="severity" value="ignore" />
-	</module>
-
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </module>
+
