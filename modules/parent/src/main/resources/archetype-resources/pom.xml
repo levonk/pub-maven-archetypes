@@ -6,11 +6,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>${groupId}</groupId>
 	<artifactId>${artifactId}</artifactId>
+	<name>${project.name}</name>
+	<url>${project.url}</url>
 	<version>${version}</version>
 	<packaging>pom</packaging>
 
-	<name>${project.name}</name>
-	<url>${project.url}</url>
 
 	<organization>
 		<name>LevonK</name>
@@ -24,6 +24,13 @@
 	</modules>
 
 	<repositories>
+		<repository>
+			<id>maven2-repository.cloudera.com</id>
+			<name>Cloudera.com maven repository</name>
+			<url>https://repository.cloudera.com/content/repositories/releases/</url>
+			<layout>default</layout>
+		</repository>
+
 		<repository>
 			<id>maven2-repository.java.net</id>
 			<name>Java.net maven repository</name>
@@ -39,7 +46,88 @@
 				<enabled>false</enabled>
 			</releases>
 		</repository>
+
+		<repository>
+			<id>elasticsearch-releases</id>
+			<name>ElasticSearch Releases Repository</name>
+			<url>http://oss.sonatype.org/content/repositories/releases/</url>
+		</repository>
 	</repositories>
+
+	<dependencies>
+		<!-- If you have arbitrary jar that want to deploy into a central maven repository you can use
+			 %mvn deploy:deploy-file -DgroupId=levonk-imported -DartifactId=levonk-package \
+					-Dversion=1-levonkVersion -Dpackaging=jar -Dfile=otherjar.jar \
+					-Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
+		-->
+		<!-- Static Analysis -->
+		<dependency>
+			<!-- groupId>net.sourceforge.findbugs</groupId -->
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>annotations<artifactId>
+			<version>${findbugs-extra.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<!-- groupId>net.sourceforge.findbugs</groupId -->
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305<artifactId>
+			<version>${findbugs-extra.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava<artifactId>
+			<version>13.0-rc1</version>
+		</dependency>
+
+		<dependency>
+			<!-- Apache -->
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<!-- Unit Testing Dependencies -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.5.2</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>nl.jqno.equalsverifier</groupId>
+			<artifactId>equalsverifier</artifactId>
+			<version>1.1.3</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Mock framework -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all<artifactId>
+			<version>1.9.5-rc1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Logging Dependencies -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>0.9.28</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${dep.version.slf4j}</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
 
 	<!--
 		Specify all the version numbers of all dependencies here so we don't
@@ -49,48 +137,6 @@
 	-->
 	<dependencyManagement>
 		<dependencies>
-			<!-- Unit Testing Dependencies -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.8.2</version>
-				<scope>test</scope>
-			</dependency>
-
-			<!-- Mock framework -->
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all<artifactId>
-				<version>1.8.5</version>
-				<scope>test</scope>
-			</dependency>
-
-			<!-- Logging Dependencies -->
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>0.9.28</version>
-				<scope>runtime</scope>
-			</dependency>
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>${dep.version.log4j}</version>
-				<scope>runtime</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${dep.version.slf4j}</version>
-				<scope>runtime</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>${dep.version.slf4j}</version>
-				<scope>runtime</scope>
-			</dependency>
-
 			<!-- Code Generation Dependencies -->
 			<dependency>
 				<!-- http://pojomatic.sourceforge.net/pojomatic/index.html -->
@@ -114,146 +160,123 @@
 
 			<!-- Add Cofoja Design By Contract lib when available -->
 
-			<!-- General Utility Libraries -->
-			<dependency>
-				<groupId>com.google.inject</groupId>
-				<artifactId>guice</artifactId>
-				<version>3.0</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>r08</version>
-			</dependency>
-
-			<dependency>
-				<!-- Apache -->
-				<groupId>commons-lang</groupId>
-				<artifactId>commons-lang</artifactId>
-				<version>2.2</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
-		<!-- If you have arbitrary jar that want to deploy into a central maven repository you can use
-			 %mvn deploy:deploy-file -DgroupId=levonk-imported -DartifactId=levonk-package \
-					-Dversion=1-levonkVersion -Dpackaging=jar -Dfile=otherjar.jar \
-					-Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
-		-->
-		<!-- Unit Testing Dependencies -->
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>5.14.2</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Static Analysis -->
-		<dependency>
-			<!-- groupId>net.sourceforge.findbugs</groupId -->
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>annotations<artifactId>
-			<version>${plugin.version.findbugs.extra}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<!-- groupId>net.sourceforge.findbugs</groupId -->
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305<artifactId>
-			<version>${plugin.version.findbugs.extra}</version>
-			<scope>compile</scope>
-		</dependency>
-
 	</dependencies>
 
 	<build>
 		<plugins>
-			<pluginManagement>
-				<!-- General Settings -->
-				<plugin>
-					<!-- compiler version -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>2.3.2</version>
-					<configuration>
-						<showDeprecation>true</showDeprecation>
-						<showWarnings>true</showWarnings>
-						<source>${project.java.version}</source>
-						<target>${project.java.version}</target>
-						<optimize>true</optimize>
-						<debug>true</debug>
-						<fork>true</fork>
-						<meminitial>128m</meminitial>
-						<maxmem>512m</maxmem>
-					</configuration>
-				</plugin>
+			<!-- General Settings -->
+			<plugin>
+				<!-- compiler version -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<showDeprecation>true</showDeprecation>
+					<showWarnings>true</showWarnings>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<optimize>true</optimize>
+					<debug>true</debug>
+					<fork>true</fork>
+					<meminitial>128m</meminitial>
+					<maxmem>512m</maxmem>
+				</configuration>
+			</plugin>
 
-				<!-- Static Analysis Tools -->
-				<plugin>
-					<!-- Checkstyle -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>${plugin.version.checkstyle}</version>
-					<dependencies>
-						<dependency>
-							<groupId>com.levonk.build</groupId>
-							<artifactId>build-tools</artifactId>
-							<version>${levonk.dep.version.build-tools}</version>
-						</dependency>
-					</dependencies>
-					<configuration>
-						<configLocation>static-analysis/checkstyle.xml</configLocation>
-					</configuration>
-				</plugin>
+			<!-- Static Analysis Tools -->
+			<plugin>
+				<!-- Checkstyle -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${checkstyle.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.levonk.build</groupId>
+						<artifactId>build-tools</artifactId>
+						<version>${levonk.dep.version.build-tools}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<configLocation>static-analysis/checkstyle.xml</configLocation>
+				</configuration>
+			</plugin>
 
-				<plugin>
-					<!-- PMD -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-pmd-plugin</artifactId>
-					<version>${plugin.version.pmd}</version>
-					<dependencies>
-						<dependency>
-							<groupId>com.levonk.build</groupId>
-							<artifactId>build-tools</artifactId>
-							<version>${levonk.dep.version.build-tools}</version>
-						</dependency>
-					</dependencies>
-					<configuration>
-						<rulesets>
-							<ruleset>do-not-user/pmd.xml</ruleset>
-						</rulesets>
-						<targetJdk>${project.java.version}</targetJdk>
-					</configuration>
-				</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version></version>
+				<executions>
+					<executtion>
+						<id>enforce-banned-dependencies<id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<fail>true<fail>
+							<rules>
+								<bannedDependencies>
+									<searchTransitive>true</searchTransitive>
+									<excludes>
+										<exclude>javassist:javassist</exclude>
+										<exclude>commons-lang</exclude>
+										<exclude>commons-logging</exclude>
+										<exclude>aspectj:aspectj*</exclude>
+										<exclude>hsqldb:hsqldb</exclude>
+										<exclude>log4j:log4j</exclude>
+										<exclude>org.slf4j:1.5*</exclude>
+										<exclude>org.springframework:2.*</exclude>
+										<exclude>org.springframework:3.0.*</exclude>
+									</excludes>
+								</bannedDependencies>
+								<requireMavenVersion>3.0.*</requireMavenVersion>
+								<requireJavaVersion>${java.version}</requireJavaVersion>
+							</rules>
+						</configuration>
+					<executtion>
+				</executions>
+			</plugin>
 
-				<plugin>
-					<!-- Findbugs -->
-					<groupId>org.codehouse.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>${plugin.version.findbugs}</version>
-					<dependencies>
-						<dependency>
-							<groupId>com.levonk.build</groupId>
-							<artifactId>build-tools</artifactId>
-							<version>${levonk.dep.version.build-tools}</version>
-						</dependency>
-					</dependencies>
-					<configuration>
-						<excludeFilterFile>do-not-user/findbugs-exclude.xml</excludeFilterFile>
-						<threshold>Low</threshold>
-					</configuration>
-				</plugin>
+			<plugin>
+				<!-- PMD -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${pmd.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.levonk.build</groupId>
+						<artifactId>build-tools</artifactId>
+						<version>${levonk.dep.version.build-tools}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<rulesets>
+						<ruleset>do-not-user/pmd.xml</ruleset>
+					</rulesets>
+					<targetJdk>${java.version}</targetJdk>
+				</configuration>
+			</plugin>
 
-				<!-- android plugin -->
-				<plugin>
-					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-					<artifactId>maven-android-plugin</artifactId>
-					<version>2.8.4</version>
-				</plugin>
-			</pluginManagement>
+			<plugin>
+				<!-- Findbugs -->
+				<groupId>org.codehouse.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>${findbugs.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.levonk.build</groupId>
+						<artifactId>build-tools</artifactId>
+						<version>${levonk.dep.version.build-tools}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<excludeFilterFile>do-not-user/findbugs-exclude.xml</excludeFilterFile>
+					<threshold>Low</threshold>
+				</configuration>
+			</plugin>
 
 
 			<plugin>
@@ -267,7 +290,7 @@
 				-->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>${plugin.version.cobertura}</version>
+				<version>${cobertura.version}</version>
 			</plugin>
 
 			<plugin>
@@ -337,7 +360,7 @@
 
 			<plugin>
 				<!-- lets get rid .class that are effected through
-				dependencies using ant -->
+				inheritance using ant -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.6</version>
@@ -380,6 +403,15 @@
 				</executions>
 			</plugin>
 		</plugins>
+
+		<pluginManagement>
+			<!-- android plugin -->
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>maven-android-plugin</artifactId>
+				<version>2.8.4</version>
+			</plugin>
+		</pluginManagement>
 	</build>
 
 	<reporting>
@@ -401,17 +433,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${plugin.version.checkstyle}</version>
+				<version>${checkstyle.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${plugin.version.pmd}</version>
+				<version>${pmd.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>${plugin.version.cobertura}</version>
+				<version>${cobertura.version}</version>
 				<configuration>
 					<formats>
 						<format>html</format>
@@ -422,18 +454,19 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${plugin.version.findbugs}</version>
+				<version>${findbugs.version}</version>
 			</plugin>
 		</plugins>
 	</reporting>
 
 	<properties>
-		<project.java.version>1.6</project.java.version>
-		<plugin.version.checkstyle>2.6</plugin.version.checkstyle>
-		<plugin.version.cobertura>2.6</plugin.version.checkstyle>
-		<plugin.version.findbugs>2.3.2</plugin.version.findbugs>
-		<plugin.version.findbugs.extra>1.3.9</plugin.version.findbugs.extra>
-		<plugin.version.pmd>2.5</plugin.version.pmd>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.6</java.version>
+		<checkstyle.version>2.6</checkstyle.version>
+		<cobertura.version>2.6</checkstyle.version>
+		<findbugs.version>2.3.2</findbugs.version>
+		<findbugs-extra.version>1.3.9</findbugs-extra.version>
+		<pmd.version>2.5</pmd.version>
 	</properties>
 
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
