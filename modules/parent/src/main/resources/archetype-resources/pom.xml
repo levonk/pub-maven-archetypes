@@ -221,18 +221,20 @@
 								<bannedDependencies>
 									<searchTransitive>true</searchTransitive>
 									<excludes>
-										<exclude>javassist:javassist</exclude>
+										<exclude>aspectj:aspectj*</exclude>
 										<exclude>commons-lang</exclude>
 										<exclude>commons-logging</exclude>
-										<exclude>aspectj:aspectj*</exclude>
 										<exclude>hsqldb:hsqldb</exclude>
+										<exclude>javassist:javassist</exclude>
+										<exclude>junit:junit</exclude>
 										<exclude>log4j:log4j</exclude>
 										<exclude>org.slf4j:1.5*</exclude>
 										<exclude>org.springframework:2.*</exclude>
 										<exclude>org.springframework:3.0.*</exclude>
 									</excludes>
 								</bannedDependencies>
-								<requireMavenVersion>3.0.*</requireMavenVersion>
+								<DependencyConvergence/>
+								<requireMavenVersion>(3.0.0,3.1.0)</requireMavenVersion>
 								<requireJavaVersion>${java.version}</requireJavaVersion>
 							</rules>
 						</configuration>
