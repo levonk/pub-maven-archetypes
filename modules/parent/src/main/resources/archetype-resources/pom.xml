@@ -11,6 +11,8 @@
 	<version>${version}</version>
 	<packaging>pom</packaging>
 
+	<description>${project.description}</description>
+
 
 	<organization>
 		<name>LevonK</name>
@@ -22,6 +24,19 @@
 		<module>myModule</module>
 		-->
 	</modules>
+
+
+	<developers>
+		<developer>
+			<id>LevonK</id>
+			<name>LevonK</name>
+			<email>LevonK@lk.oib.com</email>
+			<roles>
+				<role>Author</role>
+			</roles>
+			<organization>LevonK</organization>
+		</developer>
+	</developers>
 
 	<repositories>
 		<repository>
@@ -54,6 +69,15 @@
 		</repository>
 	</repositories>
 
+	<!-- where the site gets released to -->
+	<distributionManagement>
+		<site>
+			<!-- Set credentials in settings.xml and use 'mvn site-deploy' -->
+			<id>website</id>
+			<url>scp://www.mycompany.com/www/docs/project/</url>
+		</site>
+	</distributionManagement>
+
 	<dependencies>
 		<!-- If you have arbitrary jar that want to deploy into a central maven repository you can use
 			 %mvn deploy:deploy-file -DgroupId=levonk-imported -DartifactId=levonk-package \
@@ -64,7 +88,7 @@
 		<dependency>
 			<!-- groupId>net.sourceforge.findbugs</groupId -->
 			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>annotations<artifactId>
+			<artifactId>annotations</artifactId>
 			<version>${findbugs-extra.version}</version>
 			<scope>compile</scope>
 		</dependency>
@@ -72,14 +96,14 @@
 		<dependency>
 			<!-- groupId>net.sourceforge.findbugs</groupId -->
 			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305<artifactId>
+			<artifactId>jsr305</artifactId>
 			<version>${findbugs-extra.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.guava</groupId>
-			<artifactId>guava<artifactId>
+			<artifactId>guava</artifactId>
 			<version>13.0-rc1</version>
 		</dependency>
 
@@ -108,7 +132,7 @@
 		<!-- Mock framework -->
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all<artifactId>
+			<artifactId>mockito-all</artifactId>
 			<version>1.9.5-rc1</version>
 			<scope>test</scope>
 		</dependency>
@@ -133,7 +157,8 @@
 		Specify all the version numbers of all dependencies here so we don't
 		have to specify them in multiple children.
 		The parent will not force this dependency, but it will specify a
-		default version number
+		default version number and allow us to manage all transitive
+		dependency versions here.
 	-->
 	<dependencyManagement>
 		<dependencies>
@@ -158,13 +183,25 @@
 				<scope>provided</scope>
 			</dependency>
 
+			<!--  Log compatibility dependencies -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${dep.version.slf4j}</version>
+				<scope>runtime</scope>
+			</dependency>
+	
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${dep.version.slf4j}</version>
+				<scope>runtime</scope>
+			</dependency>
+		
 			<!-- Add Cofoja Design By Contract lib when available -->
 
 		</dependencies>
 	</dependencyManagement>
-
-	<dependencies>
-	</dependencies>
 
 	<build>
 		<plugins>
@@ -202,6 +239,7 @@
 				</dependencies>
 				<configuration>
 					<configLocation>static-analysis/checkstyle.xml</configLocation>
+					<propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile</propertyExpansion>
 				</configuration>
 			</plugin>
 
@@ -210,13 +248,14 @@
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<version></version>
 				<executions>
-					<executtion>
-						<id>enforce-banned-dependencies<id>
+					<execution>
+						<id>enforce-banned-dependencies</id>
 						<goals>
 							<goal>enforce</goal>
 						</goals>
+						<phase>validate</phase>
 						<configuration>
-							<fail>true<fail>
+							<fail>true</fail>
 							<rules>
 								<bannedDependencies>
 									<searchTransitive>true</searchTransitive>
@@ -234,11 +273,12 @@
 									</excludes>
 								</bannedDependencies>
 								<DependencyConvergence/>
+								<requireUpperBoundDeps/>
 								<requireMavenVersion>(3.0.0,3.1.0)</requireMavenVersion>
 								<requireJavaVersion>${java.version}</requireJavaVersion>
 							</rules>
 						</configuration>
-					<executtion>
+					</execution>
 				</executions>
 			</plugin>
 
@@ -404,68 +444,83 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.levonk</groupId>
+						<artifactId>build-tools</artifactId>
+						<version>${version}</version>
+					</dependency>
+				 </dependencies>
+				 <configuration>
+					<reportPlugins>
+				<outputDirectory>./target/site</outputDirectory>
+				<reportPlugins>
+					<!-- doc -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.7</version>
+					</plugin>
+					<!-- testing -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.8</version> <!-- as of 2011-04-06 -->
+					</plugin>
+					<!-- static analysis -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-checkstyle-plugin</artifactId>
+						<version>${checkstyle.version}</version>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-pmd-plugin</artifactId>
+						<version>${pmd.version}</version>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>cobertura-maven-plugin</artifactId>
+						<version>${cobertura.version}</version>
+						<configuration>
+							<formats>
+								<format>html</format>
+								<format>xml</format>
+							</formats>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>findbugs-maven-plugin</artifactId>
+						<version>${findbugs.version}</version>
+					</plugin>
+				</reportPlugins>
+			</plugin>
 		</plugins>
 
 		<pluginManagement>
-			<!-- android plugin -->
-			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-				<artifactId>maven-android-plugin</artifactId>
-				<version>2.8.4</version>
-			</plugin>
+			<plugins>
+				<!-- android plugin -->
+				<plugin>
+					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+					<artifactId>maven-android-plugin</artifactId>
+					<version>2.8.4</version>
+				</plugin>
+			</plugins>
 		</pluginManagement>
 	</build>
 
-	<reporting>
-		<ouputDirectory>./target/site</outputDirectory>
-		<plugins>
-			<!-- doc -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
-			</plugin>
-			<!-- testing -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.8</version> <!-- as of 2011-04-06 -->
-			</plugin>
-			<!-- static analysis -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${checkstyle.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${pmd.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>${cobertura.version}</version>
-				<configuration>
-					<formats>
-						<format>html</format>
-						<format>xml</format>
-					</formats>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${findbugs.version}</version>
-			</plugin>
-		</plugins>
-	</reporting>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.6</java.version>
 		<checkstyle.version>2.6</checkstyle.version>
-		<cobertura.version>2.6</checkstyle.version>
+		<cobertura.version>2.6</cobertura.version>
 		<findbugs.version>2.3.2</findbugs.version>
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
 		<pmd.version>2.5</pmd.version>
