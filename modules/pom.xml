@@ -18,6 +18,10 @@
 		<module>maven-archetype-parent</module>
 	</modules>
 
+	<properties>
+		<log4j.version>2.0-alpha1</log4j.version>
+	</properties>
+
 	<repositories>
 		<repository>
 			<id>maven2-repository.java.net</id>
@@ -58,7 +62,7 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>${dep.version.testng}</version>
+			<version>6.5.2</version>
 			<scope>test</scope>
 		</dependency>
 		<!--
@@ -72,6 +76,17 @@
 
 		<!-- Logging Dependencies -->
 		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<!-- logback
+		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>0.9.28</version>
@@ -83,7 +98,8 @@
 			<version>${dep.version.slf4j}</version>
 			<scope>runtime</scope>
 		</dependency>
-				<!--
+		-->
+		<!-- Log4j classic
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -268,17 +284,23 @@
 					</processors>
 					<!-- other optional configuration -->
 					<!-- full path to a java executable that should be used to create the forked JVM -->
+					<!--
 					<executable>/opt/java1.6/bin/java</executable>
-					<!-- should an error reported by a checker cause a build failure, or only be logged as a warning; defaults to true -->
-					<failOnError>true|false</failOnError>
+					 -->
+					<!-- should an error reported by a checker cause a build failure, or only be logged as a warning; defaults to true from true|false -->
+					<failOnError>false</failOnError>
 					<!-- a list of patterns to include, in the standard maven syntax; defaults to **/*.java -->
+					<!--
 					<includes>
 						<include>org/company/important/**/*.java</include>
 					</includes>
+					-->
 					<!-- a list of patterns to exclude, in the standard maven syntax; defaults to an empty list -->
+					<!--
 					<excludes>
 						<exclude>org/company/notimportant/**/*.java</exclude>
 					</excludes>
+					-->
 					<!-- additional parameters passed to the JSR308 java compiler -->
 					<javacParams>-Alint</javacParams>
 					<!-- additional parameters to pass to the forked JVM -->
