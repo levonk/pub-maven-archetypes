@@ -52,7 +52,21 @@
 			<name>ElasticSearch Releases Repository</name>
 			<url>http://oss.sonatype.org/content/repositories/releases/</url>
 		</repository>
+
+		<repository>
+			<id>org.levonk</id>
+			<name>LevonK Releases Repository</name>
+			<url></url>
+		</repository>
 	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>org.levonk</id>
+			<name>LevonK Repository</name>
+			<url>http://raw.github.com/levonk/pub-maven-repo/master/release</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 		<!-- If you have arbitrary jar that want to deploy into a central maven repository you can use
@@ -64,7 +78,7 @@
 		<dependency>
 			<!-- groupId>net.sourceforge.findbugs</groupId -->
 			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>annotations<artifactId>
+			<artifactId>annotations</artifactId>
 			<version>${findbugs-extra.version}</version>
 			<scope>compile</scope>
 		</dependency>
@@ -72,14 +86,14 @@
 		<dependency>
 			<!-- groupId>net.sourceforge.findbugs</groupId -->
 			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305<artifactId>
+			<artifactId>jsr305</artifactId>
 			<version>${findbugs-extra.version}</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.guava</groupId>
-			<artifactId>guava<artifactId>
+			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
 
@@ -96,6 +110,12 @@
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -108,7 +128,7 @@
 		<!-- Mock framework -->
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all<artifactId>
+			<artifactId>mockito-all</artifactId>
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -119,11 +139,17 @@
 			<artifactId>logback-classic</artifactId>
 			<version>0.9.28</version>
 			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>${dep.version.slf4j}</version>
+			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
@@ -162,9 +188,6 @@
 
 		</dependencies>
 	</dependencyManagement>
-
-	<dependencies>
-	</dependencies>
 
 	<build>
 		<plugins>
@@ -221,9 +244,9 @@
 				<version>${checkstyle.version}</version>
 				<dependencies>
 					<dependency>
-						<groupId>com.levonk.build</groupId>
-						<artifactId>build-tools</artifactId>
-						<version>${levonk.dep.version.build-tools}</version>
+						<groupId>com.levonk</groupId>
+						<artifactId>codequality</artifactId>
+						<version>${codequality.version}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -234,15 +257,15 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version></version>
+				<version>${enforcer.version}</version>
 				<executions>
-					<executtion>
-						<id>enforce-banned-dependencies<id>
+					<execution>
+						<id>enforce-banned-dependencies</id>
 						<goals>
 							<goal>enforce</goal>
 						</goals>
 						<configuration>
-							<fail>true<fail>
+							<fail>true</fail>
 							<rules>
 								<bannedDependencies>
 									<searchTransitive>true</searchTransitive>
@@ -260,11 +283,15 @@
 									</excludes>
 								</bannedDependencies>
 								<DependencyConvergence/>
-								<requireMavenVersion>(3.0.0,3.1.0)</requireMavenVersion>
-								<requireJavaVersion>${java.version}</requireJavaVersion>
+								<requireMavenVersion>
+									<version>[3.0.3,)</version>
+								</requireMavenVersion>
+								<requireJavaVersion>
+									<version>${java.version}</version>
+								</requireJavaVersion>
 							</rules>
 						</configuration>
-					<executtion>
+					</execution>
 				</executions>
 			</plugin>
 
@@ -275,9 +302,9 @@
 				<version>${pmd.version}</version>
 				<dependencies>
 					<dependency>
-						<groupId>com.levonk.build</groupId>
-						<artifactId>build-tools</artifactId>
-						<version>${levonk.dep.version.build-tools}</version>
+						<groupId>com.levonk</groupId>
+						<artifactId>codequality</artifactId>
+						<version>${codequality.version}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -295,9 +322,9 @@
 				<version>${findbugs.version}</version>
 				<dependencies>
 					<dependency>
-						<groupId>com.levonk.build</groupId>
-						<artifactId>build-tools</artifactId>
-						<version>${levonk.dep.version.build-tools}</version>
+						<groupId>com.levonk</groupId>
+						<artifactId>codequality</artifactId>
+						<version>${codequality.version}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -369,9 +396,9 @@
 				</configuration>
 				<dependencies>
 					<dependency>
-						<groupId>com.levonk.build</groupId>
-						<artifactId>build-tools</artifactId>
-						<version>${levonk.dep.version.build-tools}</version>
+						<groupId>com.levonk</groupId>
+						<artifactId>codequality</artifactId>
+						<version>${codequality.version}</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -433,17 +460,19 @@
 		</plugins>
 
 		<pluginManagement>
-			<!-- android plugin -->
-			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-				<artifactId>maven-android-plugin</artifactId>
-				<version>${android.version}</version>
-			</plugin>
+			<plugins>
+				<!-- android plugin -->
+				<plugin>
+					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+					<artifactId>maven-android-plugin</artifactId>
+					<version>${android.version}</version>
+				</plugin>
+			</plugins>
 		</pluginManagement>
 	</build>
 
 	<reporting>
-		<ouputDirectory>./target/site</outputDirectory>
+		<outputDirectory>./target/site</outputDirectory>
 		<plugins>
 			<!-- doc -->
 			<plugin>
@@ -493,13 +522,15 @@
 		<!-- version block -->
 		<android.version>2.8.4</android.version>
 		<antrun.version>1.7</antrun.version>
+		<codequality.version>1.0.9</codequality.version>
 		<checkstyle.version>2.9.1</checkstyle.version>
-		<cobertura.version>2.6</cobertura.version>
+		<cobertura.version>2.5.2</cobertura.version>
 		<commonslang3.version>3.1</commonslang3.version>
 		<compiler.version>2.3.2</compiler.version>
 		<dependency.version>2.2</dependency.version>
 		<doclava.version>1.0.3</doclava.version>
 		<eclipse.version>2.8</eclipse.version>
+		<enforcer.version>1.1.1</enforcer.version>
 		<equalsverifier.version>1.1.3</equalsverifier.version>
 		<findbugs.version>2.3.2</findbugs.version>
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
@@ -511,6 +542,7 @@
 		<mockito.version>1.9.5-rc1</mockito.version>
 		<pmd.version>2.5</pmd.version>
 		<pojomatic.version>1.0</pojomatic.version>
+		<slf4j.version>1.7.1</slf4j.version> <!-- as of 2012-09-17 -->
 		<surefire.version>2.8</surefire.version> <!-- as of 2011-04-06 -->
 		<testng.version>6.5.2</testng.version>
 	</properties>
