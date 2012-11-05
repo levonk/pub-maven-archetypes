@@ -25,6 +25,12 @@
 
 	<repositories>
 		<repository>
+			<id>checker</id>
+			<name>Checker Code Quality Framework</name>
+			<url>http://types.cs.washington.edu/m2-repo</url>
+		</repository>
+
+		<repository>
 			<id>maven2-repository.cloudera.com</id>
 			<name>Cloudera.com maven repository</name>
 			<url>https://repository.cloudera.com/content/repositories/releases/</url>
@@ -61,6 +67,12 @@
 	</repositories>
 
 	<pluginRepositories>
+		<pluginRepository>
+			<id>checker</id>
+			<name>Checker Code Quality Framework</name>
+			<url>http://types.cs.washington.edu/m2-repo</url>
+		</pluginRepository>
+
 		<pluginRepository>
 			<id>org.levonk</id>
 			<name>LevonK Repository</name>
@@ -152,6 +164,14 @@
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<dependency>
+			<!-- Annotations for the standard checkers:
+				nullness, interning, mutability -->
+			<groupId>types.checkers</groupId>
+			<artifactId>checkers-quals</artifactId>
+			<version>${checkers.version}</version>
+		</dependency>
 	</dependencies>
 
 
@@ -163,6 +183,26 @@
 	-->
 	<dependencyManagement>
 		<dependencies>
+			<!-- Add Cofoja Design By Contract lib when available -->
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slfj</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slfj.version}</version>
+			</dependency>
+
 			<!-- Code Generation Dependencies -->
 			<dependency>
 				<!-- http://pojomatic.sourceforge.net/pojomatic/index.html -->
@@ -184,7 +224,6 @@
 				<scope>provided</scope>
 			</dependency>
 
-			<!-- Add Cofoja Design By Contract lib when available -->
 
 		</dependencies>
 	</dependencyManagement>
@@ -237,6 +276,68 @@
 			</plugin>
 
 			<!-- Static Analysis Tools -->
+			<plugin>
+				<groupId>types.checkers</groupId>
+				<artifactId>checkersplugin</artifactId>
+				<version>${checkersplugin.version}</version>
+				<executions>
+					<execution>
+						<!-- run the checkers after compilation; this
+							can also be any later phase -->
+						<phase>process-classes</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+					<configuration>
+						<!-- required configuration options -->
+						<!-- a list of processors to run -->
+						<processors>
+							<processor>checkers.nullness.NullnessChecker</processor>
+							<processor>checkers.interning.InterningChecker</processor>
+						</processors>
+
+						<!-- Other optional configuration -->
+						<!--
+							Full path to a java executable that should be used to 
+							create the forked JVM
+						<executable>/opt/java1.6/bin/java</executable>
+						-->
+						<!--
+							Should an error reported by a checker cause a build failure,
+							or only be logged as a warning? -->
+						<failOnError>false</failOnError>
+						<!--
+							A list of patterns to include, in teh standard maven syntax.
+							defaults to **/*.java
+						<includes>
+							<include>**/*.java</include>
+						</includes>
+						-->
+						<!--
+							A list of patterns to exclude, in the standard maven syntax;
+							defaults to an empty list.
+						<includes>
+							<include>com.foobar/**/*.java</include>
+						</includes>
+						-->
+						<!--
+							Additional Parameters passed to the JSR308 java compiler
+						<javacParams>-Alint</javacParams>
+						-->
+						<!--
+							Additional parameters to pass to the forked JVM
+						<javaParams>-Xdebug</javaParams>
+						-->
+						<!--
+							Versions of checkers to use; defaults to the current newest vesrion
+						<checkersVersion>1.4.0</checkersVersion>
+						-->
+
+					</configuration>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<!-- Checkstyle -->
 				<groupId>org.apache.maven.plugins</groupId>
@@ -523,6 +624,8 @@
 		<android.version>2.8.4</android.version>
 		<antrun.version>1.7</antrun.version>
 		<codequality.version>1.0.9</codequality.version>
+		<checkers.version>1.4.0</checkers.version>
+		<checkersplugin.version>0.8</checkersplugin.version>
 		<checkstyle.version>2.9.1</checkstyle.version>
 		<cobertura.version>2.5.2</cobertura.version>
 		<commonslang3.version>3.1</commonslang3.version>
@@ -543,6 +646,7 @@
 		<pmd.version>2.5</pmd.version>
 		<pojomatic.version>1.0</pojomatic.version>
 		<slf4j.version>1.7.1</slf4j.version> <!-- as of 2012-09-17 -->
+		<spring.version>3.1.2.RELEASE</spring.version>
 		<surefire.version>2.8</surefire.version> <!-- as of 2011-04-06 -->
 		<testng.version>6.5.2</testng.version>
 	</properties>
