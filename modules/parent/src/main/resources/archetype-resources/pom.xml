@@ -295,6 +295,19 @@
 						<processors>
 							<processor>checkers.nullness.NullnessChecker</processor>
 							<processor>checkers.interning.InterningChecker</processor>
+							<processor>checkers.lock.LockChecker</processor>
+							<processor>checkers.fenum.FenumChecker</processor>
+							<processor>checkers.tainting.TaintingChecker</processor>
+							<processor>checkers.regex.RegexChecker</processor>
+							<processor>checkers.propkey.PropertyKeyChecker</processor>
+							<processor>checkers.i18n.I18nChecker</processor>
+							<processor>checkers.compilermsgs.CompilerMessagesChecker</processor>
+							<processor>checkers.signature.SignatureChecker</processor>
+							<processor>checkers.units.UnitsChecker</processor>
+							<processor>checkers.Linear.LinearChecker</processor>
+							<processor>checkers.igj.IGJChecker</processor>
+							<processor>checkers.javari.JavariChecker</processor>
+							<processor>checkers.basic.BasicChecker</processor>
 						</processors>
 
 						<!-- Other optional configuration -->
