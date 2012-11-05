@@ -149,7 +149,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>0.9.28</version>
+			<version>${logback.version}</version>
 			<scope>runtime</scope>
 			<exclusions>
 				<exclusion>
@@ -157,6 +157,26 @@
 					<artifactId>slf4j-api</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback.extensions</groupId>
+			<artifactId>logback-ext-jackson</artifactId>
+			<version>${logback.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback.extensions</groupId>
+			<artifactId>logback-ext-json-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<!-- A JaxB mapper is necessary for logback-ext-json-classic
+				you can use others though, it doesn't have to be jackson -->
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -651,9 +671,11 @@
 		<findbugs.version>2.3.2</findbugs.version>
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
 		<guava.version>13.0-rc1</guava.version>
+		<jackson.version>1.9.5</jackson.version>
 		<jacoco.version>0.5.9.201207300726</jacoco.version>
 		<jalopy.version>1.0-SNAPSHOT</jalopy.version>
 		<javadoc.version>2.7</javadoc.version>
+		<logback.version>0.9.28</logback.version>
 		<lombok.version>0.9.3</lombok.version>
 		<mockito.version>1.9.5-rc1</mockito.version>
 		<pmd.version>2.5</pmd.version>
