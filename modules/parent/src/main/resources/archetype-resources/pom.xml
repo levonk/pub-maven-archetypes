@@ -608,6 +608,11 @@
 	<reporting>
 		<outputDirectory>./target/site</outputDirectory>
 		<plugins>
+			<plugin>
+				<groupId>com.google.testability-explorer</groupId>
+				<artifactId>maven-testability-plugin</artifactId>
+				<version>1.3.2-SNAPSHOT</version>
+			</plugin>
 			<!-- doc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
