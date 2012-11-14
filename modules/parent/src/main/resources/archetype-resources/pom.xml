@@ -60,9 +60,9 @@
 		</repository>
 
 		<repository>
-			<id>org.levonk</id>
-			<name>LevonK Releases Repository</name>
-			<url></url>
+			<id>com.levonk</id>
+			<name>LevonK Repository</name>
+			<url>http://raw.github.com/levonk/pub-maven-repo/master/release</url>
 		</repository>
 	</repositories>
 
@@ -74,7 +74,7 @@
 		</pluginRepository>
 
 		<pluginRepository>
-			<id>org.levonk</id>
+			<id>com.levonk</id>
 			<name>LevonK Repository</name>
 			<url>http://raw.github.com/levonk/pub-maven-repo/master/release</url>
 		</pluginRepository>
@@ -309,66 +309,66 @@
 							<goal>check</goal>
 						</goals>
 					</execution>
-					<configuration>
-						<!-- required configuration options -->
-						<!-- a list of processors to run -->
-						<processors>
-							<processor>checkers.nullness.NullnessChecker</processor>
-							<processor>checkers.interning.InterningChecker</processor>
-							<processor>checkers.lock.LockChecker</processor>
-							<processor>checkers.fenum.FenumChecker</processor>
-							<processor>checkers.tainting.TaintingChecker</processor>
-							<processor>checkers.regex.RegexChecker</processor>
-							<processor>checkers.propkey.PropertyKeyChecker</processor>
-							<processor>checkers.i18n.I18nChecker</processor>
-							<processor>checkers.compilermsgs.CompilerMessagesChecker</processor>
-							<processor>checkers.signature.SignatureChecker</processor>
-							<processor>checkers.units.UnitsChecker</processor>
-							<processor>checkers.Linear.LinearChecker</processor>
-							<processor>checkers.igj.IGJChecker</processor>
-							<processor>checkers.javari.JavariChecker</processor>
-							<processor>checkers.basic.BasicChecker</processor>
-						</processors>
-
-						<!-- Other optional configuration -->
-						<!--
-							Full path to a java executable that should be used to 
-							create the forked JVM
-						<executable>/opt/java1.6/bin/java</executable>
-						-->
-						<!--
-							Should an error reported by a checker cause a build failure,
-							or only be logged as a warning? -->
-						<failOnError>false</failOnError>
-						<!--
-							A list of patterns to include, in teh standard maven syntax.
-							defaults to **/*.java
-						<includes>
-							<include>**/*.java</include>
-						</includes>
-						-->
-						<!--
-							A list of patterns to exclude, in the standard maven syntax;
-							defaults to an empty list.
-						<includes>
-							<include>com.foobar/**/*.java</include>
-						</includes>
-						-->
-						<!--
-							Additional Parameters passed to the JSR308 java compiler
-						<javacParams>-Alint</javacParams>
-						-->
-						<!--
-							Additional parameters to pass to the forked JVM
-						<javaParams>-Xdebug</javaParams>
-						-->
-						<!--
-							Versions of checkers to use; defaults to the current newest vesrion
-						<checkersVersion>1.4.0</checkersVersion>
-						-->
-
-					</configuration>
 				</executions>
+				<configuration>
+					<!-- required configuration options -->
+					<!-- a list of processors to run -->
+					<processors>
+						<processor>checkers.nullness.NullnessChecker</processor>
+						<processor>checkers.interning.InterningChecker</processor>
+						<processor>checkers.lock.LockChecker</processor>
+						<processor>checkers.fenum.FenumChecker</processor>
+						<processor>checkers.tainting.TaintingChecker</processor>
+						<processor>checkers.regex.RegexChecker</processor>
+						<processor>checkers.propkey.PropertyKeyChecker</processor>
+						<processor>checkers.i18n.I18nChecker</processor>
+						<processor>checkers.compilermsgs.CompilerMessagesChecker</processor>
+						<processor>checkers.signature.SignatureChecker</processor>
+						<processor>checkers.units.UnitsChecker</processor>
+						<processor>checkers.Linear.LinearChecker</processor>
+						<processor>checkers.igj.IGJChecker</processor>
+						<processor>checkers.javari.JavariChecker</processor>
+						<processor>checkers.basic.BasicChecker</processor>
+					</processors>
+
+					<!-- Other optional configuration -->
+					<!--
+						Full path to a java executable that should be used to 
+						create the forked JVM
+					<executable>/opt/java1.6/bin/java</executable>
+					-->
+					<!--
+						Should an error reported by a checker cause a build failure,
+						or only be logged as a warning? -->
+					<failOnError>false</failOnError>
+					<!--
+						A list of patterns to include, in teh standard maven syntax.
+						defaults to **/*.java
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+					-->
+					<!--
+						A list of patterns to exclude, in the standard maven syntax;
+						defaults to an empty list.
+					<includes>
+						<include>com.foobar/**/*.java</include>
+					</includes>
+					-->
+					<!--
+						Additional Parameters passed to the JSR308 java compiler
+					<javacParams>-Alint</javacParams>
+					-->
+					<!--
+						Additional parameters to pass to the forked JVM
+					<javaParams>-Xdebug</javaParams>
+					-->
+					<!--
+						Versions of checkers to use; defaults to the current newest vesrion
+					<checkersVersion>1.4.0</checkersVersion>
+					-->
+
+				</configuration>
 			</plugin>
 
 			<plugin>
