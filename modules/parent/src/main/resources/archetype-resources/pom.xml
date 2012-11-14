@@ -609,6 +609,10 @@
 		<outputDirectory>./target/site</outputDirectory>
 		<plugins>
 			<plugin>
+				<!-- http://code.google.com/p/testability-explorer/wiki/Readme
+					see available options by running
+					mvn help:describe -Dplugin=com.google.testability-explorer:maven2-testability-plugin -Ddetail
+					-->
 				<groupId>com.google.testability-explorer</groupId>
 				<artifactId>maven-testability-plugin</artifactId>
 				<version>1.3.2-SNAPSHOT</version>
