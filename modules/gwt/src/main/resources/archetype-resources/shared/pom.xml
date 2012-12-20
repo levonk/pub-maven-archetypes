@@ -1,0 +1,139 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>${groupId}</groupId>
+	<artifactId>client-gwt</artifactId>
+	<version>${project.version}</version>
+	<packaging>jar</packaging>
+	<name>Shared client/server module</name>
+
+	<parent>
+		<groupId>${goupId}</groupId>
+		<artifactId>${artifactId}</artifactId>
+		<version>${project.version}</version>
+	</parent>
+
+
+
+	<dependencies>
+		<!-- If you have arbitrary jar that want to deploy into a central maven repository you can use
+			 %mvn deploy:deploy-file -DgroupId=levonk-imported -DartifactId=levonk-package \
+					-Dversion=1-levonkVersion -Dpackaging=jar -Dfile=otherjar.jar \
+					-Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
+		-->
+		<!-- Static Analysis -->
+		<dependency>
+			<!-- groupId>net.sourceforge.findbugs</groupId -->
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>annotations</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<!-- groupId>net.sourceforge.findbugs</groupId -->
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+
+		<dependency>
+			<!-- Apache -->
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<!-- Unit Testing Dependencies -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>nl.jqno.equalsverifier</groupId>
+			<artifactId>equalsverifier</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Mock framework -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Logging Dependencies -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback.extensions</groupId>
+			<artifactId>logback-ext-jackson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback.extensions</groupId>
+			<artifactId>logback-ext-json-classic</artifactId>
+		</dependency>
+		<dependency>
+			<!-- A JaxB mapper is necessary for logback-ext-json-classic
+				you can use others though, it doesn't have to be jackson -->
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slfj</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+
+		<!-- Code Generation Dependencies -->
+		<dependency>
+			<!-- http://pojomatic.sourceforge.net/pojomatic/index.html -->
+			<groupId>org.pojomatic</groupId>
+			<artifactId>pojomatic</artifactId>
+		</dependency>
+
+		<dependency>
+			<!-- Lombok requires Javac v1.6 compiler or higher -->
+			<!-- You still need to doubleclick the lombok.jar
+				 file downloaded by maven to install lombok into
+				 eclipse.
+			-->
+			<!-- http://projectlombok.org/features/index.html -->
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+	</dependencies>
+
+
+	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
+</project>
