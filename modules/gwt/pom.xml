@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.levonk</groupId>
-	<artifactId>mvn-archetype-parent</artifactId>
+	<artifactId>mvn-archetype-gwt</artifactId>
 	<version>1.0</version>
 	<packaging>maven-archetype</packaging>
 

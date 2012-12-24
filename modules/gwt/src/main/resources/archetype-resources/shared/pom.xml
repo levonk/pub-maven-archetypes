@@ -135,5 +135,16 @@
 	</dependencies>
 
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+			</plugin>
+		</plugins>
+	</build>
+
+
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </project>

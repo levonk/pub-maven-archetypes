@@ -8,7 +8,7 @@
 	<artifactId>${artifactId}</artifactId>
 	<name>${project.name}</name>
 	<url>${project.url}</url>
-	<version>${version}</version>
+	<version>${project.version}</version>
 	<packaging>pom</packaging>
 
 
@@ -18,9 +18,10 @@
 	</organization>
 
 	<modules>
-		<!--
-		<module>myModule</module>
-		-->
+		<module>client-gwt</module>
+		<module>server-gwt</module>
+		<module>server-logic</module>
+		<module>shared</module>
 	</modules>
 
 	<repositories>
@@ -267,6 +268,28 @@
 				<groupId>com.google.gwt</groupId>
 				<artifactId>gwt-user</artifactId>
 				<version>${gwt.version}</version>
+			</dependency>
+
+			<!-- self-referencing Dependencies -->
+			<dependency>
+				<groupId>${groupId}</groupId>
+				<artifactId>client-gwt</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${groupId}</groupId>
+				<artifactId>server-gwt</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${groupId}</groupId>
+				<artifactId>server-logic</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${groupId}</groupId>
+				<artifactId>shared</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 
 		</dependencies>
@@ -626,12 +649,46 @@
 
 		<pluginManagement>
 			<plugins>
+				<!-- source packager -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.2.1</version>
+				</plugin>
+
 				<!-- android plugin -->
 				<plugin>
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>maven-android-plugin</artifactId>
 					<version>${android.version}</version>
 				</plugin>
+				<!-- gwt web plugin -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>gwt-maven-plugin</artifactId>
+					<version>${gwt.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.jasig.maven</groupId>
+					<artifactId>sass-maven-plugin</artifactId>
+					<version>${sass.version}</version>
+					<executions>
+						<execution>
+							<id>sassProcessSource</id>
+							<phase>package</phase>
+							<goals>
+								<goal>update-stylesheets</goal>
+							</goals>
+							<configuration>
+								<!-- TODO must point this to the proper place -->
+								<baseOutputDirectory>${project.build.directory}/sassOutput</baseOutputDirectory>
+								<buildDirectory>${project.build.directory}</buildDirectory>
+								<sassSourceDirectory>${basedir}/src/site/resources/sass/scss</sassSourceDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin> 
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -693,6 +750,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.6</java.version>
+		<project.version>1.0</project.version>
 		<!-- version block -->
 		<android.version>2.8.4</android.version>
 		<antrun.version>1.7</antrun.version>
@@ -721,6 +779,7 @@
 		<mockito.version>1.9.5-rc1</mockito.version>
 		<pmd.version>2.7.1</pmd.version>
 		<pojomatic.version>1.0</pojomatic.version>
+		<sass.version>1.0.0</sass.version>
 		<site.version>3.2</site.version>
 		<slf4j.version>1.7.1</slf4j.version> <!-- as of 2012-09-17 -->
 		<spring.version>3.1.2.RELEASE</spring.version>
