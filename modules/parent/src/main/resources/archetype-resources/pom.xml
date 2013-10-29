@@ -493,6 +493,11 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>${cobertura.version}</version>
+				<configuration>
+					<formats>
+						<format>xml</format>
+					</formats>
+				</configuration>
 			</plugin>
 
 			<plugin>
@@ -606,6 +611,45 @@
 			</plugin>
 		</plugins>
 
+		<!-- testing -->
+		<!--
+			Tests are divided into three categories:
+			1. Very fast Unit Tests (default) - run often in development
+			2. slower integration but self-sufficent tests (Spring context and/or H2 Database - run before commits
+			3. real integration tests (requiring remote servers) - run by CI Server
+			
+			You can seperate tests by adding the annotation
+			@Test(groups = "self-integration")
+			or
+			@Test(groups = "full-integration")
+			http://www.javacodegeeks.com/2012/04/testng-and-maven-configuration-guide.html
+		-->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>${surefire.version}</version>
+			<executions>
+				<execution>
+					<!-- Override default configuration, which treats all tests the same -->
+					<id>default-test</id>
+					<configuration>
+						<excludedGroups>self-integration,full-integration</excludedGroups>
+					</configuration>
+				</execution>
+				<execution>
+					<id>self-integration</id>
+					<phase>integration-test</phase>
+					<goals>
+						<goal>test</test>
+					</goals>
+					<configuration>
+						<groups>self-integration</groups>
+						<reportsDirectory>target/self-integration-surefire-reports/</reportsDirectory>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+
 		<pluginManagement>
 			<plugins>
 				<!-- android plugin -->
@@ -639,7 +683,7 @@
 			<!-- testing -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>${surefire.version}</version>
 			</plugin>
 			<!-- static analysis -->
@@ -659,7 +703,6 @@
 				<version>${cobertura.version}</version>
 				<configuration>
 					<formats>
-						<format>html</format>
 						<format>xml</format>
 					</formats>
 				</configuration>
