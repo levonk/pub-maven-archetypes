@@ -17,6 +17,9 @@
 	<modules>
 		<module>parent</module>
 		<module>jax-rs</module>
+                <module>jpa</module>
+                <module>executable-jar</module>
+                <module>restful-service</module>
 	</modules>
 
 	<properties>
