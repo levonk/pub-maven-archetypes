@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="basic" partial="false">
+<requiredProperties>
+    <requiredProperty key="project_name">
+      <defaultValue>${artifactId}</defaultValue>
+    </requiredProperty>
+
+    <requiredProperty key="project_url">
+    	<defaultValue>none</defaultValue>
+    </requiredProperty>
+	<requiredProperty key="project_organization">
+    	<defaultValue>Jing</defaultValue>
+    </requiredProperty>
+    
+  </requiredProperties>
+  
+
+  <modules>
+    <module id="common" dir="common" name="common" >
+
+    <fileSets>
+      <fileSet filtered="true" packaged="true">
+          <directory>src/main/java</directory>
+          <includes>
+            <include>**/*.java</include>
+          </includes>
+      </fileSet>
+      <fileSet filtered="true" packaged="true">
+       <directory>src/main/resources</directory>
+       <includes>
+          <include>**/*.properties</include>
+       </includes>
+      </fileSet>
+      <fileSet filtered="true" packaged="true">
+        <directory>src/test/java</directory>
+        <includes>
+          <include>**/*.java</include>
+        </includes>
+      </fileSet>
+      <fileSet filtered="true" packaged="true">
+        <directory>src/test/resources</directory>
+          <includes>
+            <include>**/*.properties</include>
+          </includes>
+      </fileSet>
+     </fileSets>
+    </module>
+  </modules>
+</archetype-descriptor>
