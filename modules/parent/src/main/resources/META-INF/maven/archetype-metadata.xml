@@ -9,7 +9,7 @@
     	<defaultValue>none</defaultValue>
     </requiredProperty>
 	<requiredProperty key="project_organization">
-    	<defaultValue>Jing</defaultValue>
+    	<defaultValue>Archetype</defaultValue>
     </requiredProperty>
     
   </requiredProperties>
