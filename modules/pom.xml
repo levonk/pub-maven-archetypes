@@ -15,6 +15,8 @@
                 <module>executable-jar</module>
                 <module>jpa</module>
                 <module>restful-service</module>
+                <module>webapp</module>
+                <module>couchdb-design</module>
                 <module>codequality</module>
 	</modules>
 
