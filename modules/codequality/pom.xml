@@ -2,113 +2,129 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
 		xmlns="http://maven.apache.org/POM/4.0.0"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<!--
-	<parent>
-		<groupId>com.levonk</groupId>
-		<artifactId>modules</artifactId>
-		<version>1.0</version>
-	</parent>
-	-->
-	<groupId>com.levonk</groupId>
+	
+        <groupId>com.archetype</groupId>
 	<artifactId>codequality</artifactId>
-	<version>1.0.9</version>
+	<version>1.0.0</version>
 	<name>Code Quality Tools</name>
 	<modelVersion>4.0.0</modelVersion>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<build>
+                <sourceDirectory>src/main/</sourceDirectory>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
+		        <!-- NOTE: We don't need a groupId specification because the group is
+		             org.apache.maven.plugins ...which is assumed by default.
+		         -->
+		        <artifactId>maven-assembly-plugin</artifactId>
+		        <version>2.4</version>
+		        <configuration>
+		          <formats><format>dir</format></formats>
+		          <descriptorRefs>
+		            <descriptorRef>src</descriptorRef>
+		          </descriptorRefs>
+		        </configuration>
+		        <executions>
+				    <execution>
+				      <id>build-distros</id>
+				      <phase>package</phase>
+				      <goals>
+				        <goal>single</goal>
+				      </goals>
+				    </execution>
+				</executions>
+		    </plugin>
+		    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <id>regex-property</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>regex-property</goal>
+            </goals>
+            <configuration>
+              <name>url</name>
+              <value>${altDeploymentRepository}</value>
+              <regex>^(.*)::(.*)::(.*)$</regex>
+              <replacement>$3</replacement>
+              <failIfNoMatch>false</failIfNoMatch>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+
+      
+
+		    <plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+   			<artifactId>maven-deploy-plugin</artifactId>
+    		<version>2.6</version>
+    		<executions>
+				<execution>
+				    <id>build-checkstyle</id>
+				    <phase>deploy</phase>
+				    <goals>
+				    	<goal>deploy-file</goal>
+				    </goals>
+				    <configuration>
+				        <repositoryId>artifactory</repositoryId>
+				        <packaging>xml</packaging>
+				        <generatePom>true</generatePom>
+				        <url>${url}</url>
+				        <file>target/codequality-1.0.0-src/codequality-${project.version}/src/main/checkstyle/checkstyle.xml</file>
+						<artifactId>checkstyle</artifactId>
+				        <groupId>${project.groupId}.${project.artifactId}</groupId>
+				        <version>${project.version}</version>
+				    </configuration>
+				</execution>
+				<execution>
+				    <id>build-findBug</id>
+				    <phase>deploy</phase>
+				    <goals>
+				    	<goal>deploy-file</goal>
+				    </goals>
+				    <configuration>
+				        <repositoryId>artifactory</repositoryId>
+				        <packaging>xml</packaging>
+				        <generatePom>true</generatePom>
+				        <url>${url}</url>
+				        <file>target/codequality-1.0.0-src/codequality-${project.version}/src/main/findbugs/FindBugsFilter.xml</file>
+						<artifactId>FindBugFilter</artifactId>
+				        <groupId>${project.groupId}.${project.artifactId}</groupId>
+				        <version>${project.version}</version>
+				    </configuration>
+				</execution>
+				<execution>
+				    <id>build-pmd</id>
+				    <phase>deploy</phase>
+				    <goals>
+				    	<goal>deploy-file</goal>
+				    </goals>
+				    <configuration>
+				        <repositoryId>artifactory</repositoryId>
+				        <packaging>xml</packaging>
+				        <generatePom>true</generatePom>
+				        <url>${url}</url>
+				        <file>target/codequality-1.0.0-src/codequality-${project.version}/src/main/pmd/pmd.xml</file>
+						<artifactId>pmd</artifactId>
+				        <groupId>${project.groupId}.${project.artifactId}</groupId>
+				        <version>${project.version}</version>
+				    </configuration>
+				</execution>
+			</executions>
+   
+    
+</plugin>
+
+
+
+
 		</plugins>
 	</build>
-	<!--
-	<dependencies>
-		<dependency>
-			<groupId>
-				com.mebigfatguy
-			</groupId>
-			<artifactId>
-				fb-contrib
-			</artifactId>
-			<version>
-				4.6.1
-			</version>
-		</dependency>
-	</dependencies>
-	-->
 
-	<distributionManagement>
-		<!-- move this block to parent -->
-		<repository>
-			<id>repo</id>
-			<url>https://github.com/levonk/pub-maven-repo/raw/master/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshot-repo</id>
-			<url>https://github.com/levonk/pub-maven-repo/raw/master/releases</url>
-		</snapshotRepository>
-	</distributionManagement>
-
-	<repositories>
-		<repository>
-			<releases>
-				<enabled>
-					true
-				</enabled>
-				<updatePolicy>
-					always
-				</updatePolicy>
-				<checksumPolicy>
-					warn
-				</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>
-					true
-				</enabled>
-				<updatePolicy>
-					never
-				</updatePolicy>
-				<checksumPolicy>
-					fail
-				</checksumPolicy>
-			</snapshots>
-			<id>
-				fb
-			</id>
-			<url>
-				http://master.dl.sourceforge.net/project/fb-contrib/repo
-			</url>
-			<layout>
-				default
-			</layout>
-		</repository>
-	</repositories>
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </project>
