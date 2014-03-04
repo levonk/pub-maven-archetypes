@@ -9,13 +9,6 @@
 	<url>none</url>
 	<packaging>jar</packaging>
 
-
-	<organization>
-		<name>The Walt Disney Studios</name>
-		<url>none</url>
-	</organization>
-
-
         <dependencies>
 
             <dependency>
