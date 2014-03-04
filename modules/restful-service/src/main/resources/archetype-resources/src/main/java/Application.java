@@ -21,20 +21,4 @@ public class Application {
 
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(
-            ObjectPostProcessor<Object> objectPostProcessor) throws Exception {
-
-        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> builder = new AuthenticationManagerBuilder(
-                objectPostProcessor).inMemoryAuthentication();
-
-        builder
-                .withUser("client")
-                .password("secret")
-                .roles( "USER" );
-
-        return builder.and().build();
-
-    }
-
 }
