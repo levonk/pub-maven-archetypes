@@ -1,12 +1,17 @@
 package ${groupId}.${artifactId};
 
 
-public class App{
+/**
+ * Sample common class.
+ */
+public class App {
 
-
-    public String hello(String name)  {
-        return "Hello " + name+"!";
-    }
-
-
+	/**
+	 * sample common method.
+	 * @param name
+	 * @return  Hello String.
+	 */
+	public final String hello(final String name) {
+		return "Hello " + name + "!";
+	}
 }
