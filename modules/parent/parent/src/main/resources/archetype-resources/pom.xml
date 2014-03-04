@@ -67,9 +67,9 @@
 		</repository>
 
 		<repository>
-			<id>com.levonk</id>
+			<id>com.archetype</id>
 			<name>LevonK Repository</name>
-			<url>http://raw.github.com/levonk/pub-maven-repo/master/release</url>
+			<url>http://raw.github.com.archetype/pub-maven-repo/master/release</url>
 		</repository>
 		<repository>
             <id>checker-framework-repo</id>
@@ -106,9 +106,9 @@
         </pluginRepository>
 
 		<pluginRepository>
-			<id>com.levonk</id>
+			<id>com.archetype</id>
 			<name>LevonK Repository</name>
-			<url>http://raw.github.com/levonk/pub-maven-repo/master/release</url>
+			<url>http://raw.github.com.archetype/pub-maven-repo/master/release</url>
 		</pluginRepository>
 		<pluginRepository>
             <id>spring-snapshots</id>
@@ -681,7 +681,7 @@
 				</configuration>
 				<dependencies>
 					<dependency>
-						<groupId>com.levonk</groupId>
+						<groupId>com.archetype</groupId>
 						<artifactId>codequality</artifactId>
 						<version>${codequality.version}</version>
 					</dependency>

@@ -10,7 +10,7 @@
 	<packaging>war</packaging>
 
 	<parent>
-		<groupId>com.levonk</groupId>
+		<groupId>com.archetype</groupId>
 		<artifactId>modules</artifactId>
 		<version>1.0.0</version>
 	</parent>
