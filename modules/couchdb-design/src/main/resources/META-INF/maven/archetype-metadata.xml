@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="basic" partial="false">
+<requiredProperties>
+    <requiredProperty key="project_name">
+      <defaultValue>${artifactId}</defaultValue>
+    </requiredProperty>
+
+    <requiredProperty key="project_url">
+    	<defaultValue>none</defaultValue>
+    </requiredProperty>
+	   <requiredProperty key="project_organization">
+    	<defaultValue>Jing</defaultValue>
+    </requiredProperty>
+    
+  </requiredProperties>
+  <fileSets>
+      <fileSet filtered="false" packaged="false">
+          <directory></directory>
+          <includes>
+            <include>readme.txt</include>
+          </includes>
+      </fileSet>
+      <fileSet filtered="false" packaged="false">
+          <directory>src/main/couchapp</directory>
+          <includes>
+            <include>**/*.js</include>
+          </includes>
+      </fileSet>
+      <fileSet filtered="false" packaged="false">
+        <directory>src/test/javascript</directory>
+        <includes>
+          <include>**/*.*</include>
+        </includes>
+      </fileSet>
+     </fileSets>
+</archetype-descriptor>
