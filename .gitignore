@@ -25,3 +25,7 @@ release.properties
 .iml
 workspace.xml
 tasks.xml
+
+#Droppings
+.DS_Store
+*.swp
