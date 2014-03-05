@@ -662,6 +662,27 @@
 			</plugin>
 
 			<plugin>
+				<groupId>com.soebes.maven.plugins.mlv</groupId>
+				<artifactId>maven-license-verifier-plugin</artifactId>
+				<version>${licenseVerifier.version}</version>
+				<executions>
+					<execution>
+						<id>license-verifier</id>
+						<goals>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.archetype</groupId>
+						<artifactId>licenses</artifactId>
+						<version>${licenses.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>${eclipse.version}</version>
@@ -916,6 +937,8 @@
 		<jacoco.version>0.6.4.201312101107</jacoco.version>
 		<jalopy.version>1.0-alpha-1</jalopy.version>
 		<javadoc.version>2.9.1</javadoc.version>
+		<licenseVerifier.version>0.4</licenseVerifier.version>
+		<licenses.version>1.0</licenses.version>
 		<logback.version>1.0.13</logback.version>
 		<logback-jackson.version>0.1.2</logback-jackson.version>
 		<lombok.version>1.12.5</lombok.version>
