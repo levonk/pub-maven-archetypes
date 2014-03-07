@@ -211,7 +211,6 @@
                 </exclusion>
             </exclusions>
 		</dependency>
-
 		<dependency>
 			<!-- A JaxB mapper is necessary for logback-ext-json-classic
 				you can use others though, it doesn't have to be jackson -->
@@ -219,6 +218,12 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>${jackson1.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<!-- https://github.com/logstash/logstash-logback-encoder -->
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>${logstash.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -941,6 +946,7 @@
 		<licenses.version>1.0</licenses.version>
 		<logback.version>1.0.13</logback.version>
 		<logback-jackson.version>0.1.2</logback-jackson.version>
+		<logstash.version>2.4</logstash.version>
 		<lombok.version>1.12.5</lombok.version>
 		<mockito.version>1.9.5</mockito.version>
 		<pmd.version>3.0.1</pmd.version>
