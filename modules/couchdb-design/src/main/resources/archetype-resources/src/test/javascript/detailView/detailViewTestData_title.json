@@ -1,0 +1,41 @@
+{
+   "_id": "e65fb223-f831-41c4-9746-3401583aad1b",
+   "_rev": "2-4179f414c7d7a0cec78f6c7bb61813c6",
+   "doc_type": "title",
+   "name": "M3iWRUkgzvl4T9OWZHDs4ENh3ti7mw1OVDI0bKIZGw9iZIgteE",
+   "RadarGroupID": 0,
+   "type": "Series",
+   "umid": "OkP43snQAanjmEZAvmLd",
+   "mpmProduct": "00906640725342253453",
+   "countryOfOrigin": "US",
+   "theatricalReleaseDAte": 1382138591426,
+   "Genre": "Animation",
+   "keywords": [
+       "AAAAAA",
+       "5q1Wk9",
+       "r04sD4",
+       "hT5Myt",
+       "Gdmsus"
+   ],
+   "cast": [
+       {
+           "name": "jTVPYwNR",
+           "role": "ZQi5y9f9"
+       },
+       {
+           "name": "j9TQFOh6",
+           "role": "X5oYJ2z3"
+       }
+   ],
+   "crew": [
+       {
+           "name": "Fjf3DIp5",
+           "job": "w5OaHkAT"
+       }
+   ],
+   "ratingSystem": "MPAA",
+   "rating": "G",
+   "path": [
+       "e65fb223-f831-41c4-9746-3401583aad1b"
+   ]
+}

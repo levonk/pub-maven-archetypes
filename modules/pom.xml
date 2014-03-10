@@ -5,18 +5,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.levonk.build</groupId>
+	<groupId>com.archetype</groupId>
 	<artifactId>maven-archetypes</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0</version>
 
-	<organization>
-		<name>LevonK</name>
-	</organization>
-
 	<modules>
 		<module>parent</module>
-		<module>jax-rs</module>
+		<module>executable-jar</module>
+		<module>jpa</module>
+		<module>restful-service</module>
+		<module>webapp</module>
+		<module>couchdb-design</module>
+		<module>codequality</module>
+		<module>licenses</module>
 	</modules>
 
 	<properties>

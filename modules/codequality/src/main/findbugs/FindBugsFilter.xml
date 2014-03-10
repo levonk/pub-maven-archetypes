@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+	<!-- Any filters added to this file must have a comment with justification! -->
+	<Match>
+		<!-- NM_CONFUSING - Ignore, I use this to differentiate static vs. dynamic -->
+		<Bug pattern="NM_CONFUSING" />
+	</Match>
+	<!--
+	<Match>
+		<Class name="foo.bar.clazz" />
+		<Class name="~foo\.bar\.clazz[0-9]" />
+		<Method name="gobblyglob" />
+		<Bug pattern="NM_CONFUSING" />
+	</Match>
+	-->
+	
+	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
+</FindBugsFilter>

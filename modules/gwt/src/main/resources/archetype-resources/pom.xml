@@ -61,9 +61,9 @@
 		</repository>
 
 		<repository>
-			<id>com.levonk</id>
+			<id>com.archetype</id>
 			<name>LevonK Repository</name>
-			<url>http://raw.github.com/levonk/pub-maven-repo/master/release</url>
+			<url>http://raw.github.com.archetype/pub-maven-repo/master/release</url>
 		</repository>
 	</repositories>
 
@@ -81,9 +81,9 @@
 		</pluginRepository>
 
 		<pluginRepository>
-			<id>com.levonk</id>
+			<id>com.archetype</id>
 			<name>LevonK Repository</name>
-			<url>http://raw.github.com/levonk/pub-maven-repo/master/release</url>
+			<url>http://raw.github.com.archetype/pub-maven-repo/master/release</url>
 		</pluginRepository>
 	</pluginRepositories>
 
@@ -432,7 +432,7 @@
 				<version>${checkstyle.version}</version>
 				<dependencies>
 					<dependency>
-						<groupId>com.levonk</groupId>
+						<groupId>com.archetype</groupId>
 						<artifactId>codequality</artifactId>
 						<version>${codequality.version}</version>
 					</dependency>
@@ -490,7 +490,7 @@
 				<version>${pmd.version}</version>
 				<dependencies>
 					<dependency>
-						<groupId>com.levonk</groupId>
+						<groupId>com.archetype</groupId>
 						<artifactId>codequality</artifactId>
 						<version>${codequality.version}</version>
 					</dependency>
@@ -510,7 +510,7 @@
 				<version>${findbugs.version}</version>
 				<dependencies>
 					<dependency>
-						<groupId>com.levonk</groupId>
+						<groupId>com.archetype</groupId>
 						<artifactId>codequality</artifactId>
 						<version>${codequality.version}</version>
 					</dependency>
@@ -584,7 +584,7 @@
 				</configuration>
 				<dependencies>
 					<dependency>
-						<groupId>com.levonk</groupId>
+						<groupId>com.archetype</groupId>
 						<artifactId>codequality</artifactId>
 						<version>${codequality.version}</version>
 					</dependency>

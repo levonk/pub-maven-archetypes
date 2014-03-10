@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Server ruleset"
+		xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+		xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+		xmlns="http://pmd.sf.net/ruleset/1.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<description>LevonK Ruleset</description>
+
+	<!--
+		Need rules for:
+		- no null arguments in method calls, assign to final var properly named
+	-->
+
+	<rule ref="rulesets/android.xml" />
+	<rule ref="rulesets/basic.xml">
+		<!-- Prefer Readability with sub ifs -->
+		<exclude name="CollapsibleIfStatements" />
+		<!-- Bring this back when they fix the rule that's broken on version 2.7.1 -->
+		<exclude name="UselessOperationOnImmutable" />
+	</rule>
+
+	<rule ref="rulesets/basic-jsf.xml" />
+	<rule ref="rulesets/basic-jsp.xml" />
+	<rule ref="rulesets/braces.xml" />
+	<rule ref="rulesets/clone.xml" />
+	<rule ref="rulesets/codesize.xml">
+		<!-- introduce with parameters below -->
+		<exclude name="NPathComplexity" />
+	</rule>
+	<rule ref="rulesets/codesize.xml/NPathComplexity">
+		<properties>
+			<property name="minimum" value="200"/>
+		</properties>
+	</rule>
+
+	<rule ref="rulesets/controversial.xml">
+		<!-- If you don't one will be created for you -->
+		<exclude name="AtLeastOneConstructor" />
+		<!-- This is a good pattern to remove magic numbers and null args -->
+		<exclude name="AvoidFinalLocalVariable" />
+		<!-- should have been defined as a constant elsewhere -->
+		<exclude name="AvoidLiteralsInIfCondition" />
+		<!-- sometimes this is what's needed, if somebody puts in the extra work... -->
+		<exclude name="AvoidUsingVolatile" />
+		<!-- readability is more important -->
+		<exclude name="BooleanInversion" />
+		<!-- An empty constructor is fine especially if you're changing access -->
+		<exclude name="UnnecessaryConstructor" />
+		<!-- readability is more important -->
+		<exclude name="UnnecessaryParentheses" />
+		<!-- Allow garbage collection -->
+		<exclude name="NullAssignment" />
+		<!-- readability can be sometimes improved, nice to have, but don't enforce -->
+		<exclude name="OnlyOneReturn" />
+	</rule>
+
+	<rule ref="rulesets/controversial.xml/AtLeastOneConstructor">
+		<!-- If you don't one will be created for you -->
+		<priority>4</priority>
+	</rule>
+
+	<rule ref="rulesets/controversial.xml/AvoidLiteralsInIfCondition">
+		<!-- This should have been defined as a final elsewhere -->
+		<priority>4</priority>
+	</rule>
+
+	<rule ref="rulesets/coupling.xml">
+		<!-- introduce with parameters below -->
+		<!--
+		<exclude name="ExcessiveImports" />
+		-->
+	</rule>
+<!--
+	<rule ref="rulesets/coupling.xml/ExcessiveImports">
+		<properties>
+-->
+			<!-- default is 30, services can require lots -->
+<!--
+			<property name="minimum" value="45"/>
+		</properties>
+	</rule>
+-->
+	<rule ref="rulesets/design.xml">
+		<!-- introduce with parameters below -->
+		<exclude name="CompareObjectsWithEquals" />
+		<!-- introduce with parameters below -->
+		<exclude name="EqualsNull" />
+		<!-- introduce with parameters below -->
+		<exclude name="TooFewBranchesForASwitchStatement" />
+	</rule>
+	<rule ref="rulesets/design.xml/CompareObjectsWithEquals">
+		<priority>1</priority>
+	</rule>
+	<rule ref="rulesets/design.xml/EqualsNull">
+		<priority>1</priority>
+	</rule>
+	<rule ref="rulesets/design.xml/TooFewBranchesForASwitchStatement">
+		<priority>4</priority>
+	</rule>
+
+	<rule ref="rulesets/finalizers.xml" />
+	<rule ref="rulesets/imports.xml">
+		<!-- introduce with parameters below -->
+		<exclude name="TooManyStaticImports" />
+	</rule>
+	<rule ref="rulesets/imports.xml/TooManyStaticImports">
+		<properties>
+			<!-- useful summary of methods -->
+			<property name="maximumStaticImports" value="0" />
+		</properties>
+	</rule>
+
+	<rule ref="rulesets/j2ee.xml" />
+	<rule ref="rulesets/javabeans.xml">
+		<!--
+			The following rule should probably be disabled
+			when using PMD earlier than 2.3.  The following
+			research was performed by David Stewart: The rule
+			is BeanMembersShouldSerialize which complains when
+			it finds a non-transient, non-static member that
+			does not have accessors.  The problem was raised
+			that when using IOC there are often no accessors
+			leading to many incorrect error notifications.
+			I finally managed to get round to looking at it
+			and it appears that the rule is more stringent in
+			that any member variable must be marked transient
+			if both a setter and getter are not supplied.
+			Some work was done on this recently (June),
+			unfortunately it was after the last PMD release
+			(4.2.2) and therefore has not been released
+			yet. (The Eclipse plugin is still on the previous
+			release – 4.2.1).  The work done uses the
+			@SuppressWarnings(“serial”) annotation. This
+			annotation is used to suppress compiler warnings
+			about serialisation and specifically the absence
+			of SerialVersionUID on a serialisable class. Since
+			PMD has not been released with this ‘fix’
+			(http://sourceforge.net/tracker/index.php?func=detail&aid=1998185&group_id=56262&atid=479921)
+			I have not been able to verify that this picks
+			up the IOC issues.  To this end I would suggest
+			that the BeanMembersShouldSerialize should be
+			reclassified to a warning or even information
+			and could be revisited on the next release of PMD.
+		-->
+		<exclude name="BeanMembersShouldSerialize" />
+	</rule>
+	<rule ref="rulesets/junit.xml" />
+	<rule ref="rulesets/logging-jakarta-commons.xml" />
+	<rule ref="rulesets/logging-java.xml" />
+	<rule ref="rulesets/migrating.xml" />
+	<rule ref="rulesets/migrating_to_13.xml" />
+	<rule ref="rulesets/migrating_to_14.xml" />
+	<rule ref="rulesets/migrating_to_15.xml" />
+	<rule ref="rulesets/naming.xml">
+		<!-- Use this xpath rule
+		//ClassOrInterfaceDeclaration
+		 [@Abstract='true' and @Interface='false']
+		  [not (ends-with(@Image,'ABC'))]
+		-->
+		<exclude name="AbstractNaming" />
+		<exclude name="AvoidFieldNameMatchingMethodName" />
+		<!-- use enough to get the message across -->
+		<exclude name="LongVariable" />
+		<exclude name="ShortVariable" />
+		<exclude name="ShortMethodName" />
+		<!-- introduce with parameters below -->
+		<exclude name="VariableNamingConventions" />
+	</rule>
+	<rule ref="rulesets/naming.xml/VariableNamingConventions">
+		<properties>
+			<property name="memberPrefix" value="_" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/optimizations.xml">
+		<exclude name="AvoidInstantiatingObjectsInLoops" />
+		<exclude name="LocalVariableCouldBeFinal" />
+		<exclude name="MethodArgumentCouldBeFinal" />
+	</rule>
+	<rule ref="rulesets/strictexception.xml" />
+	<rule ref="rulesets/strings.xml">
+		<!-- introduce with parameters below -->
+		<exclude name="AvoidDuplicateLiterals" />
+	</rule>
+	<rule ref="rulesets/strings.xml/AvoidDuplicateLiterals">
+		<properties>
+			<property name="skipAnnotations" value="true" />
+		</properties>
+	</rule>
+	<rule ref="rulesets/sunsecure.xml" /> 
+	<rule ref="rulesets/typeresolution.xml" />
+	<rule ref="rulesets/unusedcode.xml" />
+
+	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
+</ruleset>
+
