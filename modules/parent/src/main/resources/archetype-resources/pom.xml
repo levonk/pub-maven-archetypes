@@ -128,6 +128,14 @@
 					-Dversion=1-levonkVersion -Dpackaging=jar -Dfile=otherjar.jar \
 					-Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
 		-->
+
+		<dependency>
+			<groupId>com.google.auto.value</groupId>
+			<artifactId>auto-value</artifactId>
+			<version>${autovalue.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- Static Analysis -->
 		<dependency>
 			<!-- groupId>net.sourceforge.findbugs</groupId -->
@@ -959,6 +967,7 @@
 		<java.version>1.7</java.version>
 		<!-- version block -->
 		<android.version>2.8.4</android.version>
+		<autovalue.version>1.0-rc1</autovalue.version>
 		<antrun.version>1.7</antrun.version>
 		<codequality.version>1.0.9</codequality.version>
 		<checkers.version>1.7.2</checkers.version> <!-- as of 2014-01-22 -->
@@ -996,7 +1005,7 @@
 		<source.version>2.2.1</source.version> <!-- as of 2014-03-11 -->
 		<surefire.version>2.16</surefire.version> <!-- as of 2011-04-06 -->
 		<testng.version>6.8.7</testng.version>
-		<start-class>com.disney.jarvis.springboot.App</start-class>
+        <start-class>com.disney.jarvis.springboot.App</start-class>
 	</properties>
 
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
