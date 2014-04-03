@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurers
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan
+@ComponentScan("${groupId}.configuration")
 public class Application {
 
     public static void main(String[] args) throws Exception {
