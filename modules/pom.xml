@@ -19,6 +19,7 @@
 		<module>couchdb-design</module>
 		<module>codequality</module>
 		<module>licenses</module>
+                <module>spring-batch</module>
 	</modules>
 
 	<properties>
