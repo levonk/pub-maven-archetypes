@@ -692,6 +692,8 @@
 					</execution>
 				</executions>
 				<configuration>
+                                        <minmemory>128m</minmemory>
+          				<maxmemory>1g</maxmemory>
 					<docletArtifact>
 						<!-- http://code.google.com/p/doclava/wiki/GettingStarted -->
 						<groupId>com.google.doclava</groupId>
@@ -710,26 +712,9 @@
 						-hdf project.name "${project.name}"
 						-d ${project.build.directory}/apidocs
 					</additionalparam>
-
-					<!-- Apple's JVM sometimes requires more memory -->
-					<additionalJOptions>-J-Xmx1024m</additionalJOptions>
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>${gpg.version}</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 
 			<plugin>
 				<groupId>com.soebes.maven.plugins.mlv</groupId>
@@ -1029,6 +1014,36 @@
 		<testng.version>6.8.7</testng.version>
         <start-class>com.disney.jarvis.springboot.App</start-class>
 	</properties>
+        
+         <profiles>
+  		<profile>
+    		<id>signed-release</id>
+    		<activation>
+      		   <property>
+        		<name>performRelease</name>
+        		<value>true</value>
+      		   </property>
+    		</activation>
+    		<build>
+      		<plugins>
+        		<plugin>
+            			<groupId>org.apache.maven.plugins</groupId>
+            			<artifactId>maven-gpg-plugin</artifactId>
+            			<version>${gpg.version}</version>
+            			<executions>
+                			<execution>
+                    				<id>sign-artifacts</id>
+                    				<phase>verify</phase>
+                    				<goals>
+                        				<goal>sign</goal>
+                    				</goals>
+               			 	</execution>
+            			</executions>
+        		</plugin>
+      		</plugins>
+    		</build>
+  	</profile>
+</profiles>
 
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </project>
