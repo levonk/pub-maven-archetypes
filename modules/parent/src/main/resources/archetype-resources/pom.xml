@@ -457,7 +457,7 @@
 					<meminitial>128m</meminitial>
 					<maxmem>512m</maxmem>
 				</configuration>
-				<depdendencies>
+				<dependencies>
 					<dependency>
 						<groupId>com.google.errorprone</groupId>
 						<artifactId>error_prone_core</artifactId>
@@ -473,7 +473,7 @@
 						<artifactId>plexus-compiler-javac-errorprone</artifactId>
 						<version>${plexusCompiler.version}</version>
 					</dependency>
-				</depdendencies>
+				</dependencies>
 			</plugin>
 
 			<plugin>
