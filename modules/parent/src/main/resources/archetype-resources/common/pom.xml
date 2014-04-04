@@ -8,7 +8,7 @@
 	<name>${artifactId}</name>
 	<url>none</url>
 	<packaging>jar</packaging>
-
+        <version>${project.parent.version}</version>
 
     <dependencies>
 
