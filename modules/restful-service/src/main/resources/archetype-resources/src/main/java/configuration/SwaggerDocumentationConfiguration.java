@@ -1,4 +1,4 @@
-package com.disney.jarvis.api.configuration;
+package ${groupId}.configuration;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;

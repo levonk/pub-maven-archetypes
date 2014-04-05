@@ -24,10 +24,9 @@
 	</organization>
 
 	<modules>
-		<!--
-		<module>myModule</module>
-		-->
-	</modules>
+		<module>common</module>
+    	<module>build-tools</module>
+   	</modules>
 
 	<repositories>
 		<repository>
@@ -66,12 +65,7 @@
 			<url>http://oss.sonatype.org/content/repositories/releases/</url>
 		</repository>
 
-		<repository>
-			<id>com.archetype</id>
-			<name>LevonK Repository</name>
-			<url>http://raw.github.com.archetype/pub-maven-repo/master/release</url>
-		</repository>
-		<repository>
+        <repository>
             <id>checker-framework-repo</id>
             <url>http://types.cs.washington.edu/m2-repo</url>
         </repository>
@@ -101,16 +95,6 @@
 		</pluginRepository>
 
 		<pluginRepository>
-            <id>checker-framework-repo</id>
-            <url>http://types.cs.washington.edu/m2-repo</url>
-        </pluginRepository>
-
-		<pluginRepository>
-			<id>com.archetype</id>
-			<name>LevonK Repository</name>
-			<url>http://raw.github.com.archetype/pub-maven-repo/master/release</url>
-		</pluginRepository>
-		<pluginRepository>
             <id>spring-snapshots</id>
             <url>http://repo.spring.io/snapshot</url>
         </pluginRepository>
@@ -118,7 +102,10 @@
             <id>spring-milestones</id>
             <url>http://repo.spring.io/milestone</url>
         </pluginRepository>
-  
+ <pluginRepository>
+            <id>checker-framework-repo</id>
+            <url>http://types.cs.washington.edu/m2-repo</url>
+        </pluginRepository> 
 	</pluginRepositories>
 
 	<dependencies>
@@ -240,12 +227,9 @@
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-
 		<dependency>
-			<!-- Annotations for the standard checkers:
-				nullness, interning, mutability -->
-			<groupId>types.checkers</groupId>
-            <artifactId>checkers-quals</artifactId>
+			<groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
 			<version>${checkers.version}</version>
 		</dependency>
 	</dependencies>
@@ -400,8 +384,12 @@
 				<version>${lombok.version}</version>
 				<scope>provided</scope>
 			</dependency>
-
-
+                        <!-- checker framework-->
+                        <dependency>
+            			<groupId>org.checkerframework</groupId>
+            			<artifactId>checker-framework</artifactId>
+            			<version>1.8.0</version>
+        		</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -445,7 +433,6 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${compiler.version}</version>
 				<configuration>
-					<compilerId>javac-with-errorprone</compilerId>
 					<forceJavacCompilerUse>true</forceJavacCompilerUse>
 					<showDeprecation>true</showDeprecation>
 					<showWarnings>true</showWarnings>
@@ -498,96 +485,68 @@
 			</plugin>
 
 			<!-- Static Analysis Tools -->
-			<plugin>
-				<groupId>types.checkers</groupId>
-                <artifactId>checkers-maven-plugin</artifactId>
-				<version>${checkers.version}</version>
-				<executions>
-					<execution>
-						<!-- run the checkers after compilation; this
-							can also be any later phase -->
-						<phase>process-classes</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<!-- required configuration options -->
-					<!-- a list of processors to run -->
-					<processors>
-						<processor>checkers.nullness.NullnessChecker</processor>
-						<processor>checkers.interning.InterningChecker</processor>
-						<processor>checkers.lock.LockChecker</processor>
-						<processor>checkers.fenum.FenumChecker</processor>
-						<processor>checkers.tainting.TaintingChecker</processor>
-						<processor>checkers.regex.RegexChecker</processor>
-						<processor>checkers.propkey.PropertyKeyChecker</processor>
-						<processor>checkers.i18n.I18nChecker</processor>
-						<processor>checkers.compilermsgs.CompilerMessagesChecker</processor>
-						<processor>checkers.signature.SignatureChecker</processor>
-						<processor>checkers.units.UnitsChecker</processor>
-						<processor>checkers.Linear.LinearChecker</processor>
-						<processor>checkers.igj.IGJChecker</processor>
-						<processor>checkers.javari.JavariChecker</processor>
-						<processor>checkers.basic.BasicChecker</processor>
-					</processors>
-
-					<!-- Other optional configuration -->
-					<!--
-						Full path to a java executable that should be used to
-						create the forked JVM
-					<executable>/opt/java1.6/bin/java</executable>
-					-->
-					<!--
-						Should an error reported by a checker cause a build failure,
-						or only be logged as a warning? -->
-					<failOnError>false</failOnError>
-					<!--
-						A list of patterns to include, in teh standard maven syntax.
-						defaults to **/*.java
-					<includes>
-						<include>**/*.java</include>
-					</includes>
-					-->
-					<!--
-						A list of patterns to exclude, in the standard maven syntax;
-						defaults to an empty list.
-					<includes>
-						<include>com.foobar/**/*.java</include>
-					</includes>
-					-->
-					<!--
-						Additional Parameters passed to the JSR308 java compiler
-					<javacParams>-Alint</javacParams>
-					-->
-					<!--
-						Additional parameters to pass to the forked JVM
-					<javaParams>-Xdebug</javaParams>
-					-->
-					<!--
-						Versions of checkers to use; defaults to the current newest vesrion
-					<checkersVersion>1.4.0</checkersVersion>
-					-->
-
-				</configuration>
-			</plugin>
+		<plugin>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checkerframework-maven-plugin</artifactId>
+                <version>1.8.0</version>
+                <executions>
+			<execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <processors>
+                        <processor>org.checkerframework.checker.nullness.NullnessChecker</processor>
+                        <processor>org.checkerframework.checker.interning.InterningChecker</processor>
+                        <processor>org.checkerframework.checker.lock.LockChecker</processor>
+                        <processor>org.checkerframework.checker.fenum.FenumChecker</processor>
+                        <processor>org.checkerframework.checker.tainting.TaintingChecker</processor>
+                        <processor>org.checkerframework.checker.regex.RegexChecker</processor>
+                        <processor>org.checkerframework.checker.propkey.PropertyKeyChecker</processor>
+                        <processor>org.checkerframework.checker.i18n.I18nChecker</processor>
+                        <processor>org.checkerframework.checker.compilermsgs.CompilerMessagesChecker</processor>
+                        <processor>org.checkerframework.checker.signature.SignatureChecker</processor>
+                        <processor>org.checkerframework.checker.units.UnitsChecker</processor>
+                        <processor>org.checkerframework.checker.linear.LinearChecker</processor>
+                        <processor>org.checkerframework.checker.igj.IGJChecker</processor>
+                        <processor>org.checkerframework.checker.javari.JavariChecker</processor>
+                        <processor>org.checkerframework.common.subtyping.SubtypingChecker</processor>
+                    </processors>
+                    <skip>true</skip>
+                    <failOnError>true</failOnError>
+                    <!-- additional parameters passed to the Java compiler -->
+                    <javacParams>-Aquals</javacParams>
+                    <javacParams>-AprintErrorStack</javacParams>
+                    <!-- additional parameters to pass to the forked JVM -->
+                    <javaParams>-Xdebug</javaParams>
+                </configuration>
+              </plugin>
 
 			<plugin>
-				<!-- Checkstyle -->
+					
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>${checkstyle.version}</version>
+                <configuration>
+          				<configLocation>codequality/checkstyle.xml</configLocation>
+          				<headerLocation>LICENSE.txt</headerLocation>
+        		</configuration>
+                <dependencies>
+          				<dependency>
+            				<groupId>com.disney.studio.recommander.tools.build</groupId>
+            				<artifactId>build-tools</artifactId>
+            				<version>1.0</version>
+          				</dependency>
+        			</dependencies>
 				<executions>
 					<execution>
 					<phase>validate</phase>
     				<goals><goal>checkstyle</goal></goals>
   					</execution>
   				</executions>
-				<configuration>
-					<configLocation>https://github.com/pwangjing/mavenrepository/raw/master/releases/com/archetype/codequality/checkstyle/1.0.0/checkstyle-1.0.0.xml</configLocation>
-					<linkXRef>false</linkXRef>
-				</configuration>
 			</plugin>
 
 			<plugin>
@@ -678,44 +637,6 @@
 					</formats>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${javadoc.version}</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-                                        <minmemory>128m</minmemory>
-          				<maxmemory>1g</maxmemory>
-					<docletArtifact>
-						<!-- http://code.google.com/p/doclava/wiki/GettingStarted -->
-						<groupId>com.google.doclava</groupId>
-						<artifactId>doclava</artifactId>
-						<version>${doclava.version}</version>
-					</docletArtifact>
-					<doclet>com.google.doclava.Doclava</doclet>
-					<!--
-						bootclasspath required by Sun's JVM
-					-->
-					<bootclasspath>${sun.boot.class.path}</bootclasspath>
-                    <useStandardDocletOptions>false</useStandardDocletOptions>
-					<additionalparam>
-						-quiet
-						-federate JDK http://doclava.googlecode.com/svn/static/api/openjdk-6.xml
-						-hdf project.name "${project.name}"
-						-d ${project.build.directory}/apidocs
-					</additionalparam>
-				</configuration>
-			</plugin>
-
-
 			<plugin>
 				<groupId>com.soebes.maven.plugins.mlv</groupId>
 				<artifactId>maven-license-verifier-plugin</artifactId>
@@ -925,6 +846,7 @@
 				<artifactId>maven-testability-plugin</artifactId>
 				<version>1.3.3</version>
 			</plugin>
+
 			<!-- doc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -942,6 +864,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>${checkstyle.version}</version>
+                                <configuration>
+          				<configLocation>codequality/checkstyle.xml</configLocation>
+          				<headerLocation>LICENSE.txt</headerLocation>
+        </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -969,20 +895,20 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.7</java.version>
+		<java.version>1.6</java.version>
 		<!-- version block -->
 		<android.version>2.8.4</android.version>
 		<autovalue.version>1.0-rc1</autovalue.version>
 		<antrun.version>1.7</antrun.version>
 		<codequality.version>1.0.9</codequality.version>
-		<checkers.version>1.7.2</checkers.version> <!-- as of 2014-01-22 -->
+		<checkers.version>1.8.0</checkers.version> 
  		<spring-boot.version>1.0.0.RC1</spring-boot.version>
 		<checkstyle.version>2.9.1</checkstyle.version>
 		<cobertura.version>2.5.2</cobertura.version>
 		<commonslang3.version>3.2.1</commonslang3.version>
 		<compiler.version>3.1</compiler.version>
 		<dependency.version>2.8</dependency.version>
-		<doclava.version>2.9.1</doclava.version>
+		<doclava.version>1.0.6</doclava.version>
 		<eclipse.version>2.9</eclipse.version>
 		<enforcer.version>1.3.1</enforcer.version>
 		<equalsverifier.version>1.3.1</equalsverifier.version>
@@ -1014,35 +940,63 @@
 		<testng.version>6.8.7</testng.version>
         <start-class>com.disney.jarvis.springboot.App</start-class>
 	</properties>
-        
-         <profiles>
-  		<profile>
-    		<id>signed-release</id>
-    		<activation>
-      		   <property>
-        		<name>performRelease</name>
-        		<value>true</value>
-      		   </property>
-    		</activation>
-    		<build>
-      		<plugins>
-        		<plugin>
-            			<groupId>org.apache.maven.plugins</groupId>
-            			<artifactId>maven-gpg-plugin</artifactId>
-            			<version>${gpg.version}</version>
-            			<executions>
-                			<execution>
-                    				<id>sign-artifacts</id>
-                    				<phase>verify</phase>
-                    				<goals>
-                        				<goal>sign</goal>
-                    				</goals>
-               			 	</execution>
-            			</executions>
-        		</plugin>
-      		</plugins>
-    		</build>
-  	</profile>
+   
+        <profiles>
+  <profile>
+    <id>signed-release</id>
+    <activation>
+      <property>
+        <name>performRelease</name>
+        <value>true</value>
+      </property>
+    </activation>
+    <build>
+      <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${gpg.version}</version>
+            <executions>
+                <execution>
+                    <id>sign-artifacts</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>sign</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+<profile>
+    <id>doclava</id>
+    <activation>
+      <jdk>1.6</jdk>
+    </activation>
+    <reporting>
+      <plugins>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <bootclasspath>${sun.boot.class.path}</bootclasspath>
+            <doclet>com.google.doclava.Doclava</doclet>
+            <useStandardDocletOptions>false</useStandardDocletOptions>
+            <docletArtifact>
+              <groupId>com.google.doclava</groupId>
+              <artifactId>doclava</artifactId>
+              <version>1.0.5</version>
+            </docletArtifact>
+            <additionalparam>
+             -hdf project.name "${project.name}"
+            -d ${project.build.directory}/apidocs
+            -quiet
+            </additionalparam>
+          </configuration>
+        </plugin>
+      </plugins>
+    </reporting>
+  </profile>
 </profiles>
 
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
