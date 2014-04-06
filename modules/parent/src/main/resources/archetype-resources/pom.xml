@@ -87,14 +87,14 @@
         </repository>
 	</repositories>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>maven</id>
-			<name>Standard Maven repo</name>
-			<url>http://repo1.maven.org/maven2</url>
-		</pluginRepository>
+	 <pluginRepositories>
+        <pluginRepository>
+            <id>maven</id>
+            <name>Standard Maven repo</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </pluginRepository>
 
-		<pluginRepository>
+        <pluginRepository>
             <id>spring-snapshots</id>
             <url>http://repo.spring.io/snapshot</url>
         </pluginRepository>
@@ -102,154 +102,147 @@
             <id>spring-milestones</id>
             <url>http://repo.spring.io/milestone</url>
         </pluginRepository>
- <pluginRepository>
+        <pluginRepository>
             <id>checker-framework-repo</id>
             <url>http://types.cs.washington.edu/m2-repo</url>
-        </pluginRepository> 
-	</pluginRepositories>
+        </pluginRepository>
+    </pluginRepositories>
 
-	<dependencies>
+    <dependencies>
 
-		<!-- If you have arbitrary jar that want to deploy into a central maven repository you can use
-			 %mvn deploy:deploy-file -DgroupId=levonk-imported -DartifactId=levonk-package \
-					-Dversion=1-levonkVersion -Dpackaging=jar -Dfile=otherjar.jar \
-					-Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
-		-->
+        <!-- If you have arbitrary jar that want to deploy into a central maven repository you can use
+             %mvn deploy:deploy-file -DgroupId=levonk-imported -DartifactId=levonk-package \
+                    -Dversion=1-levonkVersion -Dpackaging=jar -Dfile=otherjar.jar \
+                    -Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
+        -->
 
-		<dependency>
-			<!-- https://docs.google.com/document/d/1THRUCIzIPRqFSHb67pHV8KMbo55HphSXqlQcIx9oUiI/edit -->
-			<groupId>com.google.auto.value</groupId>
-			<artifactId>auto-value</artifactId>
-			<version>${autovalue.version}</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <!-- https://docs.google.com/document/d/1THRUCIzIPRqFSHb67pHV8KMbo55HphSXqlQcIx9oUiI/edit -->
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value</artifactId>
+            <version>${autovalue.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- Static Analysis -->
-		<dependency>
-			<!-- groupId>net.sourceforge.findbugs</groupId -->
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>annotations</artifactId>
-			<version>${findbugs-extra.version}</version>
-			<scope>compile</scope>
-		</dependency>
+        <!-- Static Analysis -->
+        <dependency>
+            <!-- groupId>net.sourceforge.findbugs</groupId -->
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${findbugs-extra.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
-		<dependency>
-			<!-- groupId>net.sourceforge.findbugs</groupId -->
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305</artifactId>
-			<version>${findbugs-extra.version}</version>
-			<scope>compile</scope>
-		</dependency>
+        <dependency>
+            <!-- groupId>net.sourceforge.findbugs</groupId -->
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>${findbugs-extra.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
 
 
-			<!-- Apache
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commonslang3.version}</version>
-		</dependency>
-         -->
-		<!-- Unit Testing Dependencies -->
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>${testng.version}</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <!-- Apache
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commonslang3.version}</version>
+    </dependency>
+     -->
+        <!-- Unit Testing Dependencies -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>nl.jqno.equalsverifier</groupId>
-			<artifactId>equalsverifier</artifactId>
-			<version>${equalsverifier.version}</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>nl.jqno.equalsverifier</groupId>
+            <artifactId>equalsverifier</artifactId>
+            <version>${equalsverifier.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-		<!-- Mock framework -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>${mockito.version}</version>
-			<scope>test</scope>
-		</dependency>
+        <!-- Mock framework -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-		<!-- Logging Dependencies -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-			<scope>runtime</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback.contrib</groupId>
-			<artifactId>logback-jackson</artifactId>
-			<version>${logback-jackson.version}</version>
-			<exclusions>
+        <!-- Logging Dependencies -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback.contrib</groupId>
+            <artifactId>logback-jackson</artifactId>
+            <version>${logback-jackson.version}</version>
+            <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
                     <artifactId>logback-core</artifactId>
                 </exclusion>
             </exclusions>
-		</dependency>
-		<dependency>
-			<!-- A JaxB mapper is necessary for logback-ext-json-classic
-				you can use others though, it doesn't have to be jackson -->
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson1.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<!-- https://github.com/logstash/logstash-logback-encoder -->
-			<groupId>net.logstash.logback</groupId>
-			<artifactId>logstash-logback-encoder</artifactId>
-			<version>${logstash.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.checkerframework</groupId>
-                        <artifactId>checker-qual</artifactId>
-			<version>${checkers.version}</version>
-		</dependency>
-	</dependencies>
+        </dependency>
+        <dependency>
+            <!-- A JaxB mapper is necessary for logback-ext-json-classic
+                you can use others though, it doesn't have to be jackson -->
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson1.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <!-- https://github.com/logstash/logstash-logback-encoder -->
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+            <version>${checkers.version}</version>
+        </dependency>
+    </dependencies>
 
+    <dependencyManagement>
+        <dependencies>
 
-	<!--
-		Specify all the version numbers of all dependencies here so we don't
-		have to specify them in multiple children.
-		The parent will not force this dependency, but it will specify a
-		default version number
-	-->
-	<dependencyManagement>
-		<dependencies>
-
-			<!-- Add Cofoja Design By Contract lib when available -->
+            <!-- Add Cofoja Design By Contract lib when available -->
             <dependency>
-				<groupId>org.slfj</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>${slfj.version}</version>
-			</dependency>
+                <groupId>org.slfj</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slfj.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
@@ -263,234 +256,246 @@
                 </exclusions>
             </dependency>
 
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-actuator</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-amqp</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-aop</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-actuator</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-batch</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-data-jpa</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-integration</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-jdbc</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-jetty</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-log4j</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-mobile</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-redis</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-security</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-shell-remote</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-thymeleaf</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-tomcat</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-websocket</artifactId>
-				<version>${spring-boot.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-batch</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-integration</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jetty</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mobile</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-redis</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-shell-remote</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-tomcat</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-websocket</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commonslang.version}</version>
+            </dependency>
 
-			<!-- Code Generation Dependencies -->
-			<dependency>
-				<!-- http://pojomatic.sourceforge.net/pojomatic/index.html -->
-				<groupId>org.pojomatic</groupId>
-				<artifactId>pojomatic</artifactId>
-				<version>${pojomatic.version}</version>
-			</dependency>
+            <!-- Code Generation Dependencies -->
+            <dependency>
+                <!-- http://pojomatic.sourceforge.net/pojomatic/index.html -->
+                <groupId>org.pojomatic</groupId>
+                <artifactId>pojomatic</artifactId>
+                <version>${pojomatic.version}</version>
+            </dependency>
 
-			<dependency>
-				<!-- Lombok requires Javac v1.6 compiler or higher -->
-				<!-- You still need to doubleclick the lombok.jar
-					 file downloaded by maven to install lombok into
-					 eclipse.
-				-->
-				<!-- http://projectlombok.org/features/index.html -->
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>${lombok.version}</version>
-				<scope>provided</scope>
-			</dependency>
-                        <!-- checker framework-->
-                        <dependency>
-            			<groupId>org.checkerframework</groupId>
-            			<artifactId>checker-framework</artifactId>
-            			<version>1.8.0</version>
-        		</dependency>
-		</dependencies>
-	</dependencyManagement>
+            <dependency>
+                <!-- Lombok requires Javac v1.6 compiler or higher -->
+                <!-- You still need to doubleclick the lombok.jar
+                     file downloaded by maven to install lombok into
+                     eclipse.
+                -->
+                <!-- http://projectlombok.org/features/index.html -->
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- checker framework-->
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checker-framework</artifactId>
+                <version>1.8.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-	<build>
-		<plugins>
-			<!-- General Settings -->
+
+    <!--
+        Specify all the version numbers of all dependencies here so we don't
+        have to specify them in multiple children.
+        The parent will not force this dependency, but it will specify a
+        default version number
+    -->
+    <build>
+        <plugins>
+            <!-- General Settings -->
             <!-- Code Coverage -->
             <!-- Don't forget to add a Jenkins
                 "Post-build Actions->Folders or files
                 containing JaCoCo XML reports:"
                     **/target/site/jacoco/jacoco*.xml
               -->
-			<plugin>
+            <plugin>
 
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco.version}</version>
-				<configuration>
-                            <dataFile>${project.build.directory}/jacoco.exec</dataFile>
-                             <outputDirectory>${project.build.directory}/jacoco-ut</outputDirectory>
-                        </configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <configuration>
+                    <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                    <outputDirectory>${project.build.directory}/jacoco-ut</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-			<plugin>
-				<!-- compiler version -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${compiler.version}</version>
-				<configuration>
-					<forceJavacCompilerUse>true</forceJavacCompilerUse>
-					<showDeprecation>true</showDeprecation>
-					<showWarnings>true</showWarnings>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<optimize>true</optimize>
-					<debug>true</debug>
-					<fork>true</fork>
-					<meminitial>128m</meminitial>
-					<maxmem>512m</maxmem>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.google.errorprone</groupId>
-						<artifactId>error_prone_core</artifactId>
-						<version>${errorprone.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-compiler-javac</artifactId>
-						<version>${plexusCompiler.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-compiler-javac-errorprone</artifactId>
-						<version>${plexusCompiler.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+            <plugin>
+                <!-- compiler version -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.version}</version>
+                <configuration>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <optimize>true</optimize>
+                    <debug>true</debug>
+                    <fork>true</fork>
+                    <meminitial>128m</meminitial>
+                    <maxmem>512m</maxmem>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.errorprone</groupId>
+                        <artifactId>error_prone_core</artifactId>
+                        <version>${errorprone.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-javac</artifactId>
+                        <version>${plexusCompiler.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-javac-errorprone</artifactId>
+                        <version>${plexusCompiler.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
 
-			<plugin>
-				<!-- compiler version -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>${site.version}</version>
-			</plugin>
+            <plugin>
+                <!-- compiler version -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${site.version}</version>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>${source.version}</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${source.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-			<!-- Static Analysis Tools -->
-		<plugin>
+            <!-- Static Analysis Tools -->
+            <plugin>
                 <groupId>org.checkerframework</groupId>
                 <artifactId>checkerframework-maven-plugin</artifactId>
                 <version>1.8.0</version>
                 <executions>
-			<execution>
+                    <execution>
                         <phase>process-classes</phase>
                         <goals>
                             <goal>check</goal>
@@ -523,296 +528,298 @@
                     <!-- additional parameters to pass to the forked JVM -->
                     <javaParams>-Xdebug</javaParams>
                 </configuration>
-              </plugin>
+            </plugin>
 
-			<plugin>
-					
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${checkstyle.version}</version>
+            <plugin>
+
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.version}</version>
                 <configuration>
-          				<configLocation>codequality/checkstyle.xml</configLocation>
-          				<headerLocation>LICENSE.txt</headerLocation>
-        		</configuration>
+                    <configLocation>codequality/checkstyle.xml</configLocation>
+                    <headerLocation>LICENSE.txt</headerLocation>
+                </configuration>
                 <dependencies>
-          				<dependency>
-            				<groupId>com.disney.studio.recommander.tools.build</groupId>
-            				<artifactId>build-tools</artifactId>
-            				<version>1.0</version>
-          				</dependency>
-        			</dependencies>
-				<executions>
-					<execution>
-					<phase>validate</phase>
-    				<goals><goal>checkstyle</goal></goals>
-  					</execution>
-  				</executions>
-			</plugin>
+                    <dependency>
+                        <groupId>com.disney.studio.recommander.tools.build</groupId>
+                        <artifactId>build-tools</artifactId>
+                        <version>1.0</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>${enforcer.version}</version>
-				<executions>
-					<execution>
-						<id>enforce-banned-dependencies</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<fail>true</fail>
-							<rules>
-								<bannedDependencies>
-									<searchTransitive>true</searchTransitive>
-									<excludes>
-										<exclude>aspectj:aspectj*</exclude>
-										<exclude>commons-lang</exclude>
-										<exclude>commons-logging</exclude>
-										<exclude>hsqldb:hsqldb</exclude>
-										<exclude>javassist:javassist</exclude>
-										<exclude>junit:junit</exclude>
-										<exclude>log4j:log4j</exclude>
-										<exclude>org.slf4j:1.5*</exclude>
-										<exclude>org.springframework:2.*</exclude>
-										<exclude>org.springframework:3.0.*</exclude>
-									</excludes>
-								</bannedDependencies>
-								<DependencyConvergence/>
-								<requireMavenVersion>
-									<version>[3.0.3,)</version>
-								</requireMavenVersion>
-								<requireJavaVersion>
-									<version>${java.version}</version>
-								</requireJavaVersion>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${enforcer.version}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-banned-dependencies</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <fail>true</fail>
+                            <rules>
+                                <bannedDependencies>
+                                    <searchTransitive>true</searchTransitive>
+                                    <excludes>
+                                        <exclude>aspectj:aspectj*</exclude>
+                                        <exclude>commons-logging</exclude>
+                                        <exclude>hsqldb:hsqldb</exclude>
+                                        <exclude>javassist:javassist</exclude>
+                                        <exclude>junit:junit</exclude>
+                                        <exclude>log4j:log4j</exclude>
+                                        <exclude>org.slf4j:1.5*</exclude>
+                                        <exclude>org.springframework:2.*</exclude>
+                                        <exclude>org.springframework:3.0.*</exclude>
+                                    </excludes>
+                                </bannedDependencies>
+                                <DependencyConvergence/>
+                                <requireMavenVersion>
+                                    <version>[3.0.3,)</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>${java.version}</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-			<plugin>
-				<!-- PMD -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${pmd.version}</version>
-				<configuration>
-					<rulesets>
-						<ruleset>https://github.com/pwangjing/mavenrepository/raw/master/releases/com/archetype/codequality/pmd/1.0.0/pmd-1.0.0.xml</ruleset>
-					</rulesets>
-					<targetJdk>${java.version}</targetJdk>
-					<linkXRef>false</linkXRef>
-				</configuration>
-			</plugin>
+            <plugin>
+                <!-- PMD -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.version}</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>
+                            https://github.com/pwangjing/mavenrepository/raw/master/releases/com/archetype/codequality/pmd/1.0.0/pmd-1.0.0.xml
+                        </ruleset>
+                    </rulesets>
+                    <targetJdk>${java.version}</targetJdk>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+            </plugin>
 
-			<plugin>
-				<!-- Findbugs -->
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${findbugs.version}</version>
-				
-				<configuration>
-					<excludeFilterFile>https://github.com/pwangjing/mavenrepository/raw/master/releases/com/archetype/codequality/FindBugFilter/1.0.0/FindBugFilter-1.0.0.xml</excludeFilterFile>
-					<threshold>Low</threshold>
-				</configuration>
-			</plugin>
+            <plugin>
+                <!-- Findbugs -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+
+                <configuration>
+                    <excludeFilterFile>
+                        https://github.com/pwangjing/mavenrepository/raw/master/releases/com/archetype/codequality/FindBugFilter/1.0.0/FindBugFilter-1.0.0.xml
+                    </excludeFilterFile>
+                    <threshold>Low</threshold>
+                </configuration>
+            </plugin>
 
 
-
-			<plugin>
-				<!--
-					Goals:
-					cobertura:check
-					cobertura:clean
-					cobertura:dump-datafile
-					cobertura:instrument
-					cobertura:cobertura
-				-->
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>${cobertura.version}</version>
-				<configuration>
+            <plugin>
+                <!--
+                    Goals:
+                    cobertura:check
+                    cobertura:clean
+                    cobertura:dump-datafile
+                    cobertura:instrument
+                    cobertura:cobertura
+                -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${cobertura.version}</version>
+                <configuration>
                     <check/>
-					<formats>
-						<format>xml</format>
-					</formats>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.soebes.maven.plugins.mlv</groupId>
-				<artifactId>maven-license-verifier-plugin</artifactId>
-				<version>${licenseVerifier.version}</version>
-				<executions>
-					<execution>
-						<id>license-verifier</id>
-						<goals>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>com.archetype</groupId>
-						<artifactId>licenses</artifactId>
-						<version>${licenses.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+                    <formats>
+                        <format>xml</format>
+                    </formats>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.soebes.maven.plugins.mlv</groupId>
+                <artifactId>maven-license-verifier-plugin</artifactId>
+                <version>${licenseVerifier.version}</version>
+                <executions>
+                    <execution>
+                        <id>license-verifier</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.archetype</groupId>
+                        <artifactId>licenses</artifactId>
+                        <version>${licenses.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>${eclipse.version}</version>
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>${eclipse.version}</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jalopy-maven-plugin</artifactId>
-				<version>${jalopy.version}</version>
-				<configuration>
-					<convention>source-munge/jalopy.xml</convention>
-					<failOnError>false</failOnError>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.archetype</groupId>
-						<artifactId>codequality</artifactId>
-						<version>${codequality.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jalopy-maven-plugin</artifactId>
+                <version>${jalopy.version}</version>
+                <configuration>
+                    <convention>source-munge/jalopy.xml</convention>
+                    <failOnError>false</failOnError>
+                </configuration>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>${dependency.version}</version>
-				<executions>
-					<execution>
-					</execution>
-				</executions>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${dependency.version}</version>
+                <executions>
+                    <execution>
+                    </execution>
+                </executions>
+            </plugin>
 
-			<plugin>
-				<!-- lets get rid .class that are effected through
-				inheritance using ant -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>${antrun.version}</version>
-				<executions>
-					<!-- handle regular sources -->
-					<execution>
-						<id>depend-sources</id>
-						<phase>process-sources</phase>
-						<configuration>
-							<target>
-								<depend srcDir="${project.build.sourceDirectory}" destDir="${project.build.outputDirectory}" cache="${project.build.outputDirectory}"/>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-					<!-- handle test files -->
-					<execution>
-						<id>depend-test-sources</id>
-						<phase>process-test-sources</phase>
-						<configuration>
-							<target>
-								<depend srcDir="${project.build.testSourceDirectory}" destDir="${project.build.testOutputDirectory}" cache="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}"/>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+            <plugin>
+                <!-- lets get rid .class that are effected through
+                inheritance using ant -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${antrun.version}</version>
+                <executions>
+                    <!-- handle regular sources -->
+                    <execution>
+                        <id>depend-sources</id>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <target>
+                                <depend srcDir="${project.build.sourceDirectory}"
+                                        destDir="${project.build.outputDirectory}"
+                                        cache="${project.build.outputDirectory}"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- handle test files -->
+                    <execution>
+                        <id>depend-test-sources</id>
+                        <phase>process-test-sources</phase>
+                        <configuration>
+                            <target>
+                                <depend srcDir="${project.build.testSourceDirectory}"
+                                        destDir="${project.build.testOutputDirectory}"
+                                        cache="${project.build.testOutputDirectory}"
+                                        classpath="${project.build.outputDirectory}"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
 
-		<!-- testing -->
-		<!--
-			Tests are divided into three categories:
-			1. Very fast Unit Tests (default) - run often in development
-			2. slower integration but self-sufficent tests (Spring context and/or H2 Database - run before commits
-			3. real integration tests (requiring remote servers) - run by CI Server
+            <!-- testing -->
+            <!--
+                Tests are divided into three categories:
+                1. Very fast Unit Tests (default) - run often in development
+                2. slower integration but self-sufficent tests (Spring context and/or H2 Database - run before commits
+                3. real integration tests (requiring remote servers) - run by CI Server
 
-			You can seperate tests by adding the annotation
-			@Test(groups = "self-integration")
-			or
-			@Test(groups = "full-integration")
-			http://www.javacodegeeks.com/2012/04/testng-and-maven-configuration-guide.html
-		-->
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<version>${surefire.version}</version>
-			<executions>
-				<execution>
-					<!-- Override default configuration, which treats all tests the same -->
-					<id>default-test</id>
-					<configuration>
-						<excludedGroups>self-integration,full-integration</excludedGroups>
-					</configuration>
-				</execution>
-				<execution>
-					<id>self-integration</id>
-					<phase>integration-test</phase>
-					<goals>
-						<goal>test</goal>
-					</goals>
-					<configuration>
-						<groups>self-integration</groups>
-						<reportsDirectory>target/self-integration-surefire-reports/</reportsDirectory>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
-</plugins>
-		<pluginManagement>
-			<plugins>
-				<!-- android plugin -->
-				<plugin>
-					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-					<artifactId>maven-android-plugin</artifactId>
-					<version>${android.version}</version>
-				</plugin>
-				<plugin>
+                You can seperate tests by adding the annotation
+                @Test(groups = "self-integration")
+                or
+                @Test(groups = "full-integration")
+                http://www.javacodegeeks.com/2012/04/testng-and-maven-configuration-guide.html
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <executions>
+                    <execution>
+                        <!-- Override default configuration, which treats all tests the same -->
+                        <id>default-test</id>
+                        <configuration>
+                            <excludedGroups>self-integration,full-integration</excludedGroups>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>self-integration</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <groups>self-integration</groups>
+                            <reportsDirectory>target/self-integration-surefire-reports/</reportsDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!-- android plugin -->
+                <plugin>
+                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                    <artifactId>maven-android-plugin</artifactId>
+                    <version>${android.version}</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <configuration>
-                	    <archive>
-                    	    <manifest>
-                        	    <mainClass>${start-class}</mainClass>
+                        <archive>
+                            <manifest>
+                                <mainClass>${start-class}</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
                 </plugin>
-				<plugin>
+                <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <configuration>
                         <mainClass>${start-class}</mainClass>
                     </configuration>
                 </plugin>
-				<plugin>
-                	<groupId>pl.project13.maven</groupId>
+                <plugin>
+                    <groupId>pl.project13.maven</groupId>
                     <artifactId>git-commit-id-plugin</artifactId>
                     <version>2.1.7</version>
                     <executions>
-                    	<execution>
-                        	<goals>
-                            	<goal>revision</goal>
+                        <execution>
+                            <goals>
+                                <goal>revision</goal>
                             </goals>
                         </execution>
-                        </executions>
-                        <configuration>
-                                <verbose>true</verbose>
-                                <dateFormat>yyyy-MM-dd'T'HH:mm:ssZ</dateFormat>
-                                <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                                <generateGitPropertiesFilename>src/main/resources/git.properties</generateGitPropertiesFilename>
-                        </configuration>
+                    </executions>
+                    <configuration>
+                        <verbose>true</verbose>
+                        <dateFormat>yyyy-MM-dd'T'HH:mm:ssZ</dateFormat>
+                        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                        <generateGitPropertiesFilename>src/main/resources/git.properties</generateGitPropertiesFilename>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
@@ -830,174 +837,180 @@
                     </executions>
                 </plugin>
 
-			</plugins>
-		</pluginManagement>
-	</build>
-
-	<reporting>
-		<outputDirectory>./target/site</outputDirectory>
-		<plugins>
-			<plugin>
-				<!-- http://code.google.com/p/testability-explorer/wiki/Readme
-					see available options by running
-					mvn help:describe -Dplugin=com.google.testability-explorer:maven2-testability-plugin -Ddetail
-					-->
-				<groupId>com.google.testability-explorer</groupId>
-				<artifactId>maven-testability-plugin</artifactId>
-				<version>1.3.3</version>
-			</plugin>
-
-			<!-- doc -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${javadoc.version}</version>
-			</plugin>
-			<!-- testing -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>${surefire.version}</version>
-			</plugin>
-			<!-- static analysis -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${checkstyle.version}</version>
-                                <configuration>
-          				<configLocation>codequality/checkstyle.xml</configLocation>
-          				<headerLocation>LICENSE.txt</headerLocation>
-        </configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${pmd.version}</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>${cobertura.version}</version>
-				<configuration>
-					<formats>
-						<format>xml</format>
-					</formats>
-                    <check>          </check>
-                </configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>${findbugs.version}</version>
-			</plugin>
-		</plugins>
-	</reporting>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.6</java.version>
-		<!-- version block -->
-		<android.version>2.8.4</android.version>
-		<autovalue.version>1.0-rc1</autovalue.version>
-		<antrun.version>1.7</antrun.version>
-		<codequality.version>1.0.9</codequality.version>
-		<checkers.version>1.8.0</checkers.version> 
- 		<spring-boot.version>1.0.0.RC1</spring-boot.version>
-		<checkstyle.version>2.9.1</checkstyle.version>
-		<cobertura.version>2.5.2</cobertura.version>
-		<commonslang3.version>3.2.1</commonslang3.version>
-		<compiler.version>3.1</compiler.version>
-		<dependency.version>2.8</dependency.version>
-		<doclava.version>1.0.6</doclava.version>
-		<eclipse.version>2.9</eclipse.version>
-		<enforcer.version>1.3.1</enforcer.version>
-		<equalsverifier.version>1.3.1</equalsverifier.version>
-		<errorprone.version>1.1.1</errorprone.version>
-		<findbugs.version>2.5.2</findbugs.version>
-		<findbugs-extra.version>1.3.9</findbugs-extra.version>
-		<gpg.version>1.5</gpg.version> <!-- as of 2014-03-11 -->
-		<guava.version>16.0</guava.version>
-		<jackson1.version>1.9.13</jackson1.version>
-		<jacoco.version>0.6.4.201312101107</jacoco.version>
-		<jalopy.version>1.0-alpha-1</jalopy.version>
-		<javadoc.version>2.9.1</javadoc.version> <!-- as of 2014-03-11 -->
-		<licenseVerifier.version>0.4</licenseVerifier.version>
-		<licenses.version>1.0</licenses.version>
-		<logback.version>1.0.13</logback.version>
-		<logback-jackson.version>0.1.2</logback-jackson.version>
-		<logstash.version>2.4</logstash.version>
-		<lombok.version>1.12.5</lombok.version>
-		<mockito.version>1.9.5</mockito.version>
-		<plexusCompiler.version>2.3</plexusCompiler.version>
-		<pmd.version>3.0.1</pmd.version>
-		<pojomatic.version>1.0</pojomatic.version>
-		<proguard.version>2.0.6</proguard.version>
-		<proguardBase.version>4.9</proguardBase.version>
-		<site.version>3.2</site.version>
-		<slf4j.version>1.7.5</slf4j.version> <!-- as of 2012-09-17 -->
-		<source.version>2.2.1</source.version> <!-- as of 2014-03-11 -->
-		<surefire.version>2.16</surefire.version> <!-- as of 2011-04-06 -->
-		<testng.version>6.8.7</testng.version>
-        <start-class>com.disney.jarvis.springboot.App</start-class>
-	</properties>
-   
-        <profiles>
-  <profile>
-    <id>signed-release</id>
-    <activation>
-      <property>
-        <name>performRelease</name>
-        <value>true</value>
-      </property>
-    </activation>
-    <build>
-      <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>${gpg.version}</version>
-            <executions>
-                <execution>
-                    <id>sign-artifacts</id>
-                    <phase>verify</phase>
-                    <goals>
-                        <goal>sign</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-      </plugins>
+            </plugins>
+        </pluginManagement>
     </build>
-  </profile>
-<profile>
-    <id>doclava</id>
-    <activation>
-      <jdk>1.6</jdk>
-    </activation>
-    <reporting>
-      <plugins>
-        <plugin>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <configuration>
-            <bootclasspath>${sun.boot.class.path}</bootclasspath>
-            <doclet>com.google.doclava.Doclava</doclet>
-            <useStandardDocletOptions>false</useStandardDocletOptions>
-            <docletArtifact>
-              <groupId>com.google.doclava</groupId>
-              <artifactId>doclava</artifactId>
-              <version>1.0.5</version>
-            </docletArtifact>
-            <additionalparam>
-             -hdf project.name "${project.name}"
-            -d ${project.build.directory}/apidocs
-            -quiet
-            </additionalparam>
-          </configuration>
-        </plugin>
-      </plugins>
-    </reporting>
-  </profile>
-</profiles>
 
-	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
+    <reporting>
+        <outputDirectory>./target/site</outputDirectory>
+        <plugins>
+            <plugin>
+                <!-- http://code.google.com/p/testability-explorer/wiki/Readme
+                    see available options by running
+                    mvn help:describe -Dplugin=com.google.testability-explorer:maven2-testability-plugin -Ddetail
+                    -->
+                <groupId>com.google.testability-explorer</groupId>
+                <artifactId>maven-testability-plugin</artifactId>
+                <version>1.3.3</version>
+            </plugin>
+
+            <!-- doc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javadoc.version}</version>
+            </plugin>
+            <!-- testing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${surefire.version}</version>
+            </plugin>
+            <!-- static analysis -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.version}</version>
+                <configuration>
+                    <configLocation>codequality/checkstyle.xml</configLocation>
+                    <headerLocation>LICENSE.txt</headerLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${cobertura.version}</version>
+                <configuration>
+                    <formats>
+                        <format>xml</format>
+                    </formats>
+                    <check></check>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.6</java.version>
+        <!-- version block -->
+        <android.version>2.8.4</android.version>
+        <autovalue.version>1.0-rc1</autovalue.version>
+        <antrun.version>1.7</antrun.version>
+        <codequality.version>1.0.9</codequality.version>
+        <checkers.version>1.8.0</checkers.version>
+        <spring-boot.version>1.0.0.RC1</spring-boot.version>
+        <checkstyle.version>2.9.1</checkstyle.version>
+        <cobertura.version>2.5.2</cobertura.version>
+        <commonslang.version>2.6</commonslang.version>
+        <commonslang3.version>3.2.1</commonslang3.version>
+        <compiler.version>3.1</compiler.version>
+        <dependency.version>2.8</dependency.version>
+        <doclava.version>1.0.6</doclava.version>
+        <eclipse.version>2.9</eclipse.version>
+        <enforcer.version>1.3.1</enforcer.version>
+        <equalsverifier.version>1.3.1</equalsverifier.version>
+        <errorprone.version>1.1.1</errorprone.version>
+        <findbugs.version>2.5.2</findbugs.version>
+        <findbugs-extra.version>1.3.9</findbugs-extra.version>
+        <gpg.version>1.5</gpg.version>
+        <!-- as of 2014-03-11 -->
+        <guava.version>16.0</guava.version>
+        <jackson1.version>1.9.13</jackson1.version>
+        <jacoco.version>0.6.4.201312101107</jacoco.version>
+        <jalopy.version>1.0-alpha-1</jalopy.version>
+        <javadoc.version>2.9.1</javadoc.version>
+        <!-- as of 2014-03-11 -->
+        <licenseVerifier.version>0.4</licenseVerifier.version>
+        <licenses.version>1.0</licenses.version>
+        <logback.version>1.0.13</logback.version>
+        <logback-jackson.version>0.1.2</logback-jackson.version>
+        <logstash.version>2.4</logstash.version>
+        <lombok.version>1.12.5</lombok.version>
+        <mockito.version>1.9.5</mockito.version>
+        <plexusCompiler.version>2.3</plexusCompiler.version>
+        <pmd.version>3.0.1</pmd.version>
+        <pojomatic.version>1.0</pojomatic.version>
+        <proguard.version>2.0.6</proguard.version>
+        <proguardBase.version>4.9</proguardBase.version>
+        <site.version>3.2</site.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <!-- as of 2012-09-17 -->
+        <source.version>2.2.1</source.version>
+        <!-- as of 2014-03-11 -->
+        <surefire.version>2.16</surefire.version>
+        <!-- as of 2011-04-06 -->
+        <testng.version>6.8.7</testng.version>
+        <start-class>com.disney.jarvis.springboot.App</start-class>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>signed-release</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${gpg.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>doclava</id>
+            <activation>
+                <jdk>1.6</jdk>
+            </activation>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <bootclasspath>${sun.boot.class.path}</bootclasspath>
+                            <doclet>com.google.doclava.Doclava</doclet>
+                            <useStandardDocletOptions>false</useStandardDocletOptions>
+                            <docletArtifact>
+                                <groupId>com.google.doclava</groupId>
+                                <artifactId>doclava</artifactId>
+                                <version>1.0.5</version>
+                            </docletArtifact>
+                            <additionalparam>
+                                -hdf project.name "${project.name}"
+                                -d ${project.build.directory}/apidocs
+                                -quiet
+                            </additionalparam>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+    </profiles>
+
+    <!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </project>
