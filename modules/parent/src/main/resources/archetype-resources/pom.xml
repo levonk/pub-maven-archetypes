@@ -361,6 +361,11 @@
                 <artifactId>commons-lang</artifactId>
                 <version>${commonslang.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
+            </dependency>
 
             <!-- Code Generation Dependencies -->
             <dependency>
@@ -780,6 +785,36 @@
         </plugins>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.avro</groupId>
+                    <artifactId>avro-maven-plugin</artifactId>
+                    <version>${avro.version}</version>
+					<executions>
+						<execution>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>schema</goal>
+							</goals>
+							<configuration>
+								<sourceDirectory>
+									${project.basedir}/src/main/avro
+								</sourceDirectory>
+								<outputDirectory>
+									${project.build.directory}/generated-sources/avro
+								</outputDirectory>
+								<testSourceDirectory>
+									${project.basedir}/src/test/avro
+								</testSourceDirectory>
+								<testOutputDirectory>
+									${project.build.directory}/generated-test-sources/avro
+								</testOutputDirectory>
+								<fieldVisibility>
+									PRIVATE
+								</fieldVisibility>
+							</configuration>
+						</execution>
+					</executions>
+                </plugin>
                 <!-- android plugin -->
                 <plugin>
                     <groupId>com.jayway.maven.plugins.android.generation2</groupId>
@@ -907,6 +942,7 @@
         <android.version>2.8.4</android.version>
         <autovalue.version>1.0-rc1</autovalue.version>
         <antrun.version>1.7</antrun.version>
+        <avro.version>1.7.6</avro.version>
         <codequality.version>1.0.9</codequality.version>
         <checkers.version>1.8.0</checkers.version>
         <spring-boot.version>1.0.0.RC1</spring-boot.version>
