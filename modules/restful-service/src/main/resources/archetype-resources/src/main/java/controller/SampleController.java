@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @Controller
-@Api(value = "/sampleController", description = "Sample Contrller")
+@Api(value = "/sampleController", description = "Sample Controller")
 @RequestMapping("/sample")
 public class SampleController {
 
