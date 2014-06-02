@@ -52,11 +52,33 @@
      <bean id="transactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager"/>
     
     <bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
-  		<property name="jobRepository" ref="jobRepository" />
-	</bean>
- 
-	<bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
-   
+        <property name="jobRepository" ref="jobRepository" />
+    </bean>
+
+    
+	<batch:job-repository id="jobRepository"
+                  data-source="dataSource"
+                  transaction-manager="transactionManager"
+                  isolation-level-for-create="SERIALIZABLE"
+                  table-prefix="BATCH_"
+                />
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${batch.jdbc.driver}" />
+        <property name="url" value="${batch.jdbc.url}" />
+        <property name="username" value="${batch.jdbc.user}" />
+        <property name="password" value="${batch.jdbc.password}" />
+    </bean>
+
+
+    <!-- create job-meta tables automatically -->
+    <!-- set to true to create initial database -->
+    <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL" enabled="false">
+        <jdbc:script location="org/springframework/batch/core/schema-drop-mysql.sql" />
+        <jdbc:script location="org/springframework/batch/core/schema-mysql.sql" />
+    </jdbc:initialize-database>
+
+
 </bean>
     
 </beans>
