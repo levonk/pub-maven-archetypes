@@ -8,6 +8,7 @@ Plugins to install:
 - Checkstyle Plug-in
 - FindBugs Plug-in
 - Jenkins Covertura Plugin
+- OWASP Plugin https://wiki.jenkins-ci.org/display/JENKINS/OWASP+Dependency-Check+Plugin
 
 
 Under the Covertura configuration:
