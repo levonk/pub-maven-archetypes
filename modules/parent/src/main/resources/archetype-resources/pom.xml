@@ -807,6 +807,7 @@
 			<!-- https://www.owasp.org/index.php/OWASP_Dependency_Check -->
 			<groupId>org.owasp</groupId>
 			<artifactId>dependency-check-maven</artifactId>
+			<version>${owasp.version}</version>
 			<executions>
 				<execution>
 					<goals>
@@ -1005,6 +1006,7 @@
 		<logstash.version>2.4</logstash.version>
 		<lombok.version>1.12.5</lombok.version>
 		<mockito.version>1.9.5</mockito.version>
+		<owasp.version>1.2.8</owasp.version> <!-- as of 2015-02-15 -->
 		<pmd.version>3.0.1</pmd.version>
 		<pojomatic.version>1.0</pojomatic.version>
 		<site.version>3.2</site.version>
