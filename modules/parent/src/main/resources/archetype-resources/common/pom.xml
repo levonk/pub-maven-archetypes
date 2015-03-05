@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>${artifactId}</artifactId>
+    <artifactId>${project_name}</artifactId>
     <groupId>${groupId}</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
