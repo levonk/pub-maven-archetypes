@@ -25,7 +25,6 @@
 
 	<modules>
 		<module>common</module>
-    	<module>build-tools</module>
    	</modules>
 
 	<repositories>
@@ -568,7 +567,7 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId>com.disney.studio.recommander.tools.build</groupId>
+                        <groupId>com.disney.studio.ds.buildtool</groupId>
                         <artifactId>build-tools</artifactId>
                         <version>1.0</version>
                     </dependency>
