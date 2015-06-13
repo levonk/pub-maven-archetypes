@@ -123,6 +123,18 @@
             <scope>provided</scope>
         </dependency>
 
+	<dependency>
+		<!-- 
+			Automatic generation of the Builder pattern for Java 1.6+ 
+			http://freebuilder.inferred.org
+			https://github.com/google/FreeBuilder
+		-->
+		<groupId>org.inferred</groupId>
+		<artifactId>freebuilder</artifactId>
+		<version>${freebuilder.version}</version>
+		<optional>true</optional>
+	</dependency>
+
         <!-- Static Analysis -->
         <dependency>
             <!-- groupId>net.sourceforge.findbugs</groupId -->
@@ -980,6 +992,7 @@
         <errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
         <findbugs.version>2.5.2</findbugs.version>
         <findbugs-extra.version>1.3.9</findbugs-extra.version>
+        <freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
         <gpg.version>1.5</gpg.version>
         <!-- as of 2014-03-11 -->
         <guava.version>16.0</guava.version>
@@ -995,7 +1008,7 @@
         <logstash.version>2.4</logstash.version>
         <lombok.version>1.12.5</lombok.version>
         <mockito.version>1.9.5</mockito.version>
-		<modernizer.version>1.0.0</modernizer.version> <!-- 2014-09-19 -->
+	<modernizer.version>1.0.0</modernizer.version> <!-- 2014-09-19 -->
         <plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
         <plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
         <pmd.version>3.0.1</pmd.version>
