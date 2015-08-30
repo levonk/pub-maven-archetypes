@@ -247,6 +247,12 @@
 
     <dependencyManagement>
         <dependencies>
+		<dependency>
+      			<groupId>com.jayway.restassured</groupId>
+      			<artifactId>rest-assured</artifactId>
+      			<version>${restassured.version}</version>
+      			<scope>test</scope>
+		</dependency>
 
             <!-- Add Cofoja Design By Contract lib when available -->
             <dependency>
@@ -1033,6 +1039,7 @@
         <pojomatic.version>1.0</pojomatic.version>
         <proguard.version>2.0.6</proguard.version>
         <proguardBase.version>4.9</proguardBase.version>
+        <restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
         <site.version>3.2</site.version>
         <slf4j.version>1.7.5</slf4j.version>
         <!-- as of 2012-09-17 -->
