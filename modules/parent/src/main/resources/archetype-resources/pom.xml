@@ -253,6 +253,24 @@
       			<version>${restassured.version}</version>
       			<scope>test</scope>
 		</dependency>
+		<dependency>
+      			<groupId>com.jayway.restassured</groupId>
+      			<artifactId>xml-path</artifactId>
+      			<version>${restassured.version}</version>
+      			<scope>test</scope>
+		</dependency>
+		<dependency>
+      			<groupId>com.jayway.restassured</groupId>
+      			<artifactId>json-schema-validator</artifactId>
+      			<version>${restassured.version}</version>
+      			<scope>test</scope>
+		</dependency>
+		<dependency>
+      			<groupId>com.jayway.restassured</groupId>
+      			<artifactId>spring-mock-mvc</artifactId>
+      			<version>${restassured.version}</version>
+      			<scope>test</scope>
+		</dependency>
 
             <!-- Add Cofoja Design By Contract lib when available -->
             <dependency>
