@@ -528,7 +528,17 @@
                 </executions>
             </plugin>
 
-            <!-- Static Analysis Tools -->
+		<!-- Static Analysis Tools -->
+            	<!--
+            		http://www.mojohaus.org/versions-maven-plugin/index.html
+			mvn -U versions:display-plugin-updates
+			mvn -U versions:display-dependency-updates
+            	-->
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>versions-maven-plugin</artifactId>
+			<version>${versions.version}</version>
+		</plugin>
             <plugin>
 				<!--
 					https://github.com/andrewgaul/modernizer-maven-plugin
@@ -1042,6 +1052,20 @@
 				</execution>
 			</executions>               
 		</plugin>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>versions-maven-plugin</artifactId>
+			<version>${versions.version}</version>
+			<reportSets>
+				<reportSet>
+					<reports>
+						<report>dependency-updates-report</report>
+						<report>plugin-updates-report</report>
+						<report>property-updates-report</report>
+					</reports>
+				</reportSet>
+			</reportSets>
+		</plugin>		
         </plugins>
     </reporting>
 
@@ -1102,6 +1126,7 @@
         <surefire.version>2.16</surefire.version>
         <!-- as of 2011-04-06 -->
         <testng.version>6.8.7</testng.version>
+        <versions.version>2.2</versions.version> <!-- 2015-02-02 -->
         <start-class>com.disney.jarvis.springboot.App</start-class>
     </properties>
 
