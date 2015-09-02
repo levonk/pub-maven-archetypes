@@ -683,6 +683,11 @@
 				</requireSameVersions>
 				<requireSameVersions>
 					<dependencies>
+						<dependency>org.springframework.boot</dependency> <!-- or org.springframework.boot:* -->
+					</dependencies>
+				</requireSameVersions>
+				<requireSameVersions>
+					<dependencies>
 						<dependency>com.jayway.restassured</dependency> <!-- or com.jayway.restassured:* -->
 					</dependencies>
 				</requireSameVersions>
