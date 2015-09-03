@@ -1,4 +1,5 @@
 <!DOCTYPE walkmod PUBLIC "-//WALKMOD//DTD"  "http://www.walkmod.com/dtd/walkmod-1.0.dtd" >
+<!-- http://www.walkmod.com/ -->
 <walkmod>
 	<plugins>
 		<plugin groupId="org.walkmod" artifactId="walkmod-imports-cleaner-plugin"
