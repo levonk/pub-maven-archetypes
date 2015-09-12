@@ -251,6 +251,7 @@
     <dependencyManagement>
         <dependencies>
 		<dependency>
+			<!-- https://github.com/OpenHFT/Zero-Allocation-Hashing -->
       			<groupId>net.openhft</groupId>
       			<artifactId>zero-allocation-hashing</artifactId>
       			<version>${zeroallochash.version}</version>
