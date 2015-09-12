@@ -160,11 +160,14 @@
 
 
         <!-- Apache
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>${commonslang3.version}</version>
-    </dependency>
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>${commonslang3.version}</version>
+	</dependency>
      -->
+     
+ 
         <!-- Unit Testing Dependencies -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -247,6 +250,11 @@
 
     <dependencyManagement>
         <dependencies>
+		<dependency>
+      			<groupId>net.openhft</groupId>
+      			<artifactId>zero-allocation-hashing</artifactId>
+      			<version>${zeroallochash.version}</version>
+		</dependency>
 		<dependency>
       			<groupId>com.jayway.restassured</groupId>
       			<artifactId>rest-assured</artifactId>
@@ -1127,6 +1135,7 @@
         <!-- as of 2011-04-06 -->
         <testng.version>6.8.7</testng.version>
         <versions.version>2.2</versions.version> <!-- 2015-02-02 -->
+        <zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
         <start-class>com.disney.jarvis.springboot.App</start-class>
     </properties>
 
