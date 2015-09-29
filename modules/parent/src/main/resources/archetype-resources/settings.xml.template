@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Put all your usernames, passwords, and enviornment specific settings in this file.
+	There are two locations where a settings.xml file may live:
+		- The Maven install for Global Settings: $M2_HOME/conf/settings.xml
+		- A user’s install for user settings: ${user.home}/.m2/settings.xml
+	If both Global & User settings exist, the results will be merged.
+-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+		http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<!--
+		This value is the path of this build system’s local repository. The default
+		value is ${user.home}/.m2/repository. This element is especially useful for 
+		a main build server allowing all logged-in users to build from a common
+		local repository.
+	-->
+	<localRepository>${user.home}/.m2/repository</localRepository>
+	<!--
+		true if Maven should attempt to interact with the user for input, 
+		false if not. Defaults to true.
+	-->
+	<interactiveMode/>
+	<!--
+		true if Maven should use the ${user.home}/.m2/plugin-registry.xml file
+		to manage plugin versions, defaults to false. Note that for the current 
+		version of Maven 2.0, the plugin-registry.xml file should not be depended 
+		upon. Consider it dormant for now.
+	-->
+	<usePluginRegistry/>
+	<!--
+		true if this build system should operate in offline mode, defaults to
+		false. This element is useful for build servers which cannot connect 
+		to a remote repository, either because of network setup or security reasons.
+	-->
+	<offline/>
+	<!--
+		This element contains a list of pluginGroup elements, each contains a 
+		groupId. The list is searched when a plugin is used and the groupId is
+		not provided in the command line. This list automatically contains 
+		org.apache.maven.plugins and org.codehaus.mojo.
+	-->
+	<pluginGroups/>
+	<!--
+		The repositories for download and deployment are defined by the repositories
+		and distributionManagement elements of the POM. However, certain settings 
+		such as username and password should not be distributed along with the
+		pom.xml. This type of information should exist on the build server in 
+		the settings.xml.
+	-->
+	<servers/>
+	<mirrors/>
+	<proxies/>
+	<!--
+		The profile element in the settings.xml is a truncated version of the pom.xml
+		profile element. It consists of the activation, repositories, 
+		pluginRepositories and properties elements. The profile elements only 
+		include these four elements because they concerns themselves with the
+		build system as a whole (which is the role of the settings.xml file), 
+		not about individual project object model settings.
+
+		If a profile is active from settings, its values will override any 
+		equivalently ID’d profiles in a POM or profiles.xml file.
+	-->
+	<profiles>
+		<profile>
+			<id>sonar</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<sonar.jdbc.url>jdbc:postgresql://localhost/sonar</sonar.jdbc.url>
+				<sonar.jdbc.username>user</sonar.jdbc.username>
+				<sonar.jdbc.password>password</sonar.jdbc.password>
+				<sonar.host.url>http://localhost:9000</sonar.host.url>
+			</properties>
+		</profile>
+	</profiles>
+	<!--
+		Activations are the key of a profile. Like the POM’s profiles, the power
+		of a profile comes from its ability to modify some values only under 
+		certain circumstances; those circumstances are specified via an activation
+		element.
+	-->
+	<activeProfiles/>
+</settings>
