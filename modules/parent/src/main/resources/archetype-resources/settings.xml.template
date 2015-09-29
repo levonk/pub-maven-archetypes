@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+	http://maven.apache.org/settings.html
 	Put all your usernames, passwords, and enviornment specific settings in this file.
 	There are two locations where a settings.xml file may live:
 		- The Maven install for Global Settings: $M2_HOME/conf/settings.xml
