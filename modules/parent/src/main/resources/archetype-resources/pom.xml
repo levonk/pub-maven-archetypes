@@ -986,6 +986,33 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                	<groupId>org.pitest</groupId>
+                	<artifactId>pitest-maven</artifactId>
+                	<version>${pitest.version}</version>
+                	<configuration>
+                		<targetClasses>
+                			<targetClass>${parent.groupId}</targetClass>
+                		</targetClasses>
+                		<targetTests>
+                			<targetTest>${parent.groupId}*Test</targetTest>
+                		</targetTests>
+                		<outputFormats>
+                			<!-- Sonar needs XML output -->
+	                		<outputFormat>XML</outputFormat>
+	                		<outputFormat>HTML</outputFormat>
+                		</outputFormats>
+                		<!-- Sonar expects reports to not have timestamps -->
+                		<timestampedReports>false</timestampedReports>
+                	</configuration>
+                </plugin>
+                
+                <plugin>
+                	<!-- You need entries in settings.xml to configure the link to the server, see readme -->
+                	<groupId>org.codehaus.mojo</groupId>
+                	<artifactId>sonar-maven-plugin</artifactId>
+                	<version>${sonar.version}</version>
+                </plugin>
 
             </plugins>
         </pluginManagement>
@@ -1079,6 +1106,9 @@
     </reporting>
 
     <properties>
+        <start-class>com.levonk.springboot.App</start-class>
+        <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
+        <sonar.pitest.mode>active</sonar.pitest.mode>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <!-- version block -->
@@ -1120,6 +1150,7 @@
         <lombok.version>1.12.5</lombok.version>
         <mockito.version>1.9.5</mockito.version>
 	<modernizer.version>1.0.0</modernizer.version> <!-- 2014-09-19 -->
+	<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
         <plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
         <plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
         <pmd.version>3.0.1</pmd.version>
@@ -1129,6 +1160,7 @@
         <restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
         <site.version>3.2</site.version>
         <slf4j.version>1.7.5</slf4j.version>
+        <sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
         <!-- as of 2012-09-17 -->
         <source.version>2.2.1</source.version>
         <!-- as of 2014-03-11 -->
@@ -1137,7 +1169,6 @@
         <testng.version>6.8.7</testng.version>
         <versions.version>2.2</versions.version> <!-- 2015-02-02 -->
         <zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
-        <start-class>com.disney.jarvis.springboot.App</start-class>
     </properties>
 
     <profiles>
