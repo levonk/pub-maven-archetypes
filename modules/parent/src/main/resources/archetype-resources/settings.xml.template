@@ -84,8 +84,10 @@
 			</activation>
 			<properties>
 				<docker.username>johndoe</docker.username>
-				<docker.password>password</docker.password>
+				<docker.email>johndoe@johndoe.com</docker.email>
 				<docker.host>http://localhost:2375</docker.host>
+				<docker.serverAddress>https://index.docker.io/v1/</docker.serverAddress>
+				<docker.dockerCertPath>${user.home}/.docker</docker.dockerCertPath>
 			</properties>
 		</profile>
 	</profiles>
