@@ -1298,6 +1298,42 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>scala-lang</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/scala</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.scala-lang</groupId>
+					<artifactId>scala-library</artifactId>
+					<version>2.7.2-rc2</version>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.scala-tools</groupId>
+						<artifactId>maven-scala-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>compile</goal>
+									<goal>testCompile</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<sourceDir>src/main/scala</sourceDir>
+							<jvmArg>-Xms64m</jvmArg>
+							<jvmArg>-Xmx1024m</jvmArg>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
     <!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
