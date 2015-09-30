@@ -77,6 +77,17 @@
 				<sonar.host.url>http://localhost:9000</sonar.host.url>
 			</properties>
 		</profile>
+		<profile>
+			<id>docker</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<docker.username>johndoe</docker.username>
+				<docker.password>password</docker.password>
+				<docker.host>http://localhost:2375</docker.host>
+			</properties>
+		</profile>
 	</profiles>
 	<!--
 		Activations are the key of a profile. Like the POM’s profiles, the power
