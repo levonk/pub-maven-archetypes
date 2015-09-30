@@ -1026,11 +1026,11 @@
 				<!-- (optional) your installed version -->
 				<!-- (optional) if you want to push to a private repo -->
 				<!-- should add the following to your settings.xml -->
-				<username>${username}</username>
-				<email>${email.address}</email>
-				<serverAddress>https://index.docker.io/v1/</serverAddress>
+				<username>${docker.username}</username>
+				<email>${docker.email}</email>
+				<serverAddress>${docker.serverAddress}</serverAddress>
 				<!-- (optional) change here if you are using another port/host, e.g. 4243 -->
-				<host>http://localhost:2375</host>
+				<host>${docker.host}</host>
 				<!-- (optional) if you need to run with configured SSL certificates -->
 				<dockerCertPath>${user.home}/.docker</dockerCertPath>
 				<!-- (optional) remove images created by Dockerfile (default false) -->
