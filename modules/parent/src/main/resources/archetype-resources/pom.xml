@@ -125,8 +125,8 @@
         </dependency>
 
 	<dependency>
-		<!-- 
-			Automatic generation of the Builder pattern for Java 1.6+ 
+		<!--
+			Automatic generation of the Builder pattern for Java 1.6+
 			http://freebuilder.inferred.org
 			https://github.com/google/FreeBuilder
 		-->
@@ -167,8 +167,6 @@
 		<version>${commonslang3.version}</version>
 	</dependency>
      -->
-     
- 
         <!-- Unit Testing Dependencies -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -901,36 +899,6 @@
         </plugins>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.avro</groupId>
-                    <artifactId>avro-maven-plugin</artifactId>
-                    <version>${avro.version}</version>
-					<executions>
-						<execution>
-							<phase>generate-sources</phase>
-							<goals>
-								<goal>schema</goal>
-							</goals>
-							<configuration>
-								<sourceDirectory>
-									${project.basedir}/src/main/avro
-								</sourceDirectory>
-								<outputDirectory>
-									${project.build.directory}/generated-sources/avro
-								</outputDirectory>
-								<testSourceDirectory>
-									${project.basedir}/src/test/avro
-								</testSourceDirectory>
-								<testOutputDirectory>
-									${project.build.directory}/generated-test-sources/avro
-								</testOutputDirectory>
-								<fieldVisibility>
-									PRIVATE
-								</fieldVisibility>
-							</configuration>
-						</execution>
-					</executions>
-                </plugin>
                 <!-- android plugin -->
                 <plugin>
                     <groupId>com.jayway.maven.plugins.android.generation2</groupId>
@@ -1080,7 +1048,7 @@
 					<configuration>
 					</configuration>
 				</execution>
-			</executions>               
+			</executions>
 		</plugin>
 		<plugin>
 			<groupId>org.codehaus.mojo</groupId>
@@ -1095,76 +1063,76 @@
 					</reports>
 				</reportSet>
 			</reportSets>
-		</plugin>		
-        </plugins>
-    </reporting>
+		</plugin>
+	</plugins>
+</reporting>
 
-    <properties>
-        <start-class>com.levonk.springboot.App</start-class>
-        <sonar.exclusions>**/generated-sources/**</sonar.exclusions>
-        <sonar.pitest.mode>active</sonar.pitest.mode>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-        <!-- version block -->
-        <android.version>2.8.4</android.version>
-        <autovalue.version>1.0-rc1</autovalue.version>
-        <antrun.version>1.7</antrun.version>
-        <avro.version>1.7.6</avro.version>
-        <codequality.version>1.0.9</codequality.version>
-        <checkers.version>1.8.0</checkers.version>
-        <docker.version>1.13</docker.version>
-        <spring-boot.version>1.0.0.RC1</spring-boot.version>
-        <checkstyle.version>2.9.1</checkstyle.version>
-        <cobertura.version>2.5.2</cobertura.version>
-        <commonslang.version>2.6</commonslang.version>
-        <commonslang3.version>3.2.1</commonslang3.version>
-        <compiler.version>3.3</compiler.version> <!-- as of 2015-03-27 -->
-        <dependency.version>2.8</dependency.version>
-        <dependencycheck.version>1.3.0</dependencycheck.version> <!-- as of 2015-08-28 -->
-        <doclava.version>1.0.6</doclava.version>
-        <eclipse.version>2.9</eclipse.version>
-        <enforcer.version>1.4.1</enforcer.version> <!-- 2015-09-01 -->
-        <equalsverifier.version>1.3.1</equalsverifier.version>
-        <errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
-        <findbugs.version>2.5.2</findbugs.version>
-        <findbugs-extra.version>1.3.9</findbugs-extra.version>
-        <freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
-        <gpg.version>1.5</gpg.version>
-        <!-- as of 2014-03-11 -->
-        <guava.version>16.0</guava.version>
-        <jackson1.version>1.9.13</jackson1.version>
-        <jacoco.version>0.7.4.201502262128</jacoco.version>
-        <jalopy.version>1.0-alpha-1</jalopy.version>
-        <javadoc.version>2.9.1</javadoc.version>
-        <!-- as of 2014-03-11 -->
-        <licenseVerifier.version>0.4</licenseVerifier.version>
-        <licenses.version>1.0</licenses.version>
-        <logback.version>1.0.13</logback.version>
-        <logback-jackson.version>0.1.2</logback-jackson.version>
-        <logstash.version>2.4</logstash.version>
-        <lombok.version>1.12.5</lombok.version>
-        <mockito.version>1.9.5</mockito.version>
+<properties>
+	<start-class>com.levonk.springboot.App</start-class>
+	<sonar.exclusions>**/generated-sources/**</sonar.exclusions>
+	<sonar.pitest.mode>active</sonar.pitest.mode>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<java.version>1.8</java.version>
+	<!-- version block -->
+	<android.version>2.8.4</android.version>
+	<autovalue.version>1.0-rc1</autovalue.version>
+	<antrun.version>1.7</antrun.version>
+	<avro.version>1.7.6</avro.version>
+	<codequality.version>1.0.9</codequality.version>
+	<checkers.version>1.8.0</checkers.version>
+	<docker.version>1.13</docker.version>
+	<spring-boot.version>1.0.0.RC1</spring-boot.version>
+	<checkstyle.version>2.9.1</checkstyle.version>
+	<cobertura.version>2.5.2</cobertura.version>
+	<commonslang.version>2.6</commonslang.version>
+	<commonslang3.version>3.2.1</commonslang3.version>
+	<compiler.version>3.3</compiler.version> <!-- as of 2015-03-27 -->
+	<dependency.version>2.8</dependency.version>
+	<dependencycheck.version>1.3.0</dependencycheck.version> <!-- as of 2015-08-28 -->
+	<doclava.version>1.0.6</doclava.version>
+	<eclipse.version>2.9</eclipse.version>
+	<enforcer.version>1.4.1</enforcer.version> <!-- 2015-09-01 -->
+	<equalsverifier.version>1.3.1</equalsverifier.version>
+	<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
+	<findbugs.version>2.5.2</findbugs.version>
+	<findbugs-extra.version>1.3.9</findbugs-extra.version>
+	<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
+	<gpg.version>1.5</gpg.version>
+	<!-- as of 2014-03-11 -->
+	<guava.version>16.0</guava.version>
+	<jackson1.version>1.9.13</jackson1.version>
+	<jacoco.version>0.7.4.201502262128</jacoco.version>
+	<jalopy.version>1.0-alpha-1</jalopy.version>
+	<javadoc.version>2.9.1</javadoc.version>
+	<!-- as of 2014-03-11 -->
+	<licenseVerifier.version>0.4</licenseVerifier.version>
+	<licenses.version>1.0</licenses.version>
+	<logback.version>1.0.13</logback.version>
+	<logback-jackson.version>0.1.2</logback-jackson.version>
+	<logstash.version>2.4</logstash.version>
+	<lombok.version>1.12.5</lombok.version>
+	<mockito.version>1.9.5</mockito.version>
 	<modernizer.version>1.0.0</modernizer.version> <!-- 2014-09-19 -->
 	<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
-        <plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
-        <plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
-        <pmd.version>3.0.1</pmd.version>
-        <pojomatic.version>1.0</pojomatic.version>
-        <proguard.version>2.0.6</proguard.version>
-        <proguardBase.version>4.9</proguardBase.version>
-        <restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
-        <site.version>3.2</site.version>
-        <slf4j.version>1.7.5</slf4j.version>
-        <sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
-        <!-- as of 2012-09-17 -->
-        <source.version>2.2.1</source.version>
-        <!-- as of 2014-03-11 -->
-        <surefire.version>2.16</surefire.version>
-        <!-- as of 2011-04-06 -->
-        <testng.version>6.8.7</testng.version>
-        <versions.version>2.2</versions.version> <!-- 2015-02-02 -->
-        <zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
-    </properties>
+	<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
+	<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
+	<pmd.version>3.0.1</pmd.version>
+	<pojomatic.version>1.0</pojomatic.version>
+	<proguard.version>2.0.6</proguard.version>
+	<proguardBase.version>4.9</proguardBase.version>
+	<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
+	<site.version>3.2</site.version>
+	<slf4j.version>1.7.5</slf4j.version>
+	<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
+	<!-- as of 2012-09-17 -->
+	<source.version>2.2.1</source.version>
+	<!-- as of 2014-03-11 -->
+	<surefire.version>2.16</surefire.version>
+	<!-- as of 2011-04-06 -->
+	<testng.version>6.8.7</testng.version>
+	<versions.version>2.2</versions.version> <!-- 2015-02-02 -->
+	<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
+</properties>
 
 	<profiles>
 		<profile>
@@ -1376,6 +1344,48 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>sonar-maven-plugin</artifactId>
 						<version>${sonar.version}</version>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>avro-serializer</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/avro</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.avro</groupId>
+						<artifactId>avro-maven-plugin</artifactId>
+						<version>${avro.version}</version>
+						<executions>
+							<execution>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>schema</goal>
+								</goals>
+								<configuration>
+									<sourceDirectory>
+										${project.basedir}/src/main/avro
+									</sourceDirectory>
+									<outputDirectory>
+										${project.build.directory}/generated-sources/avro
+									</outputDirectory>
+									<testSourceDirectory>
+										${project.basedir}/src/test/avro
+									</testSourceDirectory>
+									<testOutputDirectory>
+										${project.build.directory}/generated-test-sources/avro
+									</testOutputDirectory>
+									<fieldVisibility>
+										PRIVATE
+									</fieldVisibility>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
