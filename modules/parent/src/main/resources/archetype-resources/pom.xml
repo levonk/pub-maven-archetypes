@@ -1015,8 +1015,46 @@
                 	<version>${sonar.version}</version>
                 </plugin>
 
-            </plugins>
-        </pluginManagement>
+		<plugin>
+			<!-- /src/main/docker -->
+			<!-- https://github.com/alexec/docker-maven-plugin/blob/master/USAGE.md -->
+			<groupId>com.alexecollins.docker</groupId>
+			<artifactId>docker-maven-plugin</artifactId>
+			<version>${docker.version}</version>
+			<configuration>
+				<!-- out of the box, you shoud not need to have these, as they'll use sensible defaults -->
+				<!-- (optional) your installed version -->
+				<!-- (optional) if you want to push to a private repo -->
+				<!-- should add the following to your settings.xml -->
+				<username>${username}</username>
+				<email>${email.address}</email>
+				<serverAddress>https://index.docker.io/v1/</serverAddress>
+				<!-- (optional) change here if you are using another port/host, e.g. 4243 -->
+				<host>http://localhost:2375</host>
+				<!-- (optional) if you need to run with configured SSL certificates -->
+				<dockerCertPath>${user.home}/.docker</dockerCertPath>
+				<!-- (optional) remove images created by Dockerfile (default false) -->
+				<removeIntermediateImages>false</removeIntermediateImages>
+				<!-- (optional) do/do not cache images (default true), disable to get the freshest images -->
+				<cache>true</cache>
+				<!-- (optional) exclude certain images -->
+				<exclude>app,other</exclude>
+				<!-- (optional) ignore problems with permission errors (e.g. if running on CircleCI -->
+				<permissionErrorTolerant>true</permissionErrorTolerant>
+				<!-- (optional) only remove containers on clean, do not remove images -->
+				<cleanContainerOnly>false</cleanContainerOnly>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<!-- set-up port forwarding if you're using boot2docker -->
+						<groupId>com.alexecollins.docker</groupId>
+						<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
+						<version>${docker.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</pluginManagement>
     </build>
 
     <reporting>
@@ -1119,6 +1157,7 @@
         <avro.version>1.7.6</avro.version>
         <codequality.version>1.0.9</codequality.version>
         <checkers.version>1.8.0</checkers.version>
+        <docker.version>1.13</docker.version>
         <spring-boot.version>1.0.0.RC1</spring-boot.version>
         <checkstyle.version>2.9.1</checkstyle.version>
         <cobertura.version>2.5.2</cobertura.version>
