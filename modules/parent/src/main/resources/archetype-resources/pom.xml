@@ -1008,51 +1008,6 @@
                 	</configuration>
                 </plugin>
                 
-                <plugin>
-                	<!-- You need entries in settings.xml to configure the link to the server, see readme -->
-                	<groupId>org.codehaus.mojo</groupId>
-                	<artifactId>sonar-maven-plugin</artifactId>
-                	<version>${sonar.version}</version>
-                </plugin>
-
-		<plugin>
-			<!-- /src/main/docker -->
-			<!-- https://github.com/alexec/docker-maven-plugin/blob/master/USAGE.md -->
-			<groupId>com.alexecollins.docker</groupId>
-			<artifactId>docker-maven-plugin</artifactId>
-			<version>${docker.version}</version>
-			<configuration>
-				<!-- out of the box, you shoud not need to have these, as they'll use sensible defaults -->
-				<!-- (optional) your installed version -->
-				<!-- (optional) if you want to push to a private repo -->
-				<!-- should add the following to your settings.xml -->
-				<username>${docker.username}</username>
-				<email>${docker.email}</email>
-				<serverAddress>${docker.serverAddress}</serverAddress>
-				<!-- (optional) change here if you are using another port/host, e.g. 4243 -->
-				<host>${docker.host}</host>
-				<!-- (optional) if you need to run with configured SSL certificates -->
-				<dockerCertPath>${user.home}/.docker</dockerCertPath>
-				<!-- (optional) remove images created by Dockerfile (default false) -->
-				<removeIntermediateImages>false</removeIntermediateImages>
-				<!-- (optional) do/do not cache images (default true), disable to get the freshest images -->
-				<cache>true</cache>
-				<!-- (optional) exclude certain images -->
-				<exclude>app,other</exclude>
-				<!-- (optional) ignore problems with permission errors (e.g. if running on CircleCI -->
-				<permissionErrorTolerant>true</permissionErrorTolerant>
-				<!-- (optional) only remove containers on clean, do not remove images -->
-				<cleanContainerOnly>false</cleanContainerOnly>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<!-- set-up port forwarding if you're using boot2docker -->
-						<groupId>com.alexecollins.docker</groupId>
-						<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
-						<version>${docker.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
 		</plugins>
 	</pluginManagement>
     </build>
@@ -1276,11 +1231,11 @@
 					<exists>${basedir}/src/main/liquibase/master.xml</exists>
 				</file>
 				<!-- following should be dependent on enviornment in settings.xml -->
-				<property>liquibase.driver</property>
-				<property>liquibase.url</property>
+				<property><name>liquibase.driver</name></property>
+				<property><name>liquibase.url</name></property>
 				<!-- following should be only in settings.xml and not committed -->
-				<property>liquibase.username</property>
-				<property>liquibase.password</property>
+				<property><name>liquibase.username</name></property>
+				<property><name>liquibase.password</name></property>
 			</activation>
 			<build>
 				<plugins>
@@ -1402,6 +1357,76 @@
 								</goals>
 							</execution>
 						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>sonar</id>
+			<activations>
+				<!-- You need entries in settings.xml to configure the link to the server, see readme -->
+				<property><name>sonar.jdbc.url</name></property>
+				<property><name>sonar.jdbc.username</name></property>
+				<property><name>sonar.jdbc.password</name></property>
+				<property><name>sonar.host.url</name></property>
+			</activations>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>sonar-maven-plugin</artifactId>
+						<version>${sonar.version}</version>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>docker-pkg</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/docker</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- /src/main/docker -->
+						<!-- https://github.com/alexec/docker-maven-plugin/blob/master/USAGE.md -->
+						<groupId>com.alexecollins.docker</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+						<version>${docker.version}</version>
+						<configuration>
+							<!-- out of the box, you shoud not need to have these, as they'll use sensible defaults -->
+							<!-- (optional) your installed version -->
+							<!-- (optional) if you want to push to a private repo -->
+							<!-- should add the following to your settings.xml -->
+							<username>${docker.username}</username>
+							<email>${docker.email}</email>
+							<serverAddress>${docker.serverAddress}</serverAddress>
+							<!-- (optional) change here if you are using another port/host, e.g. 4243 -->
+							<host>${docker.host}</host>
+							<!-- (optional) if you need to run with configured SSL certificates -->
+							<dockerCertPath>${user.home}/.docker</dockerCertPath>
+							<!-- (optional) remove images created by Dockerfile (default false) -->
+							<removeIntermediateImages>false</removeIntermediateImages>
+							<!-- (optional) do/do not cache images (default true), disable to get the freshest images -->
+							<cache>true</cache>
+							<!-- (optional) exclude certain images -->
+							<exclude>app,other</exclude>
+							<!-- (optional) ignore problems with permission errors (e.g. if running on CircleCI -->
+							<permissionErrorTolerant>true</permissionErrorTolerant>
+							<!-- (optional) only remove containers on clean, do not remove images -->
+							<cleanContainerOnly>false</cleanContainerOnly>
+							</configuration>
+							<dependencies>
+								<dependency>
+									<!-- set-up port forwarding if you're using boot2docker -->
+									<groupId>com.alexecollins.docker</groupId>
+									<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
+									<version>${docker.version}</version>
+								</dependency>
+							</dependencies>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
