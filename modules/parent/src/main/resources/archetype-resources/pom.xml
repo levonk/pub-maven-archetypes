@@ -1281,7 +1281,8 @@
 	<logstash.version>2.4</logstash.version>
 	<lombok.version>1.12.5</lombok.version>
 	<mockito.version>1.9.5</mockito.version>
-	<modernizer.version>1.0.0</modernizer.version> <!-- 2014-09-19 -->
+	<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
+	<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
 	<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 	<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
 	<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
@@ -1678,6 +1679,37 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>newrelic-pkg</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/resources/newrelic.yml</exists>
+				</file>
+			</activation>
+			<!--
+				 Commercial monitoring
+				 @see https://docs.newrelic.com/docs/agents/java-agent/installation/java-agent-manual-installation
+				 @see https://docs.newrelic.com/docs/agents/java-agent/frameworks/maven-installation-java
+			-->
+			<dependencies>
+				<dependency>
+					<!-- Needs to add JVM command line argument
+						 -javaagent:/path/to/newrelic.jar
+					-->
+					<groupId>com.newrelic.agent.java</groupId>
+					<artifactId>newrelic-agent</artifactId>
+					<version>${newrelic.version}</version>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>com.newrelic.agent.java</groupId>
+					<artifactId>newrelic-api</artifactId>
+					<version>${newrelic.version}</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
 		</profile>
 	</profiles>
 
