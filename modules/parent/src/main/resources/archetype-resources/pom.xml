@@ -249,36 +249,36 @@
 
     <dependencyManagement>
         <dependencies>
-		<dependency>
-			<!-- https://github.com/OpenHFT/Zero-Allocation-Hashing -->
-      			<groupId>net.openhft</groupId>
-      			<artifactId>zero-allocation-hashing</artifactId>
-      			<version>${zeroallochash.version}</version>
-		</dependency>
-		<dependency>
-      			<groupId>com.jayway.restassured</groupId>
-      			<artifactId>rest-assured</artifactId>
-      			<version>${restassured.version}</version>
-      			<scope>test</scope>
-		</dependency>
-		<dependency>
-      			<groupId>com.jayway.restassured</groupId>
-      			<artifactId>xml-path</artifactId>
-      			<version>${restassured.version}</version>
-      			<scope>test</scope>
-		</dependency>
-		<dependency>
-      			<groupId>com.jayway.restassured</groupId>
-      			<artifactId>json-schema-validator</artifactId>
-      			<version>${restassured.version}</version>
-      			<scope>test</scope>
-		</dependency>
-		<dependency>
-      			<groupId>com.jayway.restassured</groupId>
-      			<artifactId>spring-mock-mvc</artifactId>
-      			<version>${restassured.version}</version>
-      			<scope>test</scope>
-		</dependency>
+			<dependency>
+				<!-- https://github.com/OpenHFT/Zero-Allocation-Hashing -->
+				<groupId>net.openhft</groupId>
+				<artifactId>zero-allocation-hashing</artifactId>
+				<version>${zeroallochash.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>rest-assured</artifactId>
+				<version>${restassured.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>xml-path</artifactId>
+				<version>${restassured.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>json-schema-validator</artifactId>
+				<version>${restassured.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>spring-mock-mvc</artifactId>
+				<version>${restassured.version}</version>
+				<scope>test</scope>
+			</dependency>
 
             <!-- Add Cofoja Design By Contract lib when available -->
             <dependency>
