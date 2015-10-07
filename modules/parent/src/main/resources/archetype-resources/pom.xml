@@ -1144,6 +1144,12 @@
 			<artifactId>jdepend-maven-plugin</artifactId>
 			<version>${jdepend.version}</version>
 		</plugin>
+		<plugin>
+			<!-- @see http://www.mojohaus.org/javancss-maven-plugin -->
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>javancss-maven-plugin</artifactId>
+			<version>${javancss.version}</version>
+		</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -1244,6 +1250,7 @@
 	<jacoco.version>0.7.4.201502262128</jacoco.version>
 	<jalopy.version>1.0-alpha-1</jalopy.version>
 	<javadoc.version>2.9.1</javadoc.version>
+	<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
 	<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
 	<!-- as of 2014-03-11 -->
 	<licenseVerifier.version>0.4</licenseVerifier.version>
