@@ -778,25 +778,41 @@
             </plugin>
 
 
-            <plugin>
-                <!--
-                    Goals:
-                    cobertura:check
-                    cobertura:clean
-                    cobertura:dump-datafile
-                    cobertura:instrument
-                    cobertura:cobertura
-                -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${cobertura.version}</version>
-                <configuration>
-                    <check/>
-                    <formats>
-                        <format>xml</format>
-                    </formats>
-                </configuration>
-            </plugin>
+		<plugin>
+			<!--
+				@see http://www.mojohaus.org/cobertura-maven-plugin/usage.html
+				Goals:
+					cobertura:check
+					cobertura:clean
+					cobertura:dump-datafile
+					cobertura:instrument
+					cobertura:cobertura
+			-->
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>cobertura-maven-plugin</artifactId>
+			<version>${cobertura.version}</version>
+			<configuration>
+				<check/>
+				<formats>
+					<format>xml</format>
+				</formats>
+				<branchRate>85</branchRate>
+				<lineRate>85</lineRate>
+				<haltOnFailure>true</haltOnFailure>
+				<totalBranchRate>85</totalBranchRate>
+				<totalLineRate>85</totalLineRate>
+				<packageLineRate>85</packageLineRate>
+				<packageBranchRate>85</packageBranchRate>
+			</configuration>
+			<executions>
+				<execution>
+					<goals>
+						<goal>check</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+
             <plugin>
                 <groupId>com.soebes.maven.plugins.mlv</groupId>
                 <artifactId>maven-license-verifier-plugin</artifactId>
@@ -1199,7 +1215,7 @@
 	<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
 	<spring-boot.version>1.0.0.RC1</spring-boot.version>
 	<checkstyle.version>2.9.1</checkstyle.version>
-	<cobertura.version>2.5.2</cobertura.version>
+	<cobertura.version>2.7</cobertura.version> <!-- 2015-10-06 -->
 	<commonslang.version>2.6</commonslang.version>
 	<commonslang3.version>3.2.1</commonslang3.version>
 	<compiler.version>3.3</compiler.version> <!-- as of 2015-03-27 -->
