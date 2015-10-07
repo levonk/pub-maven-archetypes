@@ -637,6 +637,7 @@
             </plugin>
 
             <plugin>
+            	<!-- @see http://maven.apache.org/enforcer/enforcer-rules/index.html -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${enforcer.version}</version>
@@ -748,7 +749,7 @@
             </plugin>
 
             <plugin>
-                <!-- PMD -->
+                <!-- @see https://pmd.github.io/ -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${pmd.version}</version>
@@ -764,7 +765,7 @@
             </plugin>
 
             <plugin>
-                <!-- Findbugs -->
+                <!-- @see http://findbugs.sourceforge.net/ -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs.version}</version>
@@ -1137,6 +1138,12 @@
                 <version>${surefire.version}</version>
             </plugin>
             <!-- static analysis -->
+		<plugin>
+			<!-- @see http://www.mojohaus.org/jdepend-maven-plugin/ -->
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>jdepend-maven-plugin</artifactId>
+			<version>${jdepend.version}</version>
+		</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -1227,7 +1234,7 @@
 	<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
 	<equalsverifier.version>1.3.1</equalsverifier.version>
 	<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
-	<findbugs.version>2.5.2</findbugs.version>
+	<findbugs.version>3.0.2</findbugs.version>	<!-- 2015-10-06 -->
 	<findbugs-extra.version>1.3.9</findbugs-extra.version>
 	<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
 	<gpg.version>1.5</gpg.version>
@@ -1237,6 +1244,7 @@
 	<jacoco.version>0.7.4.201502262128</jacoco.version>
 	<jalopy.version>1.0-alpha-1</jalopy.version>
 	<javadoc.version>2.9.1</javadoc.version>
+	<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
 	<!-- as of 2014-03-11 -->
 	<licenseVerifier.version>0.4</licenseVerifier.version>
 	<licenses.version>1.0</licenses.version>
@@ -1249,7 +1257,7 @@
 	<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 	<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
 	<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
-	<pmd.version>3.0.1</pmd.version>
+	<pmd.version>3.5</pmd.version>	<!-- 2015-10-06 -->
 	<pojomatic.version>1.0</pojomatic.version>
 	<proguard.version>2.0.6</proguard.version>
 	<proguardBase.version>4.9</proguardBase.version>
