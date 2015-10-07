@@ -436,6 +436,19 @@
                 <artifactId>checker-framework</artifactId>
                 <version>1.8.0</version>
             </dependency>
+			<dependency>
+				<!-- @see https://github.com/mauricio/postgresql-async -->
+				<groupId>com.github.mauricio</groupId>
+				<artifactId>postgresql-async_2.11</artifactId>
+				<version>${jdbcasync.version}</version>
+			</dependency>
+			<dependency>
+				<!-- @see https://github.com/mauricio/postgresql-async -->
+				<!-- please prefer postgresql over mysql. -->
+				<groupId>com.github.mauricio</groupId>
+				<artifactId>mysql-async_2.11</artifactId>
+				<version>${jdbcasync.version}</version>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -1272,6 +1285,7 @@
 	<jalopy.version>1.0-alpha-1</jalopy.version>
 	<javadoc.version>2.9.1</javadoc.version>
 	<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
+	<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 	<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
 	<!-- as of 2014-03-11 -->
 	<licenseVerifier.version>0.4</licenseVerifier.version>
