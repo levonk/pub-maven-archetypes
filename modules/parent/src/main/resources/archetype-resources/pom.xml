@@ -1666,16 +1666,15 @@
 							<permissionErrorTolerant>true</permissionErrorTolerant>
 							<!-- (optional) only remove containers on clean, do not remove images -->
 							<cleanContainerOnly>false</cleanContainerOnly>
-							</configuration>
-							<dependencies>
-								<dependency>
-									<!-- set-up port forwarding if you're using boot2docker -->
-									<groupId>com.alexecollins.docker</groupId>
-									<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
-									<version>${docker.version}</version>
-								</dependency>
-							</dependencies>
 						</configuration>
+						<dependencies>
+							<dependency>
+								<!-- set-up port forwarding if you're using boot2docker -->
+								<groupId>com.alexecollins.docker</groupId>
+								<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
+								<version>${docker.version}</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
