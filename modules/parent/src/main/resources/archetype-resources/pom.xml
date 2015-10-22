@@ -492,6 +492,33 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <plugin>
+            	<!-- @see http://classycle.sourceforge.net/ -->
+		    <groupId>org.pitest</groupId>
+		    <artifactId>classycle-maven-plugin</artifactId>
+		    <version>0.4</version>
+		    <executions>
+		        <execution>
+		            <id>verify</id>
+		            <phase>verify</phase>
+		            <goals>
+		                <goal>check</goal>
+		            </goals>
+		            <configuration>
+		                <dependencyDefinition>
+		                    show allResults
+		                    check absenceOfPackageCycles > 1 in com.example*
+		                </dependencyDefinition>
+		
+		                <!-- This can be classycle.dependency.DefaultResultRenderer 
+		                    for text (the default if omitted) or 
+		                    classycle.dependency.XMLResultRenderer for xml -->
+		                <resultRenderer>classycle.dependency.DefaultResultRenderer</resultRenderer>
+		            </configuration>
+		        </execution>
+		    </executions>
+            </plugin>
 
             <plugin>
                 <!-- compiler version -->
@@ -1290,6 +1317,8 @@
 	<!-- as of 2014-03-11 -->
 	<licenseVerifier.version>0.4</licenseVerifier.version>
 	<licenses.version>1.0</licenses.version>
+	<log4jslf4j.version>2.4</log4jslf4j.version>	<!-- 2015-10-06 -->
+	<log4jcore.version>2.4</log4jcore.version>	<!-- 2015-10-06 -->
 	<logback.version>1.0.13</logback.version>
 	<logback-jackson.version>0.1.2</logback-jackson.version>
 	<logstash.version>2.4</logstash.version>
@@ -1711,19 +1740,60 @@
 							<permissionErrorTolerant>true</permissionErrorTolerant>
 							<!-- (optional) only remove containers on clean, do not remove images -->
 							<cleanContainerOnly>false</cleanContainerOnly>
-							</configuration>
-							<dependencies>
-								<dependency>
-									<!-- set-up port forwarding if you're using boot2docker -->
-									<groupId>com.alexecollins.docker</groupId>
-									<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
-									<version>${docker.version}</version>
-								</dependency>
-							</dependencies>
 						</configuration>
+						<dependencies>
+							<dependency>
+								<!-- set-up port forwarding if you're using boot2docker -->
+								<groupId>com.alexecollins.docker</groupId>
+								<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
+								<version>${docker.version}</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>log4j-slf4j-test</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/test/resources/log4j.xml</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j-impl</artifactId>
+					<version>${log4jslf4j.version}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-core</artifactId>
+					<version>${log4jcore.version}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>log4j-slf4j</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/resources/log4j.xml</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j-impl</artifactId>
+					<version>${log4jslf4j.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-core</artifactId>
+					<version>${log4jcore.version}</version>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>newrelic-pkg</id>
@@ -1754,7 +1824,6 @@
 					<scope>provided</scope>
 				</dependency>
 			</dependencies>
-
 		</profile>
 	</profiles>
 
