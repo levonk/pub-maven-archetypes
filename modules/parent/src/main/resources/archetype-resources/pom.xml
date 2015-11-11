@@ -700,6 +700,11 @@
                                     <searchTransitive>true</searchTransitive>
                                     <excludes>
                                         <exclude>aspectj:aspectj*</exclude>
+                                        <!-- Security Vulnerability in InvokerTransformer.class as of 2015-11-10
+                                        	@see org.apache.commons.collections.functors.InvokerTransformer.class
+                                        	@see http://foxglovesecurity.com/2015/11/06/what-do-weblogic-websphere-jboss-jenkins-opennms-and-your-application-have-in-common-this-vulnerability/
+                                        -->
+                                        <exclude>commons-collections</exclude>
                                         <exclude>commons-logging</exclude>
                                         <exclude>hsqldb:hsqldb</exclude>
                                         <exclude>javassist:javassist</exclude>
