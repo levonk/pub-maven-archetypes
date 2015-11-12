@@ -53,6 +53,9 @@
 	<servers/>
 	<mirrors>
 		<mirror>
+			<!-- Google's mirror seems faster
+				@see http://takari.io/2015/10/28/google-maven-central.html
+			-->
 			<id>google-maven-central</id>
 			<name>Google Maven Central</name>
 			<url>https://maven-central.storage.googleapis.com</url>
