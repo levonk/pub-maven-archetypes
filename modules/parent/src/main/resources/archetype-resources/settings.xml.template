@@ -51,7 +51,14 @@
 		the settings.xml.
 	-->
 	<servers/>
-	<mirrors/>
+	<mirrors>
+		<mirror>
+			<id>google-maven-central</id>
+			<name>Google Maven Central</name>
+			<url>https://maven-central.storage.googleapis.com</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>	
+	</mirrors>
 	<proxies/>
 	<!--
 		The profile element in the settings.xml is a truncated version of the pom.xml
