@@ -820,12 +820,13 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs.version}</version>
-
                 <configuration>
                     <excludeFilterFile>
                         https://github.com/pwangjing/mavenrepository/raw/master/releases/com/archetype/codequality/FindBugFilter/1.0.0/FindBugFilter-1.0.0.xml
                     </excludeFilterFile>
+                    <effort>Max</effort>
                     <threshold>Low</threshold>
+                    <xmlOutput>true</xmlOutput>
                 </configuration>
             </plugin>
 
