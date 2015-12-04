@@ -1341,6 +1341,7 @@
 	<pojomatic.version>1.0</pojomatic.version>
 	<proguard.version>2.0.6</proguard.version>
 	<proguardBase.version>4.9</proguardBase.version>
+	<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
 	<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
 	<site.version>3.2</site.version>
 	<slf4j.version>1.7.5</slf4j.version>
@@ -1781,6 +1782,40 @@
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>java-lang</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/java</exists>
+				</file>
+			</activation>
+			<dependenyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.pure4j</groupId>
+						<artifactId>pure4j-core</artifactId>
+						<version>${pure4j.version}</version>
+					</dependency>
+				</dependencies>
+			</dependenyManagement>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- @see https://github.com/robmoffat/pure4j/blob/master/README.md -->
+						<groupId>org.pure4j</groupId>
+						<artifactId>pure4j-magen-plugin</artifactId>
+						<version>${pure4j.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>pure4j</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>log4j-slf4j</id>
