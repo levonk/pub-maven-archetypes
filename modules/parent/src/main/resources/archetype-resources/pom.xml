@@ -1290,7 +1290,7 @@
 	<avro.version>1.7.6</avro.version>
 	<codequality.version>1.0.9</codequality.version>
 	<checkers.version>1.8.0</checkers.version>
-	<commonscollections.version>3.2.2</commonscollections.version>	<!-- 2015-11-18 -->
+	<commonscollections.version>4.1</commonscollections.version>	<!-- 2015-12-19 -->
 	<docker.version>1.13</docker.version>
 	<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
 	<spring-boot.version>1.0.0.RC1</spring-boot.version>
