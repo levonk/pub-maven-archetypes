@@ -1337,7 +1337,7 @@
 	<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 	<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
 	<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
-	<pmd.version>3.5</pmd.version>	<!-- 2015-10-06 -->
+	<pmd.version>3.6</pmd.version>	<!-- 2015-12-19 -->
 	<pojomatic.version>1.0</pojomatic.version>
 	<proguard.version>2.0.6</proguard.version>
 	<proguardBase.version>4.9</proguardBase.version>
