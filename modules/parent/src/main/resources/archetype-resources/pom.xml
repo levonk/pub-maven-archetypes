@@ -713,6 +713,11 @@
                                         <exclude>org.slf4j:1.5*</exclude>
                                         <exclude>org.springframework:2.*</exclude>
                                         <exclude>org.springframework:3.0.*</exclude>
+										<!-- Prevent NPE
+											 @see http://stackoverflow.com/questions/29995139/maven-versions-maven-plugin-versions-plugin-2-2
+											 @see http://jira.codehaus.org/browse/MVERSIONS-285
+										-->
+                                        <exclude>org.codehaus.mojo:versions-maven-plugin:2.2</exclude>
                                     </excludes>
                                 </bannedDependencies>
                                 <DependencyConvergence/>
@@ -1352,7 +1357,7 @@
 	<surefire.version>2.16</surefire.version>
 	<!-- as of 2011-04-06 -->
 	<testng.version>6.8.7</testng.version>
-	<versions.version>2.2</versions.version> <!-- 2015-02-02 -->
+	<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
 	<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
 </properties>
 
