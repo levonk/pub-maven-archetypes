@@ -1809,7 +1809,7 @@
 					<plugin>
 						<!-- @see https://github.com/robmoffat/pure4j/blob/master/README.md -->
 						<groupId>org.pure4j</groupId>
-						<artifactId>pure4j-magen-plugin</artifactId>
+						<artifactId>pure4j-maven-plugin</artifactId>
 						<version>${pure4j.version}</version>
 						<executions>
 							<execution>
