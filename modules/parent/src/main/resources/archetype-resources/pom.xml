@@ -1789,13 +1789,23 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>java-lang</id>
-			<activation>
+			<id>pure4j-check</id>
+            <!-- Active this module require that all dependencies used in the project are in compile scope. To exclue testing dependencies in the final build, we will allow developer to opt out this profile -->
+			<!--<activation>
 				<file>
 					<exists>${basedir}/src/main/java</exists>
 				</file>
-			</activation>
-			<dependenyManagement>
+			</activation>-->
+            <dependencies>
+                <!-- pure4j plugin does not work with Test scope. most likely will need
+                to change spring test module to compile scope-->
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-test</artifactId>
+                    <version>4.2.4.RELEASE</version>
+                </dependency>
+            </dependencies>
+			<dependencyManagement>
 				<dependencies>
 					<dependency>
 						<groupId>org.pure4j</groupId>
@@ -1803,7 +1813,7 @@
 						<version>${pure4j.version}</version>
 					</dependency>
 				</dependencies>
-			</dependenyManagement>
+			</dependencyManagement>
 			<build>
 				<plugins>
 					<plugin>
