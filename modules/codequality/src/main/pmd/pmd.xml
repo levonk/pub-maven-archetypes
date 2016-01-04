@@ -71,10 +71,7 @@
 	</rule>
 
 	<rule ref="rulesets/java/coupling.xml">
-		<!-- introduce with parameters below -->
-		<!--
-		<exclude name="ExcessiveImports" />
-		-->
+		<exclude name="LawOfDemeter" />
 	</rule>
 <!--
 	<rule ref="rulesets/java/coupling.xml/ExcessiveImports">
