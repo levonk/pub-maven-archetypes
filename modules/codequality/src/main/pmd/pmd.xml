@@ -51,6 +51,13 @@
 		<exclude name="NullAssignment" />
 		<!-- readability can be sometimes improved, nice to have, but don't enforce -->
 		<exclude name="OnlyOneReturn" />
+		
+		<exclude name="DataflowAnomalyAnalysis" >
+			<properties>
+        			<property name="violationSuppressRegex" value="^Found 'UR'-anomaly.*"/>
+    			</properties>
+		</exclude>
+		
 	</rule>
 
 	<rule ref="rulesets/java/controversial.xml/AtLeastOneConstructor">
