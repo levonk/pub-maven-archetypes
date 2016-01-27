@@ -51,7 +51,17 @@
 		the settings.xml.
 	-->
 	<servers/>
-	<mirrors/>
+	<mirrors>
+		<mirror>
+			<!-- Google's mirror seems faster
+				@see http://takari.io/2015/10/28/google-maven-central.html
+			-->
+			<id>google-maven-central</id>
+			<name>Google Maven Central</name>
+			<url>https://maven-central.storage.googleapis.com</url>
+			<mirrorOf>central</mirrorOf>
+		</mirror>	
+	</mirrors>
 	<proxies/>
 	<!--
 		The profile element in the settings.xml is a truncated version of the pom.xml
@@ -68,6 +78,9 @@
 		<profile>
 			<id>sonar</id>
 			<activation>
+				<!-- You should be using SonarQube
+					 @see http://www.sonarqube.org/
+				 -->
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
@@ -80,7 +93,10 @@
 		<profile>
 			<id>docker</id>
 			<activation>
+				<!-- (@code true ) this if you're publishing to a docker repository
 				<activeByDefault>true</activeByDefault>
+				 -->
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<docker.username>johndoe</docker.username>
@@ -88,6 +104,18 @@
 				<docker.host>http://localhost:2375</docker.host>
 				<docker.serverAddress>https://index.docker.io/v1/</docker.serverAddress>
 				<docker.dockerCertPath>${user.home}/.docker</docker.dockerCertPath>
+			</properties>
+		</profile>
+		<profile>
+			<id>nexusclm</id>
+			<activation>
+				<!-- (@code true ) this if you're publishing to a Nexus CLM server
+				<activeByDefault>true</activeByDefault>
+				 -->
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<clm.serverUrl>http://clm.${host}.com:8070/</clm.serverUrl>
 			</properties>
 		</profile>
 	</profiles>
