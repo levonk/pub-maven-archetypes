@@ -7,26 +7,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>1.0.0.RC1</version>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.3.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-	<groupId>${groupId}</groupId>
-	<artifactId>${artifactId}</artifactId>
-	<name>${project_name}</name>
-	<url>${project_url}</url>
-	<version>${version}</version>
-	<packaging>pom</packaging>
-
-
-	<organization>
-		<name>${project_organization}</name>
-		<url>${project_url}</url>
-	</organization>
-
-	<modules>
-		<module>common</module>
-   	</modules>
+	<groupId>com.levonk.codequality.pom</groupId>
+    <artifactId>pom</artifactId>
+    <name>pom</name>
+    <url>none</url>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
 	<repositories>
 		<repository>
@@ -249,36 +240,36 @@
 
     <dependencyManagement>
         <dependencies>
-		<dependency>
-			<!-- https://github.com/OpenHFT/Zero-Allocation-Hashing -->
-      			<groupId>net.openhft</groupId>
-      			<artifactId>zero-allocation-hashing</artifactId>
-      			<version>${zeroallochash.version}</version>
-		</dependency>
-		<dependency>
-      			<groupId>com.jayway.restassured</groupId>
-      			<artifactId>rest-assured</artifactId>
-      			<version>${restassured.version}</version>
-      			<scope>test</scope>
-		</dependency>
-		<dependency>
-      			<groupId>com.jayway.restassured</groupId>
-      			<artifactId>xml-path</artifactId>
-      			<version>${restassured.version}</version>
-      			<scope>test</scope>
-		</dependency>
-		<dependency>
-      			<groupId>com.jayway.restassured</groupId>
-      			<artifactId>json-schema-validator</artifactId>
-      			<version>${restassured.version}</version>
-      			<scope>test</scope>
-		</dependency>
-		<dependency>
-      			<groupId>com.jayway.restassured</groupId>
-      			<artifactId>spring-mock-mvc</artifactId>
-      			<version>${restassured.version}</version>
-      			<scope>test</scope>
-		</dependency>
+			<dependency>
+				<!-- https://github.com/OpenHFT/Zero-Allocation-Hashing -->
+				<groupId>net.openhft</groupId>
+				<artifactId>zero-allocation-hashing</artifactId>
+				<version>${zeroallochash.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>rest-assured</artifactId>
+				<version>${restassured.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>xml-path</artifactId>
+				<version>${restassured.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>json-schema-validator</artifactId>
+				<version>${restassured.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>spring-mock-mvc</artifactId>
+				<version>${restassured.version}</version>
+				<scope>test</scope>
+			</dependency>
 
             <!-- Add Cofoja Design By Contract lib when available -->
             <dependency>
@@ -436,6 +427,19 @@
                 <artifactId>checker-framework</artifactId>
                 <version>1.8.0</version>
             </dependency>
+			<dependency>
+				<!-- @see https://github.com/mauricio/postgresql-async -->
+				<groupId>com.github.mauricio</groupId>
+				<artifactId>postgresql-async_2.11</artifactId>
+				<version>${jdbcasync.version}</version>
+			</dependency>
+			<dependency>
+				<!-- @see https://github.com/mauricio/postgresql-async -->
+				<!-- please prefer postgresql over mysql. -->
+				<groupId>com.github.mauricio</groupId>
+				<artifactId>mysql-async_2.11</artifactId>
+				<version>${jdbcasync.version}</version>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -478,6 +482,33 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            
+            <plugin>
+            	<!-- @see http://classycle.sourceforge.net/ -->
+		    <groupId>org.pitest</groupId>
+		    <artifactId>classycle-maven-plugin</artifactId>
+		    <version>0.4</version>
+		    <executions>
+		        <execution>
+		            <id>verify</id>
+		            <phase>verify</phase>
+		            <goals>
+		                <goal>check</goal>
+		            </goals>
+		            <configuration>
+		                <dependencyDefinition>
+		                    show allResults
+		                    check absenceOfPackageCycles > 1 in com.example*
+		                </dependencyDefinition>
+		
+		                <!-- This can be classycle.dependency.DefaultResultRenderer 
+		                    for text (the default if omitted) or 
+		                    classycle.dependency.XMLResultRenderer for xml -->
+		                <resultRenderer>classycle.dependency.DefaultResultRenderer</resultRenderer>
+		            </configuration>
+		        </execution>
+		    </executions>
             </plugin>
 
             <plugin>
@@ -610,22 +641,16 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-
+		<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.version}</version>
                 <configuration>
-                    <configLocation>codequality/checkstyle.xml</configLocation>
-                    <headerLocation>LICENSE.txt</headerLocation>
+                    <configLocation>google_checks.xml</configLocation>
+                    <logViolationsToConsole>true</logViolationsToConsole>
+                    <failOnViolation>true</failOnViolation>
+                    <failsOnError>true</failsOnError>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.disney.studio.ds.buildtool</groupId>
-                        <artifactId>build-tools</artifactId>
-                        <version>1.0</version>
-                    </dependency>
-                </dependencies>
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -637,6 +662,7 @@
             </plugin>
 
             <plugin>
+                <!-- @see http://maven.apache.org/enforcer/enforcer-rules/index.html -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${enforcer.version}</version>
@@ -647,12 +673,17 @@
                             <goal>enforce</goal>
                         </goals>
                         <configuration>
-                            <fail>true</fail>
+                            <fail>false</fail>
                             <rules>
                                 <bannedDependencies>
                                     <searchTransitive>true</searchTransitive>
                                     <excludes>
                                         <exclude>aspectj:aspectj*</exclude>
+                                        <!-- Security Vulnerability in InvokerTransformer.class as of 2015-11-10
+                                            @see org.apache.commons.collections.functors.InvokerTransformer.class
+                                            @see http://foxglovesecurity.com/2015/11/06/what-do-weblogic-websphere-jboss-jenkins-opennms-and-your-application-have-in-common-this-vulnerability/
+                                        -->
+                                        <exclude>org.apache.commons:commons-collections:,3.2.1]</exclude>
                                         <exclude>commons-logging</exclude>
                                         <exclude>hsqldb:hsqldb</exclude>
                                         <exclude>javassist:javassist</exclude>
@@ -661,110 +692,156 @@
                                         <exclude>org.slf4j:1.5*</exclude>
                                         <exclude>org.springframework:2.*</exclude>
                                         <exclude>org.springframework:3.0.*</exclude>
+                                        <!-- Prevent NPE
+                                             @see http://stackoverflow.com/questions/29995139/maven-versions-maven-plugin-versions-plugin-2-2
+                                             @see http://jira.codehaus.org/browse/MVERSIONS-285
+                                        -->
+                                        <exclude>org.codehaus.mojo:versions-maven-plugin:2.2</exclude>
                                     </excludes>
                                 </bannedDependencies>
-                                <DependencyConvergence/>
+                                <dependencyConvergence/>
                                 <requireMavenVersion>
                                     <version>[3.0.3,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
                                     <version>${java.version}</version>
                                 </requireJavaVersion>
-                    		<evaluateBeanshell>
-                        		<condition>javax.crypto.Cipher.getMaxAllowedKeyLength("AES") > 128</condition>
-                    		</evaluateBeanshell>
-                    		<reactorModuleConvergence>
-                			<message>Maven-enforcer: The reactor Module Convergance is not valid</message>
-                			<ignoreModuleDependencies>true</ignoreModuleDependencies>
-                		</reactorModuleConvergence>
-				<requireSameVersions>
-					<plugins>
-						<plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
-						<plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
-						<plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
-					</plugins>
-				</requireSameVersions>
-				<requireSameVersions>
-					<dependencies>
-						<dependency>org.apache.maven</dependency> <!-- or org.apache.maven:* -->
-					</dependencies>
-				</requireSameVersions>
-				<requireSameVersions>
-					<dependencies>
-						<dependency>org.apache.camel</dependency> <!-- or org.apache.camel:* -->
-					</dependencies>
-				</requireSameVersions>
-				<requireSameVersions>
-					<dependencies>
-						<dependency>org.springframework</dependency> <!-- or org.springframework:* -->
-					</dependencies>
-				</requireSameVersions>
-				<requireSameVersions>
-					<dependencies>
-						<dependency>org.springframework.boot</dependency> <!-- or org.springframework.boot:* -->
-					</dependencies>
-				</requireSameVersions>
-				<requireSameVersions>
-					<dependencies>
-						<dependency>com.jayway.restassured</dependency> <!-- or com.jayway.restassured:* -->
-					</dependencies>
-				</requireSameVersions>
+                            <evaluateBeanshell>
+                                <condition>javax.crypto.Cipher.getMaxAllowedKeyLength("AES") > 128</condition>
+                            </evaluateBeanshell>
+                            <reactorModuleConvergence>
+                            <message>Maven-enforcer: The reactor Module Convergance is not valid</message>
+                            <ignoreModuleDependencies>true</ignoreModuleDependencies>
+                        </reactorModuleConvergence>
+                <requireSameVersions>
+                    <plugins>
+                        <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
+                        <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
+                        <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+                    </plugins>
+                </requireSameVersions>
+                <requireSameVersions>
+                    <dependencies>
+                        <dependency>org.apache.maven</dependency> <!-- or org.apache.maven:* -->
+                    </dependencies>
+                </requireSameVersions>
+                <requireSameVersions>
+                    <dependencies>
+                        <dependency>org.apache.camel</dependency> <!-- or org.apache.camel:* -->
+                    </dependencies>
+                </requireSameVersions>
+                <requireSameVersions>
+                    <dependencies>
+                        <dependency>org.slf4j</dependency> <!-- or org.slf4j:* -->
+                    </dependencies>
+                </requireSameVersions>
+                <requireSameVersions>
+                    <dependencies>
+                        <dependency>org.springframework</dependency> <!-- or org.springframework:* -->
+                    </dependencies>
+                </requireSameVersions>
+                <requireSameVersions>
+                    <dependencies>
+                        <dependency>org.springframework.boot</dependency> <!-- or org.springframework.boot:* -->
+                    </dependencies>
+                </requireSameVersions>
+                <requireSameVersions>
+                    <dependencies>
+                        <dependency>com.jayway.restassured</dependency> <!-- or com.jayway.restassured:* -->
+                    </dependencies>
+                </requireSameVersions>
                             </rules>
                         </configuration>
                     </execution>
                 </executions>
+        
             </plugin>
 
             <plugin>
-                <!-- PMD -->
+                <!-- @see https://pmd.github.io/ -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>${pmd.version}</version>
+                <version>3.6</version>
                 <configuration>
                     <rulesets>
                         <ruleset>
-                            https://github.com/pwangjing/mavenrepository/raw/master/releases/com/archetype/codequality/pmd/1.0.0/pmd-1.0.0.xml
+                            https://raw.githubusercontent.com/pwangjing/pub-maven-archetypes/master/modules/codequality/src/main/pmd/pmd.xml
                         </ruleset>
                     </rulesets>
+                    <excludes>
+                        <exclude>**/*Bean.java</exclude>
+                        <exclude>**/generated/*.java</exclude>
+                    </excludes>
+                    <minimumTokens>100</minimumTokens>
+                    <sourceEncoding>utf-8</sourceEncoding>
                     <targetJdk>${java.version}</targetJdk>
                     <linkXRef>false</linkXRef>
+                    <failurePriority>2</failurePriority>
+                    <failOnViolation>true</failOnViolation>
+                    <printFailingErrors>true</printFailingErrors>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>cpd-check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
             </plugin>
 
             <plugin>
-                <!-- Findbugs -->
+                <!-- @see http://findbugs.sourceforge.net/ -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs.version}</version>
-
                 <configuration>
                     <excludeFilterFile>
                         https://github.com/pwangjing/mavenrepository/raw/master/releases/com/archetype/codequality/FindBugFilter/1.0.0/FindBugFilter-1.0.0.xml
                     </excludeFilterFile>
+                    <effort>Max</effort>
                     <threshold>Low</threshold>
+                    <xmlOutput>true</xmlOutput>
                 </configuration>
             </plugin>
 
 
-            <plugin>
-                <!--
-                    Goals:
-                    cobertura:check
-                    cobertura:clean
-                    cobertura:dump-datafile
-                    cobertura:instrument
-                    cobertura:cobertura
-                -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${cobertura.version}</version>
-                <configuration>
-                    <check/>
-                    <formats>
-                        <format>xml</format>
-                    </formats>
-                </configuration>
-            </plugin>
+		<plugin>
+			<!--
+				@see http://www.mojohaus.org/cobertura-maven-plugin/usage.html
+				Goals:
+					cobertura:check
+					cobertura:clean
+					cobertura:dump-datafile
+					cobertura:instrument
+					cobertura:cobertura
+			-->
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>cobertura-maven-plugin</artifactId>
+			<version>${cobertura.version}</version>
+			<configuration>
+				<check/>
+				<formats>
+					<format>xml</format>
+				</formats>
+				<branchRate>85</branchRate>
+				<lineRate>85</lineRate>
+				<haltOnFailure>true</haltOnFailure>
+				<totalBranchRate>85</totalBranchRate>
+				<totalLineRate>85</totalLineRate>
+				<packageLineRate>85</packageLineRate>
+				<packageBranchRate>85</packageBranchRate>
+			</configuration>
+			<executions>
+				<execution>
+					<goals>
+						<goal>check</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+
             <plugin>
                 <groupId>com.soebes.maven.plugins.mlv</groupId>
                 <artifactId>maven-license-verifier-plugin</artifactId>
@@ -785,6 +862,89 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            
+		<plugin>
+			<!-- @see https://github.com/basepom/duplicate-finder-maven-plugin/wiki -->
+			<groupId>org.basepom.maven</groupId>
+			<artifactId>duplicate-finder-maven-plugin</artifactId>
+			<version>${duplicate.version}</version>
+			<executions>
+				<execution>
+					<id>default</id>
+					<phase>verify</phase>
+					<goals>
+						<goal>check</goal>
+					</goals>
+				</execution>
+			</executions>
+			<configuration>
+				<printEqualFiles>false</printEqualFiles>
+				<failBuildInCaseOfDifferentContentConflict>false</failBuildInCaseOfDifferentContentConflict>
+				<failBuildInCaseOfEqualContentConflict>false</failBuildInCaseOfEqualContentConflict>
+				<failBuildInCaseOfConflict>false</failBuildInCaseOfConflict>
+				<checkCompileClasspath>true</checkCompileClasspath>
+				<checkRuntimeClasspath>true</checkRuntimeClasspath>
+				<checkTestClasspath>true</checkTestClasspath>
+				<skip>false</skip>
+				<quiet>false</quiet>
+				<preferLocal>true</preferLocal>
+				<useResultFile>true</useResultFile>
+				<resultFileMinClasspathCount>2</resultFileMinClasspathCount>
+				<resultFile>${project.build.directory}/duplicate-finder-result.xml</resultFile>
+				<includeBootClasspath>false</includeBootClasspath>
+				<bootClasspathProperty>sun.boot.class.path</bootClasspathProperty>
+				<useDefaultResourceIgnoreList>true</useDefaultResourceIgnoreList>
+				<includePomProjects>false</includePomProjects>
+				<useDefaultResourceIgnoreList>true</useDefaultResourceIgnoreList>
+				<!--
+				<exceptions>
+					<exception>
+						<currentProject>false</currentProject>
+						<bootClasspath>false</bootClasspath>
+						<conflictingDependencies>
+							<dependency>
+								<artifactId>...</artifactId>
+								<groupId>...</groupId>
+								<version>...</version>
+								<type>...</type>
+								<classifier>...</classifier>
+							</dependency>
+						</conflictingDependencies>
+						<classes>
+							<class>...</class>
+						</classes>
+						<packages>
+							<package>...</package>
+						</packages>
+						<resources>
+							<resource>...</resource>
+						</resources>
+						<resourcePatterns>
+							<resourcePattern>...</resourcePattern>
+						</resourcePatterns>
+					</exception>
+				</exceptions>
+				<ignoredResourcePatterns>
+					<ignoredResourcePattern>...</ignoredResourcePattern>
+				</ignoredResourcePatterns>
+				<ignoredClassPatterns>
+					<ignoredClassPattern>...</ignoredClassPattern>
+				</ignoredClassPatterns>
+				<ignoredDependencies>
+					<dependency>
+						<artifactId>...</artifactId>
+						<groupId>...</groupId>
+						<version>...</version>
+						<type>...</type>
+						<classifier>...</classifier>
+					</dependency>
+				</ignoredDependencies>
+				<ignoredResources>
+					<ignoredResource>...</ignoredResource>
+				</ignoredResources>
+				-->
+			</configuration>
+		</plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -1006,15 +1166,27 @@
                 <version>${surefire.version}</version>
             </plugin>
             <!-- static analysis -->
-            <plugin>
+		<plugin>
+			<!-- @see http://www.mojohaus.org/jdepend-maven-plugin/ -->
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>jdepend-maven-plugin</artifactId>
+			<version>${jdepend.version}</version>
+		</plugin>
+		<plugin>
+			<!-- @see http://www.mojohaus.org/javancss-maven-plugin -->
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>javancss-maven-plugin</artifactId>
+			<version>${javancss.version}</version>
+		</plugin>
+             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.version}</version>
                 <configuration>
-                    <configLocation>codequality/checkstyle.xml</configLocation>
-                    <headerLocation>LICENSE.txt</headerLocation>
+                    <configLocation>google_checks.xml</configLocation>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -1076,14 +1248,18 @@
 	<!-- version block -->
 	<android.version>2.8.4</android.version>
 	<autovalue.version>1.0-rc1</autovalue.version>
+	<antlr3.version>3.5.2</antlr3.version>	<!-- 2015-10-06 -->
+	<antlr4.version>4.5.1-1</antlr4.version>	<!-- 2015-10-06 -->
 	<antrun.version>1.7</antrun.version>
 	<avro.version>1.7.6</avro.version>
 	<codequality.version>1.0.9</codequality.version>
 	<checkers.version>1.8.0</checkers.version>
 	<docker.version>1.13</docker.version>
-	<spring-boot.version>1.0.0.RC1</spring-boot.version>
-	<checkstyle.version>2.9.1</checkstyle.version>
-	<cobertura.version>2.5.2</cobertura.version>
+	<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
+	<spring-boot.version>1.3.1.RELEASE</spring-boot.version>
+	<checkstyle.version>2.17</checkstyle.version>	<!-- 2015-10-06 -->
+	<checkstylepuppycrawl.version>6.11.2</checkstylepuppycrawl.version>	<!-- 2015-10-06 -->
+	<cobertura.version>2.7</cobertura.version> <!-- 2015-10-06 -->
 	<commonslang.version>2.6</commonslang.version>
 	<commonslang3.version>3.2.1</commonslang3.version>
 	<compiler.version>3.3</compiler.version> <!-- as of 2015-03-27 -->
@@ -1092,34 +1268,43 @@
 	<doclava.version>1.0.6</doclava.version>
 	<eclipse.version>2.9</eclipse.version>
 	<enforcer.version>1.4.1</enforcer.version> <!-- 2015-09-01 -->
+	<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
 	<equalsverifier.version>1.3.1</equalsverifier.version>
 	<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
-	<findbugs.version>2.5.2</findbugs.version>
+	<findbugs.version>3.0.2</findbugs.version>	<!-- 2015-10-06 -->
 	<findbugs-extra.version>1.3.9</findbugs-extra.version>
 	<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
 	<gpg.version>1.5</gpg.version>
 	<!-- as of 2014-03-11 -->
-	<guava.version>16.0</guava.version>
+	<guava.version>18.0</guava.version>
 	<jackson1.version>1.9.13</jackson1.version>
 	<jacoco.version>0.7.4.201502262128</jacoco.version>
 	<jalopy.version>1.0-alpha-1</jalopy.version>
 	<javadoc.version>2.9.1</javadoc.version>
+	<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
+	<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
+	<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
 	<!-- as of 2014-03-11 -->
 	<licenseVerifier.version>0.4</licenseVerifier.version>
 	<licenses.version>1.0</licenses.version>
+	<log4jslf4j.version>2.4</log4jslf4j.version>	<!-- 2015-10-06 -->
+	<log4jcore.version>2.4</log4jcore.version>	<!-- 2015-10-06 -->
 	<logback.version>1.0.13</logback.version>
 	<logback-jackson.version>0.1.2</logback-jackson.version>
 	<logstash.version>2.4</logstash.version>
 	<lombok.version>1.12.5</lombok.version>
 	<mockito.version>1.9.5</mockito.version>
-	<modernizer.version>1.0.0</modernizer.version> <!-- 2014-09-19 -->
+	<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
+	<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
+	<nexusclm.version>2.1.1</nexusclm.version>	<!-- 2015-10-22 -->
 	<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 	<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
 	<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
-	<pmd.version>3.0.1</pmd.version>
+	<pmd.version>3.6</pmd.version>	<!-- 2015-12-19 -->
 	<pojomatic.version>1.0</pojomatic.version>
 	<proguard.version>2.0.6</proguard.version>
 	<proguardBase.version>4.9</proguardBase.version>
+	<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
 	<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
 	<site.version>3.2</site.version>
 	<slf4j.version>1.7.5</slf4j.version>
@@ -1130,7 +1315,7 @@
 	<surefire.version>2.16</surefire.version>
 	<!-- as of 2011-04-06 -->
 	<testng.version>6.8.7</testng.version>
-	<versions.version>2.2</versions.version> <!-- 2015-02-02 -->
+	<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
 	<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
 </properties>
 
@@ -1330,6 +1515,36 @@
 			</build>
 		</profile>
 		<profile>
+			<id>nexusclm</id>
+			<activations>
+				<!-- You need entries in settings.xml to configure the link to the server, see readme -->
+				<property><name>nexusclm.serverUrl</name></property>
+			</activations>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.sonatype.clm</groupId>
+						<artifactId>clm-maven-plugin</artifactId>
+						<version>${nexusclm.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>evaluate</goal>
+								</goals>
+								<phase>site</phase>
+								<configuration>
+									<serverUrl>${nexusclm.serverUrl}</serverUrl>
+									<stage>build</stage>
+									<applicationId>${project.groupId}:${project.artifactId}</applicationId>
+									<inherited>false</inherited>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>sonar</id>
 			<activations>
 				<!-- You need entries in settings.xml to configure the link to the server, see readme -->
@@ -1391,6 +1606,75 @@
 			</build>
 		</profile>
 		<profile>
+			<id>antlr3-gen</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/antlr3</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.antlr</groupId>
+					<artifactId>antlr-runtime</artifactId>
+					<version>${antlr3.version}</version>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.antlr</groupId>
+						<artifactId>antlr3-maven-plugin</artifactId>
+						<version>${antlr3.version}</version>
+						<executions>
+							<execution>
+								<id>antl3-gen</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>antlr</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>antlr4-gen</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/antlr4</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.antlr</groupId>
+					<artifactId>antlr4-runtime</artifactId>
+					<version>${antlr4.version}</version>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.antlr</groupId>
+						<artifactId>antlr4-maven-plugin</artifactId>
+						<version>${antlr4.version}</version>
+						<executions>
+							<execution>
+								<id>antl4-gen</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>antlr4</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<sourceDirectory>src/main/antlr4</sourceDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>docker-pkg</id>
 			<activation>
 				<file>
@@ -1427,19 +1711,134 @@
 							<permissionErrorTolerant>true</permissionErrorTolerant>
 							<!-- (optional) only remove containers on clean, do not remove images -->
 							<cleanContainerOnly>false</cleanContainerOnly>
-							</configuration>
-							<dependencies>
-								<dependency>
-									<!-- set-up port forwarding if you're using boot2docker -->
-									<groupId>com.alexecollins.docker</groupId>
-									<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
-									<version>${docker.version}</version>
-								</dependency>
-							</dependencies>
 						</configuration>
+						<dependencies>
+							<dependency>
+								<!-- set-up port forwarding if you're using boot2docker -->
+								<groupId>com.alexecollins.docker</groupId>
+								<artifactId>docker-java-orchestration-plugin-boot2docker</artifactId>
+								<version>${docker.version}</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>log4j-slf4j-test</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/test/resources/log4j.xml</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j-impl</artifactId>
+					<version>${log4jslf4j.version}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-core</artifactId>
+					<version>${log4jcore.version}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>pure4j-check</id>
+            <!-- Active this module require that all dependencies used in the project are in compile scope. To exclue testing dependencies in the final build, we will allow developer to opt out this profile -->
+			<!--<activation>
+				<file>
+					<exists>${basedir}/src/main/java</exists>
+				</file>
+			</activation>-->
+            <dependencies>
+                <!-- pure4j plugin does not work with Test scope. most likely will need
+                to change spring test module to compile scope-->
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-test</artifactId>
+                    <version>4.2.4.RELEASE</version>
+                </dependency>
+            </dependencies>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.pure4j</groupId>
+						<artifactId>pure4j-core</artifactId>
+						<version>${pure4j.version}</version>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- @see https://github.com/robmoffat/pure4j/blob/master/README.md -->
+						<groupId>org.pure4j</groupId>
+						<artifactId>pure4j-maven-plugin</artifactId>
+						<version>${pure4j.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>pure4j</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>log4j-slf4j</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/resources/log4j.xml</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j-impl</artifactId>
+					<version>${log4jslf4j.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-core</artifactId>
+					<version>${log4jcore.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>newrelic-pkg</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/resources/newrelic.yml</exists>
+				</file>
+			</activation>
+			<!--
+				 Commercial monitoring
+				 @see https://docs.newrelic.com/docs/agents/java-agent/installation/java-agent-manual-installation
+				 @see https://docs.newrelic.com/docs/agents/java-agent/frameworks/maven-installation-java
+			-->
+			<dependencies>
+				<dependency>
+					<!-- Needs to add JVM command line argument
+						 -javaagent:/path/to/newrelic.jar
+					-->
+					<groupId>com.newrelic.agent.java</groupId>
+					<artifactId>newrelic-agent</artifactId>
+					<version>${newrelic.version}</version>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>com.newrelic.agent.java</groupId>
+					<artifactId>newrelic-api</artifactId>
+					<version>${newrelic.version}</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 	</profiles>
 
