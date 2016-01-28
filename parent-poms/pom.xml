@@ -1298,7 +1298,7 @@
 	<proguardBase.version>4.9</proguardBase.version>
 	<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
 	<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
-	<site.version>3.2</site.version>
+	<site.version>3.3</site.version>
 	<slf4j.version>1.7.5</slf4j.version>
 	<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 	<!-- as of 2012-09-17 -->
