@@ -1207,21 +1207,13 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs.version}</version>
-            </plugin>
+        </plugin>
  		<plugin>
- 			<groupId>org.owasp</groupId>
-			<artifactId>dependency-check-maven</artifactId>
-			<version>${dependencycheck.version}</version>
-			<executions>
-				<execution>
-					<goals>
-						<goal>check</goal>
-					</goals>
-					<configuration>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <version>${dependencycheck.version}</version>
+        </plugin>
+
 		<plugin>
 			<groupId>org.codehaus.mojo</groupId>
 			<artifactId>versions-maven-plugin</artifactId>
@@ -1383,13 +1375,14 @@
 				<file>
 					<exists>${basedir}/src/main/liquibase/master.xml</exists>
 				</file>
-				<!-- following should be dependent on enviornment in settings.xml -->
-				<property><name>liquibase.driver</name></property>
-				<property><name>liquibase.url</name></property>
-				<!-- following should be only in settings.xml and not committed -->
-				<property><name>liquibase.username</name></property>
-				<property><name>liquibase.password</name></property>
-			</activation>
+				 <property><name>liquibase.url</name></property>
+                <!-- following should be dependent on enviornment in settings.xml -->
+                <!--<property><name>liquibase.driver</name></property>-->
+                
+                <!-- following should be only in settings.xml and not committed -->
+                <!--<property><name>liquibase.username</name></property>-->
+                <!--<property><name>liquibase.password</name></property>-->
+        	</activation>
 			<build>
 				<plugins>
 					<plugin>
@@ -1516,10 +1509,10 @@
 		</profile>
 		<profile>
 			<id>nexusclm</id>
-			<activations>
+			<activation>
 				<!-- You need entries in settings.xml to configure the link to the server, see readme -->
 				<property><name>nexusclm.serverUrl</name></property>
-			</activations>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
@@ -1546,13 +1539,13 @@
 		</profile>
 		<profile>
 			<id>sonar</id>
-			<activations>
+			<activation>
 				<!-- You need entries in settings.xml to configure the link to the server, see readme -->
 				<property><name>sonar.jdbc.url</name></property>
-				<property><name>sonar.jdbc.username</name></property>
+				<!--<property><name>sonar.jdbc.username</name></property>
 				<property><name>sonar.jdbc.password</name></property>
-				<property><name>sonar.host.url</name></property>
-			</activations>
+				<property><name>sonar.host.url</name></property>-->
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
