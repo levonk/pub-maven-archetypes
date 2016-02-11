@@ -1669,7 +1669,7 @@
                         <version>0.2.3</version>
                         <executions>
                             <execution>
-                                <phase>package</phase>
+                                <phase>deploy</phase>
                                 <goals>
                                     <goal>build</goal>
                                 </goals>
