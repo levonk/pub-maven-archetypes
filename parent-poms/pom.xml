@@ -1285,6 +1285,7 @@
 	<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
 	<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 	<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
+	<jmeter.version>1.10.1</jmeter.version>	<!-- 2016-02-13 -->
 	<!-- as of 2014-03-11 -->
 	<licenseVerifier.version>0.4</licenseVerifier.version>
 	<licenses.version>1.0</licenses.version>
@@ -1810,6 +1811,35 @@
 					<version>${log4jcore.version}</version>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>jmeter-test-profile</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/test/jmeter</exists>
+				</file>
+			</activation>
+			<!--
+				 REST Testing
+				 @see https://github.com/jmeter-maven-plugin/jmeter-maven-plugin
+			-->
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.lazerycode.jmeter</groupId>
+						<artifactId>jmeter-maven-plugin</artifactId>
+						<version>${jmeter.version}</version>
+						<scope>test</scope>
+						<executions>
+							<id>integration-test</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jmeter</goal>
+							</goals>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>newrelic-pkg</id>
