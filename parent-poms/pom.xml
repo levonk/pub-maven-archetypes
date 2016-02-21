@@ -1339,7 +1339,7 @@
 	<!-- as of 2014-03-11 -->
 	<guava.version>18.0</guava.version>
 	<jackson1.version>1.9.13</jackson1.version>
-	<jacoco.version>0.7.4.201502262128</jacoco.version>
+	<jacoco.version>0.7.6</jacoco.version>	<!-- 2016-02-21 -->
 	<jalopy.version>1.0-alpha-1</jalopy.version>
 	<javadoc.version>2.9.1</javadoc.version>
 	<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
@@ -1372,7 +1372,7 @@
 	<slf4j.version>1.7.5</slf4j.version>
 	<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 	<!-- as of 2012-09-17 -->
-	<source.version>2.2.1</source.version>
+	<source.version>3.0.0</source.version>	<!-- 2016-02-21 -->
 	<!-- as of 2014-03-11 -->
 	<surefire.version>2.16</surefire.version>
 	<!-- as of 2011-04-06 -->
