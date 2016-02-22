@@ -6,11 +6,11 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.1.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.2.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
 
 	<groupId>com.levonk.codequality.pom</groupId>
     <artifactId>pom</artifactId>
@@ -234,8 +234,21 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+        	<!-- @see http://types.cs.washington.edu/checker-framework/current/checker-framework-manual.html#maven -->
+        	<!-- annotations from the Checker Framework: nullness, interning, locking, ... -->
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
+            <version>${checkers.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker</artifactId>
+            <version>${checkers.version}</version>
+        </dependency>
+        <dependency>
+        	<!-- The annotated JDK to use (change to jdk7 if using Java 7) -->
+            <groupId>org.checkerframework</groupId>
+            <artifactId>jdk8</artifactId>
             <version>${checkers.version}</version>
         </dependency>
     </dependencies>
@@ -472,6 +485,7 @@
                 </configuration>
                 <executions>
                     <execution>
+			<phase>test</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
@@ -494,9 +508,9 @@
 		    <executions>
 		        <execution>
 		            <id>verify</id>
-		            <phase>verify</phase>
+		            <phase>test</phase>
 		            <goals>
-		                <goal>check</goal>
+		                <goal>mutationCoverage</goal>
 		            </goals>
 		            <configuration>
 		                <dependencyDefinition>
@@ -511,6 +525,13 @@
 		            </configuration>
 		        </execution>
 		    </executions>
+			<reportSets>
+				<reportSet>
+					<reports>
+						<report>report</report>
+					</reports>
+				</reportSet>
+			</reportSets>
             </plugin>
 
             <plugin>
@@ -529,6 +550,24 @@
                     <fork>true</fork>
                     <meminitial>128m</meminitial>
                     <maxmem>512m</maxmem>
+			<annotationProcessors>
+				<!-- Add all the checkers you want to enable here -->
+                		<annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+                		<annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>
+                		<annotationProcessor>org.checkerframework.checker.lock.LockChecker</annotationProcessor>
+                		<annotationProcessor>org.checkerframework.checker.regex.RegexChecker</annotationProcessor>
+                		<annotationProcessor>org.checkerframework.checker.formatter.FormatterChecker</annotationProcessor>
+                		<annotationProcessor>org.checkerframework.checker.signature.SignatureChecker</annotationProcessor>
+                		<annotationProcessor>org.checkerframework.checker.linear.LinearChecker</annotationProcessor>
+                		<annotationProcessor>org.checkerframework.checker.igj.IGJChecker</annotationProcessor>
+                		<annotationProcessor>org.checkerframework.checker.javari.JavariChecker</annotationProcessor>
+            		</annotationProcessors>
+			<compilerArgs>
+				<!-- location of the annotated JDK, which comes from a Maven dependency -->
+				<arg>-Xbootclasspath/p:${annotatedJdk}</arg>
+				<!-- Uncomment the following line if using Java 7. -->
+				<!-- <arg>-J-Xbootclasspath/p:${typeAnnotationsJavac}</arg> -->
+			</compilerArgs>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -606,12 +645,12 @@
             <plugin>
                 <groupId>org.checkerframework</groupId>
                 <artifactId>checkerframework-maven-plugin</artifactId>
-                <version>1.8.0</version>
+                <version>${checker-version}</version>
                 <executions>
                     <execution>
-                        <phase>process-classes</phase>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>check</goal>
+                            <goal>checker</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -784,9 +823,10 @@
                 </configuration>
                 <executions>
                     <execution>
+			<phase>validate</phase>
                         <goals>
-                            <goal>check</goal>
-                            <goal>cpd-check</goal>
+                            <goal>pmd</goal>
+                            <goal>cpd</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -806,6 +846,14 @@
                     <threshold>Low</threshold>
                     <xmlOutput>true</xmlOutput>
                 </configuration>
+		<executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>findbugs</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         
@@ -939,6 +987,9 @@
                 <version>${dependency.version}</version>
                 <executions>
                     <execution>
+                    	<goals>
+                    		<goal>properties</goal>
+                    	</goals>
                     </execution>
                 </executions>
             </plugin>
@@ -1195,6 +1246,15 @@
 	<sonar.pitest.mode>active</sonar.pitest.mode>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<java.version>1.8</java.version>
+	
+	<!-- Checker Framework -->
+	<!-- These properties will be set by the Maven Dependency plugin -->
+	<!-- Change to jdk7 if using Java 7 -->
+	<annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
+	<!-- The type annotations compiler is required if using Java 7. -->
+	<!-- Uncomment the following line if using Java 7. -->
+	<!-- <typeAnnotationsJavac>${org.checkerframework:compiler:jar}</typeAnnotationsJavac> -->	
+	
 	<!-- version block -->
 	<android.version>2.8.4</android.version>
 	<autovalue.version>1.0-rc1</autovalue.version>
@@ -1203,7 +1263,7 @@
 	<antrun.version>1.7</antrun.version>
 	<avro.version>1.7.6</avro.version>
 	<codequality.version>1.0.9</codequality.version>
-	<checkers.version>1.8.0</checkers.version>
+	<checkers.version>1.9.11</checkers.version>	<!-- 2016-02-18 -->
 	<docker.version>1.13</docker.version>
 	<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
 	<spring-boot.version>1.3.1.RELEASE</spring-boot.version>
@@ -1211,7 +1271,7 @@
 	<checkstylepuppycrawl.version>6.11.2</checkstylepuppycrawl.version>	<!-- 2015-10-06 -->
 	<commonslang.version>2.6</commonslang.version>
 	<commonslang3.version>3.2.1</commonslang3.version>
-	<compiler.version>3.3</compiler.version> <!-- as of 2015-03-27 -->
+	<compiler.version>3.5.1</compiler.version> <!-- as of 2016-01-09 -->
 	<dependency.version>2.8</dependency.version>
 	<dependencycheck.version>1.3.0</dependencycheck.version> <!-- as of 2015-08-28 -->
 	<doclava.version>1.0.6</doclava.version>
@@ -1220,19 +1280,20 @@
 	<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
 	<equalsverifier.version>1.3.1</equalsverifier.version>
 	<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
-	<findbugs.version>3.0.2</findbugs.version>	<!-- 2015-10-06 -->
+	<findbugs.version>3.0.3</findbugs.version>	<!-- 2016-02-18 -->
 	<findbugs-extra.version>1.3.9</findbugs-extra.version>
 	<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
 	<gpg.version>1.5</gpg.version>
 	<!-- as of 2014-03-11 -->
 	<guava.version>18.0</guava.version>
 	<jackson1.version>1.9.13</jackson1.version>
-	<jacoco.version>0.7.4.201502262128</jacoco.version>
+	<jacoco.version>0.7.6</jacoco.version>	<!-- 2016-02-21 -->
 	<jalopy.version>1.0-alpha-1</jalopy.version>
 	<javadoc.version>2.9.1</javadoc.version>
 	<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
 	<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 	<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
+	<jmeter.version>1.10.1</jmeter.version>	<!-- 2016-02-13 -->
 	<!-- as of 2014-03-11 -->
 	<licenseVerifier.version>0.4</licenseVerifier.version>
 	<licenses.version>1.0</licenses.version>
@@ -1249,17 +1310,21 @@
 	<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 	<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
 	<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
-	<pmd.version>3.6</pmd.version>	<!-- 2015-12-19 -->
+	<pmd.version>3.6</pmd.version>	<!-- 2016-02-18 -->
 	<pojomatic.version>1.0</pojomatic.version>
 	<proguard.version>2.0.6</proguard.version>
 	<proguardBase.version>4.9</proguardBase.version>
 	<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
 	<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
+<<<<<<< HEAD
 	<site.version>3.3</site.version>
+=======
+	<site.version>3.5</site.version>	<!-- 2016-02-19 -->
+>>>>>>> 8aead74b226642602810653df9f3a23731c821a6
 	<slf4j.version>1.7.5</slf4j.version>
 	<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 	<!-- as of 2012-09-17 -->
-	<source.version>2.2.1</source.version>
+	<source.version>3.0.0</source.version>	<!-- 2016-02-21 -->
 	<!-- as of 2014-03-11 -->
 	<surefire.version>2.16</surefire.version>
 	<!-- as of 2011-04-06 -->
@@ -1784,6 +1849,35 @@
 					<version>${log4jcore.version}</version>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>jmeter-test-profile</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/test/jmeter</exists>
+				</file>
+			</activation>
+			<!--
+				 REST Testing
+				 @see https://github.com/jmeter-maven-plugin/jmeter-maven-plugin
+			-->
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.lazerycode.jmeter</groupId>
+						<artifactId>jmeter-maven-plugin</artifactId>
+						<version>${jmeter.version}</version>
+						<scope>test</scope>
+						<executions>
+							<id>integration-test</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jmeter</goal>
+							</goals>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>newrelic-pkg</id>
