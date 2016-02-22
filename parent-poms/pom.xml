@@ -3,22 +3,21 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<!-- TODO: @see https://github.com/basepom/duplicate-finder-maven-plugin/wiki -->
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.2.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.2.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
 
 	<groupId>com.levonk.codequality.pom</groupId>
-    <artifactId>pom</artifactId>
-    <name>pom</name>
-    <url>none</url>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+	<artifactId>pom</artifactId>
+	<name>pom</name>
+	<url>none</url>
+	<version>1.1</version>
+	<packaging>pom</packaging>
 
 	<repositories>
 		<repository>
@@ -245,7 +244,7 @@
             <version>${checkers.version}</version>
         </dependency>
         <dependency>
-        	<!-- The annotated JDK to use (change to jdk7 if using Java 7)
+        	<!-- The annotated JDK to use (change to jdk7 if using Java 7) -->
             <groupId>org.checkerframework</groupId>
             <artifactId>jdk8</artifactId>
             <version>${checkers.version}</version>
