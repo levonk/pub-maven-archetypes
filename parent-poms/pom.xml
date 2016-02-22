@@ -19,7 +19,18 @@
     <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-
+<distributionManagement>
+        <snapshotRepository>
+            <id>disney.ds.repo</id>
+            <name>Walt Disney Studio Technology Team Artifactory-snapshots</name>
+            <url>https://tech.studio.disney.com/artifactory/ds-snapshot-local</url>
+        </snapshotRepository>
+        <repository>
+            <id>disney.ds.repo</id>
+            <name>Walt Disney Studio Technology Team Artifactory-releases</name>
+            <url>https://tech.studio.disney.com/artifactory/ds-release-local</url>
+        </repository>
+    </distributionManagement>
     
 	<repositories>
 		<repository>
