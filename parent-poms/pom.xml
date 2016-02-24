@@ -1869,7 +1869,6 @@
 						<groupId>com.lazerycode.jmeter</groupId>
 						<artifactId>jmeter-maven-plugin</artifactId>
 						<version>${jmeter.version}</version>
-						<scope>test</scope>
 						<executions>
 							<id>integration-test</id>
 							<phase>verify</phase>
