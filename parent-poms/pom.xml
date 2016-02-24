@@ -1291,7 +1291,7 @@
 	<!-- as of 2014-03-11 -->
 	<guava.version>18.0</guava.version>
 	<jackson1.version>1.9.13</jackson1.version>
-	<jacoco.version>0.7.6</jacoco.version>	<!-- 2016-02-21 -->
+	<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
 	<jalopy.version>1.0-alpha-1</jalopy.version>
 	<javadoc.version>2.9.1</javadoc.version>
 	<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
