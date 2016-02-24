@@ -1172,10 +1172,10 @@
                 	<version>${pitest.version}</version>
                 	<configuration>
                 		<targetClasses>
-                			<targetClass>${parent.groupId}</targetClass>
+                			<targetClass>${project.parent.groupId}</targetClass>
                 		</targetClasses>
                 		<targetTests>
-                			<targetTest>${parent.groupId}*Test</targetTest>
+                			<targetTest>${project.parent.groupId}*Test</targetTest>
                 		</targetTests>
                 		<outputFormats>
                 			<!-- Sonar needs XML output -->
