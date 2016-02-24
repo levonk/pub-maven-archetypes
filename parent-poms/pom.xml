@@ -1870,11 +1870,13 @@
 						<artifactId>jmeter-maven-plugin</artifactId>
 						<version>${jmeter.version}</version>
 						<executions>
+                            <execution>
 							<id>integration-test</id>
 							<phase>verify</phase>
 							<goals>
 								<goal>jmeter</goal>
 							</goals>
+                            </execution>
 						</executions>
 					</plugin>
 				</plugins>
