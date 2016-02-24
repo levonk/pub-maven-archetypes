@@ -519,9 +519,9 @@
 		    <executions>
 		        <execution>
 		            <id>verify</id>
-		            <phase>test</phase>
+		            <phase>verify</phase>
 		            <goals>
-		                <goal>mutationCoverage</goal>
+		                <goal>check</goal>
 		            </goals>
 		            <configuration>
 		                <dependencyDefinition>
