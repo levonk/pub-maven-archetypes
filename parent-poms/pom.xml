@@ -565,6 +565,15 @@
                 		<annotationProcessor>org.checkerframework.checker.linear.LinearChecker</annotationProcessor>
                 		<annotationProcessor>org.checkerframework.checker.igj.IGJChecker</annotationProcessor>
                 		<annotationProcessor>org.checkerframework.checker.javari.JavariChecker</annotationProcessor>
+
+                        <annotationProcessor>org.checkerframework.checker.fenum.FenumChecker</annotationProcessor>
+                        <annotationProcessor>org.checkerframework.checker.tainting.TaintingChecker</annotationProcessor>
+                        <annotationProcessor>org.checkerframework.checker.propkey.PropertyKeyChecker</annotationProcessor>
+                        <annotationProcessor>org.checkerframework.checker.i18n.I18nChecker</annotationProcessor>
+                        <annotationProcessor>org.checkerframework.checker.compilermsgs.CompilerMessagesChecker</annotationProcessor>
+                        <annotationProcessor>org.checkerframework.checker.units.UnitsChecker</annotationProcessor>
+                        <annotationProcessor>org.checkerframework.common.subtyping.SubtypingChecker</annotationProcessor>
+                    
             		</annotationProcessors>
 			<compilerArgs>
 				<!-- location of the annotated JDK, which comes from a Maven dependency -->
@@ -645,47 +654,6 @@
 					</execution>
 				</executions>
             </plugin>
-
-            <plugin>
-                <groupId>org.checkerframework</groupId>
-                <artifactId>checkerframework-maven-plugin</artifactId>
-                <version>${checker-version}</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>checker</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <processors>
-                        <processor>org.checkerframework.checker.nullness.NullnessChecker</processor>
-                        <processor>org.checkerframework.checker.interning.InterningChecker</processor>
-                        <processor>org.checkerframework.checker.lock.LockChecker</processor>
-                        <processor>org.checkerframework.checker.fenum.FenumChecker</processor>
-                        <processor>org.checkerframework.checker.tainting.TaintingChecker</processor>
-                        <processor>org.checkerframework.checker.regex.RegexChecker</processor>
-                        <processor>org.checkerframework.checker.propkey.PropertyKeyChecker</processor>
-                        <processor>org.checkerframework.checker.i18n.I18nChecker</processor>
-                        <processor>org.checkerframework.checker.compilermsgs.CompilerMessagesChecker</processor>
-                        <processor>org.checkerframework.checker.signature.SignatureChecker</processor>
-                        <processor>org.checkerframework.checker.units.UnitsChecker</processor>
-                        <processor>org.checkerframework.checker.linear.LinearChecker</processor>
-                        <processor>org.checkerframework.checker.igj.IGJChecker</processor>
-                        <processor>org.checkerframework.checker.javari.JavariChecker</processor>
-                        <processor>org.checkerframework.common.subtyping.SubtypingChecker</processor>
-                    </processors>
-                    <skip>true</skip>
-                    <failOnError>true</failOnError>
-                    <!-- additional parameters passed to the Java compiler -->
-                    <javacParams>-Aquals</javacParams>
-                    <javacParams>-AprintErrorStack</javacParams>
-                    <!-- additional parameters to pass to the forked JVM -->
-                    <javaParams>-Xdebug</javaParams>
-                </configuration>
-            </plugin>
-
 		<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
