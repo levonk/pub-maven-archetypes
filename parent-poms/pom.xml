@@ -486,6 +486,19 @@
     -->
     <build>
         <plugins>
+            <!--http://jakub.marchwicki.pl/posts/2015/06/04/maven-wrapper/
+                run to initialize:   mvn  wrapper:wrapper -N
+                use mvnw afterward
+                -->
+            <plugin>
+                <groupId>com.rimerosolutions.maven.plugins</groupId>
+                <artifactId>wrapper-maven-plugin</artifactId>
+                <version>0.0.4</version>
+                <inherited>false</inherited>       
+                <configuration>
+                    <mavenVersion>3.3.9</mavenVersion>
+                </configuration>
+            </plugin>
             <!-- General Settings -->
             <!-- Code Coverage -->
             <!-- Don't forget to add a Jenkins
