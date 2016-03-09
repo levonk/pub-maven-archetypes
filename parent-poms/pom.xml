@@ -143,9 +143,9 @@
         <!-- Runtime Testing -->
         <dependency>
             <!-- https://github.com/rawls238/Scientist4J -->
-            <groupId>com.github.rawls238</groupId>
-			<artifactId>Scientist4J</artifactId>
-			<version>${scientist4j.version}</version>
+		<groupId>com.github.rawls238</groupId>
+    		<artifactId>Scientist4JCore</artifactId>
+		<version>${scientist4j.version}</version>
         </dependency>
 
         <!-- Static Analysis -->
@@ -213,7 +213,7 @@
 		<!-- @see http://engineering.godaddy.com/logging-the-easy-way/ -->
 		<!-- @see https://github.com/godaddy/godaddy-logger -->
 		<groupId>com.godaddy</groupId>
-		<artifactId>logger</artifactId>
+		<artifactId>logging</artifactId>
 		<version>${gdlogger.version}</version>
 	</dependency>
         <dependency>
@@ -1290,7 +1290,7 @@
 		<findbugs.version>3.0.3</findbugs.version>	<!-- 2016-02-18 -->
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
 		<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
-		<gdlogger.version>1.0-SNAPSHOT</gdlogger.version>	<!-- 2016-03-02 -->
+		<gdlogger.version>1.2.1</gdlogger.version>	<!-- 2016-03-08 -->
 		<gpg.version>1.5</gpg.version>
 		<!-- as of 2014-03-11 -->
 		<guava.version>18.0</guava.version>
