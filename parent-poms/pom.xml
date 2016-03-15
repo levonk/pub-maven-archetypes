@@ -737,7 +737,7 @@
                                 </bannedDependencies>
                                 <dependencyConvergence/>
                                 <requireMavenVersion>
-                                    <version>[3.0.3,)</version>
+                                    <version>[3.1.0,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
                                     <version>${java.version}</version>
