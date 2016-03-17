@@ -568,7 +568,7 @@
                     <meminitial>128m</meminitial>
                     <maxmem>512m</maxmem>
 			<annotationProcessors>
-				<!-- Add all the checkers you want to enable here -->
+				<!-- Add all the checkers you want to enable here 
                 		<annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
                 		<annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>
                 		<annotationProcessor>org.checkerframework.checker.lock.LockChecker</annotationProcessor>
@@ -586,7 +586,7 @@
                         <annotationProcessor>org.checkerframework.checker.compilermsgs.CompilerMessagesChecker</annotationProcessor>
                         <annotationProcessor>org.checkerframework.checker.units.UnitsChecker</annotationProcessor>
                         <annotationProcessor>org.checkerframework.common.subtyping.SubtypingChecker</annotationProcessor>
-                    
+                   --> 
             		</annotationProcessors>
 			<compilerArgs>
 				<!-- location of the annotated JDK, which comes from a Maven dependency -->
@@ -1287,7 +1287,7 @@
 	<logback.version>1.0.13</logback.version>
 	<logback-jackson.version>0.1.2</logback-jackson.version>
 	<logstash.version>2.4</logstash.version>
-	<lombok.version>1.12.5</lombok.version>
+	<lombok.version>1.16.8</lombok.version>
 	<mockito.version>1.9.5</mockito.version>
 	<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
 	<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
