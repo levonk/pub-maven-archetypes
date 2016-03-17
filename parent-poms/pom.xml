@@ -22,33 +22,10 @@
     
 	<repositories>
 		<repository>
-			<id>Central</id>
-			<name>maven central repository</name>
-			<url>http://repo1.maven.org/maven2</url>
-			<layout>default</layout>
-		</repository>
-
-		<repository>
-			<id>maven2-repository.cloudera.com</id>
-			<name>Cloudera.com maven repository</name>
-			<url>https://repository.cloudera.com/content/repositories/releases/</url>
-			<layout>default</layout>
-		</repository>
-
-		<repository>
 			<id>maven2-repository.java.net</id>
 			<name>Java.net maven repository</name>
 			<url>http://download.java.net/maven/2/</url>
 			<layout>default</layout>
-		</repository>
-
-		<repository>
-			<id>codehaus-snapshots</id>
-			<name>CodeHaus Snapshots</name>
-			<url>https://nexus.codehaus.org/content/repositories/codehaus-snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
 		</repository>
 
 		<repository>
@@ -466,6 +443,17 @@
     -->
     <build>
         <plugins>
+<plugin>
+    <artifactId>maven-site-plugin</artifactId>
+    <executions>
+    <execution>
+    <id>attach-descriptor</id>
+    <goals>
+    <goal>attach-descriptor</goal>
+    </goals>
+    </execution>
+    </executions>
+    </plugin>
             <!--http://jakub.marchwicki.pl/posts/2015/06/04/maven-wrapper/
                 run to initialize:   mvn  wrapper:wrapper -N
                 use mvnw afterward
@@ -555,8 +543,7 @@
                     <fork>true</fork>
                     <meminitial>128m</meminitial>
                     <maxmem>512m</maxmem>
-			<annotationProcessors>
-				<!-- Add all the checkers you want to enable here 
+			<!--<annotationProcessors>
                 		<annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
                 		<annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>
                 		<annotationProcessor>org.checkerframework.checker.lock.LockChecker</annotationProcessor>
@@ -574,8 +561,7 @@
                         <annotationProcessor>org.checkerframework.checker.compilermsgs.CompilerMessagesChecker</annotationProcessor>
                         <annotationProcessor>org.checkerframework.checker.units.UnitsChecker</annotationProcessor>
                         <annotationProcessor>org.checkerframework.common.subtyping.SubtypingChecker</annotationProcessor>
-                   --> 
-            		</annotationProcessors>
+            		</annotationProcessors>-->
 			<compilerArgs>
 				<!-- location of the annotated JDK, which comes from a Maven dependency -->
 				<arg>-Xbootclasspath/p:${annotatedJdk}</arg>
