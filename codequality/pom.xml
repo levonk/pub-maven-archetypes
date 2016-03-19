@@ -3,12 +3,23 @@
 		xmlns="http://maven.apache.org/POM/4.0.0"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	
-        <groupId>com.archetype</groupId>
+        <groupId>com.levonk</groupId>
 	<artifactId>codequality</artifactId>
 	<version>1.0.0</version>
 	<name>Code Quality Tools</name>
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
+
+        <distributionManagement>
+    <snapshotRepository>
+    <id>oss.sonatype.org</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+   <repository>
+    <id>oss.sonatype.org</id>
+    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+  </distributionManagement>
 	<build>
                 <sourceDirectory>src/main/</sourceDirectory>
 		<plugins>
@@ -34,29 +45,6 @@
 				    </execution>
 				</executions>
 		    </plugin>
-		    <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.7</version>
-        <executions>
-          <execution>
-            <id>regex-property</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>regex-property</goal>
-            </goals>
-            <configuration>
-              <name>url</name>
-              <value>${altDeploymentRepository}</value>
-              <regex>^(.*)::(.*)::(.*)$</regex>
-              <replacement>$3</replacement>
-              <failIfNoMatch>false</failIfNoMatch>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-
       
 
 		    <plugin>
@@ -71,10 +59,10 @@
 				    	<goal>deploy-file</goal>
 				    </goals>
 				    <configuration>
-				        <repositoryId>artifactory</repositoryId>
+				        <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
 				        <packaging>xml</packaging>
 				        <generatePom>true</generatePom>
-				        <url>${url}</url>
+				        <url>${project.distributionManagement.repository.url}</url>
 				        <file>target/codequality-1.0.0-src/codequality-${project.version}/src/main/checkstyle/checkstyle.xml</file>
 						<artifactId>checkstyle</artifactId>
 				        <groupId>${project.groupId}.${project.artifactId}</groupId>
@@ -88,10 +76,10 @@
 				    	<goal>deploy-file</goal>
 				    </goals>
 				    <configuration>
-				        <repositoryId>artifactory</repositoryId>
+				        <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
 				        <packaging>xml</packaging>
 				        <generatePom>true</generatePom>
-				        <url>${url}</url>
+				        <url>${project.distributionManagement.repository.url}</url>
 				        <file>target/codequality-1.0.0-src/codequality-${project.version}/src/main/findbugs/FindBugsFilter.xml</file>
 						<artifactId>FindBugFilter</artifactId>
 				        <groupId>${project.groupId}.${project.artifactId}</groupId>
@@ -105,10 +93,10 @@
 				    	<goal>deploy-file</goal>
 				    </goals>
 				    <configuration>
-				        <repositoryId>artifactory</repositoryId>
+				        <repositoryId>${project.distributionManagement.repository.id}</repositoryId>
 				        <packaging>xml</packaging>
 				        <generatePom>true</generatePom>
-				        <url>${url}</url>
+				        <url>${project.distributionManagement.repository.url}</url>
 				        <file>target/codequality-1.0.0-src/codequality-${project.version}/src/main/pmd/pmd.xml</file>
 						<artifactId>pmd</artifactId>
 				        <groupId>${project.groupId}.${project.artifactId}</groupId>
