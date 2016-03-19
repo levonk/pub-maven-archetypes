@@ -842,7 +842,7 @@
                 </executions>
                 <dependencies>
                     <dependency>
-                        <groupId>com.archetype</groupId>
+                        <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
                         <version>${licenses.version}</version>
                     </dependency>
@@ -1111,10 +1111,10 @@
                 	<version>${pitest.version}</version>
                 	<configuration>
                 		<targetClasses>
-                			<targetClass>${parent.groupId}</targetClass>
+                			<targetClass>${project.parent.groupId}</targetClass>
                 		</targetClasses>
                 		<targetTests>
-                			<targetTest>${parent.groupId}*Test</targetTest>
+                			<targetTest>${project.parent.groupId}*Test</targetTest>
                 		</targetTests>
                 		<outputFormats>
                 			<!-- Sonar needs XML output -->

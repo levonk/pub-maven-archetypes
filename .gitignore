@@ -30,7 +30,10 @@ tasks.xml
 .DS_Store
 *.swp
 
-
+.mvn
+.maven
+mvnw
+mvnw.*
 # Created by https://www.gitignore.io/api/emacs,vim,intellij,eclipse,netbeans,java,maven,gradle,javascript,scss,yeoman,node,grunt,packer,vagrant,windows,linux,osx,elasticbeanstalk,gpg,gwt,librarian-chef,puppet-librarian,otto,svn,mercurial
 
 ### Emacs ###
