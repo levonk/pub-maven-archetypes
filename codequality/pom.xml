@@ -7,10 +7,52 @@
 	<artifactId>codequality</artifactId>
 	<version>1.0.0</version>
 	<name>Code Quality Tools</name>
+	<description>A set of static code analysis rules</description>
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
 
-        <distributionManagement>
+
+ <url>none</url>
+	<licenses>
+    <license>
+    <name>Apache License, Version 2.0</name>
+    <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    <distribution>repo</distribution>
+    <comments>A business-friendly OSS license</comments>
+    </license>
+    </licenses>
+
+
+    <organization>
+    <name>Levon K</name>
+    <url>none</url>
+    </organization>
+
+     <developers>
+     <developer>
+    <id>levonk</id>
+    <name>Levon K</name>
+    <email>none</email>
+    <url>none</url>
+    </developer>
+    
+
+    <developer>
+    <id>jwang</id>
+    <name>Jing Wang</name>
+    <email>none</email>
+    <url>none</url>
+    </developer>
+    </developers>
+
+ <scm>
+<connection>scm:git:https://github.com/DGHLJ/pub-maven-archetypes.git</connection>
+<developerConnection>scm:git:git://github.com/DGHLJ/pub-maven-archetypes.git</developerConnection>
+<tag>HEAD</tag>
+<url>https://github.com/DGHLJ/pub-maven-archetypes</url>
+</scm>
+
+    <distributionManagement>
     <snapshotRepository>
     <id>oss.sonatype.org</id>
     <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -20,6 +62,12 @@
     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
     </repository>
   </distributionManagement>
+
+<properties>
+			<gpg.version>1.5</gpg.version>
+
+	</properties>
+
 	<build>
                 <sourceDirectory>src/main/</sourceDirectory>
 		<plugins>
@@ -45,9 +93,57 @@
 				    </execution>
 				</executions>
 		    </plugin>
-      
+      <plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${gpg.version}</version>
+						
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 
-		    <plugin>
+<plugin>   
+  <groupId>org.codehaus.mojo</groupId>   
+  <artifactId>build-helper-maven-plugin</artifactId>
+  <executions>
+    <execution>
+      <id>attach-artifacts</id>
+      <phase>package</phase>
+      <goals> 
+        <goal>attach-artifact</goal>
+      </goals> 
+      <configuration>
+        <artifacts> 
+          <artifact> 
+            <file>target/codequality-1.0.0-src/codequality-${project.version}/src/main/checkstyle/checkstyle.xml</file>
+            <type>xml</type>
+            <classifier>checkstyle</classifier>
+          </artifact>
+          <artifact>
+            <file>target/codequality-1.0.0-src/codequality-${project.version}/src/main/findbugs/FindBugsFilter.xml</file>   
+            <type>xml</type>
+            <classifier>FindBugsFilter</classifier>
+          </artifact>
+          <artifact>
+            <file>target/codequality-1.0.0-src/codequality-${project.version}/src/main/pmd/pmd.xml</file>   
+            <type>xml</type>
+            <classifier>pmd</classifier>
+          </artifact>
+        </artifacts>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+
+
+		   <!-- <plugin>
     		<groupId>org.apache.maven.plugins</groupId>
    			<artifactId>maven-deploy-plugin</artifactId>
     		<version>2.6</version>
@@ -108,7 +204,7 @@
     
 </plugin>
 
-
+-->
 
 
 		</plugins>
