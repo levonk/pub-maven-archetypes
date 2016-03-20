@@ -12,14 +12,54 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.levonk.codequality.pom</groupId>
+	<groupId>com.levonk.codequality</groupId>
     <artifactId>pom</artifactId>
     <name>pom</name>
     <url>none</url>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <packaging>pom</packaging>
 
-<distributionManagement>
+
+ <licenses>
+    <license>
+    <name>Apache License, Version 2.0</name>
+    <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    <distribution>repo</distribution>
+    <comments>A business-friendly OSS license</comments>
+    </license>
+    </licenses>
+
+
+    <organization>
+    <name>Levon K</name>
+    <url>none</url>
+    </organization>
+
+     <developers>
+     <developer>
+    <id>levonk</id>
+    <name>Levon K</name>
+    <email>none</email>
+    <url>none</url>
+    </developer>
+    
+
+    <developer>
+    <id>jwang</id>
+    <name>Jing Wang</name>
+    <email>none</email>
+    <url>none</url>
+    </developer>
+    </developers>
+
+ <scm>
+<connection>scm:git:https://github.com/DGHLJ/pub-maven-archetypes.git</connection>
+<developerConnection>scm:git:git://github.com/DGHLJ/pub-maven-archetypes.git</developerConnection>
+<tag>HEAD</tag>
+<url>https://github.com/DGHLJ/pub-maven-archetypes</url>
+</scm>
+
+    <distributionManagement>
     <snapshotRepository>
     <id>oss.sonatype.org</id>
     <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -454,7 +494,6 @@
     -->
     <build>
         <plugins>
-
 <plugin>
     <artifactId>maven-site-plugin</artifactId>
     <executions>
@@ -777,7 +816,7 @@
                 <configuration>
                     <rulesets>
                         <ruleset>
-                            https://raw.githubusercontent.com/pwangjing/pub-maven-archetypes/master/modules/codequality/src/main/pmd/pmd.xml
+                            https://oss.sonatype.org/content/groups/public/com/levonk/codequality/1.0.0/codequality-1.0.0-pmd.xml
                         </ruleset>
                     </rulesets>
                     <excludes>
@@ -811,7 +850,7 @@
                 <version>${findbugs.version}</version>
                 <configuration>
                     <excludeFilterFile>
-                        https://github.com/pwangjing/mavenrepository/raw/master/releases/com/archetype/codequality/FindBugFilter/1.0.0/FindBugFilter-1.0.0.xml
+                        https://oss.sonatype.org/content/groups/public/com/levonk/codequality/1.0.0/codequality-1.0.0-FindBugsFilter.xml
                     </excludeFilterFile>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -1308,7 +1347,7 @@
 			<id>signed-release</id>
 			<activation>
 				<property>
-					<name>gpg.keyname</name>
+					<name>gpg.passphrase</name>
 				</property>
 			</activation>
 			<build>
