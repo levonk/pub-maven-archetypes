@@ -1252,6 +1252,10 @@
             <groupId>org.owasp</groupId>
             <artifactId>dependency-check-maven</artifactId>
             <version>${dependencycheck.version}</version>
+            <configuration>
+                  <cveValidForHours>8</cveValidForHours>
+                  <skip>${skip.dependency.check}</skip>
+              </configuration>
         </plugin>
 
 		<plugin>
@@ -1365,6 +1369,7 @@
 		<docker.registry.url>https://index.docker.io/v1/</docker.registry.url>
 		<springboot.is.executable>true</springboot.is.executable>
 		<checker-version>1.8.2</checker-version>
+        <skip.dependency.check>false</skip.dependency.check>
 	</properties>
 
 	<profiles>
