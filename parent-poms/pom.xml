@@ -599,7 +599,6 @@
 			</plugin>
 
             <plugin>
-<<<<<<< HEAD
                 <!-- compiler version -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -659,70 +658,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-=======
-				<!-- compiler version -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${compiler.version}</version>
-				<configuration>
-					<forceJavacCompilerUse>true</forceJavacCompilerUse>
-					<showDeprecation>true</showDeprecation>
-					<showWarnings>true</showWarnings>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<optimize>true</optimize>
-					<debug>true</debug>
-					<fork>true</fork>
-					<meminitial>128m</meminitial>
-					<maxmem>512m</maxmem>
-					<annotationProcessors>
-						<!-- Add all the checkers you want to enable here -->
-						<annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.lock.LockChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.regex.RegexChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.formatter.FormatterChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.signature.SignatureChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.linear.LinearChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.igj.IGJChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.javari.JavariChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.fenum.FenumChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.tainting.TaintingChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.propkey.PropertyKeyChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.i18n.I18nChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.compilermsgs.CompilerMessagesChecker</annotationProcessor>
-						<annotationProcessor>org.checkerframework.checker.units.UnitsChecker</annotationProcessor>
-						<!--<annotationProcessor>org.checkerframework.common.subtyping.SubtypingChecker</annotationProcessor>-->
-					</annotationProcessors>
-					<compilerArgs>
-						<!-- location of the annotated JDK, which comes from a Maven dependency -->
-						<arg>-Xbootclasspath/p:${annotatedJdk}</arg>
-						<arg>-Xbootclasspath/p:${annotatedJdk}</arg>
-						<arg>-AprintErrorStack</arg>
-						<!-- Uncomment the following line if using Java 7. -->
-						<!-- <arg>-J-Xbootclasspath/p:${typeAnnotationsJavac}</arg> -->
-					</compilerArgs>
-					<failOnError>false</failOnError>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.google.errorprone</groupId>
-						<artifactId>error_prone_core</artifactId>
-						<version>${errorprone.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-compiler-javac</artifactId>
-						<version>${plexusCompiler.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-compiler-javac-errorprone</artifactId>
-						<version>${plexusCompilerErrorProne.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
->>>>>>> dghlj/master
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
