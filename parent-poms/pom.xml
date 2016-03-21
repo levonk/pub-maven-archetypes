@@ -1254,7 +1254,6 @@
             <version>${dependencycheck.version}</version>
             <configuration>
                   <cveValidForHours>8</cveValidForHours>
-                  <skip>${skip.dependency.check}</skip>
               </configuration>
         </plugin>
 
