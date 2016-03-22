@@ -1311,7 +1311,7 @@
 		<jackson1.version>1.9.13</jackson1.version>
 		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
 		<jalopy.version>1.0-alpha-1</jalopy.version>
-		<javadoc.version>2.9.1</javadoc.version>
+		<javadoc.version>2.10.3</javadoc.version>
 		<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
 		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 		<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
