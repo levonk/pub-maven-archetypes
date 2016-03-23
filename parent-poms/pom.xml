@@ -808,6 +808,12 @@
                         <dependency>com.jayway.restassured</dependency> <!-- or com.jayway.restassured:* -->
                     </dependencies>
                 </requireSameVersions>
+                <requireReleaseDeps>
+                    <message>No Snapshots Allowed!</message>
+                    <onlyWhenRelease>true</onlyWhenRelease>
+                    <searchTransitive>false</searchTransitive>
+                    <failWhenParentIsSnapshot>true</failWhenParentIsSnapshot>
+                </requireReleaseDeps>
                             </rules>
                         </configuration>
                     </execution>
