@@ -1407,7 +1407,7 @@
 							<docletArtifact>
 								<groupId>com.google.doclava</groupId>
 								<artifactId>doclava</artifactId>
-								<version>1.0.5</version>
+								<version>${doclava.version}</version>
 							</docletArtifact>
 							<additionalparam>
 								-hdf project.name "${project.name}"
