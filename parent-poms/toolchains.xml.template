@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF8"?>
+<toolchains>
+	<!-- JDK toolchains -->
+	<toolchain>
+		<type>jdk</type>
+		<provides>
+			<version>1.8</version>
+			<vendor>sun</vendor>
+		</provides>
+		<configuration>
+			<jdkHome>/cygdrive/c/lang/java/jdk8</jdkHome>
+		</configuration>
+	</toolchain>
+	<toolchain>
+		<type>jdk</type>
+		<provides>
+			<version>1.7</version>
+			<vendor>sun</vendor>
+		</provides>
+		<configuration>
+			<jdkHome>/cygdrive/c/lang/java/jdk7</jdkHome>
+		</configuration>
+	</toolchain>
+
+	<!-- other toolchains -->
+	<toolchain>
+		<type>netbeans</type>
+		<provides>
+			<version>5.5</version>
+		</provides>
+		<configuration>
+			<installDir>/path/to/netbeans/5.5</installDir>
+		</configuration>
+	</toolchain>
+	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
+</toolchains>

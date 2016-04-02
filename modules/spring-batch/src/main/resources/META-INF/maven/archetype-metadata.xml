@@ -8,7 +8,8 @@
     <requiredProperty key="project_url">
     	<defaultValue>none</defaultValue>
     </requiredProperty>
-    <requiredProperty key="project_organization">
+	 <requiredProperty key="project_organization">
+    	<defaultValue></defaultValue>
     </requiredProperty>
     
   </requiredProperties>
@@ -22,7 +23,7 @@
       <fileSet filtered="true" packaged="false">
        <directory>src/main/resources</directory>
        <includes>
-          <include>**/*.properties</include>
+          <include>**/*</include>
        </includes>
       </fileSet>
       <fileSet filtered="true" packaged="true">
@@ -34,7 +35,7 @@
       <fileSet filtered="true" packaged="false">
         <directory>src/test/resources</directory>
           <includes>
-            <include>**/*.properties</include>
+            <include>**/*</include>
           </includes>
       </fileSet>
      </fileSets>

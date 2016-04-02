@@ -9,6 +9,7 @@ This project helps to create a multi-module maven project. It contains the follo
 4. webapp -- web application with spring mvc
 5. couchdb-design -- create couchdb design doc with couchdbapp. 
 6. code quality definition files -- configuration for various code quality tools      
+7. spring batch 
 
 #The following plugin and frameworks are pre configure. 
 -  Spring Boot   
@@ -41,3 +42,5 @@ mvn archetype:generate -DarchetypeRepository=https://github.com/DGHLJ/pub-maven-
 ##restful API
 mvn archetype:generate -DarchetypeRepository=https://github.com/DGHLJ/pub-maven-archetypes-repo/raw/master/releases -DarchetypeGroupId=com.archetype -DarchetypeArtifactId=restful-service -DarchetypeVersion=1.0 -DgroupId=<submodule group id> -DartifactId=&lt;submodule artifact Id&gt;
 
+##spring batch
+mvn archetype:generate -DarchetypeRepository=https://github.com/DGHLJ/pub-maven-archetypes-repo/raw/master/releases -DarchetypeGroupId=com.archetype -DarchetypeArtifactId=spring-batch -DarchetypeVersion=1.0 -DgroupId=<submodule group id> -DartifactId=&lt;submodule artifact Id&gt;
