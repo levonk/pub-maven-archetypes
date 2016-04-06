@@ -585,6 +585,13 @@
 			</plugin>
 
             <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${maven-install-plugin.version}</version>
+                <configuration>
+                    <createChecksum>true</createChecksum>
+                </configuration>
+            </plugin>
+            <plugin>
                 <!-- compiler version -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -1370,6 +1377,7 @@
 		<logback-jackson.version>0.1.2</logback-jackson.version>
 		<logstash.version>2.4</logstash.version>
 		<lombok.version>1.12.5</lombok.version>
+		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2014-08-27 -->
 		<mockito.version>1.9.5</mockito.version>
 		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
 		<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
