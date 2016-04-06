@@ -516,12 +516,12 @@
                 use mvnw afterward
                 -->
             <plugin>
-                <groupId>com.rimerosolutions.maven.plugins</groupId>
-                <artifactId>wrapper-maven-plugin</artifactId>
-                <version>0.0.4</version>
+                <groupId>io.takari</groupId>
+                <artifactId>maven-wrapper</artifactId>
+                <version>${wrapper.version}</version>
                 <inherited>false</inherited>       
                 <configuration>
-                    <mavenVersion>3.3.9</mavenVersion>
+                    <mavenVersion>${maven.version}</mavenVersion>
                 </configuration>
             </plugin>
             <!-- General Settings -->
@@ -1304,11 +1304,12 @@
 
 
 	<properties>
-		<start-class>com.levonk.springboot.App</start-class>
+		<start-class>com.levonk.springboot.App</start-class> <!-- should we look for some sort of property test? -->
 		<sonar.exclusions>**/generated-sources/**</sonar.exclusions>
 		<sonar.pitest.mode>active</sonar.pitest.mode>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<maven.version>3.3.9</maven.version>
 		
 		<!-- Checker Framework -->
 		<!-- These properties will be set by the Maven Dependency plugin -->
@@ -1394,6 +1395,7 @@
 		<!-- as of 2011-04-06 -->
 		<testng.version>6.8.7</testng.version>
 		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
+		<wrapper.version>0.1.4</wrapper.version> <!-- 2015-09-14 -->
 		<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
 		<ztexec.version>1.8</ztexec.version>
 		<docker.registry.url>https://index.docker.io/v1/</docker.registry.url>
