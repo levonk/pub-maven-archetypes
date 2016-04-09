@@ -1940,6 +1940,47 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>guage-test-profile</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/test/specs</exists>
+				</file>
+			</activation>
+			<!--
+				 Guage spec based testing - BDD
+				 @see http://getgauge.io
+			-->
+			<dependencies>
+				<dependency>
+					<groupId>com.thoughtworks.gauge</groupId>
+					<artifactId>guage-maven-plugin</artifactId>
+					<version>${guage-maven-plugin.version}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.thoughtworks.gauge</groupId>
+						<artifactId>guage-java</artifactId>
+						<version>${guage-java.version}</version>
+						<executions>
+                            				<execution>
+								<id>integration-test</id>
+								<phase>test</phase>
+								<configuration>
+									<specsDir>specs</specsDir>
+								</configuration>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+                            				</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>jmeter-test-profile</id>
 			<activation>
 				<file>
