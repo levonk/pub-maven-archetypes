@@ -282,6 +282,18 @@
 
     <dependencyManagement>
         <dependencies>
+        	<!-- Excellent servlet based upload library when you can't go to S3 -->
+        	<!-- @see https://github.com/Elopteryx/upload-parser -->
+		<dependency>
+		    <groupId>com.github.elopteryx</groupId>
+		    <artifactId>upload-parser</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.github.elopteryx</groupId>
+		    <artifactId>upload-parser-jaxrs</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
 			<dependency>
 				<!-- https://github.com/OpenHFT/Zero-Allocation-Hashing -->
 				<groupId>net.openhft</groupId>
