@@ -1152,6 +1152,24 @@
 					</execution>
 				</executions>
 			</plugin>
+
+		<plugin>
+			<!-- Security scan -->
+			<!-- @see http://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html -->
+			<groupId>org.owasp</groupId>
+			<artifactId>dependency-check-maven</artifactId>
+			<version>${dependencycheck.version}</version>
+			<configuration>
+				<cveValidForHours>8</cveValidForHours>
+			</configuration>
+			<executions>
+				<execution>
+					<goals>
+						<goal>check</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -1309,13 +1327,6 @@
 					</reports>
 				</reportSet>
 			</reportSets>
-			<executions>
-				<execution>
-					<goals>
-						<goal>check</goal>
-					</goals>
-				</execution>
-			</executions>
 		</plugin>
 
 		<plugin>
