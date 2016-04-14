@@ -282,6 +282,18 @@
 
     <dependencyManagement>
         <dependencies>
+        	<!-- Excellent servlet based upload library when you can't go to S3 -->
+        	<!-- @see https://github.com/Elopteryx/upload-parser -->
+		<dependency>
+		    <groupId>com.github.elopteryx</groupId>
+		    <artifactId>upload-parser</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.github.elopteryx</groupId>
+		    <artifactId>upload-parser-jaxrs</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
 			<dependency>
 				<!-- https://github.com/OpenHFT/Zero-Allocation-Hashing -->
 				<groupId>net.openhft</groupId>
@@ -516,12 +528,12 @@
                 use mvnw afterward
                 -->
             <plugin>
-                <groupId>com.rimerosolutions.maven.plugins</groupId>
-                <artifactId>wrapper-maven-plugin</artifactId>
-                <version>0.0.4</version>
+                <groupId>io.takari</groupId>
+                <artifactId>maven-wrapper</artifactId>
+                <version>${wrapper.version}</version>
                 <inherited>false</inherited>       
                 <configuration>
-                    <mavenVersion>3.3.9</mavenVersion>
+                    <mavenVersion>${maven.version}</mavenVersion>
                 </configuration>
             </plugin>
             <!-- General Settings -->
@@ -584,6 +596,13 @@
 		    </executions>
 			</plugin>
 
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${maven-install-plugin.version}</version>
+                <configuration>
+                    <createChecksum>true</createChecksum>
+                </configuration>
+            </plugin>
             <plugin>
                 <!-- compiler version -->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -1276,14 +1295,28 @@
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs.version}</version>
         </plugin>
- 		<plugin>
-            <groupId>org.owasp</groupId>
-            <artifactId>dependency-check-maven</artifactId>
-            <version>${dependencycheck.version}</version>
-            <configuration>
-                  <cveValidForHours>8</cveValidForHours>
-              </configuration>
-        </plugin>
+		<plugin>
+			<groupId>org.owasp</groupId>
+			<artifactId>dependency-check-maven</artifactId>
+			<version>${dependencycheck.version}</version>
+			<configuration>
+				<cveValidForHours>8</cveValidForHours>
+			</configuration>
+			<reportSets>
+				<reportSet>
+					<reports>
+						<report>aggregate</report>
+					</reports>
+				</reportSet>
+			</reportSets>
+			<executions>
+				<execution>
+					<goals>
+						<goal>check</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
 
 		<plugin>
 			<groupId>org.codehaus.mojo</groupId>
@@ -1304,11 +1337,12 @@
 
 
 	<properties>
-		<start-class>com.levonk.springboot.App</start-class>
+		<start-class>com.levonk.springboot.App</start-class> <!-- should we look for some sort of property test? -->
 		<sonar.exclusions>**/generated-sources/**</sonar.exclusions>
 		<sonar.pitest.mode>active</sonar.pitest.mode>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<maven.version>3.3.9</maven.version>
 		
 		<!-- Checker Framework -->
 		<!-- These properties will be set by the Maven Dependency plugin -->
@@ -1350,8 +1384,9 @@
 		<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
 		<gdlogger.version>1.2.1</gdlogger.version>	<!-- 2016-03-08 -->
 		<gpg.version>1.5</gpg.version>
-		<!-- as of 2014-03-11 -->
-		<guava.version>18.0</guava.version>
+		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
+		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
+		<guava.version>18.0</guava.version> <!-- as of 2014-03-11 -->
 		<jackson1.version>1.9.13</jackson1.version>
 		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
 		<jalopy.version>1.0-alpha-1</jalopy.version>
@@ -1369,6 +1404,7 @@
 		<logback-jackson.version>0.1.2</logback-jackson.version>
 		<logstash.version>2.4</logstash.version>
 		<lombok.version>1.12.5</lombok.version>
+		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2014-08-27 -->
 		<mockito.version>1.9.5</mockito.version>
 		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
 		<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
@@ -1394,6 +1430,7 @@
 		<!-- as of 2011-04-06 -->
 		<testng.version>6.8.7</testng.version>
 		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
+		<wrapper.version>0.1.4</wrapper.version> <!-- 2015-09-14 -->
 		<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
 		<ztexec.version>1.8</ztexec.version>
 		<docker.registry.url>https://index.docker.io/v1/</docker.registry.url>
@@ -1916,6 +1953,47 @@
 					<version>${log4jcore.version}</version>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>guage-test-profile</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/test/specs</exists>
+				</file>
+			</activation>
+			<!--
+				 Guage spec based testing - BDD
+				 @see http://getgauge.io
+			-->
+			<dependencies>
+				<dependency>
+					<groupId>com.thoughtworks.gauge</groupId>
+					<artifactId>guage-maven-plugin</artifactId>
+					<version>${guage-maven-plugin.version}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.thoughtworks.gauge</groupId>
+						<artifactId>guage-java</artifactId>
+						<version>${guage-java.version}</version>
+						<executions>
+                            				<execution>
+								<id>integration-test</id>
+								<phase>test</phase>
+								<configuration>
+									<specsDir>specs</specsDir>
+								</configuration>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+                            				</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>jmeter-test-profile</id>
