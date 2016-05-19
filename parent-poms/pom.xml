@@ -1657,7 +1657,7 @@
 			<id>nexusclm</id>
 			<activation>
 				<!-- You need entries in settings.xml to configure the link to the server, see readme -->
-				<property><name>nexusclm.serverUrl</name></property>
+				<property><name>nexusclm.applicationId</name></property>
 			</activation>
 			<build>
 				<plugins>
