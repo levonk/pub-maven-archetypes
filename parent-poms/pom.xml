@@ -607,32 +607,7 @@
                 </executions>
             </plugin>
             
-            <plugin>
-            	<!-- @see http://classycle.sourceforge.net/ -->
-		    <groupId>org.pitest</groupId>
-		    <artifactId>classycle-maven-plugin</artifactId>
-		    <version>0.4</version>
-		    <executions>
-		        <execution>
-		            <id>verify</id>
-		            <phase>verify</phase>
-		            <goals>
-		                <goal>check</goal>
-		            </goals>
-		            <configuration>
-		                <dependencyDefinition>
-		                    show allResults
-		                    check absenceOfPackageCycles > 1 in com.example*
-		                </dependencyDefinition>
-		
-		                <!-- This can be classycle.dependency.DefaultResultRenderer 
-		                    for text (the default if omitted) or 
-		                    classycle.dependency.XMLResultRenderer for xml -->
-		                <resultRenderer>classycle.dependency.DefaultResultRenderer</resultRenderer>
-		            </configuration>
-		        </execution>
-		    </executions>
-			</plugin>
+            
 
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>
@@ -1452,7 +1427,7 @@
 		<mockito.version>1.9.5</mockito.version>
 		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
 		<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
-		<nexusclm.version>2.1.1</nexusclm.version>	<!-- 2015-10-22 -->
+		<nexusclm.version>2.4.1</nexusclm.version>	<!-- 2015-10-22 -->
 		<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 		<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
 		<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
@@ -1700,7 +1675,7 @@
 								<configuration>
 									<serverUrl>${nexusclm.serverUrl}</serverUrl>
 									<stage>build</stage>
-									<applicationId>${project.groupId}:${project.artifactId}</applicationId>
+									<applicationId${nexusclm.applicationId}</applicationId>
 									<inherited>false</inherited>
 								</configuration>
 							</execution>
