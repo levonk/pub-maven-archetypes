@@ -16,7 +16,7 @@
 	<artifactId>pom</artifactId>
 	<name>pom</name>
 	<url>none</url>
-	<version>1.3.1</version>
+	<version>1.3.2</version>
 	<packaging>pom</packaging>
 
 
@@ -1412,6 +1412,7 @@
 		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
 		<guava.version>18.0</guava.version> <!-- as of 2014-03-11 -->
+		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
 		<jackson1.version>1.9.13</jackson1.version>
 		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
 		<jalopy.version>1.0-alpha-1</jalopy.version>
@@ -2120,6 +2121,30 @@
 					<scope>provided</scope>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<!-- Generate ObjectiveC cocde from java -->
+			<!-- @see https://github.com/smoope/j2objc-maven-plugin#maven-plugin-for-j2objc-library -->
+			<id>j2objc</id>
+			<activation>
+				<file>
+					<exists>${basedir}/bin/j2objc</exists>
+				</file>
+			</activation>
+			<plugins>
+				<plugin>
+					<groupId>com.smoope.utils</groupId>
+					<artifactId>j2objc-maven-plugin</artifactId>
+					<version>${j2objc.version}</version>
+					<configuration>
+						<j2objcPath>${basedir}/bin/j2objc</j2objcPath>
+						<useArc>true</useArc>
+						<noPackageDirectories>true</noPackageDirectories>
+						<sourcePath>${project.basedir}/src/main/java</sourcePath>
+						<d>${project.build.directory}/j2objc</d>
+					</configuration>
+				</plugin>
+			</plugins>
 		</profile>
 	</profiles>
 
