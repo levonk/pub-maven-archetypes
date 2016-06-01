@@ -1426,6 +1426,7 @@
 		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
 		<guava.version>18.0</guava.version> <!-- as of 2014-03-11 -->
+		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
 		<jackson1.version>1.9.13</jackson1.version>
 		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
@@ -2158,6 +2159,68 @@
 						<sourcePath>${project.basedir}/src/main/java</sourcePath>
 						<d>${project.build.directory}/j2objc</d>
 					</configuration>
+				</plugin>
+			</plugins>
+		</profile>
+		<profile>
+			<!-- @see http://kotlinlang.org/docs/reference/using-maven.html -->
+			<id>kotlin</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/kotlin</exists>
+				</file>
+			</activation>
+			<dependencies>
+			    <dependency>
+			        <groupId>org.jetbrains.kotlin</groupId>
+			        <artifactId>kotlin-stdlib</artifactId>
+			        <version>${kotlin.version}</version>
+			    </dependency>
+			</dependencies>
+			<plugins>
+				<plugin>
+				    <artifactId>kotlin-maven-plugin</artifactId>
+				    <groupId>org.jetbrains.kotlin</groupId>
+				    <version>${kotlin.version}</version>
+				
+				    <executions>
+				        <execution>
+				            <id>compile</id>
+				            <phase>process-sources</phase>
+				            <goals> <goal>compile</goal> </goals>
+				        </execution>
+				    </executions>
+				</plugin>
+			</plugins>
+		</profile>
+		<profile>
+			<!-- @see http://kotlinlang.org/docs/reference/using-maven.html -->
+			<id>kotlin-test</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/test/kotlin</exists>
+				</file>
+			</activation>
+			<dependencies>
+			    <dependency>
+			        <groupId>org.jetbrains.kotlin</groupId>
+			        <artifactId>kotlin-stdlib</artifactId>
+			        <version>${kotlin.version}</version>
+			    </dependency>
+			</dependencies>
+			<plugins>
+				<plugin>
+				    <artifactId>kotlin-maven-plugin</artifactId>
+				    <groupId>org.jetbrains.kotlin</groupId>
+				    <version>${kotlin.version}</version>
+				
+				    <executions>
+				        <execution>
+				            <id>test-compile</id>
+				            <phase>process-test-sources</phase>
+				            <goals> <goal>test-compile</goal> </goals>
+				        </execution>
+				    </executions>
 				</plugin>
 			</plugins>
 		</profile>
