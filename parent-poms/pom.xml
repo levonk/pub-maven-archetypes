@@ -707,6 +707,14 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
 				<version>${versions.version}</version>
+				<configuration>
+					<allowIncrementalUpdates>true</allowIncrementalUpdates>
+					<allowMajorUpdates>false</allowMajorUpdates>
+					<allowMinorUpdates>true</allowMinorUpdates>
+					<allowSnapshots>false</allowSnapshots>
+					<processDependencies>true</processDependencies>
+					<processDependencyManagement>true</processDependencyManagement>
+				</configuration>
 			</plugin>
             <plugin>
 				<!--
