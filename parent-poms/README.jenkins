@@ -1,4 +1,4 @@
-To have Jenkins displaying the reports use:
+## To have Jenkins displaying the reports use:
 
 
 
@@ -10,6 +10,11 @@ Plugins to install:
 - Jenkins Covertura Plugin
 
 
-Under the Covertura configuration:
+## Under the Cobertura configuration:
+
 XML Path: **/taget/site/cobertura/coverage.xml
+
+## Upgrade dependency versions on a new project
+
+mvn versions:display-dependency-updates
 
