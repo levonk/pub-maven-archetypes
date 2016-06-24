@@ -1474,7 +1474,7 @@
 		<smartbuilder.version>0.4.1</smartbuilder.version>	<!-- 2015-06-10 -->
 		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 		<!-- as of 2012-09-17 -->
-		<source.version>3.0.0</source.version>	<!-- 2016-02-21 -->
+		<source.version>3.0.1</source.version>	<!-- 2016-06-24 -->
 		<!-- as of 2014-03-11 -->
 		<surefire.version>2.16</surefire.version>
 		<!-- as of 2011-04-06 -->
