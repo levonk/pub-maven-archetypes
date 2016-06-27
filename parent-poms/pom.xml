@@ -1180,6 +1180,19 @@
 					<execution>
 						<id>check-coreext</id>
 						<goals>
+							<!--
+								If we dont' meet the requirements of our enviornment then
+								stop everything and complain.   Within Jenkins we should have
+								a pipeline step that will make the enviornment what we expect to be.
+								Something like:
+									* mvn clean
+									* mvn coreext:install
+									* mvn compile
+									* mvn test
+									* mvn integration-test
+									* mvn pitest:run
+									* mvn package
+							-->
 							<goal>check</goal>
 						</goals>
 						<!-- default phase is: -->
