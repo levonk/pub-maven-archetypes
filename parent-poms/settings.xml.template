@@ -118,6 +118,24 @@
 				<clm.serverUrl>http://clm.${host}.com:8070/</clm.serverUrl>
 			</properties>
 		</profile>
+		<profile>
+			<id>versioneye</id>
+			<activation>
+				<!-- (@code true ) this if you're publishing to versionEye server
+				<activeByDefault>true</activeByDefault>
+				 -->
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<versioneye.apikey>ENTER_APIKEY_HERE</versioneye.apikey>
+				<!-- https://github.com/versioneye/versioneye_maven_plugin -->
+				<versioneye.organisation>ORG_NAME_HERE</versioneye.organisation>
+				<versioneye.team>TEAM_NAME_HERE</versioneye.team>
+				<versioneye.baseUrl>http://versioneye.${host}.com:3000/</versioneye.baseUrl>
+				<versioneye.visibility>private</versioneye.visibility	<!-- public -->
+				<versioneye.nameStrategy>GA</versioneye.nameStrategy>	<!-- artifact_id -->
+			</properties>
+		</profile>
 	</profiles>
 	<!--
 		Activations are the key of a profile. Like the POM’s profiles, the power
