@@ -1749,7 +1749,11 @@
 								</goals>
 								<phase>site</phase>
 								<configuration>
-									<serverUrl>${versioneye.serverUrl}</serverUrl>
+									<organisation>${versioneye.organisation}</organisation>
+									<team>${versioneye.team}</team>
+									<baseUrl>${versioneye.baseUrl}</baseUrl>
+									<visibility>${versioneye.visibility}</visibility>
+									<nameStrategy>${versioneye.nameStrategy}</nameStrategy>
 								</configuration>
 							</execution>
 						</executions>
