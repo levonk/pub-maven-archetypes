@@ -1303,9 +1303,14 @@
 	</pluginManagement>
     </build>
 
-    <reporting>
-        <outputDirectory>./target/site</outputDirectory>
-        <plugins>
+	<reporting>
+		<outputDirectory>./target/site</outputDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${maven-project-info-reports-plugin.version}</version>
+			</plugin>
             <plugin>
                 <!-- http://code.google.com/p/testability-explorer/wiki/Readme
                     see available options by running
@@ -1468,6 +1473,7 @@
 		<logstash.version>2.4</logstash.version>
 		<lombok.version>1.12.5</lombok.version>
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2014-08-27 -->
+		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2016-06-27 -->
 		<mockito.version>1.9.5</mockito.version>
 		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
 		<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
