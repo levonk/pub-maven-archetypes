@@ -1461,7 +1461,7 @@
 		<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
 		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 		<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
-		<jmeter.version>1.10.1</jmeter.version>	<!-- 2016-02-13 -->
+		<jmeter.version>2.0.1</jmeter.version>	<!-- 2016-07-05 -->
 		<!-- as of 2014-03-11 -->
 		<license.version>1.9</license.version>	<!-- 2016-05-29 -->
 		<licenseVerifier.version>0.4</licenseVerifier.version>
