@@ -16,7 +16,7 @@
 	<artifactId>pom</artifactId>
 	<name>pom</name>
 	<url>none</url>
-	<version>1.3.3</version>
+	<version>1.3.4</version>
 	<packaging>pom</packaging>
 
 
@@ -700,6 +700,7 @@
 			<!-- Static Analysis Tools -->
 			<!--
 				@see http://www.mojohaus.org/versions-maven-plugin/index.html
+				@see http://blog.xebia.com/keeping-dependencies-up-to-date-in-maven/
 				mvn -U versions:display-plugin-updates
 				mvn -U versions:display-dependency-updates
 			-->
@@ -707,6 +708,16 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
 				<version>${versions.version}</version>
+				<executions>
+					<execution>
+						<id>versions-maven-plugin</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>display-dependency-updates</goal>
+							<goal>display-plugin-updates</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
 					<allowIncrementalUpdates>true</allowIncrementalUpdates>
 					<allowMajorUpdates>false</allowMajorUpdates>
@@ -714,6 +725,8 @@
 					<allowSnapshots>false</allowSnapshots>
 					<processDependencies>true</processDependencies>
 					<processDependencyManagement>true</processDependencyManagement>
+					<outputFile>target/versions-maven-plugin_outdated-dependencies.txt</outputFile>
+   					<rulesUri>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/modules/build-tools/src/main/resources/versions-maven-plugin/versions-maven-plugin_rules.xml</rulesUri>
 				</configuration>
 			</plugin>
             <plugin>
