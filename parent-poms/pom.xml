@@ -1496,6 +1496,7 @@
 		<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
 		<pmd.version>3.6</pmd.version>	<!-- 2016-02-18 -->
 		<pojomatic.version>1.0</pojomatic.version>
+		<profiledep.version>0.23-rc1</profiledep.version>	<!-- 2016-07-05 -->
 		<proguard.version>2.0.6</proguard.version>
 		<proguardBase.version>4.9</proguardBase.version>
 		<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
