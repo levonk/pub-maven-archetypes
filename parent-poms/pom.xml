@@ -1460,7 +1460,7 @@
 		<findbugs.version>3.0.3</findbugs.version>	<!-- 2016-02-18 -->
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
 		<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
-		<gdlogger.version>1.2.1</gdlogger.version>	<!-- 2016-03-08 -->
+		<gdlogger.version>1.2.2</gdlogger.version>	<!-- 2016-07-04 -->
 		<gpg.version>1.5</gpg.version>
 		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
