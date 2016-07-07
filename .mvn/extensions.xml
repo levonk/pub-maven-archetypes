@@ -13,10 +13,10 @@
         <artifactId>takari-concurrent-localrepo</artifactId>
         <version>0.0.7</version>
     </extension>
-    -->
     <extension>
         <groupId>io.takari.maven</groupId>
         <artifactId>takari-smart-builder</artifactId>
         <version>0.4.1</version>  <!-- 2016-07-07 -->
     </extension>
+    -->
 </extensions>
