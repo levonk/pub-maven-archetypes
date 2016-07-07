@@ -1184,6 +1184,9 @@
 							<artifactId>maven-profiledep-extension</artifactId>
 							<version>${profiledep.version}</version>
 						</extension>
+						<!--
+					            This seems to have been replaced
+					            @see http://takari.io/book/30-team-maven.html#concurrent-safe-local-repository
 						<extension>
 							<groupId>io.takari.maven</groupId>
 							<artifactId>takari-concurrent-localrepo</artifactId>
@@ -1194,6 +1197,7 @@
 							<artifactId>takari-smart-builder</artifactId>
 							<version>${smartbuilder.version}</version>
 						</extension>
+						-->
 					</extensions>
 				</configuration>
 				<executions>
