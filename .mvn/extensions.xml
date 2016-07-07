@@ -5,11 +5,15 @@
         <artifactId>maven-profiledep-extension</artifactId>
         <version>0.22</version>
     </extension>
+    <!--
+        This seems to have been replaced with an explicit copy into maven
+        @see http://takari.io/book/30-team-maven.html#concurrent-safe-local-repository
     <extension>
-        <groupId>io.takari.maven</groupId>
+        <groupId>io.takari.aether</groupId>
         <artifactId>takari-concurrent-localrepo</artifactId>
-        <version>0.11.2</version>
+        <version>0.0.7</version>
     </extension>
+    -->
     <extension>
         <groupId>io.takari.maven</groupId>
         <artifactId>takari-smart-builder</artifactId>
