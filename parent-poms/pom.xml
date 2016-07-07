@@ -216,6 +216,13 @@
 		<groupId>com.godaddy</groupId>
 		<artifactId>logging</artifactId>
 		<version>${gdlogger.version}</version>
+		<exclusions>
+			<exclusion>
+				<!-- included explicityly -->
+				<groupId>net.logstash.logback</groupId>
+				<artifactId>logstash-logback-encoder</artifactId>
+			</exclusion>
+		</exclusions>
 	</dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -1431,7 +1438,7 @@
 		
 		<!-- version block -->
 		<android.version>2.8.4</android.version>
-		<autovalue.version>1.0-rc1</autovalue.version>
+		<autovalue.version>1.2</autovalue.version> <!-- 2016-07-07 -->
 		<antlr3.version>3.5.2</antlr3.version>	<!-- 2015-10-06 -->
 		<antlr4.version>4.5.1-1</antlr4.version>	<!-- 2015-10-06 -->
 		<antrun.version>1.7</antrun.version>
@@ -1483,7 +1490,7 @@
 		<log4jcore.version>2.4</log4jcore.version>	<!-- 2015-10-06 -->
 		<logback.version>1.0.13</logback.version>
 		<logback-jackson.version>0.1.2</logback-jackson.version>
-		<logstash.version>2.4</logstash.version>
+		<logstash.version>4.7</logstash.version>	<!-- 2016-07-07 -->
 		<lombok.version>1.12.5</lombok.version>
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2014-08-27 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2016-06-27 -->
