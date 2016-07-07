@@ -3,7 +3,7 @@
     <extension>
         <groupId>com.github.sviperll</groupId>
         <artifactId>maven-profiledep-extension</artifactId>
-        <version>0.22</version>
+        <version>0.23-rc1</version>
     </extension>
     <!--
         This seems to have been replaced with an explicit copy into maven
