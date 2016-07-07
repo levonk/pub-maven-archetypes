@@ -30,7 +30,6 @@ tasks.xml
 .DS_Store
 *.swp
 
-.mvn
 .maven
 mvnw
 mvnw.*
