@@ -1170,7 +1170,14 @@
                     </execution>
                 </executions>
             </plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.9.5</version>
+				<configuration>
+					<goals>install</goals>
+				</configuration>
+			</plugin>
 			<plugin>
 				<!-- @see https://github.com/sviperll/ozymandias/tree/master/coreext-maven-plugin -->
 				<groupId>com.github.sviperll</groupId>
