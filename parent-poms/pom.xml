@@ -888,7 +888,7 @@
                 <configuration>
                     <rulesets>
                         <ruleset>
-                            https://oss.sonatype.org/content/groups/public/com/levonk/codequality/1.0.0/codequality-1.0.0-pmd.xml
+                            ${pmd.ruleset.url}
                         </ruleset>
                     </rulesets>
                     <excludes>
@@ -922,7 +922,7 @@
                 <version>${findbugs.version}</version>
                 <configuration>
                     <excludeFilterFile>
-                        https://oss.sonatype.org/content/groups/public/com/levonk/codequality/1.0.0/codequality-1.0.0-FindBugsFilter.xml
+			${findbugs.excludeFilterFile.url}
                     </excludeFilterFile>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -1481,6 +1481,10 @@
 		<!-- Uncomment the following line if using Java 7. -->
 		<!-- <typeAnnotationsJavac>${org.checkerframework:compiler:jar}</typeAnnotationsJavac> -->	
 		
+		<!-- version block -->
+		<pmd.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/pmd.xml</pmd.ruleset.url>
+		<findbugs.excludeFilterFile.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/FindBugsFilter.xml</findbugs.excludeFilterFile.url>
+
 		<!-- version block -->
 		<android.version>2.8.4</android.version>
 		<autovalue.version>1.2</autovalue.version> <!-- 2016-07-07 -->
