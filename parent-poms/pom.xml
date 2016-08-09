@@ -1526,6 +1526,7 @@
 		<jackson1.version>1.9.13</jackson1.version>
 		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
 		<jalopy.version>1.0-alpha-1</jalopy.version>
+		<jsonschema2pojo.version>0.4.24</jsonschema2pojo.version>	<!-- 2016-08-09 -->
 		<javadoc.version>2.10.3</javadoc.version>
 		<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
 		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
@@ -2353,6 +2354,40 @@
 								<phase>process-test-sources</phase>
 								<goals> <goal>test-compile</goal> </goals>
 							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>json-schema</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/jsonschema</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jsonschema2pojo</groupId>
+						<artifactId>jsonschema2pojo-maven-plugin</artifactId>
+						<version>${jsonschema2pojo.version}</version>
+						<configuration>
+							<!-- schema definitions directory -->
+							<sourceDirectory>${basedir}/src/main/jsonschema</sourceDirectory>
+							<!-- package name for the models -->
+							<targetPackage>${packagename}</targetPackage>
+							<!-- output folder folder for the generated code -->
+							<outputDirectory>target/generated-sources/jsonpojo</outputDirectory>
+							<annotationStyle>jackson2</annotationStyle>
+							<includeJsr303Annotations>true</includeJsr303Annotations>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								</execution>
 						</executions>
 					</plugin>
 				</plugins>
