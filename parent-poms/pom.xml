@@ -2360,6 +2360,9 @@
 			</build>
 		</profile>
 		<profile>
+			<!-- Generate POJOs from JSON Schemas -->
+			<!-- @see http://json-schema.org/ -->
+			<!-- @see https://github.com/joelittlejohn/jsonschema2pojo/ -->
 			<id>json-schema</id>
 			<activation>
 				<file>
