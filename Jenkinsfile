@@ -12,6 +12,12 @@ node {
     stage 'Removing GPG Keys from Jenkins'
     sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
+    sh """
+        echo "***** FIX THIS!!! *****"
+        echo "-Should not have to use a folder with wangj117 as the name."
+        echo "***** FIX THIS!!! *****"
+       """
+
     stage 'Get GPG Keys from S3'
     sh '''test -d ''' + workSpace + '''/.gnupg || {
         aws s3 cp s3://studios-se-keys/bi/jenkins/mvn.licenses.gnupgd.tgz /tmp/mvn.licenses.gnupgd.tgz 
