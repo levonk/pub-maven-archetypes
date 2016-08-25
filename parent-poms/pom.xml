@@ -1090,46 +1090,46 @@
                 </executions>
             </plugin>
 
-            <!--<plugin>-->
-                <!--&lt;!&ndash; lets get rid .class that are effected through-->
-                <!--inheritance using ant &ndash;&gt;-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-antrun-plugin</artifactId>-->
-                <!--<version>${antrun.version}</version>-->
-                <!--<executions>-->
-                    <!--&lt;!&ndash; handle regular sources &ndash;&gt;-->
-                    <!--<execution>-->
-                        <!--<id>depend-sources</id>-->
-                        <!--<phase>process-sources</phase>-->
-                        <!--<configuration>-->
-                            <!--<target>-->
-                                <!--<depend srcDir="${project.build.sourceDirectory}"-->
-                                        <!--destDir="${project.build.outputDirectory}"-->
-                                        <!--cache="${project.build.outputDirectory}"/>-->
-                            <!--</target>-->
-                        <!--</configuration>-->
-                        <!--<goals>-->
-                            <!--<goal>run</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                    <!--&lt;!&ndash; handle test files &ndash;&gt;-->
-                    <!--<execution>-->
-                        <!--<id>depend-test-sources</id>-->
-                        <!--<phase>process-test-sources</phase>-->
-                        <!--<configuration>-->
-                            <!--<target>-->
-                                <!--<depend srcDir="${project.build.testSourceDirectory}"-->
-                                        <!--destDir="${project.build.testOutputDirectory}"-->
-                                        <!--cache="${project.build.testOutputDirectory}"-->
-                                        <!--classpath="${project.build.outputDirectory}"/>-->
-                            <!--</target>-->
-                        <!--</configuration>-->
-                        <!--<goals>-->
-                            <!--<goal>run</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+            <plugin>
+                <!-- lets get rid .class that are effected through
+                inheritance using ant -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${antrun.version}</version>
+                <executions>
+                    <!-- handle regular sources -->
+                    <execution>
+                        <id>depend-sources</id>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <target>
+                                <depend srcDir="${project.build.sourceDirectory}"
+                                        destDir="${project.build.outputDirectory}"
+                                        cache="${project.build.outputDirectory}"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <!-- handle test files -->
+                    <execution>
+                        <id>depend-test-sources</id>
+                        <phase>process-test-sources</phase>
+                        <configuration>
+                            <target>
+                                <depend srcDir="${project.build.testSourceDirectory}"
+                                        destDir="${project.build.testOutputDirectory}"
+                                        cache="${project.build.testOutputDirectory}"
+                                        classpath="${project.build.outputDirectory}"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
 
             <!-- testing -->
