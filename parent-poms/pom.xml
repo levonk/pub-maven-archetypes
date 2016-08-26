@@ -945,12 +945,15 @@
 				<executions>
 					<execution>
 						<id>download-licenses</id>
-						<goals>
-							<!--<goal>download-licenses</goal>-->
-							<!--<goal>aggregate-add-third-party</goal>-->
+                        <!-- must come after install or sibling module dependencies will break build -->
+                        <phase>pre-site</phase>
+                        <goals>
+							<goal>download-licenses</goal>
+							<goal>aggregate-add-third-party</goal>
 						</goals>
 						</execution>
 				</executions>
+
 			</plugin>
 
             <plugin>
