@@ -619,32 +619,7 @@
                 </executions>
             </plugin>
 
-            <!--<plugin>-->
-            	<!--&lt;!&ndash; @see http://classycle.sourceforge.net/ &ndash;&gt;-->
-		    <!--<groupId>org.pitest</groupId>-->
-		    <!--<artifactId>classycle-maven-plugin</artifactId>-->
-		    <!--<version>0.4</version>-->
-		    <!--<executions>-->
-		        <!--&lt;!&ndash;<execution>&ndash;&gt;-->
-		            <!--&lt;!&ndash;<id>verify</id>&ndash;&gt;-->
-		            <!--&lt;!&ndash;<phase>verify</phase>&ndash;&gt;-->
-		            <!--&lt;!&ndash;<goals>&ndash;&gt;-->
-		                <!--&lt;!&ndash;<goal>check</goal>&ndash;&gt;-->
-		            <!--&lt;!&ndash;</goals>&ndash;&gt;-->
-		            <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
-		                <!--&lt;!&ndash;<dependencyDefinition>&ndash;&gt;-->
-		                    <!--&lt;!&ndash;show allResults&ndash;&gt;-->
-		                    <!--&lt;!&ndash;check absenceOfPackageCycles > 1 in com.example*&ndash;&gt;-->
-		                <!--&lt;!&ndash;</dependencyDefinition>&ndash;&gt;-->
 
-		                <!--&lt;!&ndash;&lt;!&ndash; This can be classycle.dependency.DefaultResultRenderer&ndash;&gt;-->
-		                    <!--&lt;!&ndash;for text (the default if omitted) or&ndash;&gt;-->
-		                    <!--&lt;!&ndash;classycle.dependency.XMLResultRenderer for xml &ndash;&gt;&ndash;&gt;-->
-		                <!--&lt;!&ndash;<resultRenderer>classycle.dependency.DefaultResultRenderer</resultRenderer>&ndash;&gt;-->
-		            <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
-		        <!--&lt;!&ndash;</execution>&ndash;&gt;-->
-		    <!--</executions>-->
-			<!--</plugin>-->
 
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>
@@ -1586,6 +1561,39 @@
 	</properties>
 
 	<profiles>
+        <profile>
+            <id>experimental</id>
+            <build>
+                <plugins>
+                    <plugin>
+                    <!-- @see http://classycle.sourceforge.net/ -->
+                    <groupId>org.pitest</groupId>
+                    <artifactId>classycle-maven-plugin</artifactId>
+                    <version>0.4</version>
+                    <executions>
+                        <execution>
+                        <id>verify</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <dependencyDefinition>
+                                show allResults
+                                check absenceOfPackageCycles > 1 in com.example*
+                            </dependencyDefinition>
+
+                            <!-- This can be classycle.dependency.DefaultResultRenderer
+                            for text (the default if omitted) or
+                            classycle.dependency.XMLResultRenderer for xml -->
+                            <resultRenderer>classycle.dependency.DefaultResultRenderer</resultRenderer>
+                        </configuration>
+                        </execution>
+                    </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 		<profile>
 			<id>signed-release</id>
 			<activation>
