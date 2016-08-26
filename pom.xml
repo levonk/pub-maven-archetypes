@@ -5,8 +5,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.levonk</groupId>
 	<artifactId>maven-codequalities-parent</artifactId>
+	<name>Root POM</name>
 	<packaging>pom</packaging>
-	<version>1.0</version>
+	<version>1.0-SNAPSHOT</version>
 
 	<licenses>
 		<license>
