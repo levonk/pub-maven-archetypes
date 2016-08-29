@@ -80,8 +80,6 @@
 						<artifactId>jgitflow-maven-plugin</artifactId>
 						<version>1.0-m5.1</version>
 						<configuration>
-							<username>wdsds</username>
-							<password>${github.wdsds.password}</password>
 							<enableSshAgent>true</enableSshAgent>
 							<autoVersionSubmodules>true</autoVersionSubmodules>
 							<pushFeatures>true</pushFeatures>
