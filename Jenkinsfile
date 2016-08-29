@@ -5,6 +5,8 @@ node {
     def workSpace = pwd()
     echo "${workSpace}"
     println env
+
+    deleteDir()
     
     stage 'Removing GPG Keys from Jenkins'
     sh '''rm -rf ''' + workSpace + '''/.gnupg'''
