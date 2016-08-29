@@ -55,11 +55,11 @@ node {
         withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'gpgPassword'], [$class: 'StringBinding', credentialsId: 'ec0eebae-e1f7-4857-916f-42516849db50', variable: 'githubWdsdsPassword']]) {
 
             stage 'Start Release'
-            sh "${mvnHome}/bin/mvn -s settings.xml build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -Dgithub.wdsds.password=${githubWdsdsPassword} -e"
+            sh "${mvnHome}/bin/mvn -s settings.xml build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -Dgithub.wdsds.password=\$githubWdsdsPassword -e"
 
             stage 'Finish Release'
             sh """
-                ${mvnHome}/bin/mvn -s settings.xml jgitflow:release-finish -Denforcer.skip=true -Dgithub.wdsds.password=${githubWdsdsPassword}
+                ${mvnHome}/bin/mvn -s settings.xml jgitflow:release-finish -Denforcer.skip=true -Dgithub.wdsds.password=\$githubWdsdsPassword
                """
 
             sh """
@@ -75,10 +75,10 @@ node {
                """
 
             stage 'Clean'
-            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${gpgPassword} -Dgithub.wdsds.password=${githubWdsdsPassword} -Dgpg.homedir=${workSpace}/.gnupg clean"
+            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg clean"
 
             stage 'Install'
-            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${gpgPassword} -Dgithub.wdsds.password=${githubWdsdsPassword} -Dgpg.homedir=${workSpace}/.gnupg install"
+            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg install"
 
 
             stage 'Publish Unit Test Reports'
@@ -100,13 +100,13 @@ node {
             sh """
                 cd parent-poms ;
                 pwd ;
-                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${gpgPassword} -Dgithub.wdsds.password=${githubWdsdsPassword} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                 cd ../codequality ;
                 pwd ;
-                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${gpgPassword} -Dgithub.wdsds.password=${githubWdsdsPassword} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                 cd ../licenses ;
                 pwd ;
-                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${gpgPassword} -Dgithub.wdsds.password=${githubWdsdsPassword} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                """
 
             stage 'Release Staged Repository'
