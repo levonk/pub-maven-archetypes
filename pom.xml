@@ -79,7 +79,7 @@
 						<artifactId>jgitflow-maven-plugin</artifactId>
 						<version>1.0-m5.1</version>
 						<configuration>
-							<enableSshAgent>true</enableSshAgent>
+							<enableSshAgent>false</enableSshAgent>
 							<autoVersionSubmodules>true</autoVersionSubmodules>
 							<pushFeatures>true</pushFeatures>
 							<pushReleases>true</pushReleases>
