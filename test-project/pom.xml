@@ -9,7 +9,7 @@
     <relativePath>../parent-poms</relativePath>
   </parent>
   <artifactId>test-project</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>Test Project</name>
   <url>http://maven.apache.org</url>
   <properties>
