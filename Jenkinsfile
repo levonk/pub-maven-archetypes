@@ -32,15 +32,16 @@ node {
         popd
     }'''
 
-   //slackSend color: 'good', message: 'Build started: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)'
-    stage 'Checkout'
-    git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'git@github.com:DGHLJ/pub-maven-archetypes.git'
-
-    sh('git rev-parse HEAD > GIT_COMMIT')
-    def gitCommit=readFile('GIT_COMMIT')
-    def shortCommit=gitCommit.substring(0, 7)
-
     sshagent(['wdsds-at-github']) {
+        //slackSend color: 'good', message: 'Build started: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)'
+        stage 'Checkout'
+        git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'git@github.com:DGHLJ/pub-maven-archetypes.git'
+
+        sh('git rev-parse HEAD > GIT_COMMIT')
+        def gitCommit=readFile('GIT_COMMIT')
+        def shortCommit=gitCommit.substring(0, 7)
+
+
         wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
             def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
 
