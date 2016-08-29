@@ -52,68 +52,70 @@ node {
             ${mvnHome}/bin/mvn -s settings.xml com.github.sviperll:coreext-maven-plugin:install || true
            """
 
-        stage 'Start Release'
-        sh "${mvnHome}/bin/mvn -s settings.xml build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
+        withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'gpg.password'], [$class: 'StringBinding', credentialsId: 'ec0eebae-e1f7-4857-916f-42516849db50', variable: 'github.wdsds.password']]) {
 
-        stage 'Finish Release'
-        sh """
-            ${mvnHome}/bin/mvn -s settings.xml jgitflow:release-finish -Denforcer.skip=true
-           """
+            stage 'Start Release'
+            sh "${mvnHome}/bin/mvn -s settings.xml build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -Dgithub.wdsds.password=${github.wdsds.password} -e"
 
-        sh """
-            echo "***** FIX THIS!!! *****"
-            echo "-Should checkout release/X.X.X.X-XXXXXX tag."
-            echo "***** FIX THIS!!! *****"
-           """
+            stage 'Finish Release'
+            sh """
+                ${mvnHome}/bin/mvn -s settings.xml jgitflow:release-finish -Denforcer.skip=true -Dgithub.wdsds.password=${github.wdsds.password}
+               """
 
-        stage 'Switch to Master Branch'
-        sh """
-            git checkout -f master ;
-            git pull
-           """
+            sh """
+                echo "***** FIX THIS!!! *****"
+                echo "-Should checkout release/X.X.X.X-XXXXXX tag."
+                echo "***** FIX THIS!!! *****"
+               """
 
-        stage 'Clean'
-        sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg clean"
+            stage 'Switch to Master Branch'
+            sh """
+                git checkout -f master ;
+                git pull
+               """
 
-        stage 'Install'
-        sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg install"
+            stage 'Clean'
+            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${gpg.password} -Dgithub.wdsds.password=${github.wdsds.password} -Dgpg.homedir=${workSpace}/.gnupg clean"
+
+            stage 'Install'
+            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${gpg.password} -Dgithub.wdsds.password=${github.wdsds.password} -Dgpg.homedir=${workSpace}/.gnupg install"
 
 
-        stage 'Publish Unit Test Reports'
-        step([$class: 'JUnitResultArchiver', testResults: '**/TEST-*.xml'])
+            stage 'Publish Unit Test Reports'
+            step([$class: 'JUnitResultArchiver', testResults: '**/TEST-*.xml'])
 
-        stage 'Publish Code Quality Reports'
-        step([$class: 'FindBugsPublisher', canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '', unHealthy: ''])
-        step([$class: 'CheckStylePublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
-        step([$class: 'PmdPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
-        step([$class: 'AnalysisPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''])
+            stage 'Publish Code Quality Reports'
+            step([$class: 'FindBugsPublisher', canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '', unHealthy: ''])
+            step([$class: 'CheckStylePublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
+            step([$class: 'PmdPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
+            step([$class: 'AnalysisPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''])
 
-        stage 'Archive Artifacts'
-        step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
+            stage 'Archive Artifacts'
+            step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
-        stage 'Deploy to Nexus'
-        def userInput = input 'Release staged repository?'
-        sh "echo $userInput"
+            stage 'Deploy to Nexus'
+            def userInput = input 'Release staged repository?'
+            sh "echo $userInput"
 
-        sh """
-            cd parent-poms ;
-            pwd ;
-            ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-            cd ../codequality ;
-            pwd ;
-            ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-            cd ../licenses ;
-            pwd ;
-            ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-           """
+            sh """
+                cd parent-poms ;
+                pwd ;
+                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${gpg.password} -Dgithub.wdsds.password=${github.wdsds.password} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                cd ../codequality ;
+                pwd ;
+                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${gpg.password} -Dgithub.wdsds.password=${github.wdsds.password} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                cd ../licenses ;
+                pwd ;
+                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${gpg.password} -Dgithub.wdsds.password=${github.wdsds.password} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+               """
 
-        stage 'Release Staged Repository'
-        sh """
-            OUTPUT=\$( ${mvnHome}/bin/mvn -s settings.xml nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ | grep comlevonk | cut -d\\  -f2 ) ;
-            echo \$OUTPUT ;
-            ${mvnHome}/bin/mvn -s settings.xml nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -e
-           """
-
+            stage 'Release Staged Repository'
+            sh """
+                OUTPUT=\$( ${mvnHome}/bin/mvn -s settings.xml nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ | grep comlevonk | cut -d\\  -f2 ) ;
+                echo \$OUTPUT ;
+                ${mvnHome}/bin/mvn -s settings.xml nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -e
+               """
+        }
 
 
         //slackSend color: 'good', message: 'Build finished: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)'
