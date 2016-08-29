@@ -7,7 +7,7 @@ node {
     println env
 
     stage 'Cleaning Workspace'
-    sh '''rm -rf ../workspace/* ; rm -rf ../workspace/.* ; pwd'''
+    sh '''rm -rf ../workspace/* || true ; rm -rf ../workspace/.* || true ; pwd'''
 
     stage 'Removing GPG Keys from Jenkins'
     sh '''rm -rf ''' + workSpace + '''/.gnupg'''
