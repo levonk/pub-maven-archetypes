@@ -34,7 +34,7 @@ node {
 
    //slackSend color: 'good', message: 'Build started: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)'
     stage 'Checkout'
-    git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'ssh://git@github.com/DGHLJ/pub-maven-archetypes.git'
+    git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'git@github.com:DGHLJ/pub-maven-archetypes.git'
 
     sh('git rev-parse HEAD > GIT_COMMIT')
     def gitCommit=readFile('GIT_COMMIT')
