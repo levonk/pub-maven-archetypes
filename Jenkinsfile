@@ -36,10 +36,8 @@ node {
 
         wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
 
-
-
             stage 'Checkout'
-            git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'git@github.com:DGHLJ/pub-maven-archetypes.git'
+            git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'ssh://git@github.com/DGHLJ/pub-maven-archetypes.git'
 
             sh('git rev-parse HEAD > GIT_COMMIT')
             def gitCommit=readFile('GIT_COMMIT')
