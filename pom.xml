@@ -41,8 +41,8 @@
 	</developers>
 	
 	<scm>
-		<connection>scm:git:ssh://git@github.com/DGHLJ/pub-maven-archetypes.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/DGHLJ/pub-maven-archetypes.git</developerConnection>
+		<connection>scm:git:git@github.com:DGHLJ/pub-maven-archetypes.git</connection>
+		<developerConnection>scm:git:git@github.com:DGHLJ/pub-maven-archetypes.git</developerConnection>
 		<tag>HEAD</tag>
 		<url>https://github.com/DGHLJ/pub-maven-archetypes</url>
 	</scm>
@@ -79,7 +79,7 @@
 						<artifactId>jgitflow-maven-plugin</artifactId>
 						<version>1.0-m5.1</version>
 						<configuration>
-							<enableSshAgent>false</enableSshAgent>
+							<enableSshAgent>true</enableSshAgent>
 							<autoVersionSubmodules>true</autoVersionSubmodules>
 							<pushFeatures>true</pushFeatures>
 							<pushReleases>true</pushReleases>
