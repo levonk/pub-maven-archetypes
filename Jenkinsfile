@@ -33,9 +33,9 @@ node {
     }'''
 
     sshagent(['wdsds-at-github']) {
+
         wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
 
-            //slackSend color: 'good', message: 'Build started: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)'
             stage 'Checkout'
             git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'git@github.com:DGHLJ/pub-maven-archetypes.git'
 
@@ -118,7 +118,6 @@ node {
                 echo \$OUTPUT ;
                 ${mvnHome}/bin/mvn -s settings.xml nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -e
                """
-
 
         }
 
