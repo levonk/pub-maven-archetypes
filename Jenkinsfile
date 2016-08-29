@@ -35,31 +35,30 @@ node {
 
     sh('git rev-parse HEAD > GIT_COMMIT')
     def gitCommit=readFile('GIT_COMMIT')
-    def shortCommit=gitCommit.substring(0, 6)
+    def shortCommit=gitCommit.substring(0, 7)
 
-    wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
-        def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
+    sshagent(['wdsds-at-github']) {
+        wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
+            def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
 
-        stage 'Get AWS Credentials'
-        sh 'export AWS_ACCESS_KEY_ID=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .AccessKeyId  )'
-        sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
+            stage 'Get AWS Credentials'
+            sh 'export AWS_ACCESS_KEY_ID=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .AccessKeyId  )'
+            sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
-        sh 'echo $AWS_ACCESS_KEY_ID'
-        sh 'echo $AWS_SECRET_ACCESS_KEY'
+            sh 'echo $AWS_ACCESS_KEY_ID'
+            sh 'echo $AWS_SECRET_ACCESS_KEY'
 
-        stage 'Install Extensions'
-        sh """
-            ${mvnHome}/bin/mvn -s settings.xml com.github.sviperll:coreext-maven-plugin:install || true
-           """
-
-        withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'gpgPassword'], [$class: 'StringBinding', credentialsId: 'ec0eebae-e1f7-4857-916f-42516849db50', variable: 'githubWdsdsPassword']]) {
+            stage 'Install Extensions'
+            sh """
+                ${mvnHome}/bin/mvn -s settings.xml com.github.sviperll:coreext-maven-plugin:install || true
+               """
 
             stage 'Start Release'
-            sh "${mvnHome}/bin/mvn -s settings.xml build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -Dgithub.wdsds.password=\$githubWdsdsPassword -e"
+            sh "${mvnHome}/bin/mvn -s settings.xml build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
 
             stage 'Finish Release'
             sh """
-                ${mvnHome}/bin/mvn -s settings.xml jgitflow:release-finish -Denforcer.skip=true -Dgithub.wdsds.password=\$githubWdsdsPassword
+                ${mvnHome}/bin/mvn -s settings.xml jgitflow:release-finish -Denforcer.skip=true
                """
 
             sh """
@@ -75,10 +74,10 @@ node {
                """
 
             stage 'Clean'
-            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg clean"
+            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg clean"
 
             stage 'Install'
-            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg install"
+            sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg install"
 
 
             stage 'Publish Unit Test Reports'
@@ -100,13 +99,13 @@ node {
             sh """
                 cd parent-poms ;
                 pwd ;
-                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                 cd ../codequality ;
                 pwd ;
-                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                 cd ../licenses ;
                 pwd ;
-                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=\$gpgPassword -Dgithub.wdsds.password=\$githubWdsdsPassword -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                """
 
             stage 'Release Staged Repository'
@@ -115,8 +114,8 @@ node {
                 echo \$OUTPUT ;
                 ${mvnHome}/bin/mvn -s settings.xml nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -e
                """
-        }
 
+        }
 
         //slackSend color: 'good', message: 'Build finished: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)'
 
