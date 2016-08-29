@@ -947,7 +947,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>${licenses.version}</version>
+                        <version>${project.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1514,7 +1514,7 @@
 		<!-- as of 2014-03-11 -->
 		<license.version>1.9</license.version>	<!-- 2016-05-29 -->
 		<licenseVerifier.version>0.4</licenseVerifier.version>
-		<licenses.version>${project.version}</licenses.version>
+		<licenses.version>1.0</licenses.version>
 		<log4jslf4j.version>2.4</log4jslf4j.version>	<!-- 2015-10-06 -->
 		<log4jcore.version>2.4</log4jcore.version>	<!-- 2015-10-06 -->
 		<logback.version>1.0.13</logback.version>
