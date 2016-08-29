@@ -420,3 +420,4 @@ modules/
 settings.xml
 GIT_COMMIT
 .mvn/
+.gnupg
