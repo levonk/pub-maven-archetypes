@@ -64,8 +64,9 @@
 		<module>parent-poms</module>
 		<module>test-project</module>
 	</modules>
-	
+
 	<properties>
+		<project.scm.id>github.com</project.scm.id>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
