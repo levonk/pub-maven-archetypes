@@ -13,7 +13,7 @@
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
     <url>none</url>
-    <version>2.0.6.232-fffc601</version>
+    <version>2.0.8.239-14118ab</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -944,8 +944,8 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
+                        <version>2.0.8.239-14118ab</version>
+                     </dependency>
                 </dependencies>
             </plugin>
             
@@ -1506,7 +1506,6 @@
 		<!-- as of 2014-03-11 -->
 		<license.version>1.9</license.version>	<!-- 2016-05-29 -->
 		<licenseVerifier.version>0.4</licenseVerifier.version>
-		<licenses.version>1.0</licenses.version>
 		<log4jslf4j.version>2.4</log4jslf4j.version>	<!-- 2015-10-06 -->
 		<log4jcore.version>2.4</log4jcore.version>	<!-- 2015-10-06 -->
 		<logback.version>1.0.13</logback.version>

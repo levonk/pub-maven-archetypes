@@ -6,9 +6,6 @@ node {
     echo "${workSpace}"
     println env
 
-    // stage 'Cleaning Workspace'
-    // sh '''rm -rf ../workspace/* || true ; rm -rf ../workspace/.* || true ; pwd'''
-
     stage 'Removing GPG Keys from Jenkins'
     sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
@@ -129,6 +126,7 @@ node {
             stage 'Release Staged Repository'
             def userInput2 = input 'Release staged repository?'
             sh "echo $userInput2"
+
             sh """
                 OUTPUT=\$( ${mvnHome}/bin/mvn -s settings.xml nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
                 echo \$OUTPUT ;
