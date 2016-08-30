@@ -111,7 +111,7 @@ node {
             step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
             stage 'Deploy to Nexus'
-            def userInput = input 'Release staged repository?'
+            def userInput = input 'Deploy to Nexus?'
             sh "echo $userInput"
 
             sh """
@@ -127,6 +127,7 @@ node {
                """
 
             stage 'Release Staged Repository'
+            def userInput = input 'Release staged repository?'
             sh """
                 OUTPUT=\$( ${mvnHome}/bin/mvn -s settings.xml nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ | grep comlevonk | cut -d\\  -f2 ) ;
                 echo \$OUTPUT ;
