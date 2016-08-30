@@ -56,16 +56,16 @@ node {
 
             stage 'Install Extensions'
             sh """
-                rm -rf .mvn
+            rm -rf .mvn
 
-                for i in $(ls -d */);
+                for i in \$(ls -d */);
                 do
-                    if [ -f ${i}pom.xml ]; then
-                        echo "cd ${i}";
-                        cd ${i}
+                    if [ -f \${i}pom.xml ]; then
+                        echo "cd \${i}";
+                        cd \${i}
                         if [ ! -d ".mvn" ]; then
                             rm -rf .mvn
-                            
+
                             ${mvnHome}/bin/mvn -s settings.xml -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true
                         fi
                         cd ..
