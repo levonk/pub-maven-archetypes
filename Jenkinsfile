@@ -111,8 +111,8 @@ node {
             step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
             stage 'Deploy to Nexus'
-            def userInput = input 'Release staged repository?'
-            sh "echo $userInput"
+            def userInput1 = input 'Deploy to Nexus?'
+            sh "echo $userInput1"
 
             sh """
                 cd parent-poms ;
@@ -127,10 +127,12 @@ node {
                """
 
             stage 'Release Staged Repository'
+            def userInput2 = input 'Release staged repository?'
+            sh "echo $userInput2"
             sh """
-                OUTPUT=\$( ${mvnHome}/bin/mvn -s settings.xml nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ | grep comlevonk | cut -d\\  -f2 ) ;
+                OUTPUT=\$( ${mvnHome}/bin/mvn -s settings.xml nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
                 echo \$OUTPUT ;
-                ${mvnHome}/bin/mvn -s settings.xml nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -e
+                ${mvnHome}/bin/mvn -s settings.xml nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release -e
                """
 
         }
