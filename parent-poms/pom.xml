@@ -1460,7 +1460,7 @@
 		<autovalue.version>1.2</autovalue.version> <!-- 2016-07-07 -->
 		<antlr3.version>3.5.2</antlr3.version>	<!-- 2015-10-06 -->
 		<antlr4.version>4.5.1-1</antlr4.version>	<!-- 2015-10-06 -->
-		<antrun.version>1.7</antrun.version>
+		<antrun.version>1.8</antrun.version>
 		<avro.version>1.7.7</avro.version>
 		<codequality.version>1.0.9</codequality.version>
 		<checkers.version>1.9.11</checkers.version>	<!-- 2016-02-18 -->
