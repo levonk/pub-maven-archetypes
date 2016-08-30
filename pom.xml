@@ -69,29 +69,33 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<version>1.0-m5.1</version>
+				<configuration>
+					<enableSshAgent>true</enableSshAgent>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<pushFeatures>true</pushFeatures>
+					<pushReleases>true</pushReleases>
+					<pushHotfixes>true</pushHotfixes>
+					<noDeploy>true</noDeploy>
+					<noReleaseBuild>true</noReleaseBuild>
+					<flowInitContext>
+						<developBranchName>develop</developBranchName>
+						<versionTagPrefix>v</versionTagPrefix>
+					</flowInitContext>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<profiles>
 		<profile>
 			<id>maven-central-release</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>external.atlassian.jgitflow</groupId>
-						<artifactId>jgitflow-maven-plugin</artifactId>
-						<version>1.0-m5.1</version>
-						<configuration>
-							<enableSshAgent>true</enableSshAgent>
-							<autoVersionSubmodules>true</autoVersionSubmodules>
-							<pushFeatures>true</pushFeatures>
-							<pushReleases>true</pushReleases>
-							<pushHotfixes>true</pushHotfixes>
-							<noDeploy>true</noDeploy>
-							<noReleaseBuild>true</noReleaseBuild>
-							<flowInitContext>
-								<developBranchName>develop</developBranchName>
-								<versionTagPrefix>v</versionTagPrefix>
-							</flowInitContext>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
