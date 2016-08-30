@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.3.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>com.levonk.codequality</groupId>
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
     <url>none</url>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.1.224-ca4a3e8</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -50,8 +47,8 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/DGHLJ/pub-maven-archetypes.git</connection>
-        <developerConnection>scm:git:git://github.com/DGHLJ/pub-maven-archetypes.git</developerConnection>
+        <connection>scm:git:ssh://git@github.com/DGHLJ/pub-maven-archetypes.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/DGHLJ/pub-maven-archetypes.git</developerConnection>
         <tag>HEAD</tag>
         <url>https://github.com/DGHLJ/pub-maven-archetypes</url>
     </scm>
@@ -791,7 +788,7 @@
                                         <exclude>org.codehaus.mojo:versions-maven-plugin:2.2</exclude>
                                     </excludes>
                                 </bannedDependencies>
-                                <dependencyConvergence/>
+                                <dependencyConvergence />
                                 <requireMavenVersion>
                                     <version>[3.1.0,)</version>
                                 </requireMavenVersion>
@@ -799,7 +796,7 @@
                                     <version>${java.version}</version>
                                 </requireJavaVersion>
                             <evaluateBeanshell>
-                                <condition>javax.crypto.Cipher.getMaxAllowedKeyLength("AES") > 128</condition>
+                                <condition>javax.crypto.Cipher.getMaxAllowedKeyLength("AES") &gt; 128</condition>
                             </evaluateBeanshell>
                             <reactorModuleConvergence>
                             <message>Maven-enforcer: The reactor Module Convergance is not valid</message>
@@ -947,7 +944,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>${licenses.version}</version>
+                        <version>${project.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1081,9 +1078,7 @@
                         <phase>process-sources</phase>
                         <configuration>
                             <target>
-                                <depend srcDir="${project.build.sourceDirectory}"
-                                        destDir="${project.build.outputDirectory}"
-                                        cache="${project.build.outputDirectory}"/>
+                                <depend srcDir="${project.build.sourceDirectory}" destDir="${project.build.outputDirectory}" cache="${project.build.outputDirectory}" />
                             </target>
                         </configuration>
                         <goals>
@@ -1096,10 +1091,7 @@
                         <phase>process-test-sources</phase>
                         <configuration>
                             <target>
-                                <depend srcDir="${project.build.testSourceDirectory}"
-                                        destDir="${project.build.testOutputDirectory}"
-                                        cache="${project.build.testOutputDirectory}"
-                                        classpath="${project.build.outputDirectory}"/>
+                                <depend srcDir="${project.build.testSourceDirectory}" destDir="${project.build.testOutputDirectory}" cache="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" />
                             </target>
                         </configuration>
                         <goals>
@@ -1580,7 +1572,7 @@
                         <configuration>
                             <dependencyDefinition>
                                 show allResults
-                                check absenceOfPackageCycles > 1 in com.example*
+                                check absenceOfPackageCycles &gt; 1 in com.example*
                             </dependencyDefinition>
 
                             <!-- This can be classycle.dependency.DefaultResultRenderer

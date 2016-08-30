@@ -417,4 +417,7 @@ modules/
 .hgsubstate
 .hgtags
 
-
+settings.xml
+GIT_COMMIT
+.mvn/
+.gnupg

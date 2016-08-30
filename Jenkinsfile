@@ -2,14 +2,12 @@ import hudson.model.*
 import hudson.util.*
 
 node {
-
     def workSpace = pwd()
     echo "${workSpace}"
     println env
 
-    sh 'pwd'
-
-    deleteDir()
+    //stage 'Cleaning Workspace'
+    //sh '''rm -rf ../workspace/* || true ; rm -rf ../workspace/.* || true ; pwd'''
 
     stage 'Removing GPG Keys from Jenkins'
     sh '''rm -rf ''' + workSpace + '''/.gnupg'''
@@ -34,72 +32,53 @@ node {
         popd
     }'''
 
-    sshagent(['fe4a50a5-925d-4769-9a7b-dab6e610f202']) {
-        //slackSend color: 'good', message: 'Build started: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)'
-        stage 'Checkout'
-        //git url: 'https://github.com/DGHLJ/pub-maven-archetypes.git'
-        git branch: 'jenkins', url: 'https://github.com/DGHLJ/pub-maven-archetypes.git'
-
-        sh('git rev-parse HEAD > GIT_COMMIT')
-        def git_commit=readFile('GIT_COMMIT')
-        // short SHA, possibly better for chat notifications, etc.
-        def short_commit=git_commit.substring(0, 6)
+    sshagent(['wdsds-at-github']) {
 
         wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
+
+            sh 'ssh-add -l'
+
+            stage 'Checkout'
+            git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'ssh://git@github.com/DGHLJ/pub-maven-archetypes.git'
+
+            sh('git rev-parse HEAD > GIT_COMMIT')
+            def gitCommit=readFile('GIT_COMMIT')
+            def shortCommit=gitCommit.substring(0, 7)
+
             def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
-            
+
             stage 'Get AWS Credentials'
             sh 'export AWS_ACCESS_KEY_ID=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .AccessKeyId  )'
             sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
-    
+
             sh 'echo $AWS_ACCESS_KEY_ID'
             sh 'echo $AWS_SECRET_ACCESS_KEY'
-            
+
             stage 'Install Extensions'
             sh """
+                ${mvnHome}/bin/mvn -s settings.xml com.github.sviperll:coreext-maven-plugin:install || true
+               """
 
-            for i in \$(ls -d */);
-            do
-                if [ -f \${i}pom.xml ]; then
-                    cd \${i}
-                    rm -rf .mvn
-                    ${mvnHome}/bin/mvn -s ${workSpace}/settings.xml com.github.sviperll:coreext-maven-plugin:install || true
-                    cd ..
-                fi
-            done
+            stage 'Start Release'
+            sh "${mvnHome}/bin/mvn -s settings.xml build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
 
-            rm -rf .mvn
-            ${mvnHome}/bin/mvn -s ${workSpace}/settings.xml com.github.sviperll:coreext-maven-plugin:install -Dmaven.multiModuleProjectDirectory=. || true
-
-            """
-            
-            stage 'Set Version'
+            stage 'Finish Release'
             sh """
-                echo "Deciding package version number"
-    
-                VERSION_NUMBER=\$(${mvnHome}/bin/mvn -s settings.xml org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\\[')
-                VERSION_NUMBER_WITH_SPECIFICATIONS=\${VERSION_NUMBER/-SNAPSHOT/}.\$BUILD_NUMBER-$short_commit
+                ${mvnHome}/bin/mvn -s settings.xml jgitflow:release-finish -Denforcer.skip=true
+               """
 
-                echo \$VERSION_NUMBER
-                echo \$VERSION_NUMBER_WITH_SPECIFICATIONS
+            sh """
+                echo "***** FIX THIS!!! *****"
+                echo "-Should checkout release/X.X.X.X-XXXXXX tag."
+                echo "***** FIX THIS!!! *****"
+               """
 
-                echo "VERSION_NUMBER=\$VERSION_NUMBER" >> env.properties
-                echo "VERSION_NUMBER_WITH_SPECIFICATIONS=\$VERSION_NUMBER_WITH_SPECIFICATIONS" > env.properties
-                echo "\$VERSION_NUMBER_WITH_SPECIFICATIONS" > version.txt
+            stage 'Switch to Master Branch'
+            sh """
+                git checkout -f master ;
+                git pull
+               """
 
-                ${mvnHome}/bin/mvn -s settings.xml versions:set -DgroupId='*' -DartifactId='*' -DoldVersion='*' -DnewVersion=\$VERSION_NUMBER_WITH_SPECIFICATIONS -e
-            """
-
-            stage 'Set Build Description'
-
-            def buildNumber = currentBuild.number
-            def description = ""
-            def versionNumberWithBuild = readFile("version.txt")
-
-            println("Version number is: " + versionNumberWithBuild)
-
-            currentBuild.description = versionNumberWithBuild
-            
             stage 'Clean'
             sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=8185842015 -Dgpg.homedir=${workSpace}/.gnupg clean"
 
@@ -143,8 +122,6 @@ node {
                """
 
         }
-
-        //slackSend color: 'good', message: 'Build finished: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)'
 
     }
 }
