@@ -6,8 +6,8 @@ node {
     echo "${workSpace}"
     println env
 
-    //stage 'Cleaning Workspace'
-    //sh '''rm -rf ../workspace/* || true ; rm -rf ../workspace/.* || true ; pwd'''
+    // stage 'Cleaning Workspace'
+    // sh '''rm -rf ../workspace/* || true ; rm -rf ../workspace/.* || true ; pwd'''
 
     stage 'Removing GPG Keys from Jenkins'
     sh '''rm -rf ''' + workSpace + '''/.gnupg'''
@@ -56,6 +56,7 @@ node {
 
             stage 'Install Extensions'
             sh """
+                rm -rf .mvn ;
                 ${mvnHome}/bin/mvn -s settings.xml com.github.sviperll:coreext-maven-plugin:install || true
                """
 
