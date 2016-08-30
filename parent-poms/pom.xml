@@ -944,8 +944,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
+                     </dependency>
                 </dependencies>
             </plugin>
             
