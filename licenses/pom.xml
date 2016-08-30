@@ -4,7 +4,7 @@
 
 	<groupId>com.levonk.codequality</groupId>
 	<artifactId>licenses</artifactId>
-	<version>2.0.6-SNAPSHOT</version>
+	<version>2.0.6.232-fffc601-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>Automatically validate licenses in the dependencies.</description>
 	<name>Licenses Config File</name>
