@@ -2,14 +2,14 @@ Maven Archetypes
 ========================
 
 #Description
-This project helps to create a multi-module maven project. It contains the following archetype.  
-1. parent -- This is the parent project, it also creates a common module in the root parent.   
-2. exectable-jar -- this is a submodule which creates fat executable jar.
-3. restful-api -- restful api archetype with spring boot and spring mvc
-4. webapp -- web application with spring mvc
-5. couchdb-design -- create couchdb design doc with couchdbapp. 
-6. code quality definition files -- configuration for various code quality tools      
-7. spring batch 
+This project helps to create a multi-module maven project. It contains the following archetype
+  1. `parent` -- this is the parent project, it also creates a common module in the root parent
+  2. `exectable-jar` -- this is a submodule which creates fat executable JAR
+  3. `restful-api` -- restful API archetype with Spring Boot and Spring MVC
+  4. `webapp` -- web application with Spring MVC
+  5. `couchdb-design` -- create couchdb design doc with couchdbapp
+  6. `code quality definition files` -- configuration for various code quality tools      
+  7. `spring batch `
 
 #The following plugin and frameworks are pre configure. 
 -  Spring Boot   
