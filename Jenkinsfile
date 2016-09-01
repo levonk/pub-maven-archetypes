@@ -99,10 +99,10 @@ node {
                    """
 
                 stage 'Clean'
-                sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=$GPG_PASSWORD -Dgpg.homedir=${workSpace}/.gnupg clean"
+                sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean"
 
                 stage 'Install'
-                sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=$GPG_PASSWORD -Dgpg.homedir=${workSpace}/.gnupg install"
+                sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg install"
 
 
                 stage 'Publish Unit Test Reports'
@@ -131,13 +131,13 @@ node {
                 sh """
                     cd parent-poms ;
                     pwd ;
-                    ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=$GPG_PASSWORD -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                     cd ../codequality ;
                     pwd ;
-                    ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=$GPG_PASSWORD -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                     cd ../licenses ;
                     pwd ;
-                    ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=$GPG_PASSWORD -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                    """
 
                 stage 'Promote Staged Repository'
