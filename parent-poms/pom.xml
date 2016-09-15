@@ -1437,6 +1437,8 @@
 
 	<properties>
 		<start-class>com.levonk.springboot.App</start-class> <!-- should we look for some sort of property test? -->
+		<!-- clm.applicationId>${project.build.finalName}</clm.applicationId -->
+		
 		<sonar.exclusions>**/generated-sources/**</sonar.exclusions>
 		<sonar.pitest.mode>active</sonar.pitest.mode>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -1784,6 +1786,7 @@
 			<id>nexusclm</id>
 			<activation>
 				<!-- You need entries in settings.xml to configure the link to the server, see readme -->
+				<!-- wanring: calling this nexusclm.applicationId causes plugin to fail -->
 				<property><name>clm.applicationId</name></property>
 			</activation>
 			<build>
@@ -1799,10 +1802,11 @@
 								</goals>
 								<phase>site</phase>
 								<configuration>
+									<!-- wanring: calling this nexusclm.serverUrl causes plugin to fail -->
 									<serverUrl>${clm.serverUrl}</serverUrl>
 									<stage>build</stage>
+									<!-- wanring: calling this nexusclm.applicationId causes plugin to fail -->
 									<applicationId>${clm.applicationId}</applicationId>
-									<inherited>false</inherited>
 								</configuration>
 							</execution>
 						</executions>
