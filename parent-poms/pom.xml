@@ -1784,7 +1784,7 @@
 			<id>nexusclm</id>
 			<activation>
 				<!-- You need entries in settings.xml to configure the link to the server, see readme -->
-				<property><name>nexusclm.applicationId</name></property>
+				<property><name>clm.applicationId</name></property>
 			</activation>
 			<build>
 				<plugins>
@@ -1799,9 +1799,9 @@
 								</goals>
 								<phase>site</phase>
 								<configuration>
-									<serverUrl>${nexusclm.serverUrl}</serverUrl>
+									<serverUrl>${clm.serverUrl}</serverUrl>
 									<stage>build</stage>
-									<applicationId>${nexusclm.applicationId}</applicationId>
+									<applicationId>${clm.applicationId}</applicationId>
 									<inherited>false</inherited>
 								</configuration>
 							</execution>
