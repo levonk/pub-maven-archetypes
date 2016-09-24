@@ -856,7 +856,7 @@
                 <!-- @see https://pmd.github.io/ -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.6</version>
+                <version>${pmd.version}</version>
                 <configuration>
                     <rulesets>
                         <ruleset>
