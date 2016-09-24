@@ -1404,6 +1404,7 @@
 		</plugin>
 
 		<plugin>
+			<!-- @see http://www.mojohaus.org/versions-maven-plugin/usage.html -->
 			<groupId>org.codehaus.mojo</groupId>
 			<artifactId>versions-maven-plugin</artifactId>
 			<version>${versions.version}</version>
@@ -1416,6 +1417,10 @@
 					</reports>
 				</reportSet>
 			</reportSets>
+			<configuration>
+				<!-- @see http://www.mojohaus.org/versions-maven-plugin/version-rules.html -->
+				<rulesUri>${versions.ruleset.url}</rulesUri>
+			</configuration>
 		</plugin>
 		<plugin>
 			<!-- Browse code via SQL & Graphs -->
@@ -1453,9 +1458,11 @@
 		<!-- Uncomment the following line if using Java 7. -->
 		<!-- <typeAnnotationsJavac>${org.checkerframework:compiler:jar}</typeAnnotationsJavac> -->	
 		
-		<!-- version block -->
+		<!-- ruleset block -->
 		<pmd.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/pmd.xml</pmd.ruleset.url>
 		<findbugs.excludeFilterFile.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/FindBugsFilter.xml</findbugs.excludeFilterFile.url>
+		<!-- @see http://www.mojohaus.org/versions-maven-plugin/rule.html -->
+		<versions.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/versions-maven-plugin/maven-version-rules.xml</pmd.ruleset.url>
 
 		<!-- version block -->
 		<android.version>2.8.4</android.version>
