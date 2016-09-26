@@ -283,9 +283,10 @@
     </dependencies>
 
     <dependencyManagement>
+	    <dependencies>
 		<!-- provides additional date-time classes that complement those in Java SE 8. -->
 		<!-- @see http://www.threeten.org/threeten-extra/ -->
-		<dependencies><dependency>
+		<dependency>
 			<groupId>org.threeten</groupId>
 			<artifactId>threeten-extra</artifactId>
 			<version>${threeten-extra.version}</version>
