@@ -4,7 +4,7 @@ import hudson.util.*
 node {
 	def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
 	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
-	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums "
+	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml "
 
     def workSpace = pwd()
     echo "${workSpace}"
@@ -72,21 +72,21 @@ node {
                             echo "cd \${i}";
                             cd \${i}
                             if [ ! -d ".mvn" ]; then
-                                ${mvnCmd} -s settings.xml com.github.sviperll:coreext-maven-plugin:install || true
+                                ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true
                             fi
                             cd ..
                         fi
                     done
 
-                    ${mvnCmd} -s settings.xml -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true
+                    ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true
                    """
 
                 stage 'Start Release'
-                sh "${mvnCmd} -s settings.xml build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
+                sh "${mvnCmd}  build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
 
                 stage 'Finish Release'
                 sh """
-                    ${mvnCmd} -s settings.xml jgitflow:release-finish -Denforcer.skip=true
+                    ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
                    """
 
                 sh """
@@ -102,10 +102,10 @@ node {
                    """
 
                 stage 'Clean'
-                sh "${mvnCmd} -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean"
+                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean"
 
                 stage 'Install'
-                sh "${mvnCmd} -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg install"
+                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg install"
 
 
                 stage 'Publish Unit Test Reports'
@@ -134,13 +134,13 @@ node {
                 sh """
                     cd parent-poms ;
                     pwd ;
-                    ${mvnCmd} -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                     cd ../codequality ;
                     pwd ;
-                    ${mvnCmd} -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                     cd ../licenses ;
                     pwd ;
-                    ${mvnCmd} -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                    """
 
                 stage 'Promote Staged Repository'
@@ -148,9 +148,9 @@ node {
                 sh "echo $userInput2"
 
                 sh """
-                    OUTPUT=\$( ${mvnCmd} -s settings.xml nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
+                    OUTPUT=\$( ${mvnCmd}  nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
                     echo \$OUTPUT ;
-                    ${mvnCmd} -s settings.xml nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release -e
+                    ${mvnCmd}  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release -e
                    """
             }
         }
