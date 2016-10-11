@@ -7,38 +7,37 @@ node {
 	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
 	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml "
 
-    println "${workSpace}"
-    println env
+	println "${workSpace}"
+	println env
 
-    // Figure out a way to delete the workspace completely.
-    // deleteDir() or bash script
+	// Figure out a way to delete the workspace completely.
+	// deleteDir() or bash script
 
-    stage 'Removing GPG Keys from Jenkins'
-    sh '''rm -rf ''' + workSpace + '''/.gnupg'''
+	stage 'Removing GPG Keys from Jenkins'
+	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
-	println "[Jenkinsfile] "***** FIX THIS!!! *****"
+	println "[Jenkinsfile] ***** FIX THIS!!! *****"
 	println "[Jenkinsfile] -Should not have to use a folder with wangj117 as the name."
 	println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
-    stage 'Get GPG Keys from S3'
-    sh '''test -d ''' + workSpace + '''/.gnupg || {
-        aws s3 cp s3://studios-se-keys/bi/jenkins/mvn.licenses.gnupgd.tgz /tmp/mvn.licenses.gnupgd.tgz 
-        tmpdir=/tmp/gnupg.`date +%s`
-        mkdir $tmpdir
-        pushd $tmpdir
-        tar -xzf /tmp/mvn.licenses.gnupgd.tgz Users/wangj117/.gnupg/
-        mv Users/wangj117/.gnupg ''' + workSpace + '''/.gnupg
-        cd ''' + workSpace + '''/.gnupg
-        ls
-        pwd
-        popd
-    }'''
+	stage 'Get GPG Keys from S3'
+	sh '''test -d ''' + workSpace + '''/.gnupg || {
+		aws s3 cp s3://studios-se-keys/bi/jenkins/mvn.licenses.gnupgd.tgz /tmp/mvn.licenses.gnupgd.tgz 
+		tmpdir=/tmp/gnupg.`date +%s`
+		mkdir $tmpdir
+		pushd $tmpdir
+		tar -xzf /tmp/mvn.licenses.gnupgd.tgz Users/wangj117/.gnupg/
+		mv Users/wangj117/.gnupg ''' + workSpace + '''/.gnupg
+		cd ''' + workSpace + '''/.gnupg
+		ls
+		pwd
+		popd
+	}'''
 
-    sshagent(['wdsds-at-github']) {
+	sshagent(['wdsds-at-github']) {
 
-        wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
-
-            withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'GPG_PASSWORD']]) {
+		wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
+		withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'GPG_PASSWORD']]) {
 
                 sh 'ssh-add -l'
 
@@ -50,8 +49,8 @@ node {
                 def shortCommit=gitCommit.substring(0, 7)
 
 
-                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
-                    println "[Jenkinsfile] -Re-address this in future"
+		println "[Jenkinsfile] ***** FIX THIS!!! *****"
+		println "[Jenkinsfile] -Re-address this in future"
 
                 stage 'Get AWS Credentials'
                 sh 'export AWS_ACCESS_KEY_ID=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .AccessKeyId  )'
@@ -99,7 +98,7 @@ sh """
                    """
 
                 stage 'Clean'
-                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean"
+                sh "${mvnCmd}  -Dmaven.multiModuleProjectDirectory=. clean"
 
                 stage 'Install'
                 sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg install"
@@ -121,10 +120,10 @@ sh """
                 def userInput1 = input 'Deploy to Maven Central?'
                 println "[Jenkinsfile] $userInput1"
 
-                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
-                    println "[Jenkinsfile] -Move Maven command below to def above."
-                    println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
-                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
+		println "[Jenkinsfile] ***** FIX THIS!!! *****"
+		println "[Jenkinsfile] -Move Maven command below to def above."
+		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
+		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
                 sh """
                     cd parent-poms ;
