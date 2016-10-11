@@ -7,7 +7,7 @@ node {
 	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
 	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml "
 
-    echo "${workSpace}"
+    println "${workSpace}"
     println env
 
     // Figure out a way to delete the workspace completely.
@@ -16,11 +16,9 @@ node {
     stage 'Removing GPG Keys from Jenkins'
     sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
-    sh """
-        echo "***** FIX THIS!!! *****"
-        echo "-Should not have to use a folder with wangj117 as the name."
-        echo "***** FIX THIS!!! *****"
-       """
+	println "[Jenkinsfile] "***** FIX THIS!!! *****"
+	println "[Jenkinsfile] -Should not have to use a folder with wangj117 as the name."
+	println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
     stage 'Get GPG Keys from S3'
     sh '''test -d ''' + workSpace + '''/.gnupg || {
@@ -52,17 +50,15 @@ node {
                 def shortCommit=gitCommit.substring(0, 7)
 
 
-                sh """
-                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
-                    @echo "[Jenkinsfile] -Re-address this in future"
-                   """
+                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
+                    println "[Jenkinsfile] -Re-address this in future"
 
                 stage 'Get AWS Credentials'
                 sh 'export AWS_ACCESS_KEY_ID=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .AccessKeyId  )'
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
-                sh '@echo [Jenkinsfile]  $AWS_ACCESS_KEY_ID'
-                sh '@echo [Jenkinsfile] $AWS_SECRET_ACCESS_KEY'
+                println "[Jenkinsfile] " + env['AWS_ACCESS_KEY_ID']
+                println "[Jenkinsfile] " + env['AWS_SECRET_ACCESS_KEY']
 
                 stage 'Install Extensions'
                 sh """
@@ -92,11 +88,9 @@ sh """
                     ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
                    """
 
-                sh """
-                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
-                    @echo "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
-                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
-                   """
+                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
+                    println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
+                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
                 stage 'Switch to Master Branch'
                 sh """
@@ -125,14 +119,12 @@ sh """
 
                 stage 'Deploy to Maven Central'
                 def userInput1 = input 'Deploy to Maven Central?'
-                sh "@echo [Jenkinsfile] $userInput1"
+                println "[Jenkinsfile] $userInput1"
 
-                sh """
-                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
-                    @echo "[Jenkinsfile] -Move Maven command below to def above."
-                    @echo "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
-                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
-                   """
+                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
+                    println "[Jenkinsfile] -Move Maven command below to def above."
+                    println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
+                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
                 sh """
                     cd parent-poms ;
@@ -148,11 +140,11 @@ sh """
 
                 stage 'Promote Staged Repository'
                 def userInput2 = input 'Promote stage repository to release repository?'
-                sh "@echo [Jenkinsfile] $userInput2"
+                println "[Jenkinsfile] $userInput2"
 
                 sh """
                     OUTPUT=\$( ${mvnCmd}  nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
-                    @echo [Jenkinsfile] \$OUTPUT ;
+                    echo [Jenkinsfile] \$OUTPUT ;
                     ${mvnCmd}  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release -e
                    """
             }
