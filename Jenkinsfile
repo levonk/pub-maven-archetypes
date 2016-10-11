@@ -58,6 +58,7 @@ node {
 
                 stage 'Install Extensions'
                 sh """
+git branch -d release/2.0.13.244-106c6a3
                     for i in \$(ls -d */);
                     do
                         if [ -f \${i}pom.xml ]; then
