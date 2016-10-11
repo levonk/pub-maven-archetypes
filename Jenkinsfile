@@ -3,7 +3,7 @@ import hudson.util.*
 
 node {
 	def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
-	def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --erors --batch-mode --strict-checksums -T 1.5C "
+	def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --erorrs --batch-mode --strict-checksums -T 1.5C "
 
     def workSpace = pwd()
     echo "${workSpace}"
