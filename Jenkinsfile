@@ -56,9 +56,6 @@ node {
                 sh 'export AWS_ACCESS_KEY_ID=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .AccessKeyId  )'
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
-                println "[Jenkinsfile] " + env['AWS_ACCESS_KEY_ID']
-                println "[Jenkinsfile] " + env['AWS_SECRET_ACCESS_KEY']
-
                 stage 'Install Extensions'
                 sh """
                     for i in \$(ls -d */);
