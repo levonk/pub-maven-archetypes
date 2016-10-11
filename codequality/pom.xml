@@ -3,7 +3,7 @@
 	
         <groupId>com.levonk</groupId>
 	<artifactId>codequality</artifactId>
-	<version>2.0.14-SNAPSHOT</version>
+	<version>2.0.13-SNAPSHOT</version>
 	<name>Code Quality Tools</name>
 	<description>A set of static code analysis rules</description>
 	<modelVersion>4.0.0</modelVersion>
