@@ -8,6 +8,7 @@
     <ignoreVersion type="regex">(?i).*RC(?:-?\d+)?</ignoreVersion>
     <ignoreVersion type="regex">(?i).*CR(?:-?\d+)?</ignoreVersion>
     <ignoreVersion type="regex">(?i).*M(?:-?\d+)?</ignoreVersion>
+    <ignoreVersion type="regex">(?i).*milestone(?:-?\d+)?</ignoreVersion>
   </ignoreVersions>
   <rules>
     <!-- Obvious mismatches -->
@@ -38,5 +39,31 @@
         <ignoreVersion type="regex">1.1.0.Final</ignoreVersion>
       </ignoreVersions>
     </rule>
+      <rule groupId="org.springframework" comparisonMethod="maven">
+          <ignoreVersions>
+              <!-- ignore milestones -->
+              <ignoreVersion type="regex">.*M\d.*</ignoreVersion>
+          </ignoreVersions>
+      </rule>
+      <rule groupId="javax.servlet.jsp" comparisonMethod="maven">
+          <ignoreVersions>
+              <ignoreVersion type="regex">^2.3.*</ignoreVersion>
+          </ignoreVersions>
+      </rule>
+      <rule groupId="javax.servlet" artifactId="javax.servlet-api" comparisonMethod="maven">
+          <ignoreVersions>
+              <ignoreVersion type="regex">^3.1.*</ignoreVersion>
+          </ignoreVersions>
+      </rule>
+      <rule groupId="com.hcsc.eas.framework" artifactId="com.hcsc.eas.framework.core" comparisonMethod="maven">
+          <ignoreVersions>
+              <ignoreVersion type="regex">.*was7.*</ignoreVersion>
+          </ignoreVersions>
+      </rule>
+      <rule groupId="org.codehaus.groovy" artifactId="groovy-all" comparisonMethod="maven">
+          <ignoreVersions>
+              <ignoreVersion type="regex">.*beta.*</ignoreVersion>
+          </ignoreVersions>
+      </rule>            
   </rules>
 </ruleset>
