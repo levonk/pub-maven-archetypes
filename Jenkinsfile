@@ -74,9 +74,6 @@ node {
                    """
 
                 stage 'Start Release'
-sh """
-    ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
-   """
                 sh "${mvnCmd}  build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
 
                 stage 'Finish Release'
