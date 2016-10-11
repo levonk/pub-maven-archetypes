@@ -53,23 +53,23 @@ node {
 
 
                 sh """
-                    echo "***** FIX THIS!!! *****"
-                    echo "-Re-address this in future"
+                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
+                    @echo "[Jenkinsfile] -Re-address this in future"
                    """
 
                 stage 'Get AWS Credentials'
                 sh 'export AWS_ACCESS_KEY_ID=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .AccessKeyId  )'
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
-                sh 'echo $AWS_ACCESS_KEY_ID'
-                sh 'echo $AWS_SECRET_ACCESS_KEY'
+                sh '@echo [Jenkinsfile]  $AWS_ACCESS_KEY_ID'
+                sh '@echo [Jenkinsfile] $AWS_SECRET_ACCESS_KEY'
 
                 stage 'Install Extensions'
                 sh """
                     for i in \$(ls -d */);
                     do
                         if [ -f \${i}pom.xml ]; then
-                            echo "cd \${i}";
+                            echo "[Jenkinsfile] cd \${i}";
                             cd \${i}
                             if [ ! -d ".mvn" ]; then
                                 ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true
@@ -82,6 +82,9 @@ node {
                    """
 
                 stage 'Start Release'
+sh """
+    ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
+   """
                 sh "${mvnCmd}  build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
 
                 stage 'Finish Release'
@@ -90,9 +93,9 @@ node {
                    """
 
                 sh """
-                    echo "***** FIX THIS!!! *****"
-                    echo "-Should checkout release/X.X.X.X-XXXXXX tag."
-                    echo "***** FIX THIS!!! *****"
+                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
+                    @echo "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
+                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
                    """
 
                 stage 'Switch to Master Branch'
@@ -122,13 +125,13 @@ node {
 
                 stage 'Deploy to Maven Central'
                 def userInput1 = input 'Deploy to Maven Central?'
-                sh "echo $userInput1"
+                sh "@echo [Jenkinsfile] $userInput1"
 
                 sh """
-                    echo "***** FIX THIS!!! *****"
-                    echo "-Move Maven command below to def above."
-                    echo "-Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
-                    echo "***** FIX THIS!!! *****"
+                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
+                    @echo "[Jenkinsfile] -Move Maven command below to def above."
+                    @echo "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
+                    @echo "[Jenkinsfile] ***** FIX THIS!!! *****"
                    """
 
                 sh """
@@ -145,11 +148,11 @@ node {
 
                 stage 'Promote Staged Repository'
                 def userInput2 = input 'Promote stage repository to release repository?'
-                sh "echo $userInput2"
+                sh "@echo [Jenkinsfile] $userInput2"
 
                 sh """
                     OUTPUT=\$( ${mvnCmd}  nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
-                    echo \$OUTPUT ;
+                    @echo [Jenkinsfile] \$OUTPUT ;
                     ${mvnCmd}  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release -e
                    """
             }
