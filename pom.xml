@@ -74,14 +74,6 @@
 				<artifactId>jgitflow-maven-plugin</artifactId>
 				<version>1.0-m5.1</version>
 				<configuration>
-					<prefixes>
-						<masterBranch>master </masterBranch>
-						<developBranch>develop</developBranch>
-						<featureBranchPrefix>feature/</featureBranchPrefix>
-						<releaseBranchPrefix>release/</releaseBranchPrefix>
-						<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
-						<versionBranchPrefix>v</versionBranchPrefix>
-					</prefixes>
 					<msgPrefix>[jgitflow-maven-plugin]</msgPrefix>
 					<enableFeatureVersions>true</enableFeatureVersions>
 					<enableSshAgent>true</enableSshAgent>
@@ -94,7 +86,11 @@
 					<noReleaseBuild>true</noReleaseBuild>
 					<skipTests>false</skipTests>
 					<flowInitContext>
+						<masterBranchName>master </masterBranchName>
 						<developBranchName>develop</developBranchName>
+						<featureBranchPrefix>feature/</featureBranchPrefix>
+						<releaseBranchPrefix>release/</releaseBranchPrefix>
+						<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
 						<versionTagPrefix>v</versionTagPrefix>
 					</flowInitContext>
 				</configuration>
