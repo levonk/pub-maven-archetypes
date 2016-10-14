@@ -28,7 +28,17 @@ node {
            echo executing command:"$cmd"
            eval $cmd
         }
+
+    stage 'Check for jq'
+    sh """
+        which jq || {
+           sudo=$( which sudo 2>/dev/null ) 
+           installer=$( which apt-get 2>/dev/null || which yum 2>/dev/null )
+           pkgname="jq"
+           $sudo $installer install -y $pkgname  
+        }
        """
+
     // Figure out a way to delete the workspace completely.
     // deleteDir() or bash script
 
@@ -41,6 +51,7 @@ node {
         echo "***** FIX THIS!!! *****"
        """
 
+    // consider using s3 artifact plugin step
     stage 'Get GPG Keys from S3'
     sh '''test -d ''' + workSpace + '''/.gnupg || {
         aws s3 cp s3://studios-se-keys/bi/jenkins/mvn.licenses.gnupgd.tgz /tmp/mvn.licenses.gnupgd.tgz 
@@ -57,7 +68,7 @@ node {
 
     sshagent(['wdsds-at-github']) {
 
-        wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
+        wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: file://${workSpace}/settings.xml, variable: '']]]) {
 
             withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'GPG_PASSWORD']]) {
 
