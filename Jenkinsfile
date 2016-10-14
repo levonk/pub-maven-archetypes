@@ -5,7 +5,30 @@ node {
     def workSpace = pwd()
     echo "${workSpace}"
     println env
-
+    
+    stage 'Check for aws cli'
+    sh """
+        which aws || {
+           sudo=$( which sudo 2>/dev/null )
+           installer=$(which apt-get 2>/dev/null || which yum 2>/dev/null)
+           $sudo $installer update -y 
+           case $installer in
+              apt-get)
+                 pkgname=awscli
+                 ;;
+              yum)
+                 pkgname="aws-cli"
+                 ;;
+              *) 
+                 echo "No installer found" >&2 
+                 exit 1
+                 ;;
+           esac
+           cmd="$sudo $installer install -y $pkgname"
+           echo executing command: "$cmd"
+           eval bash -c "$cmd"
+        }
+       """
     // Figure out a way to delete the workspace completely.
     // deleteDir() or bash script
 
