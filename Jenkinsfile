@@ -12,11 +12,11 @@ node {
            sudo=$( which sudo 2>/dev/null )
            installer=$(which apt-get 2>/dev/null || which yum 2>/dev/null)
            $sudo $installer update -y 
-           case $installer in
-              apt-get)
-                 pkgname=awscli
+           case "$installer" in
+              *apt-get)
+                 pkgname="awscli"
                  ;;
-              yum)
+              *yum)
                  pkgname="aws-cli"
                  ;;
               *) 
@@ -25,8 +25,8 @@ node {
                  ;;
            esac
            cmd="$sudo $installer install -y $pkgname"
-           echo executing command: "$cmd"
-           eval bash -c "$cmd"
+           echo executing command:"$cmd"
+           eval $cmd
         }
        """
     // Figure out a way to delete the workspace completely.
