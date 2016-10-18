@@ -13,7 +13,7 @@
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
     <url>none</url>
-    <version>2.0.12.243-e351a5c</version>
+    <version>2.0.14.294-f9646ce</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -952,7 +952,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.12.243-e351a5c</version>
+                        <version>2.0.14.294-f9646ce</version>
                      </dependency>
                 </dependencies>
             </plugin>
@@ -1508,7 +1508,7 @@
 		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
 		<guava.version>18.0</guava.version> <!-- as of 2014-03-11 -->
-		<immutables.version>2.3<immutables.version>	<!-- 2016-09-26 -->
+		<immutables.version>2.3</immutables.version>	<!-- 2016-09-26 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
 		<jackson1.version>1.9.13</jackson1.version>

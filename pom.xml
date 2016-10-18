@@ -5,7 +5,7 @@
 	<artifactId>maven-codequalities-parent</artifactId>
 	<name>Root POM</name>
 	<packaging>pom</packaging>
-	<version>2.0.12.243-e351a5c</version>
+	<version>2.0.14.294-f9646ce</version>
 
 	<licenses>
 		<license>
@@ -74,15 +74,23 @@
 				<artifactId>jgitflow-maven-plugin</artifactId>
 				<version>1.0-m5.1</version>
 				<configuration>
+					<msgPrefix>[jgitflow-maven-plugin]</msgPrefix>
+					<enableFeatureVersions>true</enableFeatureVersions>
 					<enableSshAgent>true</enableSshAgent>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<pushFeatures>true</pushFeatures>
 					<pushReleases>true</pushReleases>
 					<pushHotfixes>true</pushHotfixes>
+					<pushSupport>true</pushSupport>
 					<noDeploy>true</noDeploy>
 					<noReleaseBuild>true</noReleaseBuild>
+					<skipTests>false</skipTests>
 					<flowInitContext>
+						<masterBranchName>master </masterBranchName>
 						<developBranchName>develop</developBranchName>
+						<featureBranchPrefix>feature/</featureBranchPrefix>
+						<releaseBranchPrefix>release/</releaseBranchPrefix>
+						<hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
 						<versionTagPrefix>v</versionTagPrefix>
 					</flowInitContext>
 				</configuration>

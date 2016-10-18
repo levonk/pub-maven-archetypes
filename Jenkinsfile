@@ -2,186 +2,185 @@ import hudson.model.*
 import hudson.util.*
 
 node {
-    def workSpace = pwd()
-    echo "${workSpace}"
-    println env
-    
-    stage 'Check for aws cli'
-    sh """
-        which aws || {
-           sudo=$( which sudo 2>/dev/null )
-           installer=$(which apt-get 2>/dev/null || which yum 2>/dev/null)
-           $sudo $installer update -y 
-           case "$installer" in
-              *apt-get)
-                 pkgname="awscli"
-                 ;;
-              *yum)
-                 pkgname="aws-cli"
-                 ;;
-              *) 
-                 echo "No installer found" >&2 
-                 exit 1
-                 ;;
-           esac
-           cmd="$sudo $installer install -y $pkgname"
-           echo executing command:"$cmd"
-           eval $cmd
-        }
+	def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
+	def workSpace = pwd()
+	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
+	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml "
 
-    stage 'Check for jq'
-    sh """
-        which jq || {
-           sudo=$( which sudo 2>/dev/null ) 
-           installer=$( which apt-get 2>/dev/null || which yum 2>/dev/null )
-           pkgname="jq"
-           $sudo $installer install -y $pkgname  
-        }
-       """
+	println "${workSpace}"
+	println env
 
-    // Figure out a way to delete the workspace completely.
-    // deleteDir() or bash script
 
-    stage 'Removing GPG Keys from Jenkins'
-    sh '''rm -rf ''' + workSpace + '''/.gnupg'''
+	stage '1. Clean Previous Builds'
+	// Figure out a way to delete the workspace completely.
+	// deleteDir() or bash script
+	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
+	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
-    sh """
-        echo "***** FIX THIS!!! *****"
-        echo "-Should not have to use a folder with wangj117 as the name."
-        echo "***** FIX THIS!!! *****"
-       """
+	stage '2. Ensure Environment'
+	println "[Jenkinsfile] Ensure AWS CLI"
+	sh """
+		which aws || {
+			sudo=$( which sudo 2>/dev/null )
+			installer=$(which apt-get 2>/dev/null || which yum 2>/dev/null)
+			$sudo $installer update -y 
+			case "$installer" in
+				*apt-get)
+					 pkgname="awscli"
+				 ;;
+				*yum)
+					 pkgname="aws-cli"
+				 ;;
+				*) 
+					 echo "No installer found" >&2 
+					 exit 1
+				 ;;
+			esac
+			cmd="$sudo $installer install -y $pkgname"
+			echo executing command:"$cmd"
+			eval $cmd
+		}
+	"""
 
-    // consider using s3 artifact plugin step
-    stage 'Get GPG Keys from S3'
-    sh '''test -d ''' + workSpace + '''/.gnupg || {
-        aws s3 cp s3://studios-se-keys/bi/jenkins/mvn.licenses.gnupgd.tgz /tmp/mvn.licenses.gnupgd.tgz 
-        tmpdir=/tmp/gnupg.`date +%s`
-        mkdir $tmpdir
-        pushd $tmpdir
-        tar -xzf /tmp/mvn.licenses.gnupgd.tgz Users/wangj117/.gnupg/
-        mv Users/wangj117/.gnupg ''' + workSpace + '''/.gnupg
-        cd ''' + workSpace + '''/.gnupg
-        ls
-        pwd
-        popd
-    }'''
+	println "[Jenkinsfile] Ensure jq"
+	sh """
+		which jq || {
+			sudo=$( which sudo 2>/dev/null ) 
+			installer=$( which apt-get 2>/dev/null || which yum 2>/dev/null )
+			pkgname="jq"
+			$sudo $installer install -y $pkgname  
+		}
+	"""
 
-    sshagent(['wdsds-at-github']) {
+	println "[Jenkinsfile] Get New GPG Keys"
+	// consider using s3 artifact plugin step
+	println "[Jenkinsfile] ***** FIX THIS!!! *****"
+	println "[Jenkinsfile] -Should not have to use a folder with wangj117 as the name."
+	println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
-        wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: file://${workSpace}/settings.xml, variable: '']]]) {
+	sh '''test -d ''' + workSpace + '''/.gnupg || {
+		aws s3 cp s3://studios-se-keys/bi/jenkins/mvn.licenses.gnupgd.tgz /tmp/mvn.licenses.gnupgd.tgz 
+		tmpdir=/tmp/gnupg.`date +%s`
+		mkdir $tmpdir
+		pushd $tmpdir
+		tar -xzf /tmp/mvn.licenses.gnupgd.tgz Users/wangj117/.gnupg/
+		mv Users/wangj117/.gnupg ''' + workSpace + '''/.gnupg
+		cd ''' + workSpace + '''/.gnupg
+		ls
+		pwd
+		popd
+	}'''
 
-            withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'GPG_PASSWORD']]) {
+
+	sshagent(['wdsds-at-github']) {
+
+		wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
+		withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'GPG_PASSWORD']]) {
 
                 sh 'ssh-add -l'
 
-                stage 'Checkout'
+                stage '3. Checkout'
                 git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'ssh://git@github.com/DGHLJ/pub-maven-archetypes.git'
 
                 sh('git rev-parse HEAD > GIT_COMMIT')
                 def gitCommit=readFile('GIT_COMMIT')
                 def shortCommit=gitCommit.substring(0, 7)
 
-                def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
 
-                sh """
-                    echo "***** FIX THIS!!! *****"
-                    echo "-Re-address this in future"
-                   """
+		println "[Jenkinsfile] ***** FIX THIS!!! *****"
+		println "[Jenkinsfile] -Re-address this in future"
 
-                stage 'Get AWS Credentials'
+                stage '4. Get AWS Credentials'
                 sh 'export AWS_ACCESS_KEY_ID=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .AccessKeyId  )'
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
-                sh 'echo $AWS_ACCESS_KEY_ID'
-                sh 'echo $AWS_SECRET_ACCESS_KEY'
-
-                stage 'Install Extensions'
+                stage '5. Install Extensions'
                 sh """
+			git branch 
                     for i in \$(ls -d */);
                     do
                         if [ -f \${i}pom.xml ]; then
-                            echo "cd \${i}";
+                            echo "[Jenkinsfile] cd \${i}";
                             cd \${i}
                             if [ ! -d ".mvn" ]; then
-                                ${mvnHome}/bin/mvn -s settings.xml com.github.sviperll:coreext-maven-plugin:install || true
+                                ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true
                             fi
                             cd ..
                         fi
                     done
 
-                    ${mvnHome}/bin/mvn -s settings.xml -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true
+                    ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true
                    """
 
-                stage 'Start Release'
-                sh "${mvnHome}/bin/mvn -s settings.xml build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
+                stage '6. Start Release'
+                sh "${mvnCmd}  build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
 
-                stage 'Finish Release'
+                stage '7. Finish Release'
                 sh """
-                    ${mvnHome}/bin/mvn -s settings.xml jgitflow:release-finish -Denforcer.skip=true
+                    ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
                    """
 
-                sh """
-                    echo "***** FIX THIS!!! *****"
-                    echo "-Should checkout release/X.X.X.X-XXXXXX tag."
-                    echo "***** FIX THIS!!! *****"
-                   """
+                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
+                    println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
+                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
-                stage 'Switch to Master Branch'
+                stage '8. Switch to Master Branch'
                 sh """
                     git checkout -f master ;
                     git pull
                    """
 
-                stage 'Clean'
-                sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean"
+                stage '9. Clean'
+                sh "${mvnCmd}  -Dmaven.multiModuleProjectDirectory=. clean"
 
-                stage 'Install'
-                sh "${mvnHome}/bin/mvn -s settings.xml -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg install"
+                stage '10. Install'
+                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg install"
 
 
-                stage 'Publish Unit Test Reports'
+                stage '11. Publish Unit Test Reports'
                 step([$class: 'JUnitResultArchiver', testResults: '**/TEST-*.xml'])
 
-                stage 'Publish Code Quality Reports'
+                stage '12. Publish Code Quality Reports'
                 step([$class: 'FindBugsPublisher', canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '', unHealthy: ''])
                 step([$class: 'CheckStylePublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
                 step([$class: 'PmdPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
                 step([$class: 'AnalysisPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''])
 
-                stage 'Archive Artifacts'
+                stage '13. Archive Artifacts'
                 step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
-                stage 'Deploy to Maven Central'
+                stage '14. Deploy to Maven Central'
                 def userInput1 = input 'Deploy to Maven Central?'
-                sh "echo $userInput1"
+                println "[Jenkinsfile] $userInput1"
 
-                sh """
-                    echo "***** FIX THIS!!! *****"
-                    echo "-Move Maven command below to def above."
-                    echo "-Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
-                    echo "***** FIX THIS!!! *****"
-                   """
+		println "[Jenkinsfile] ***** FIX THIS!!! *****"
+		println "[Jenkinsfile] -Move Maven command below to def above."
+		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
+		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
                 sh """
                     cd parent-poms ;
                     pwd ;
-                    ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                     cd ../codequality ;
                     pwd ;
-                    ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                     cd ../licenses ;
                     pwd ;
-                    ${mvnHome}/bin/mvn -s ../settings.xml -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                    """
 
-                stage 'Promote Staged Repository'
+                stage '15. Promote Staged Repository'
+		println "[Jenkinsfile] @TODO Update Changemanagement"
+		println "[Jenkinsfile] @TODO Set Moniotring Markers"
+		println "[Jenkinsfile] @TODO Communicate Stage"
                 def userInput2 = input 'Promote stage repository to release repository?'
-                sh "echo $userInput2"
+                println "[Jenkinsfile] $userInput2"
 
                 sh """
-                    OUTPUT=\$( ${mvnHome}/bin/mvn -s settings.xml nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
-                    echo \$OUTPUT ;
-                    ${mvnHome}/bin/mvn -s settings.xml nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release -e
+                    OUTPUT=\$( ${mvnCmd}  nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
+                    echo [Jenkinsfile] \$OUTPUT ;
+                    ${mvnCmd}  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release -e
                    """
             }
         }
