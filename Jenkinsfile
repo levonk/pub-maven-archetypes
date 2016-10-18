@@ -17,9 +17,9 @@ node {
 	println "[Jenkinsfile] Show branches"
 	sh 'git branch'
 	println "[Jenkinsfile] Delete old branch branche"
-	sh 'git branch -D release/2.0.15.304-e56aa6d 2>/dev/null'
+	sh 'git branch -D release/2.0.15.304-e56aa6d || true'
 	sh 'git branch'
-	sh 'git branch -d release/2.0.15.304-e56aa6d 2>/dev/null'
+	sh 'git branch -d release/2.0.15.304-e56aa6d || true'
 	sh 'git branch'
 
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
