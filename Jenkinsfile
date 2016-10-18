@@ -18,6 +18,9 @@ node {
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
 	stage '2. Ensure Environment'
+	println "[Jenkinsfile] Ensure Maven"
+	sh "${mvnCmd} -B verify"
+
 	println "[Jenkinsfile] Ensure AWS CLI"
 	sh """
 		which aws || {
