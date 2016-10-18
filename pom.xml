@@ -85,7 +85,7 @@
 					<noDeploy>true</noDeploy>
 					<noReleaseBuild>true</noReleaseBuild>
 					<skipTests>false</skipTests>
-					<keepBranch>true</keepBranch>
+					<keepBranch>false</keepBranch>
 					<flowInitContext>
 						<masterBranchName>master </masterBranchName>
 						<developBranchName>develop</developBranchName>
