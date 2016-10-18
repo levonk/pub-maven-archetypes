@@ -28,7 +28,7 @@ node {
 	stage '2. Ensure Environment'
 
 	println "[Jenkinsfile] Ensure sudo"
-	sh 'which sudo 2>/dev/null'
+	sh 'which sudo'
 
 	println "[Jenkinsfile] Ensure AWS CLI"
 	sh '''which aws || {
