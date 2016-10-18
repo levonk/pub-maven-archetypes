@@ -37,17 +37,19 @@ node {
 				 ;;
 			esac
 			cmd="$sudo $installer install -y $pkgname"
-			echo executing command:"$cmd"
+			echo [Jenkinsfile] executing command:"$cmd"
 			eval $cmd
 		}
 	'''
 
 	println "[Jenkinsfile] Ensure jq"
 	sh '''which jq || {
-			sudo=$( which sudo 2>/dev/null ) 
-			installer=$( which apt-get 2>/dev/null || which yum 2>/dev/null )
+			sudo=$( which sudo 2>/dev/null )
+			installer=$(which apt-get 2>/dev/null || which yum 2>/dev/null)
 			pkgname="jq"
-			$sudo $installer install -y $pkgname  
+			cmd="$sudo $installer install -y $pkgname"
+			echo [Jenkinsfile] executing command:"$cmd"
+			eval $cmd
 		}
 	'''
 
