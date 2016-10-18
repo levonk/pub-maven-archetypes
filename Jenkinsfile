@@ -15,9 +15,9 @@ node {
 	// Figure out a way to delete the workspace completely.
 	// deleteDir() or bash script
 	println "[Jenkinsfile] Show branches"
-	sh 'git branch"
+	sh 'git branch'
 	println "[Jenkinsfile] Delete old branch branche"
-	sh 'git branch -D release/2.0.15.304-e56aa6d'"
+	sh 'git branch -D release/2.0.15.304-e56aa6d'
 
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
