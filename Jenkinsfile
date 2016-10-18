@@ -15,14 +15,14 @@ node {
 	// Figure out a way to delete the workspace completely.
 	// deleteDir() or bash script
 	println "[Jenkinsfile] Show branches"
-	sh '''
+	sh """
 		git branch -a
 		dabranch=release/2.0.15.304-e56aa6d
 		git branch -D ${dabranch} || true
 		git push origin --delete ${dabranch} || true
 		rm -rf ${workSpace}/.git/remotes/origin/${dabranch} || true
 		git branch -a
-	'''
+	"""
 
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
