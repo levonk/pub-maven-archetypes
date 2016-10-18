@@ -20,7 +20,7 @@ node {
 	stage '2. Ensure Environment'
 
 	println "[Jenkinsfile] Ensure sudo"
-	sh 'which sudo'
+	sh 'which sudo 2>/dev/null'
 
 	println "[Jenkinsfile] Ensure AWS CLI"
 	sh '''which aws || {
@@ -69,6 +69,7 @@ node {
 		pushd $tmpdir
 		tar -xzf /tmp/mvn.licenses.gnupgd.tgz Users/wangj117/.gnupg/
 		mv Users/wangj117/.gnupg ''' + workSpace + '''/.gnupg
+		chmod 700 ''' + workSpace + '''/.gnupg
 		cd ''' + workSpace + '''/.gnupg
 		ls
 		pwd
