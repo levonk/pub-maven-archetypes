@@ -2495,6 +2495,7 @@
 						<version>${dependencycheck.version}</version>
 						<configuration>
 							<cveValidForHours>8</cveValidForHours>
+						</configuration>
 						<executions>
 							<execution>
 								<goals>
