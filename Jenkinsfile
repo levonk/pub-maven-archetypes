@@ -18,7 +18,7 @@ node {
 	sshagent(['wdsds-at-github']) {
 		sh '''git branch -a && {
 			echo "[Jenkinsfile] get rid of all in process releases that might be left over from a previous failure to allow jgitflow to progress"
-			git branch -D `git for-each-ref --format="%(refname:short)" "refs/heads/releases"`
+			git for-each-ref --format="%(refname:short)" "refs/heads/releases" && git branch -D `git for-each-ref --format="%(refname:short)" "refs/heads/releases"`
 			echo "[Jenkinsfile] Assure that we don't have copies of remote branches that no longer exist, otherwise jgitflow might fail"
 			git fetch --prune
 			echo "[Jenkinsfile] Checkout master and update it to remote branch, otherwise jgitflow might fail"
