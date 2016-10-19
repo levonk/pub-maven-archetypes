@@ -2486,7 +2486,7 @@
 			<!-- These are things the build server can do before  running the actual jobs to prep the enviornment -->
 			<id>buildServerPrep</id>
 			<build>
-				</plugins>
+				<plugins>
 					<plugin>
 						<!-- Security database update -->
 						<!-- @see http://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html -->
