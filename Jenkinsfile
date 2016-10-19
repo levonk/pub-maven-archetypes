@@ -17,12 +17,10 @@ node {
 	println "[Jenkinsfile] Show branches"
 	sshagent(['wdsds-at-github']) {
 		sh '''git branch -a && {
-			dabranch="release/2.0.15.304-e56aa6d"
-			git branch -D $dabranch || true
-			git branch -r -d $dabranch || true
-			git push origin --delete $dabranch || true
+			echo "[Jenkinsfile] Assure that we don't have copies of remote branches that no longer exist, otherwise jgitflow might fail"
 			git fetch --prune
-			rm -rf ''' + workSpace + '''/.git/remotes/origin/$dabranch || true
+			echo "[Jenkinsfile] Checkout master and update it to remote branch, otherwise jgitflow might fail"
+			git checkout master && git pull
 			git branch -a
 			}
 		'''
@@ -135,6 +133,7 @@ node {
 
                 stage '6. Start Release'
                 sh "${mvnCmd}  build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
+				sh 'git branch -a'
 
                 stage '7. Finish Release'
                 sh """
