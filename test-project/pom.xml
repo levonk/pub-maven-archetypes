@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>com.levonk.codequality</groupId>
 		<artifactId>pom</artifactId>
-		<version>2.0.18-SNAPSHOT</version>
+		<version>2.0.17.342-2893fcf</version>
 		<relativePath>../parent-poms</relativePath>
 	</parent>
 
 	<artifactId>test-project</artifactId>
-	<version>2.0.18-SNAPSHOT</version>
+	<version>2.0.17.342-2893fcf</version>
 	<name>Test Project</name>
 	<url>http://maven.apache.org</url>
 
