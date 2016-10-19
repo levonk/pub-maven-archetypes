@@ -49,7 +49,12 @@ node {
 
 	println "[Jenkinsfile] Ensure AWS CLI"
 	sh '''which aws || {
-			sudo=$( which sudo 2>/dev/null )
+			if [[ $EUID -ne 0 ]]; then
+				sudo=$( which sudo 2>/dev/null )
+			else
+				echo '[Jenkinsfile] WARNING: We really should not be running as root!'
+				sudo=""
+			fi
 			installer=$(which apt-get 2>/dev/null || which yum 2>/dev/null)
 			$sudo $installer update -y 
 			case "$installer" in
@@ -72,7 +77,12 @@ node {
 
 	println "[Jenkinsfile] Ensure jq"
 	sh '''which jq || {
-			sudo=$( which sudo 2>/dev/null )
+			if [[ $EUID -ne 0 ]]; then
+				sudo=$( which sudo 2>/dev/null )
+			else
+				echo '[Jenkinsfile] WARNING: We really should not be running as root!'
+				sudo=""
+			fi
 			installer=$(which apt-get 2>/dev/null || which yum 2>/dev/null)
 			pkgname="jq"
 			cmd="$sudo $installer install -y $pkgname"
@@ -149,7 +159,7 @@ node {
                    """
 
                 stage '6. Start Release'
-                sh "${mvnCmd}  build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
+                sh "${mvnCmd}  -X build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
 				sh 'git branch -a'
 
                 stage '7. Finish Release'
