@@ -2482,6 +2482,30 @@
 				<isNotBuildServer>false</isNotBuildServer>
 			</properties>
 		</profile>
+		<profile>
+			<!-- These are things the build server can do before  running the actual jobs to prep the enviornment -->
+			<id>buildServerPrep</id>
+			<build>
+				</plugins>
+					<plugin>
+						<!-- Security database update -->
+						<!-- @see http://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html -->
+						<groupId>org.owasp</groupId>
+						<artifactId>dependency-check-maven</artifactId>
+						<version>${dependencycheck.version}</version>
+						<configuration>
+							<cveValidForHours>8</cveValidForHours>
+						<executions>
+							<execution>
+								<goals>
+									<goal>update-only</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
     <!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->

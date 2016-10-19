@@ -125,7 +125,7 @@ node {
 
                 stage '5. Install Extensions'
                 sh """
-			git branch 
+					git branch -a
                     for i in \$(ls -d */);
                     do
                         if [ -f \${i}pom.xml ]; then
@@ -139,6 +139,10 @@ node {
                     done
 
                     ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true
+					pushd .
+					cd parent-poms
+                    ${mvnCmd} -PbuildServerPrep validate || true
+					popd
                    """
 
                 stage '6. Start Release'
