@@ -9,10 +9,7 @@ node {
 
 	println ">>workSpace = ${workSpace}"
 	println ">>ENVIRONMENTS follow:"
-	for ( e in env )
-	{
-		println e + "=" + ${e}
-	}
+	println env.getEnvironment()
 
 
 	stage '1. Clean Previous Builds'
