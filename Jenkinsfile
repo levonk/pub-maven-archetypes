@@ -14,13 +14,27 @@ node {
 	stage '1. Clean Previous Builds'
 	// Figure out a way to delete the workspace completely.
 	// deleteDir() or bash script
+	println "[Jenkinsfile] Show branches"
+	sshagent(['wdsds-at-github']) {
+		sh '''git branch -a && {
+			echo "[Jenkinsfile] get rid of all in process releases that might be left over from a previous failure to allow jgitflow to progress"
+			git for-each-ref --format="%(refname:short)" 'refs/heads/release/*' | xargs git branch -D || true 
+			echo "[Jenkinsfile] Assure that we don't have copies of remote branches that no longer exist, otherwise jgitflow might fail"
+			git fetch --prune
+			echo "[Jenkinsfile] Checkout master and update it to remote branch, otherwise jgitflow might fail"
+			git checkout master && git pull
+			git branch -a
+			}
+		'''
+	}
+
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
 	stage '2. Ensure Environment'
 
 	println "[Jenkinsfile] Ensure sudo"
-	sh 'which sudo 2>/dev/null'
+	sh 'which sudo'
 
 	println "[Jenkinsfile] Ensure AWS CLI"
 	sh '''which aws || {
@@ -121,6 +135,7 @@ node {
 
                 stage '6. Start Release'
                 sh "${mvnCmd}  build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
+				sh 'git branch -a'
 
                 stage '7. Finish Release'
                 sh """
@@ -194,3 +209,4 @@ node {
 
     }
 }
+/* vi: set filetype=groovy syntax=groovy noexpandtab tabstop=4 shiftwidth=4: */
