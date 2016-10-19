@@ -7,8 +7,12 @@ node {
 	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
 	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml "
 
-	println "${workSpace}"
-	println env
+	println ">>workSpace = ${workSpace}"
+	println ">>ENVIRONMENTS follow:"
+	for ( e in env )
+	{
+		println e + "=" + ${e}
+	}
 
 
 	stage '1. Clean Previous Builds'
@@ -21,12 +25,16 @@ node {
 			git for-each-ref --format="%(refname:short)" 'refs/heads/release/*' | xargs git branch -D || true 
 			echo "[Jenkinsfile] Assure that we don't have copies of remote branches that no longer exist, otherwise jgitflow might fail"
 			git fetch --prune
-			echo "[Jenkinsfile] Checkout master and update it to remote branch, otherwise jgitflow might fail"
-			git checkout master && git pull
 			git branch -a
 			}
 		'''
+		println "[Jenkinsfile] Checkout master and update it to remote branch, otherwise jgitflow might fail"
+		if ( 'master' != env.BRANCH_NAME )
+		{
+			git checkout master && git pull
+		}
 	}
+
 
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
