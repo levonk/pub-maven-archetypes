@@ -5,10 +5,11 @@ node {
 	def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
 	def workSpace = pwd()
 	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
-	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml "
+	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer "
 
-	println "${workSpace}"
-	println env
+	println ">>workSpace = ${workSpace}"
+	//println ">>ENVIRONMENTS follow:"
+	//println env.getEnvironment()
 
 
 	stage '1. Clean Previous Builds'
@@ -21,12 +22,22 @@ node {
 			git for-each-ref --format="%(refname:short)" 'refs/heads/release/*' | xargs git branch -D || true 
 			echo "[Jenkinsfile] Assure that we don't have copies of remote branches that no longer exist, otherwise jgitflow might fail"
 			git fetch --prune
-			echo "[Jenkinsfile] Checkout master and update it to remote branch, otherwise jgitflow might fail"
-			git checkout master && git pull
 			git branch -a
 			}
 		'''
+		println "[Jenkinsfile] Checkout master and update it to remote branch, otherwise jgitflow might fail"
+		if ( 'master' != env.BRANCH_NAME )
+		{
+			sh '''{
+				git branch
+				currBranch=`git symbolic-ref --short HEAD`
+				git checkout master && git pull
+				git checkout $currBranch
+				git branch
+			}'''
+		}
 	}
+
 
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
@@ -117,7 +128,7 @@ node {
 
                 stage '5. Install Extensions'
                 sh """
-			git branch 
+					git branch -a
                     for i in \$(ls -d */);
                     do
                         if [ -f \${i}pom.xml ]; then
@@ -131,6 +142,10 @@ node {
                     done
 
                     ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true
+					pushd .
+					cd parent-poms
+                    ${mvnCmd} -PbuildServerPrep validate || true
+					popd
                    """
 
                 stage '6. Start Release'

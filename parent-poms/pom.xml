@@ -13,7 +13,7 @@
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
     <url>none</url>
-    <version>2.0.17.342-2893fcf</version>
+    <version>2.0.18.354-64f5955</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -952,7 +952,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.17.342-2893fcf</version>
+                        <version>2.0.18.354-64f5955</version>
                      </dependency>
                 </dependencies>
             </plugin>
@@ -1237,6 +1237,13 @@
 				<version>${dependencycheck.version}</version>
 				<configuration>
 					<cveValidForHours>8</cveValidForHours>
+					<!-- If we enable <code>autoUpdate</code> on a shared build server we will see -->
+					<!-- <code>Failed to execute goal org.owasp:dependency-check-maven:#.#.#.#:check (default) on project pom: An exception occured connecting to the local
+						 database.</code> -->
+					<!-- when multiple jobs try to update the shared database -->
+					<!-- you can fix this by using a real database -->
+					<!-- you should have one job on the server that updates the database -->
+					<autoUpdate>${isNotBuildServer}</autoUpdate>
 				</configuration>
 				<executions>
 					<execution>
@@ -2446,6 +2453,55 @@
 									<goal>generate</goal>
 								</goals>
 								</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>not-running-on-build-server</id>
+			<activation>
+				<property>
+					<name>!setBuildServer</name>
+				</property>
+			</activation>
+			<properties>
+				<isBuildServer>fase</isBuildServer>
+				<isNotBuildServer>true</isNotBuildServer>
+			</properties>
+		</profile>
+		<profile>
+			<id>running-on-build-server</id>
+			<activation>
+				<property>
+					<name>setBuildServer</name>
+				</property>
+			</activation>
+			<properties>
+				<isBuildServer>true</isBuildServer>
+				<isNotBuildServer>false</isNotBuildServer>
+			</properties>
+		</profile>
+		<profile>
+			<!-- These are things the build server can do before  running the actual jobs to prep the enviornment -->
+			<id>buildServerPrep</id>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Security database update -->
+						<!-- @see http://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html -->
+						<groupId>org.owasp</groupId>
+						<artifactId>dependency-check-maven</artifactId>
+						<version>${dependencycheck.version}</version>
+						<configuration>
+							<cveValidForHours>8</cveValidForHours>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>update-only</goal>
+								</goals>
+							</execution>
 						</executions>
 					</plugin>
 				</plugins>
