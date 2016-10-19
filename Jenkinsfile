@@ -28,7 +28,13 @@ node {
 		println "[Jenkinsfile] Checkout master and update it to remote branch, otherwise jgitflow might fail"
 		if ( 'master' != env.BRANCH_NAME )
 		{
-			sh 'git fetch origin master:master'
+			sh '''{
+				git branch
+				currBranch=`git symbolic-ref --short HEAD`
+				git checkout master && git pull
+				git checkout $currBranch
+				git branch
+			}'''
 		}
 	}
 
