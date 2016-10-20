@@ -45,15 +45,19 @@ node {
 	stage '2. Ensure Environment'
 
 	println "[Jenkinsfile] Ensure sudo"
-	sh 'which sudo'
+	sh '''{
+		if [[ $EUID -ne 0 ]]; then
+			which sudo
+		else
+			echo '[Jenkinsfile] WARNING: We really should not be running as root!'
+		fi
+	}'''
 
 	println "[Jenkinsfile] Ensure AWS CLI"
 	sh '''which aws || {
+			sudo=""
 			if [[ $EUID -ne 0 ]]; then
 				sudo=$( which sudo 2>/dev/null )
-			else
-				echo '[Jenkinsfile] WARNING: We really should not be running as root!'
-				sudo=""
 			fi
 			installer=$(which apt-get 2>/dev/null || which yum 2>/dev/null)
 			$sudo $installer update -y 
@@ -77,11 +81,9 @@ node {
 
 	println "[Jenkinsfile] Ensure jq"
 	sh '''which jq || {
+			sudo=""
 			if [[ $EUID -ne 0 ]]; then
 				sudo=$( which sudo 2>/dev/null )
-			else
-				echo '[Jenkinsfile] WARNING: We really should not be running as root!'
-				sudo=""
 			fi
 			installer=$(which apt-get 2>/dev/null || which yum 2>/dev/null)
 			pkgname="jq"
