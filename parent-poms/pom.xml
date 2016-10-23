@@ -284,6 +284,24 @@
 
     <dependencyManagement>
 	    <dependencies>
+		<!-- @see https://github.com/opentracing/opentracing-java -->
+		<dependency>
+			<groupId>io.opentracing</groupId>
+			<artifactId>opentracing-api</artifactId>
+			<version>${opentracing.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.opentracing</groupId>
+			<artifactId>opentracing-impl-java8</artifactId>
+			<version>${opentracing.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.opentracing</groupId>
+			<artifactId>opentracing-mock</artifactId>
+			<version>${opentracing.version}</version>
+			<scope>test</scope>
+		</dependency>
+		    
 		<!-- provides additional date-time classes that complement those in Java SE 8. -->
 		<!-- @see http://www.threeten.org/threeten-extra/ -->
 		<dependency>
@@ -1543,6 +1561,7 @@
 		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
 		<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
 		<nexusclm.version>2.4.1</nexusclm.version>	<!-- 2015-10-22 -->
+		<opentracing.version>0.16.0</opentracing.version>	<!-- 2016-10-23 -->
 		<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 		<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
 		<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
