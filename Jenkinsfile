@@ -17,6 +17,7 @@ node {
 	// deleteDir() or bash script
 	println "[Jenkinsfile] Show branches"
 	sshagent(['wdsds-at-github']) {
+		checkout scm
 		sh '''git branch -a && {
 			echo "[Jenkinsfile] get rid of all in process releases that might be left over from a previous failure to allow jgitflow to progress"
 			git for-each-ref --format="%(refname:short)" 'refs/heads/release/*' | xargs git branch -D || true 
