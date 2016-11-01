@@ -11,8 +11,7 @@
 			<vendor>sun</vendor>
 		</provides>
 		<configuration>
-			
-			<jdkHome>/path/to/jdk/1.8</jdkHome>			<!-- Linux -->
+			<jdkHome>/path/to/jdk/1.8</jdkHome>					<!-- Linux -->
 			<jdkHome>/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home</jdkHome>    <!-- OSX -->
 			<jdkHome>/cygdrive/c/lang/java/jdk8</jdkHome>		<!-- Windows + Cygwin / Babun -->
 			<jdkHome>C:\\lang\\java\\jdk1.8.0_112</jdkHome>		<!-- Windows -->
@@ -39,5 +38,7 @@
 			<installDir>/path/to/netbeans/5.5</installDir>
 		</configuration>
 	</toolchain>
+
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </toolchains>
+
