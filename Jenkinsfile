@@ -35,6 +35,7 @@ node {
 				git checkout master && git pull
 				git checkout $currBranch
 				git branch
+				git status
 			}'''
 		}
 	}
