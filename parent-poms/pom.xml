@@ -571,8 +571,13 @@
 				<artifactId>zt-exec</artifactId>
 				<version>${ztexec.version}</version>
 			</dependency>
-        </dependencies>
-    </dependencyManagement>
+			<dependency>
+				<groupId>com.vladmihalcea.flexy-pool</groupId>
+				<artifactId>flexy-pool-core-java7</artifactId>
+				<version>${flexy-pool.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 
     <!--
@@ -1527,6 +1532,7 @@
 		<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
 		<findbugs.version>3.0.3</findbugs.version>	<!-- 2016-02-18 -->
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
+		<flexy-pool.version>1.2.6</flexy-pool.version>	<!-- 2016-11-02 -->
 		<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
 		<gdlogger.version>1.2.2</gdlogger.version>	<!-- 2016-07-04 -->
 		<gpg.version>1.5</gpg.version>
