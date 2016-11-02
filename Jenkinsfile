@@ -44,7 +44,7 @@ node {
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
 	println '[Jenkinsfile] Ensure Maven Wrapper'
-	sh "${mvnCmd} io.takari:maven:wrapper
+	sh "${mvnCmd} io.takari:maven:wrapper"
 
 	println "[Jenkinsfile] Ensure sudo"
 	sh '''{
