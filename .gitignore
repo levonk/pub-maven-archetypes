@@ -419,3 +419,4 @@ cookbooks/
 settings.xml
 GIT_COMMIT
 .gnupg
+.mvn/extensions.xml
