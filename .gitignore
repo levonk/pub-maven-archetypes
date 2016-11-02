@@ -399,7 +399,6 @@ cookbooks/
 ### puppet-librarian ###
 # puppet-librarian - https://github.com/rodjek/librarian-puppet
 .tmp/
-modules/
 
 ### Otto ###
 .otto/
@@ -419,5 +418,4 @@ modules/
 
 settings.xml
 GIT_COMMIT
-.mvn/
 .gnupg

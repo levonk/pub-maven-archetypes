@@ -43,7 +43,8 @@ node {
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
-	println '[Jenkinsfile] Ensure Environment'
+	println '[Jenkinsfile] Ensure Maven Wrapper'
+	sh "${mvnCmd} io.takari:maven:wrapper
 
 	println "[Jenkinsfile] Ensure sudo"
 	sh '''{
