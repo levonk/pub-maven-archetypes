@@ -43,9 +43,6 @@ node {
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
-	println '[Jenkinsfile] Ensure Maven Wrapper'
-	sh "${mvnCmd} io.takari:maven:wrapper"
-
 	println "[Jenkinsfile] Ensure sudo"
 	sh '''{
 		if [[ $EUID -ne 0 ]]; then
@@ -121,6 +118,9 @@ node {
 	sshagent(['wdsds-at-github']) {
 
 		wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
+		println '[Jenkinsfile] Ensure Maven Wrapper'
+		sh "${mvnCmd} io.takari:maven:wrapper"
+
 		withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'GPG_PASSWORD']]) {
 
                 sh 'ssh-add -l'
