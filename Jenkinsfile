@@ -164,9 +164,9 @@ node {
                    """
 
 				stage '2. Start Release'
-				sh 'git status'
+				sh 'git branch -a && git status'
                 sh "${mvnCmd}  -X build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
-				sh 'git branch -a'
+				sh 'git branch -a && git status'
 
 				stage '3. Finish Release'
                 sh """
