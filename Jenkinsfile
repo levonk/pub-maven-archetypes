@@ -12,7 +12,7 @@ node {
 	//println env.getEnvironment()
 
 
-	stage '1. Clean Previous Builds'
+	stage '1. Prep'
 	// Figure out a way to delete the workspace completely.
 	// deleteDir() or bash script
 	println "[Jenkinsfile] Show branches"
@@ -43,7 +43,7 @@ node {
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
 
-	stage '2. Ensure Environment'
+	println '[Jenkinsfile] Ensure Environment'
 
 	println "[Jenkinsfile] Ensure sudo"
 	sh '''{
@@ -124,7 +124,7 @@ node {
 
                 sh 'ssh-add -l'
 
-                stage '3. Checkout'
+				println '[Jenkinsfile] Checkout'
                 git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'ssh://git@github.com/DGHLJ/pub-maven-archetypes.git'
 
                 sh('git rev-parse HEAD > GIT_COMMIT')
@@ -135,11 +135,11 @@ node {
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 		println "[Jenkinsfile] -Re-address this in future"
 
-                stage '4. Get AWS Credentials'
+				println '[Jenkinsfile] Get AWS Credentials'
                 sh 'export AWS_ACCESS_KEY_ID=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .AccessKeyId  )'
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
-                stage '5. Install Extensions'
+                println '[Jenkinsfile] Install Extensions'
                 sh """
 					git branch -a
                     for i in \$(ls -d */);
@@ -161,11 +161,11 @@ node {
 					popd
                    """
 
-                stage '6. Start Release'
+				stage '2. Start Release'
                 sh "${mvnCmd}  -X build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
 				sh 'git branch -a'
 
-                stage '7. Finish Release'
+				stage '3. Finish Release'
                 sh """
                     ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
                    """
@@ -174,32 +174,29 @@ node {
                     println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
                     println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
-                stage '8. Switch to Master Branch'
+				println '[Jenkinsfile] Switch to Master Branch'
                 sh """
                     git checkout -f master ;
                     git pull
                    """
 
-                stage '9. Clean'
-                sh "${mvnCmd}  -Dmaven.multiModuleProjectDirectory=. clean"
-
-                stage '10. Install'
-                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg install"
+				println '[Jenkinsfile] Clean & Install'
+                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install"
 
 
-                stage '11. Publish Unit Test Reports'
+				stage '4. Publish Unit Test Reports'
                 step([$class: 'JUnitResultArchiver', testResults: '**/TEST-*.xml'])
 
-                stage '12. Publish Code Quality Reports'
+				stage '5. Publish Code Quality Reports'
                 step([$class: 'FindBugsPublisher', canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '', unHealthy: ''])
                 step([$class: 'CheckStylePublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
                 step([$class: 'PmdPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
                 step([$class: 'AnalysisPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''])
 
-                stage '13. Archive Artifacts'
+				stage '6. Archive Artifacts'
                 step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
-                stage '14. Deploy to Maven Central'
+				stage '7. Deploy to Maven Central'
                 def userInput1 = input 'Deploy to Maven Central?'
                 println "[Jenkinsfile] $userInput1"
 
@@ -220,7 +217,7 @@ node {
                     ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
                    """
 
-                stage '15. Promote Staged Repository'
+                stage '8. Promote Staged Repository'
 		println "[Jenkinsfile] @TODO Update Changemanagement"
 		println "[Jenkinsfile] @TODO Set Moniotring Markers"
 		println "[Jenkinsfile] @TODO Communicate Stage"
