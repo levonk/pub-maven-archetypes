@@ -572,6 +572,8 @@
 				<version>${ztexec.version}</version>
 			</dependency>
 			<dependency>
+				<!-- @see https://github.com/vladmihalcea/flexy-pool -->
+				<!-- @see https://blog.jooq.org/2016/11/02/applying-queueing-theory-to-dynamic-connection-pool-sizing-with-flexypool/ -->
 				<groupId>com.vladmihalcea.flexy-pool</groupId>
 				<artifactId>flexy-pool-core-java7</artifactId>
 				<version>${flexy-pool.version}</version>
