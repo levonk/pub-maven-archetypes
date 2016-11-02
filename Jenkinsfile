@@ -150,13 +150,13 @@ node {
                             echo "[Jenkinsfile] cd \${i}";
                             cd \${i}
                             if [ ! -d ".mvn" ]; then
-                                ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true
+                                ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
                             fi
                             cd ..
                         fi
                     done
 
-                    ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true
+                    ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
 					pushd .
 					cd parent-poms
                     ${mvnCmd} -PbuildServerPrep validate || true
@@ -165,7 +165,7 @@ node {
 
 				stage '2. Start Release'
 				sh 'git branch -a && git status'
-                sh "${mvnCmd}  -X build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e"
+                sh "${mvnCmd}  -X build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e || true"
 				sh 'git branch -a && git status'
 
 				stage '3. Finish Release'
