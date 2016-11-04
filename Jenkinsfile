@@ -120,7 +120,6 @@ node {
 
 		wrap([$class: 'ConfigFileBuildWrapper', managedFiles: [[fileId: '61fc9411-08ac-482d-bc0d-3765d885d596', replaceTokens: false, targetLocation: 'settings.xml', variable: '']]]) {
 		println '[Jenkinsfile] Ensure Maven Wrapper'
-		sh "${mvnCmd} io.takari:maven:wrapper"
 
 		withCredentials([[$class: 'StringBinding', credentialsId: 'gpg.password', variable: 'GPG_PASSWORD']]) {
 
@@ -160,6 +159,7 @@ node {
 					pushd .
 					cd parent-poms
                     ${mvnCmd} -PbuildServerPrep validate || true
+					${mvnCmd} io.takari:maven:wrapper
 					popd
                    """
 
