@@ -1,6 +1,9 @@
 Maven Archetypes
 ========================
 
+Release: [![Build Status](https://travis-ci.org/DGHLJ/pub-maven-archetypes.svg?branch=master)](https://travis-ci.org/DGHLJ/pub-maven-archetypes)
+Develop: [![Build Status](https://travis-ci.org/DGHLJ/pub-maven-archetypes.svg?branch=develop)](https://travis-ci.org/DGHLJ/pub-maven-archetypes)
+
 #Description
 This project helps to create a multi-module maven project. It contains the following archetype
   1. `parent` -- this is the parent project, it also creates a common module in the root parent
