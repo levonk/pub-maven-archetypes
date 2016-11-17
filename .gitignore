@@ -209,6 +209,7 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/extensions.xml
+*/.mvn/extensions.xml
 
 
 ### Gradle ###
