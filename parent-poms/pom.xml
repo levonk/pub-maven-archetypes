@@ -13,7 +13,7 @@
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
     <url>none</url>
-    <version>2.0.23.366-3e42c1c</version>
+    <version>2.0.24.411-4480e0d</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -977,7 +977,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.23.366-3e42c1c</version>
+                        <version>2.0.24.411-4480e0d</version>
                      </dependency>
                 </dependencies>
             </plugin>
@@ -1595,7 +1595,7 @@
 		<togglz.version>2.3.0.RC1</togglz.version>	<!-- 2016-05-17 -->
 		<versioneye.version>3.1.0</versioneye.version>	<!-- 2016-06-28 -->
 		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
-		<wrapper.version>0.1.4</wrapper.version> <!-- 2015-09-14 -->
+		<wrapper.version>0.1.6</wrapper.version> <!-- 2016-11-02 -->
 		<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
 		<ztexec.version>1.8</ztexec.version>
 		<docker.registry.url>https://index.docker.io/v1/</docker.registry.url>

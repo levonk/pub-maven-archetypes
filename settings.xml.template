@@ -132,7 +132,7 @@
 				<versioneye.organisation>ORG_NAME_HERE</versioneye.organisation>
 				<versioneye.team>TEAM_NAME_HERE</versioneye.team>
 				<versioneye.baseUrl>http://versioneye.${host}.com:3000/</versioneye.baseUrl>
-				<versioneye.visibility>private</versioneye.visibility	<!-- public -->
+				<versioneye.visibility>private</versioneye.visibility>	<!-- public -->
 				<versioneye.nameStrategy>GA</versioneye.nameStrategy>	<!-- artifact_id -->
 			</properties>
 		</profile>
@@ -144,4 +144,7 @@
 		element.
 	-->
 	<activeProfiles/>
+
+	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </settings>
+

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF8"?>
 <toolchains>
+	<!-- This file belongs in ${user.home}/.m2/toolchains.xml -->
+	<!-- Change the paths below to your enviornment -->
+
 	<!-- JDK toolchains -->
 	<toolchain>
 		<type>jdk</type>
@@ -8,7 +11,10 @@
 			<vendor>sun</vendor>
 		</provides>
 		<configuration>
-			<jdkHome>/cygdrive/c/lang/java/jdk8</jdkHome>
+			<jdkHome>/path/to/jdk/1.8</jdkHome>					<!-- Linux -->
+			<jdkHome>/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home</jdkHome>    <!-- OSX -->
+			<jdkHome>/cygdrive/c/lang/java/jdk8</jdkHome>		<!-- Windows + Cygwin / Babun -->
+			<jdkHome>C:\\lang\\java\\jdk1.8.0_112</jdkHome>		<!-- Windows -->
 		</configuration>
 	</toolchain>
 	<toolchain>
@@ -18,7 +24,7 @@
 			<vendor>sun</vendor>
 		</provides>
 		<configuration>
-			<jdkHome>/cygdrive/c/lang/java/jdk7</jdkHome>
+			<jdkHome>/cygdrive/c/lang/java/jdk8</jdkHome>
 		</configuration>
 	</toolchain>
 
@@ -32,5 +38,7 @@
 			<installDir>/path/to/netbeans/5.5</installDir>
 		</configuration>
 	</toolchain>
+
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </toolchains>
+

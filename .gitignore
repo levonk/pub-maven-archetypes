@@ -31,8 +31,6 @@ tasks.xml
 *.swp
 
 .maven
-mvnw
-mvnw.*
 # Created by https://www.gitignore.io/api/emacs,vim,intellij,eclipse,netbeans,java,maven,gradle,javascript,scss,yeoman,node,grunt,packer,vagrant,windows,linux,osx,elasticbeanstalk,gpg,gwt,librarian-chef,puppet-librarian,otto,svn,mercurial
 
 ### Emacs ###
@@ -210,6 +208,8 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+.mvn/extensions.xml
+*/.mvn/extensions.xml
 
 
 ### Gradle ###
@@ -399,7 +399,6 @@ cookbooks/
 ### puppet-librarian ###
 # puppet-librarian - https://github.com/rodjek/librarian-puppet
 .tmp/
-modules/
 
 ### Otto ###
 .otto/
@@ -419,5 +418,5 @@ modules/
 
 settings.xml
 GIT_COMMIT
-.mvn/
 .gnupg
+.mvn/extensions.xml
