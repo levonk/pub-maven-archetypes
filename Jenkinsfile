@@ -40,6 +40,8 @@ node {
 		}
 	}
 
+	println "[Jenkinsfile] Short Circuit, jgitflow insists on clean working directory and it has a symlink bug"
+	sh '''find ''' + workSpace + ''' -type l && echo No Symlinks because of jgitflow bug && false '''
 
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
 	sh '''rm -rf ''' + workSpace + '''/.gnupg'''
