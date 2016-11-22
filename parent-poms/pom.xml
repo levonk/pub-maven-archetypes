@@ -2507,7 +2507,7 @@
 							<execution>
 								<phase>verify</phase>
 								<goals>
-									<goal>echo</echo>
+									<goal>echo</goal>
 								</goals>
 								<configuration>
 									<message>Profile NOT-RUNNING-ON-BUILD-SERVER is active</message>
@@ -2540,7 +2540,7 @@
 							<execution>
 								<phase>verify</phase>
 								<goals>
-									<goal>echo</echo>
+									<goal>echo</goal>
 								</goals>
 								<configuration>
 									<message>Profile RUNNING-ON-BUILD-SERVER is active</message>
@@ -2582,7 +2582,7 @@
 							<execution>
 								<phase>verify</phase>
 								<goals>
-									<goal>echo</echo>
+									<goal>echo</goal>
 								</goals>
 								<configuration>
 									<message>Running OWASP DB Update due to defined buildServerPrep</message>
