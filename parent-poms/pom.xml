@@ -2503,7 +2503,7 @@
 						<groupId>com.github.ekryd.echo-maven-plugin</groupId>
 						<artifactId>echo-maven-plugin</artifactId>
 						<version>${echo-maven-plugin.version}</version>
-						<executations>
+						<executions>
 							<execution>
 								<phase>verify</phase>
 								<goals>
@@ -2514,7 +2514,7 @@
 									<level>INFO</level>
 								</configuration>
 							</execution>
-						</executations>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
@@ -2536,7 +2536,7 @@
 						<groupId>com.github.ekryd.echo-maven-plugin</groupId>
 						<artifactId>echo-maven-plugin</artifactId>
 						<version>${echo-maven-plugin.version}</version>
-						<executations>
+						<executions>
 							<execution>
 								<phase>verify</phase>
 								<goals>
@@ -2547,7 +2547,7 @@
 									<level>INFO</level>
 								</configuration>
 							</execution>
-						</executations>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
@@ -2578,7 +2578,7 @@
 						<groupId>com.github.ekryd.echo-maven-plugin</groupId>
 						<artifactId>echo-maven-plugin</artifactId>
 						<version>${echo-maven-plugin.version}</version>
-						<executations>
+						<executions>
 							<execution>
 								<phase>verify</phase>
 								<goals>
@@ -2589,7 +2589,7 @@
 									<level>INFO</level>
 								</configuration>
 							</execution>
-						</executations>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
