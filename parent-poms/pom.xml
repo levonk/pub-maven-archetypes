@@ -2555,6 +2555,11 @@
 		<profile>
 			<!-- These are things the build server can do before  running the actual jobs to prep the enviornment -->
 			<id>buildServerPrep</id>
+			<activation>
+				<property>
+					<name>singletonOnBuildServer</name>
+				</property>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
