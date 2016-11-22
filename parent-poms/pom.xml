@@ -2505,7 +2505,7 @@
 						<version>${echo-maven-plugin.version}</version>
 						<executions>
 							<execution>
-								<phase>verify</phase>
+								<phase>validate</phase>
 								<goals>
 									<goal>echo</goal>
 								</goals>
@@ -2538,7 +2538,7 @@
 						<version>${echo-maven-plugin.version}</version>
 						<executions>
 							<execution>
-								<phase>verify</phase>
+								<phase>validate</phase>
 								<goals>
 									<goal>echo</goal>
 								</goals>
@@ -2580,7 +2580,7 @@
 						<version>${echo-maven-plugin.version}</version>
 						<executions>
 							<execution>
-								<phase>verify</phase>
+								<phase>validate</phase>
 								<goals>
 									<goal>echo</goal>
 								</goals>
