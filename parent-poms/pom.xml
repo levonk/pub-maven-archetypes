@@ -13,7 +13,7 @@
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
     <url>none</url>
-    <version>2.0.26.419-8f12768</version>
+    <version>2.0.27.420-0b474e4</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -977,7 +977,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.26.419-8f12768</version>
+                        <version>2.0.27.420-0b474e4</version>
                      </dependency>
                 </dependencies>
             </plugin>
@@ -2555,6 +2555,11 @@
 		<profile>
 			<!-- These are things the build server can do before  running the actual jobs to prep the enviornment -->
 			<id>buildServerPrep</id>
+			<activation>
+				<property>
+					<name>singletonOnBuildServer</name>
+				</property>
+			</activation>
 			<build>
 				<plugins>
 					<plugin>
