@@ -1527,7 +1527,7 @@
 		<dependency.version>2.8</dependency.version>
 		<dependencycheck.version>1.4.3</dependencycheck.version> <!-- as of 2016-10-20 -->
 		<doclava.version>1.0.6</doclava.version>
-		<{echo-maven-plugin.version>1.2.0</echo-maven-plugin.version> <!-- 2016-11-21 -->
+		<echo-maven-plugin.version>1.2.0</echo-maven-plugin.version> <!-- 2016-11-21 -->
 		<eclipse.version>2.9</eclipse.version>
 		<enforcer.version>1.4.1</enforcer.version> <!-- 2015-09-01 -->
 		<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
