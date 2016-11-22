@@ -151,7 +151,7 @@ node {
                         if [ -f \${i}pom.xml ]; then
                             echo "[Jenkinsfile] cd \${i}";
                             cd \${i}
-                            if [ ! -d ".mvn" ]; then
+                            if [ ! -f ".mvn/extensions.xml" ]; then
                                 ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
                             fi
                             cd ..
