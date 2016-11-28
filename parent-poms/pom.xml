@@ -809,6 +809,7 @@
                                         <exclude>hsqldb:hsqldb</exclude>
                                         <exclude>javassist:javassist</exclude>
                                         <exclude>junit:junit</exclude>
+                                        <exclude>com.google.auto.value:auto-value</exclude>	<!-- Use org.immutables:value instead -->
                                         <exclude>log4j:log4j</exclude>
                                         <exclude>org.slf4j:1.5*</exclude>
                                         <exclude>org.springframework:2.*</exclude>
