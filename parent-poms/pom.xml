@@ -116,14 +116,6 @@
                     -Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
         -->
 
-        <dependency>
-            <!-- https://docs.google.com/document/d/1THRUCIzIPRqFSHb67pHV8KMbo55HphSXqlQcIx9oUiI/edit -->
-            <groupId>com.google.auto.value</groupId>
-            <artifactId>auto-value</artifactId>
-            <version>${autovalue.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
 	<dependency>
 		<!--
 			Automatic generation of the Builder pattern for Java 1.6+
@@ -1549,7 +1541,6 @@
 		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
 		<guava.version>18.0</guava.version> <!-- as of 2014-03-11 -->
-		<immutables.version>2.3</immutables.version>	<!-- 2016-09-26 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
 		<jackson1.version>1.9.13</jackson1.version>
