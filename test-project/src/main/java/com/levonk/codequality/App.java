@@ -1,7 +1,7 @@
 package com.levonk.codequality;
 
 /**
- * Hello world!
+ * Hello world.
  *
  */
 public class App 
