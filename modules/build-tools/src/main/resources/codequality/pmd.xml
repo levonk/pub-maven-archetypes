@@ -130,7 +130,7 @@
 			unfortunately it was after the last PMD release
 			(4.2.2) and therefore has not been released
 			yet. (The Eclipse plugin is still on the previous
-			release – 4.2.1).  The work done uses the
+			release 4.2.1).  The work done uses the
 			@SuppressWarnings(“serial”) annotation. This
 			annotation is used to suppress compiler warnings
 			about serialisation and specifically the absence
