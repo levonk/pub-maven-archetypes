@@ -1580,7 +1580,7 @@
 		<proguardBase.version>4.9</proguardBase.version>
 		<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
 		<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
-		<scientist4j.version>0.1</scientist4j.version>	<!-- 2016-02-24 -->
+		<scientist4j.version>0.3</scientist4j.version>	<!-- 2016-12-02 -->
 		<site.version>3.5</site.version>	<!-- 2016-02-19 -->
 		<slf4j.version>1.7.5</slf4j.version>
 		<smartbuilder.version>0.4.1</smartbuilder.version>	<!-- 2015-06-10 -->
