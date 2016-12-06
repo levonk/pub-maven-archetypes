@@ -13,7 +13,7 @@
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
     <url>none</url>
-    <version>2.0.34.428-5c353f6</version>
+    <version>2.0.35.431-d68f00d</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -116,24 +116,24 @@
                     -Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
         -->
 
-	<dependency>
-		<!--
-			Automatic generation of the Builder pattern for Java 1.6+
-			http://freebuilder.inferred.org
-			https://github.com/google/FreeBuilder
-		-->
-		<groupId>org.inferred</groupId>
-		<artifactId>freebuilder</artifactId>
-		<version>${freebuilder.version}</version>
-		<optional>true</optional>
-	</dependency>
+		<dependency>
+			<!--
+				Automatic generation of the Builder pattern for Java 1.6+
+				http://freebuilder.inferred.org
+				https://github.com/google/FreeBuilder
+			-->
+			<groupId>org.inferred</groupId>
+			<artifactId>freebuilder</artifactId>
+			<version>${freebuilder.version}</version>
+			<optional>true</optional>
+		</dependency>
 
         <!-- Runtime Testing -->
         <dependency>
             <!-- https://github.com/rawls238/Scientist4J -->
-		<groupId>com.github.rawls238</groupId>
+			<groupId>com.github.rawls238</groupId>
     		<artifactId>Scientist4JCore</artifactId>
-		<version>${scientist4j.version}</version>
+			<version>${scientist4j.version}</version>
         </dependency>
 
         <!-- Static Analysis -->
@@ -161,12 +161,13 @@
 
 
         <!-- Apache
-	<dependency>
-		<groupId>org.apache.commons</groupId>
-		<artifactId>commons-lang3</artifactId>
-		<version>${commonslang3.version}</version>
-	</dependency>
-     -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commonslang3.version}</version>
+		</dependency>
+		 -->
+
         <!-- Unit Testing Dependencies -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -197,20 +198,20 @@
         </dependency>
 
         <!-- Logging Dependencies -->
-	<dependency>
-		<!-- @see http://engineering.godaddy.com/logging-the-easy-way/ -->
-		<!-- @see https://github.com/godaddy/godaddy-logger -->
-		<groupId>com.godaddy</groupId>
-		<artifactId>logging</artifactId>
-		<version>${gdlogger.version}</version>
-		<exclusions>
-			<exclusion>
-				<!-- included explicityly -->
-				<groupId>net.logstash.logback</groupId>
-				<artifactId>logstash-logback-encoder</artifactId>
-			</exclusion>
-		</exclusions>
-	</dependency>
+		<dependency>
+			<!-- @see http://engineering.godaddy.com/logging-the-easy-way/ -->
+			<!-- @see https://github.com/godaddy/godaddy-logger -->
+			<groupId>com.godaddy</groupId>
+			<artifactId>logging</artifactId>
+			<version>${gdlogger.version}</version>
+			<exclusions>
+				<exclusion>
+					<!-- included explicityly -->
+					<groupId>net.logstash.logback</groupId>
+					<artifactId>logstash-logback-encoder</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -275,81 +276,88 @@
     </dependencies>
 
     <dependencyManagement>
-	    <dependencies>
-		<!-- @see https://github.com/opentracing/opentracing-java -->
-		<dependency>
-			<groupId>io.opentracing</groupId>
-			<artifactId>opentracing-api</artifactId>
-			<version>${opentracing.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.opentracing</groupId>
-			<artifactId>opentracing-impl-java8</artifactId>
-			<version>${opentracing.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.opentracing</groupId>
-			<artifactId>opentracing-mock</artifactId>
-			<version>${opentracing.version}</version>
-			<scope>test</scope>
-		</dependency>
-		    
-		<!-- provides additional date-time classes that complement those in Java SE 8. -->
-		<!-- @see http://www.threeten.org/threeten-extra/ -->
-		<dependency>
-			<groupId>org.threeten</groupId>
-			<artifactId>threeten-extra</artifactId>
-			<version>${threeten-extra.version}</version>
-		</dependency>
+		<dependencies>
+			<!-- @see https://jclouds.apache.org/ -->
+			<dependency>
+				<groupId>org.apache.jclouds</groupId>
+				<artifactId>jclouds</artifactId>
+				<version>${jclouds.version}</version>
+			</dependency>
 
-        	<!-- Togglz Feature Flags for the Java platform -->
-        	<!-- @see http://www.togglz.org/ -->
-		<!-- Togglz for Servlet environments (mandatory) -->
-		<dependency>
-			<groupId>org.togglz</groupId>
-			<artifactId>togglz-servlet</artifactId>
-			<version>${togglz.version}</version>
-		</dependency>
-		<!-- Togglz Web Admin Console -->
-		<!-- Operationaly @see http://localhost:8080/myapp/togglz/ -->
-		<dependency>
-			<groupId>org.togglz</groupId>
-			<artifactId>togglz-console</artifactId>
-			<version>${togglz.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.togglz</groupId>
-			<artifactId>togglz-spring-boot-starter</artifactId>
-			<version>${togglz.version}</version>
-		</dependency>
+			<!-- @see https://github.com/opentracing/opentracing-java -->
+			<dependency>
+				<groupId>io.opentracing</groupId>
+				<artifactId>opentracing-api</artifactId>
+				<version>${opentracing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing</groupId>
+				<artifactId>opentracing-impl-java8</artifactId>
+				<version>${opentracing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing</groupId>
+				<artifactId>opentracing-mock</artifactId>
+				<version>${opentracing.version}</version>
+				<scope>test</scope>
+			</dependency>
+				
+			<!-- provides additional date-time classes that complement those in Java SE 8. -->
+			<!-- @see http://www.threeten.org/threeten-extra/ -->
+			<dependency>
+				<groupId>org.threeten</groupId>
+				<artifactId>threeten-extra</artifactId>
+				<version>${threeten-extra.version}</version>
+			</dependency>
 
-		<!-- REST testing framework -->
-		<!-- @see http://harmingcola.github.io/contract/ -->
-		<dependency>
-			<groupId>org.seekay</groupId>
-			<artifactId>contract-server</artifactId>
-			<version>${contract.version}</version>
-			<scope>test</scope>        		
-		</dependency>
-		<dependency>
-			<groupId>org.seekay</groupId>
-			<artifactId>contract-client</artifactId>
-			<version>${contract.version}</version>
-			<scope>test</scope>        		
-		</dependency>
+				<!-- Togglz Feature Flags for the Java platform -->
+				<!-- @see http://www.togglz.org/ -->
+			<!-- Togglz for Servlet environments (mandatory) -->
+			<dependency>
+				<groupId>org.togglz</groupId>
+				<artifactId>togglz-servlet</artifactId>
+				<version>${togglz.version}</version>
+			</dependency>
+			<!-- Togglz Web Admin Console -->
+			<!-- Operationaly @see http://localhost:8080/myapp/togglz/ -->
+			<dependency>
+				<groupId>org.togglz</groupId>
+				<artifactId>togglz-console</artifactId>
+				<version>${togglz.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.togglz</groupId>
+				<artifactId>togglz-spring-boot-starter</artifactId>
+				<version>${togglz.version}</version>
+			</dependency>
 
-		<!-- Excellent servlet based upload library when you can't go to S3 -->
-		<!-- @see https://github.com/Elopteryx/upload-parser -->
-		<dependency>
-		    <groupId>com.github.elopteryx</groupId>
-		    <artifactId>upload-parser</artifactId>
-		    <version>2.1.0</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.github.elopteryx</groupId>
-		    <artifactId>upload-parser-jaxrs</artifactId>
-		    <version>2.1.0</version>
-		</dependency>
+			<!-- REST testing framework -->
+			<!-- @see http://harmingcola.github.io/contract/ -->
+			<dependency>
+				<groupId>org.seekay</groupId>
+				<artifactId>contract-server</artifactId>
+				<version>${contract.version}</version>
+				<scope>test</scope>        		
+			</dependency>
+			<dependency>
+				<groupId>org.seekay</groupId>
+				<artifactId>contract-client</artifactId>
+				<version>${contract.version}</version>
+				<scope>test</scope>        		
+			</dependency>
+
+			<!-- Excellent servlet based upload library when you can't go to S3 -->
+			<!-- @see https://github.com/Elopteryx/upload-parser -->
+			<dependency>
+				<groupId>com.github.elopteryx</groupId>
+				<artifactId>upload-parser</artifactId>
+				<version>2.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.elopteryx</groupId>
+				<artifactId>upload-parser-jaxrs</artifactId>
+				<version>2.1.0</version>
+			</dependency>
 			<dependency>
 				<!-- https://github.com/OpenHFT/Zero-Allocation-Hashing -->
 				<groupId>net.openhft</groupId>
@@ -977,7 +985,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.34.428-5c353f6</version>
+                        <version>2.0.35.431-d68f00d</version>
                      </dependency>
                 </dependencies>
             </plugin>
@@ -1544,12 +1552,13 @@
 		<guava.version>18.0</guava.version> <!-- as of 2014-03-11 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
-		<jackson1.version>1.9.13</jackson1.version>
+		<jackson1.version>1.9.13</jackson1.version>	<!-- 2016-12-06 -->
 		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
 		<jalopy.version>1.0-alpha-1</jalopy.version>
 		<jsonschema2pojo.version>0.4.24</jsonschema2pojo.version>	<!-- 2016-08-09 -->
 		<javadoc.version>2.10.3</javadoc.version>
 		<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
+		<jclouds.version>2.0.0</jclouds.version>	<!-- 2016-12-06 -->
 		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 		<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
 		<jmeter.version>2.0.1</jmeter.version>	<!-- 2016-07-05 -->
@@ -1560,7 +1569,7 @@
 		<log4jslf4j.version>2.4</log4jslf4j.version>	<!-- 2015-10-06 -->
 		<log4jcore.version>2.4</log4jcore.version>	<!-- 2015-10-06 -->
 		<logback.version>1.0.13</logback.version>
-		<logback-jackson.version>0.1.2</logback-jackson.version>
+		<logback-jackson.version>0.1.5</logback-jackson.version>	<!-- 2016-12-02 -->
 		<logstash.version>4.7</logstash.version>	<!-- 2016-07-07 -->
 		<lombok.version>1.12.5</lombok.version>
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2014-08-27 -->
