@@ -275,81 +275,81 @@
     </dependencies>
 
     <dependencyManagement>
-	    <dependencies>
-		<!-- @see https://github.com/opentracing/opentracing-java -->
-		<dependency>
-			<groupId>io.opentracing</groupId>
-			<artifactId>opentracing-api</artifactId>
-			<version>${opentracing.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.opentracing</groupId>
-			<artifactId>opentracing-impl-java8</artifactId>
-			<version>${opentracing.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.opentracing</groupId>
-			<artifactId>opentracing-mock</artifactId>
-			<version>${opentracing.version}</version>
-			<scope>test</scope>
-		</dependency>
-		    
-		<!-- provides additional date-time classes that complement those in Java SE 8. -->
-		<!-- @see http://www.threeten.org/threeten-extra/ -->
-		<dependency>
-			<groupId>org.threeten</groupId>
-			<artifactId>threeten-extra</artifactId>
-			<version>${threeten-extra.version}</version>
-		</dependency>
+		<dependencies>
+			<!-- @see https://github.com/opentracing/opentracing-java -->
+			<dependency>
+				<groupId>io.opentracing</groupId>
+				<artifactId>opentracing-api</artifactId>
+				<version>${opentracing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing</groupId>
+				<artifactId>opentracing-impl-java8</artifactId>
+				<version>${opentracing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing</groupId>
+				<artifactId>opentracing-mock</artifactId>
+				<version>${opentracing.version}</version>
+				<scope>test</scope>
+			</dependency>
+				
+			<!-- provides additional date-time classes that complement those in Java SE 8. -->
+			<!-- @see http://www.threeten.org/threeten-extra/ -->
+			<dependency>
+				<groupId>org.threeten</groupId>
+				<artifactId>threeten-extra</artifactId>
+				<version>${threeten-extra.version}</version>
+			</dependency>
 
-        	<!-- Togglz Feature Flags for the Java platform -->
-        	<!-- @see http://www.togglz.org/ -->
-		<!-- Togglz for Servlet environments (mandatory) -->
-		<dependency>
-			<groupId>org.togglz</groupId>
-			<artifactId>togglz-servlet</artifactId>
-			<version>${togglz.version}</version>
-		</dependency>
-		<!-- Togglz Web Admin Console -->
-		<!-- Operationaly @see http://localhost:8080/myapp/togglz/ -->
-		<dependency>
-			<groupId>org.togglz</groupId>
-			<artifactId>togglz-console</artifactId>
-			<version>${togglz.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.togglz</groupId>
-			<artifactId>togglz-spring-boot-starter</artifactId>
-			<version>${togglz.version}</version>
-		</dependency>
+				<!-- Togglz Feature Flags for the Java platform -->
+				<!-- @see http://www.togglz.org/ -->
+			<!-- Togglz for Servlet environments (mandatory) -->
+			<dependency>
+				<groupId>org.togglz</groupId>
+				<artifactId>togglz-servlet</artifactId>
+				<version>${togglz.version}</version>
+			</dependency>
+			<!-- Togglz Web Admin Console -->
+			<!-- Operationaly @see http://localhost:8080/myapp/togglz/ -->
+			<dependency>
+				<groupId>org.togglz</groupId>
+				<artifactId>togglz-console</artifactId>
+				<version>${togglz.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.togglz</groupId>
+				<artifactId>togglz-spring-boot-starter</artifactId>
+				<version>${togglz.version}</version>
+			</dependency>
 
-		<!-- REST testing framework -->
-		<!-- @see http://harmingcola.github.io/contract/ -->
-		<dependency>
-			<groupId>org.seekay</groupId>
-			<artifactId>contract-server</artifactId>
-			<version>${contract.version}</version>
-			<scope>test</scope>        		
-		</dependency>
-		<dependency>
-			<groupId>org.seekay</groupId>
-			<artifactId>contract-client</artifactId>
-			<version>${contract.version}</version>
-			<scope>test</scope>        		
-		</dependency>
+			<!-- REST testing framework -->
+			<!-- @see http://harmingcola.github.io/contract/ -->
+			<dependency>
+				<groupId>org.seekay</groupId>
+				<artifactId>contract-server</artifactId>
+				<version>${contract.version}</version>
+				<scope>test</scope>        		
+			</dependency>
+			<dependency>
+				<groupId>org.seekay</groupId>
+				<artifactId>contract-client</artifactId>
+				<version>${contract.version}</version>
+				<scope>test</scope>        		
+			</dependency>
 
-		<!-- Excellent servlet based upload library when you can't go to S3 -->
-		<!-- @see https://github.com/Elopteryx/upload-parser -->
-		<dependency>
-		    <groupId>com.github.elopteryx</groupId>
-		    <artifactId>upload-parser</artifactId>
-		    <version>2.1.0</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.github.elopteryx</groupId>
-		    <artifactId>upload-parser-jaxrs</artifactId>
-		    <version>2.1.0</version>
-		</dependency>
+			<!-- Excellent servlet based upload library when you can't go to S3 -->
+			<!-- @see https://github.com/Elopteryx/upload-parser -->
+			<dependency>
+				<groupId>com.github.elopteryx</groupId>
+				<artifactId>upload-parser</artifactId>
+				<version>2.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.elopteryx</groupId>
+				<artifactId>upload-parser-jaxrs</artifactId>
+				<version>2.1.0</version>
+			</dependency>
 			<dependency>
 				<!-- https://github.com/OpenHFT/Zero-Allocation-Hashing -->
 				<groupId>net.openhft</groupId>
