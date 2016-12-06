@@ -1552,7 +1552,7 @@
 		<guava.version>18.0</guava.version> <!-- as of 2014-03-11 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
-		<jackson1.version>2.8.5</jackson1.version>	<!-- 2016-12-02 -->
+		<jackson1.version>1.9.13</jackson1.version>	<!-- 2016-12-06 -->
 		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
 		<jalopy.version>1.0-alpha-1</jalopy.version>
 		<jsonschema2pojo.version>0.4.24</jsonschema2pojo.version>	<!-- 2016-08-09 -->
