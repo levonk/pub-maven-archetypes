@@ -66,13 +66,21 @@
 
     
 	<repositories>
-		
+		<repository>
+			<id>apache</id>
+			<name>Apache Repository</name>
+			<url>http://repo.maven.apache.org/maven2/</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<name>Maven Central</name>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
 		<repository>
 			<id>elasticsearch-releases</id>
 			<name>ElasticSearch Releases Repository</name>
 			<url>http://oss.sonatype.org/content/repositories/releases/</url>
 		</repository>
-
         <repository>
             <id>checker-framework-repo</id>
             <url>http://types.cs.washington.edu/m2-repo</url>
