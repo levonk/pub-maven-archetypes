@@ -142,7 +142,7 @@
             <!-- groupId>net.sourceforge.findbugs</groupId -->
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>annotations</artifactId>
-            <version>${findbugs-extra.version}</version>
+            <version>${findbugs-google.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -150,7 +150,7 @@
             <!-- groupId>net.sourceforge.findbugs</groupId -->
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
-            <version>${findbugs-extra.version}</version>
+            <version>${findbugs-google.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -277,15 +277,16 @@
     </dependencies>
 
     <dependencyManagement>
-        <!-- Runtime Testing -->
-        <dependency>
-            <!-- https://github.com/rawls238/Scientist4J -->
-			<!-- @alternative https://github.com/workmarket-oss/jan20 -->
-			<groupId>com.github.rawls238</groupId>
-    		<artifactId>Scientist4JCore</artifactId>
-			<version>${scientist4j.version}</version>
-        </dependency>
 		<dependencies>
+			<!-- Runtime Testing -->
+			<dependency>
+				<!-- https://github.com/rawls238/Scientist4J -->
+				<!-- @alternative https://github.com/workmarket-oss/jan20 -->
+				<groupId>com.github.rawls238</groupId>
+				<artifactId>Scientist4JCore</artifactId>
+				<version>${scientist4j.version}</version>
+			</dependency>
+
 			<!-- @see https://jclouds.apache.org/ -->
 			<dependency>
 				<groupId>org.apache.jclouds</groupId>
@@ -1550,8 +1551,9 @@
 		<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
 		<equalsverifier.version>1.3.1</equalsverifier.version>
 		<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
-		<findbugs.version>3.0.3</findbugs.version>	<!-- 2016-02-18 -->
+		<findbugs.version>3.0.4</findbugs.version>	<!-- 2016-12-11 -->
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
+		<findbugs-google.version>3.0.1</findbugs-google.version>	<!-- 2016-12-11 -->
 		<flexy-pool.version>1.2.6</flexy-pool.version>	<!-- 2016-11-02 -->
 		<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
 		<gdlogger.version>1.2.2</gdlogger.version>	<!-- 2016-07-04 -->
@@ -1575,8 +1577,8 @@
 		<!-- as of 2014-03-11 -->
 		<license.version>1.9</license.version>	<!-- 2016-05-29 -->
 		<licenseVerifier.version>0.4</licenseVerifier.version>
-		<log4jslf4j.version>2.4</log4jslf4j.version>	<!-- 2015-10-06 -->
-		<log4jcore.version>2.4</log4jcore.version>	<!-- 2015-10-06 -->
+		<log4jslf4j.version>2.7</log4jslf4j.version>	<!-- 2016-12-11 -->
+		<log4jcore.version>2.7</log4jcore.version>	<!-- 2016-12-11 -->
 		<logback.version>1.0.13</logback.version>
 		<logback-jackson.version>0.1.5</logback-jackson.version>	<!-- 2016-12-02 -->
 		<logstash.version>4.7</logstash.version>	<!-- 2016-07-07 -->
@@ -1591,7 +1593,7 @@
 		<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 		<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
 		<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
-		<pmd.version>3.6</pmd.version>	<!-- 2016-02-18 -->
+		<pmd.version>3.7</pmd.version>	<!-- 2016-12-11 -->
 		<pojomatic.version>1.0</pojomatic.version>
 		<profiledep.version>0.23-rc1</profiledep.version>	<!-- 2016-07-05 -->
 		<proguard.version>2.0.6</proguard.version>
@@ -1600,7 +1602,7 @@
 		<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
 		<scientist4j.version>0.3</scientist4j.version>	<!-- 2016-12-02 -->
 		<site.version>3.5</site.version>	<!-- 2016-02-19 -->
-		<slf4j.version>1.7.5</slf4j.version>
+		<slf4j.version>1.7.21</slf4j.version>	<!-- 2016-12-11 -->
 		<smartbuilder.version>0.4.1</smartbuilder.version>	<!-- 2015-06-10 -->
 		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 		<!-- as of 2012-09-17 -->
