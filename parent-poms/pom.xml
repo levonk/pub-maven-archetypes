@@ -671,10 +671,10 @@
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <phase>prepare-package</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -759,6 +759,7 @@
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+						<phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -786,10 +787,10 @@
 				<executions>
 					<execution>
 						<id>modernizer</id>
-						<phase>compile</phase>
 						<goals>
 							<goal>modernizer</goal>
 						</goals>
+						<phase>pre-site</phase>
 					</execution>
 				</executions>
             </plugin>
@@ -805,10 +806,10 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
                         <goals>
                             <goal>checkstyle</goal>
                         </goals>
+						<phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -911,6 +912,7 @@
                 </requireReleaseDeps>
                             </rules>
                         </configuration>
+						<phase>validate</phase>
                     </execution>
                 </executions>
         
@@ -941,11 +943,11 @@
                 </configuration>
                 <executions>
                     <execution>
-			<phase>validate</phase>
                         <goals>
                             <goal>pmd</goal>
                             <goal>cpd</goal>
                         </goals>
+						<phase>pre-integration-test</phase>
                     </execution>
                 </executions>
 
@@ -966,10 +968,10 @@
                 </configuration>
 				<executions>
                     <execution>
-                        <phase>validate</phase>
                         <goals>
                             <goal>findbugs</goal>
                         </goals>
+						<phase>pre-integration-test</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1022,10 +1024,10 @@
 				<executions>
 					<execution>
 						<id>default</id>
-						<phase>verify</phase>
 						<goals>
 							<goal>check</goal>
 						</goals>
+						<phase>pre-site</phase>
 					</execution>
 				</executions>
 				<configuration>
@@ -1105,6 +1107,14 @@
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
                 </configuration>
+                <executions>
+                    <execution>
+                    	<goals>
+                    		<goal>eclipse</goal>
+                    	</goals>
+						<phase>pre-site</phase>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -1124,8 +1134,9 @@
                 <executions>
                     <execution>
                     	<goals>
-                    		<goal>properties</goal>
+                    		<goal>tree</goal>
                     	</goals>
+						<phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -1460,7 +1471,8 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${findbugs.version}</version>
-        </plugin>
+			</plugin>
+
 		<plugin>
 			<groupId>org.owasp</groupId>
 			<artifactId>dependency-check-maven</artifactId>
@@ -1627,7 +1639,7 @@
 		<!-- as of 2014-03-11 -->
 		<surefire.version>2.16</surefire.version>
 		<!-- as of 2011-04-06 -->
-		<testng.version>6.8.7</testng.version>
+		<testng.version>6.10</testng.version>	<!-- 2016-12-11 -->
 		<threeten-extra.version>0.9</threeten-extra.version>	<!-- 2016-05-23 -->
 		<togglz.version>2.3.0.RC1</togglz.version>	<!-- 2016-05-17 -->
 		<url-detector.version>0.1.17</url-detector.version>	<!-- 2016-11-28 -->
