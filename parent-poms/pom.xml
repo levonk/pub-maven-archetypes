@@ -137,14 +137,6 @@
 			<optional>true</optional>
 		</dependency>
 
-        <!-- Runtime Testing -->
-        <dependency>
-            <!-- https://github.com/rawls238/Scientist4J -->
-			<groupId>com.github.rawls238</groupId>
-    		<artifactId>Scientist4JCore</artifactId>
-			<version>${scientist4j.version}</version>
-        </dependency>
-
         <!-- Static Analysis -->
         <dependency>
             <!-- groupId>net.sourceforge.findbugs</groupId -->
@@ -285,6 +277,14 @@
     </dependencies>
 
     <dependencyManagement>
+        <!-- Runtime Testing -->
+        <dependency>
+            <!-- https://github.com/rawls238/Scientist4J -->
+			<!-- @alternative https://github.com/workmarket-oss/jan20 -->
+			<groupId>com.github.rawls238</groupId>
+    		<artifactId>Scientist4JCore</artifactId>
+			<version>${scientist4j.version}</version>
+        </dependency>
 		<dependencies>
 			<!-- @see https://jclouds.apache.org/ -->
 			<dependency>
