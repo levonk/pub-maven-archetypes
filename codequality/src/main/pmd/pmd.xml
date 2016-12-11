@@ -12,7 +12,7 @@
 		- no null arguments in method calls, assign to final var properly named
 	-->
 
-	<!-- rule ref="rulesets/java/android.xml" / -->
+	<rule ref="rulesets/java/android.xml" />
 	<rule ref="rulesets/java/basic.xml">
 		<!-- Prefer Readability with sub ifs -->
 		<exclude name="CollapsibleIfStatements" />
