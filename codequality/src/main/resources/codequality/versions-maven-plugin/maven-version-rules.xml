@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" comparisonMethod="maven" xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 http://mojo.codehaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd">
+    <ignoreVersions>
+        <ignoreVersion type="regex">.*\.Alpha\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*\.Beta\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*\.CR\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*-beta-\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*-beta</ignoreVersion>
+        <ignoreVersion type="regex">.*-trajano-\d+</ignoreVersion>
+    </ignoreVersions>
+    <rules>
+        <rule groupId="org.apache.maven.plugins" artifactId="maven-jar-plugin">
+            <ignoreVersions>
+                <ignoreVersion>2.4</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="org.jboss.spec" artifactId="jboss-javaee-6.0" comparisonMethod="maven">
+            <ignoreVersions>
+                <ignoreVersion type="regex">^((?!1\.0\.0\.Final).)*$</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+    </rules>
+</ruleset>
