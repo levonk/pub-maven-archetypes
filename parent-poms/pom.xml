@@ -1589,6 +1589,7 @@
 		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
 		<guava.version>18.0</guava.version> <!-- as of 2014-03-11 -->
+		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version> <!-- 2016-12-11 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
 		<jackson1.version>1.9.13</jackson1.version>	<!-- 2016-12-06 -->
@@ -1643,6 +1644,7 @@
 		<threeten-extra.version>0.9</threeten-extra.version>	<!-- 2016-05-23 -->
 		<togglz.version>2.3.0.RC1</togglz.version>	<!-- 2016-05-17 -->
 		<url-detector.version>0.1.17</url-detector.version>	<!-- 2016-11-28 -->
+		<validation-api.version>1.1.0.Final</validation-api.version>	<!-- 2016-12-11 -->
 		<versioneye.version>3.1.0</versioneye.version>	<!-- 2016-06-28 -->
 		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
 		<wrapper.version>0.1.6</wrapper.version> <!-- 2016-11-02 -->
@@ -1712,6 +1714,27 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>jsr303beanvalidation</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/java</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>javax.validation</groupId>
+					<artifactId>validation-api</artifactId>
+					<version>${validation-api.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-validator</artifactId>
+					<version>${hibernate-validator.version}</version>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>doclava</id>
