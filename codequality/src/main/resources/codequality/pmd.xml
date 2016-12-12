@@ -41,8 +41,8 @@
 		<exclude name="AvoidLiteralsInIfCondition" />
 		<!-- sometimes this is what's needed, if somebody puts in the extra work... -->
 		<exclude name="AvoidUsingVolatile" />
-		<!-- readability is more important -->
-		<exclude name="BooleanInversion" />
+		<!-- readability is more important @FIXME No longer included -->
+		<!-- exclude name="BooleanInversion" / -->
 		<!-- An empty constructor is fine especially if you're changing access -->
 		<exclude name="UnnecessaryConstructor" />
 		<!-- readability is more important -->
