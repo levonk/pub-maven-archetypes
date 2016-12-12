@@ -125,27 +125,6 @@
                     -Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
         -->
 
-		<dependency>
-			<!--
-				Automatic generation of the Builder pattern for Java 1.6+
-				http://freebuilder.inferred.org
-				https://github.com/google/FreeBuilder
-			-->
-			<groupId>org.inferred</groupId>
-			<artifactId>freebuilder</artifactId>
-			<version>${freebuilder.version}</version>
-			<optional>true</optional>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.code.findbugs</groupId>
-					<artifactId>jsr305</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 
         <!-- Static Analysis -->
         <dependency>
@@ -164,143 +143,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-
-
-        <!-- Apache
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commonslang3.version}</version>
-		</dependency>
-		 -->
-
-        <!-- Unit Testing Dependencies -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>nl.jqno.equalsverifier</groupId>
-            <artifactId>equalsverifier</artifactId>
-            <version>${equalsverifier.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Mock framework -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Logging Dependencies -->
-		<dependency>
-			<!-- @see http://engineering.godaddy.com/logging-the-easy-way/ -->
-			<!-- @see https://github.com/godaddy/godaddy-logger -->
-			<groupId>com.godaddy</groupId>
-			<artifactId>logging</artifactId>
-			<version>${gdlogger.version}</version>
-			<exclusions>
-				<exclusion>
-					<!-- included explicityly -->
-					<groupId>net.logstash.logback</groupId>
-					<artifactId>logstash-logback-encoder</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-            <scope>runtime</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback.contrib</groupId>
-            <artifactId>logback-jackson</artifactId>
-            <version>${logback-jackson.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <!-- A JaxB mapper is necessary for logback-ext-json-classic
-                you can use others though, it doesn't have to be jackson -->
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>${jackson1.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <!-- Used by logstash logback encoder -->
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <!-- https://github.com/logstash/logstash-logback-encoder -->
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>${logstash.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-        	<!-- @see http://types.cs.washington.edu/checker-framework/current/checker-framework-manual.html#maven -->
-        	<!-- annotations from the Checker Framework: nullness, interning, locking, ... -->
-            <groupId>org.checkerframework</groupId>
-            <artifactId>checker-qual</artifactId>
-            <version>${checkers.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>checker</artifactId>
-            <version>${checkers.version}</version>
-        </dependency>
-        <dependency>
-        	<!-- The annotated JDK to use (change to jdk7 if using Java 7) -->
-            <groupId>org.checkerframework</groupId>
-            <artifactId>jdk8</artifactId>
-            <version>${checkers.version}</version>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -1210,44 +1052,6 @@
             </plugin>
 
 
-            <!-- testing -->
-            <!--
-                Tests are divided into three categories:
-                1. Very fast Unit Tests (default) - run often in development
-                2. slower integration but self-sufficent tests (Spring context and/or H2 Database - run before commits
-                3. real integration tests (requiring remote servers) - run by CI Server
-
-                You can seperate tests by adding the annotation
-                @Test(groups = "self-integration")
-                or
-                @Test(groups = "full-integration")
-                http://www.javacodegeeks.com/2012/04/testng-and-maven-configuration-guide.html
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.version}</version>
-                <executions>
-                    <execution>
-                        <!-- Override default configuration, which treats all tests the same -->
-                        <id>default-test</id>
-                        <configuration>
-                            <excludedGroups>self-integration,full-integration</excludedGroups>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>self-integration</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <groups>self-integration</groups>
-                            <reportsDirectory>target/self-integration-surefire-reports/</reportsDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-scm-plugin</artifactId>
@@ -2744,6 +2548,224 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+
+		<profile>
+			<id>java-defaults</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/java</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<!--
+						Automatic generation of the Builder pattern for Java 1.6+
+						http://freebuilder.inferred.org
+						https://github.com/google/FreeBuilder
+					-->
+					<groupId>org.inferred</groupId>
+					<artifactId>freebuilder</artifactId>
+					<version>${freebuilder.version}</version>
+					<optional>true</optional>
+					<exclusions>
+						<exclusion>
+							<groupId>com.google.code.findbugs</groupId>
+							<artifactId>jsr305</artifactId>
+						</exclusion>
+						<exclusion>
+							<groupId>com.google.guava</groupId>
+							<artifactId>guava</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+
+				<dependency>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+					<version>${guava.version}</version>
+				</dependency>
+
+				<!-- Logging Dependencies -->
+				<dependency>
+					<!-- @see http://engineering.godaddy.com/logging-the-easy-way/ -->
+					<!-- @see https://github.com/godaddy/godaddy-logger -->
+					<groupId>com.godaddy</groupId>
+					<artifactId>logging</artifactId>
+					<version>${gdlogger.version}</version>
+					<exclusions>
+						<exclusion>
+							<!-- included explicityly -->
+							<groupId>net.logstash.logback</groupId>
+							<artifactId>logstash-logback-encoder</artifactId>
+						</exclusion>
+						<exclusion>
+							<groupId>com.google.guava</groupId>
+							<artifactId>guava</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				<dependency>
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-classic</artifactId>
+					<version>${logback.version}</version>
+					<scope>runtime</scope>
+					<exclusions>
+						<exclusion>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				<dependency>
+					<groupId>ch.qos.logback.contrib</groupId>
+					<artifactId>logback-jackson</artifactId>
+					<version>${logback-jackson.version}</version>
+					<exclusions>
+						<exclusion>
+							<groupId>ch.qos.logback</groupId>
+							<artifactId>logback-core</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				<dependency>
+					<!-- A JaxB mapper is necessary for logback-ext-json-classic
+						you can use others though, it doesn't have to be jackson -->
+					<groupId>org.codehaus.jackson</groupId>
+					<artifactId>jackson-mapper-asl</artifactId>
+					<version>${jackson1.version}</version>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<!-- Used by logstash logback encoder -->
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+					<version>${jackson-databind.version}</version>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<!-- https://github.com/logstash/logstash-logback-encoder -->
+					<groupId>net.logstash.logback</groupId>
+					<artifactId>logstash-logback-encoder</artifactId>
+					<version>${logstash.version}</version>
+					<exclusions>
+						<exclusion>
+							<groupId>com.fasterxml.jackson.core</groupId>
+							<artifactId>jackson-databind</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				<dependency>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+					<version>${slf4j.version}</version>
+					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<!-- @see http://types.cs.washington.edu/checker-framework/current/checker-framework-manual.html#maven -->
+					<!-- annotations from the Checker Framework: nullness, interning, locking, ... -->
+					<groupId>org.checkerframework</groupId>
+					<artifactId>checker-qual</artifactId>
+					<version>${checkers.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.checkerframework</groupId>
+					<artifactId>checker</artifactId>
+					<version>${checkers.version}</version>
+				</dependency>
+				<dependency>
+					<!-- The annotated JDK to use (change to jdk7 if using Java 7) -->
+					<groupId>org.checkerframework</groupId>
+					<artifactId>jdk8</artifactId>
+					<version>${checkers.version}</version>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>java-tests</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/test/java</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<!-- Unit Testing Dependencies -->
+				<dependency>
+					<groupId>org.testng</groupId>
+					<artifactId>testng</artifactId>
+					<version>${testng.version}</version>
+					<scope>test</scope>
+					<exclusions>
+						<exclusion>
+							<groupId>junit</groupId>
+							<artifactId>junit</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+
+				<dependency>
+					<groupId>nl.jqno.equalsverifier</groupId>
+					<artifactId>equalsverifier</artifactId>
+					<version>${equalsverifier.version}</version>
+					<scope>test</scope>
+				</dependency>
+
+				<!-- Mock framework -->
+				<dependency>
+					<groupId>org.mockito</groupId>
+					<artifactId>mockito-all</artifactId>
+					<version>${mockito.version}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<!-- testing -->
+					<!--
+						Tests are divided into three categories:
+						1. Very fast Unit Tests (default) - run often in development
+						2. slower integration but self-sufficent tests (Spring context and/or H2 Database - run before commits
+						3. real integration tests (requiring remote servers) - run by CI Server
+
+						You can seperate tests by adding the annotation
+						@Test(groups = "self-integration")
+						or
+						@Test(groups = "full-integration")
+						http://www.javacodegeeks.com/2012/04/testng-and-maven-configuration-guide.html
+					-->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>${surefire.version}</version>
+						<executions>
+							<execution>
+								<!-- Override default configuration, which treats all tests the same -->
+								<id>default-test</id>
+								<configuration>
+									<excludedGroups>self-integration,full-integration</excludedGroups>
+								</configuration>
+							</execution>
+							<execution>
+								<id>self-integration</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<groups>self-integration</groups>
+									<reportsDirectory>target/self-integration-surefire-reports/</reportsDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+
 		</profile>
 	</profiles>
 
