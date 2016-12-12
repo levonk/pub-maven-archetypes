@@ -135,6 +135,16 @@
 			<artifactId>freebuilder</artifactId>
 			<version>${freebuilder.version}</version>
 			<optional>true</optional>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.findbugs</groupId>
+					<artifactId>jsr305</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
         <!-- Static Analysis -->
@@ -210,6 +220,10 @@
 					<!-- included explicityly -->
 					<groupId>net.logstash.logback</groupId>
 					<artifactId>logstash-logback-encoder</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -1603,12 +1617,12 @@
 		<findbugs-google.version>3.0.1</findbugs-google.version>	<!-- 2016-12-11 -->
 		<findbugs-google2.version>3.0.1u2</findbugs-google2.version>	<!-- 2016-12-11 -->
 		<flexy-pool.version>1.2.6</flexy-pool.version>	<!-- 2016-11-02 -->
-		<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
+		<freebuilder.version>1.11</freebuilder.version>	<!-- 2016-12-11 -->
 		<gdlogger.version>1.2.2</gdlogger.version>	<!-- 2016-07-04 -->
 		<gpg.version>1.5</gpg.version>
 		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
-		<guava.version>18.0</guava.version> <!-- as of 2014-03-11 -->
+		<guava.version>20.0</guava.version>	<!-- 2016-12-11 -->
 		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version> <!-- 2016-12-11 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
