@@ -16,8 +16,6 @@
 	<rule ref="rulesets/basic.xml">
 		<!-- Prefer Readability with sub ifs -->
 		<exclude name="CollapsibleIfStatements" />
-		<!-- Bring this back when they fix the rule that's broken on version 2.7.1 -->
-		<exclude name="UselessOperationOnImmutable" />
 	</rule>
 
 	<rule ref="rulesets/basic-jsf.xml" />
@@ -43,8 +41,8 @@
 		<exclude name="AvoidLiteralsInIfCondition" />
 		<!-- sometimes this is what's needed, if somebody puts in the extra work... -->
 		<exclude name="AvoidUsingVolatile" />
-		<!-- readability is more important -->
-		<exclude name="BooleanInversion" />
+		<!-- readability is more important @FIXME No longer included -->
+		<!-- exclude name="BooleanInversion" / -->
 		<!-- An empty constructor is fine especially if you're changing access -->
 		<exclude name="UnnecessaryConstructor" />
 		<!-- readability is more important -->

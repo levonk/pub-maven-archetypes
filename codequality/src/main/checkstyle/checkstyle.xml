@@ -2,10 +2,13 @@
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
 		"http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
+	<property name="severity" value="ignore" />
 	<!-- -->
 	<!-- Section: Duplicate Code -->
-	<!-- -->
+	<!-- Not supported anymore 
+		 @see http://checkstyle.sourceforge.net/checks.html
 	<module name="StrictDuplicateCode">
+		 -->
 		<!-- file type extension of files to process.
 			default: {}
 		<property name="fileExtensions" value="{}" />
@@ -13,9 +16,11 @@
 		<!-- how many lines must be equal to be considered a duplicate.
 			default: 12
 		-->
+	<!--
 		<property name="min" value="6" />
 		<property name="severity" value="warning" />
 	</module>
+	 -->
 
 	<!-- -->
 	<!-- Section: Headers -->
@@ -407,6 +412,7 @@
 		checking such files.
 	-->
 	<module name="TreeWalker">
+		<property name="severity" value="ignore" />
 		<!-- -->
 		<!-- Section: Annotations -->
 		<!-- -->
@@ -423,6 +429,7 @@
 
 			<property name="closingParens" value="ignore" />
 			<!-- <property name="ClosingParens" value="never" /> -->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -430,7 +437,9 @@
 			is present and the @deprecated Javadoc tag is present
 			when either is present.
 		-->
-		<module name="MissingDeprecated" />
+		<module name="MissingDeprecated">
+			<property name="severity" value="warning" />
+		</module>
 
 		<!--
 			Verifies that the java.lang.Override annotation is
@@ -440,6 +449,7 @@
 			<!-- We'll be using Java 6 or higher -->
 			<property name="javaFiveCompatibility" value="false" />
 			<!-- <property name="javaFiveCompatibility" value="true" /> -->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -454,7 +464,9 @@
 			in the package-info.java file. See Java Language specification,
 			sections 7.4.1.1.
 		-->
-		<module name="PackageAnnotation"/>
+		<module name="PackageAnnotation">
+			<property name="severity" value="warning" />
+		</module>
 
 		<!--
 			This check allows you to specify what warnings that
@@ -495,6 +507,7 @@
 				METHOD_DEF CTOR_DEF
 			<property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF ENUM_CONSTANT_DEF PARAMETER_DEF VARIABLE_DEF METHOD_DEF CTOR_DEF" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!-- -->
@@ -526,6 +539,7 @@
 				default all tokens: LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, INSTANCE_INIT STATIC_INIT
 			<property name="tokens" value="LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, INSTANCE_INIT STATIC_INIT" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -548,6 +562,7 @@
 			<!-- Blocks to check: default all tokens:LASS_DEF, CTOR_DEF, INTERFACE_DEF, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF
 			<property name="tokens" value="CLASS_DEF, CTOR_DEF, INTERFACE_DEF, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -558,6 +573,7 @@
 				blocks to check.
 				default all tokens: LITERAL_DO, LITERAL_ELSE, LITERAL_IF, LITERAL_FOR, LITERAL_WHILE
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -580,6 +596,7 @@
 			<!-- should we check if '}' starts line. default is: true -->
 			<property name="shouldStartLine" value="true" />
 			<!-- <property name="shouldStartLine" value="false" /> -->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!-- -->
@@ -615,7 +632,9 @@
 			Checks that a class which has only private constructors
 			is declared as final.
 		-->
-		<module name="FinalClass" />
+		<module name="FinalClass">
+			<property name="severity" value="warning" />
+		</module>
 
 		<!--
 			Make sure that utility classes (classes that contain
@@ -643,7 +662,9 @@
 				}
 			}
 		-->
-		<module name="HideUtilityClassConstructor" />
+		<module name="HideUtilityClassConstructor">
+			<property name="severity" value="warning" />
+		</module>
 
 
 		<!--
@@ -670,7 +691,9 @@
 			interfaces like java.io.Serializable, that do not contain
 			methods or constants at all.
 		-->
-		<module name="InterfaceIsType" />
+		<module name="InterfaceIsType">
+			<property name="severity" value="warning" />
+		</module>
 
 		<!--
 			Ensures that exceptions (defined as any class name
@@ -698,6 +721,7 @@
 				default: "^.*Exception$|^.*Error$"
 			<property name="format" value="^.*Exception$|^.*Error$" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -744,6 +768,7 @@
 				default: "^serialVersionUID$"
 			<property name="publicMemberPattern" value="^serialVersionUID$" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!-- -->
@@ -836,10 +861,11 @@
 			code where a test is wrapped in a synchronized
 			block that is wrapped in the same test, like in
 			the example above.
-		-->
+			@FIXME No longer seems to exist
 		<module name="DoubleCheckedLocking">
 			<property name="severity" value="error" />
 		</module>
+		-->
 
 		<!--
 			Detects empty statements (standalone ;).
@@ -932,7 +958,7 @@
 			abstract methods.
 		-->
 		<module name="FinalLocalVariable">
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 			<!-- tokens to check. default: VARIABLE_DEF -->
 			<property name="tokens" value="PARAMETER_DEF, VARIABLE_DEF" />
 		</module>
@@ -1102,19 +1128,20 @@
 			Checks for redundant exceptions declared in throws
 			clause such as duplicates, unchecked exceptions
 			or subclasses of another declared exception.
-		-->
+			@FIXME No longer seems to exist
 		<module name="RedundantThrows">
+		-->
 			<!-- whether unchecked exceptions in throws are allowed or not
 				default: false
 				LZK: be explicit to the caller
 			-->
-			<property name="allowUnchecked" value="true" />
+			<!-- <property name="allowUnchecked" value="true" /> -->
 			<!-- whether subclass of another declared
 				exception is allowed in throws clause.
 				default: false
 				LZK: be explicit to the caller
 			-->
-			<property name="allowSubclasses" value="true" />
+			<!-- <property name="allowSubclasses" value="true" /> -->
 			<!-- This check may need to load exception
 				classes mentioned in the @throws tag to check
 				whether they are RuntimeExceptions. If loading
@@ -1129,8 +1156,10 @@
 				a configuration error).
 				default: true
 			-->
+			<!--
 			<property name="logLoadErrors" value="true" />
 			<property name="severity" value="error" />
+			-->
 			<!-- When logLoadErrors is set to true, the
 				TreeWalker completely processes a class and
 				displays any problems with loading exceptions
@@ -1140,9 +1169,9 @@
 				being reported as violations in the checkstyle
 				report.
 				default: false
-			-->
 			<property name="suppressLoadErrors" value="false" />
 		</module>
+			-->
 
 		<!--
 			Checks for overly complicated boolean
@@ -1384,8 +1413,9 @@
 			<!-- whether to ignore checking that the
 				package declaration matches the source directory
 				name. default: false
-			-->
+				@FIXME Property no longer seems to exist
 			<property name="ignoreDirectoryName" value="false" />
+			-->
 			<property name="severity" value="error" />
 		</module>
 
@@ -1401,10 +1431,11 @@
 			Rationale: often times developers will misname
 			one or more of these methods and not realise
 			that the method is not being called.
-		-->
+			@FIXME No Longer seems to exist
 		<module name="JUnitTestCase">
 			<property name="severity" value="error" />
 		</module>
+		-->
 
 		<!--
 			Restricts the number of return statements. Default
@@ -1488,8 +1519,10 @@
 		<module name="DeclarationOrder">
 			<!-- default: false -->
 			<property name="ignoreConstructors" value="false" />
-			<!-- default: false -->
+			<!-- default: false
+				 @FIXME No Longer exists
 			<property name="ignoreMethods" value="false" />
+				 -->
 			<!-- default: false -->
 			<property name="ignoreModifiers" value="false" />
 			<property name="severity" value="warning" />
@@ -2462,7 +2495,7 @@
 			style is to declare parameters final.
 		-->
 		<module name="FinalParameters">
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 			<!--
 				subset of tokens METHOD_DEF, CTOR_DEF, LITERAL_CATCH
 				default: METHOD_DEF,CTOR_DEF
@@ -2499,7 +2532,7 @@
 				default: 4
 			<property name="caseIndent" value="4" />
 			-->
-			<property name="severity" value="ignore" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--

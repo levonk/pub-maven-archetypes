@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <licenses>
+	<!-- @see http://khmarbaise.github.io/Maven-License-Verifier-Plugin/licenses.html -->
 	<valid>
+		<license>
+			<id>Eclipse Public License 1.0</id>
+			<description>Eclipse Public License 1.0</description>
+			<names>
+				<name>Eclipse Public License</name>
+				<name>Eclipse Public License - v 1.0</name>
+			</names>
+			<urls>
+				<url>http://www.eclipse.org/legal/epl-v10.html</url>
+			</urls>
+		</license>
 		<license>
 			<id>Apache Software License 2.0</id>
 			<description>Apache Software License 2.0</description>
 			<names>
 				<name>Apache 2</name>
-				<name>Apache Software License 2.0</name>
+				<name>Apache 2.0</name>
+				<name>Apache License, Version 2.0</name>
 				<name>Apache Software License, Version 2.0</name>
 				<name>The Apache Software License, Version 2.0</name>
+				<name>ASF 2.0</name>
 			</names>
 			<urls>
 				<url>http://www.apache.org/licenses/LICENSE-2.0</url>
@@ -32,10 +46,26 @@
 		</license>
 
 		<license>
+			<id>MIT License</id>
+			<description>MIT</description>
+			<names>
+				<name>MIT</name>
+				<name>MIT License</name>
+				<name>MIT license</name>
+				<name>The MIT License</name>
+			</names>
+			<urls>
+				<url>http://www.tobefilled.org/</url>
+			</urls>
+		</license>
+
+		<license>
 			<id>BSD License</id>
 			<description>Common Public License Version 1.0</description>
 			<names>
-				<name>To Be Filled</name>
+				<name>New BSD License</name>
+				<name>BSD License</name>
+				<name>BSD</name>
 			</names>
 			<urls>
 				<url>http://www.tobefilled.org/</url>
@@ -55,21 +85,34 @@
 	</valid>
 
 	<invalid>
+	</invalid>
+
+	<warning>
+		<license>
+			<id>GNU Lesser Public License</id>
+			<description>GNU Lesser General Public License</description>
+			<names>
+				<name>GNU Lesser Public License</name>
+			</names>
+			<urls>
+				<url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html</url>
+				<url>http://www.gnu.org/licenses/lgpl.html</url>
+			</urls>
+		</license>
 		<license>
 			<id>GNU General Public License (GPL)</id>
 			<description>GNU General Public License (GPL)</description>
 			<names>
 				<name>GNU General Public License, version 2</name>
 				<name>GNU General Public License, version 3</name>
+				<name>GNU General Public License, version 2 (GPL2)</name>
 			</names>
 			<urls>
 				<url>http://www.gnu.org/licenses/gpl-2.0.html</url>
 				<url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+				<url>http://www.gnu.org/software/classpath/license.html</url>
 			</urls>
 		</license>
-	</invalid>
-
-	<warning>
 		<license>
 			<id>Apache Software License 1.1 (Historic)</id>
 			<description>Apache Software License 1.1 (Historic)</description>
