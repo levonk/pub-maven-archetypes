@@ -861,10 +861,11 @@
 			code where a test is wrapped in a synchronized
 			block that is wrapped in the same test, like in
 			the example above.
-		-->
+			@FIXME No longer seems to exist
 		<module name="DoubleCheckedLocking">
 			<property name="severity" value="error" />
 		</module>
+		-->
 
 		<!--
 			Detects empty statements (standalone ;).
