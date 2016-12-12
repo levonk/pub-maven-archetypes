@@ -860,13 +860,16 @@
                                 <requireJavaVersion>
                                     <version>${java.version}</version>
                                 </requireJavaVersion>
+								<!--
                             <evaluateBeanshell>
+								<message>Maven-enforcer: Not sure why @see https://docs.oracle.com/javase/8/docs/api/javax/crypto/Cipher.html#getMaxAllowedKeyLength(java.lang.String)</message>
                                 <condition>javax.crypto.Cipher.getMaxAllowedKeyLength("AES") &gt; 128</condition>
                             </evaluateBeanshell>
                             <reactorModuleConvergence>
-                            <message>Maven-enforcer: The reactor Module Convergance is not valid</message>
-                            <ignoreModuleDependencies>true</ignoreModuleDependencies>
-                        </reactorModuleConvergence>
+								<message>Maven-enforcer: The reactor Module Convergance is not valid expected with spring boot</message>
+								<ignoreModuleDependencies>true</ignoreModuleDependencies>
+							</reactorModuleConvergence>
+							-->
                 <requireSameVersions>
                     <plugins>
                         <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
