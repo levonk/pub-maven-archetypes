@@ -2,10 +2,13 @@
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
 		"http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
+	<property name="severity" value="ignore" />
 	<!-- -->
 	<!-- Section: Duplicate Code -->
-	<!-- -->
+	<!-- Not supported anymore 
+		 @see http://checkstyle.sourceforge.net/checks.html
 	<module name="StrictDuplicateCode">
+		 -->
 		<!-- file type extension of files to process.
 			default: {}
 		<property name="fileExtensions" value="{}" />
@@ -13,9 +16,11 @@
 		<!-- how many lines must be equal to be considered a duplicate.
 			default: 12
 		-->
+	<!--
 		<property name="min" value="6" />
 		<property name="severity" value="warning" />
 	</module>
+	 -->
 
 	<!-- -->
 	<!-- Section: Headers -->
@@ -407,6 +412,7 @@
 		checking such files.
 	-->
 	<module name="TreeWalker">
+		<property name="severity" value="ignore" />
 		<!-- -->
 		<!-- Section: Annotations -->
 		<!-- -->
