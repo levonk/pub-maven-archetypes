@@ -1431,10 +1431,11 @@
 			Rationale: often times developers will misname
 			one or more of these methods and not realise
 			that the method is not being called.
-		-->
+			@FIXME No Longer seems to exist
 		<module name="JUnitTestCase">
 			<property name="severity" value="error" />
 		</module>
+		-->
 
 		<!--
 			Restricts the number of return statements. Default
