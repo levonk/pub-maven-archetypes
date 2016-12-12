@@ -958,7 +958,7 @@
 			abstract methods.
 		-->
 		<module name="FinalLocalVariable">
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 			<!-- tokens to check. default: VARIABLE_DEF -->
 			<property name="tokens" value="PARAMETER_DEF, VARIABLE_DEF" />
 		</module>
@@ -2495,7 +2495,7 @@
 			style is to declare parameters final.
 		-->
 		<module name="FinalParameters">
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 			<!--
 				subset of tokens METHOD_DEF, CTOR_DEF, LITERAL_CATCH
 				default: METHOD_DEF,CTOR_DEF
