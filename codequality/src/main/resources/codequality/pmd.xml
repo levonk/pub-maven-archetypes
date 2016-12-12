@@ -16,8 +16,6 @@
 	<rule ref="rulesets/basic.xml">
 		<!-- Prefer Readability with sub ifs -->
 		<exclude name="CollapsibleIfStatements" />
-		<!-- Bring this back when they fix the rule that's broken on version 2.7.1 -->
-		<exclude name="UselessOperationOnImmutable" />
 	</rule>
 
 	<rule ref="rulesets/basic-jsf.xml" />
