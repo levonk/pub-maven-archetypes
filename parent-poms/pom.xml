@@ -398,33 +398,6 @@
                 <version>${avro.version}</version>
             </dependency>
 
-            <!-- Code Generation Dependencies -->
-            <dependency>
-                <!-- http://pojomatic.sourceforge.net/pojomatic/index.html -->
-                <groupId>org.pojomatic</groupId>
-                <artifactId>pojomatic</artifactId>
-                <version>${pojomatic.version}</version>
-            </dependency>
-
-		<dependency>
-			<groupId>org.immutables</groupId>
-			<artifactId>value</artifactId>
-			<version>${immutables.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-            <dependency>
-                <!-- Lombok requires Javac v1.6 compiler or higher -->
-                <!-- You still need to doubleclick the lombok.jar
-                     file downloaded by maven to install lombok into
-                     eclipse.
-                -->
-                <!-- http://projectlombok.org/features/index.html -->
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-                <scope>provided</scope>
-            </dependency>
             <!-- checker framework-->
             <dependency>
                 <groupId>org.checkerframework</groupId>
@@ -502,6 +475,7 @@
                     <mavenVersion>${maven.version}</mavenVersion>
                 </configuration>
             </plugin>
+
             <!-- General Settings -->
             <!-- Code Coverage -->
             <!-- Don't forget to add a Jenkins
@@ -510,7 +484,6 @@
                     **/target/site/jacoco/jacoco*.xml
               -->
             <plugin>
-
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
@@ -520,7 +493,7 @@
                 </configuration>
                 <executions>
                     <execution>
-			<phase>test</phase>
+						<phase>test</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
@@ -534,8 +507,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
 
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>
@@ -649,25 +620,6 @@
 						<phase>pre-integration-test</phase>
 					</execution>
 				</executions>
-            </plugin>
-			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle.version}</version>
-                <configuration>
-					<configLocation>${checkstyle.ruleset.url}</configLocation>
-                    <logViolationsToConsole>true</logViolationsToConsole>
-                    <failOnViolation>true</failOnViolation>
-                    <failsOnError>true</failsOnError>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>checkstyle</goal>
-                        </goals>
-						<phase>pre-integration-test</phase>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
@@ -809,7 +761,6 @@
 						<phase>pre-integration-test</phase>
                     </execution>
                 </executions>
-
             </plugin>
 
             <plugin>
@@ -850,7 +801,6 @@
 						<phase>pre-integration-test</phase>
 					</execution>
 				</executions>
-
 			</plugin>
 
             <plugin>
@@ -890,7 +840,7 @@
 					</excludes>
 				</configuration>
             </plugin>
-            
+
 			<plugin>
 				<!-- @see https://github.com/basepom/duplicate-finder-maven-plugin/wiki -->
 				<groupId>org.basepom.maven</groupId>
@@ -992,16 +942,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jalopy-maven-plugin</artifactId>
-                <version>${jalopy.version}</version>
-                <configuration>
-                    <convention>source-munge/jalopy.xml</convention>
-                    <failOnError>false</failOnError>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>${dependency.version}</version>
@@ -1050,7 +990,6 @@
                     </execution>
                 </executions>
             </plugin>
-
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -1220,26 +1159,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                	<groupId>org.pitest</groupId>
-                	<artifactId>pitest-maven</artifactId>
-                	<version>${pitest.version}</version>
-                	<configuration>
-                		<targetClasses>
-                			<targetClass>${project.parent.groupId}</targetClass>
-                		</targetClasses>
-                		<targetTests>
-                			<targetTest>${project.parent.groupId}*Test</targetTest>
-                		</targetTests>
-                		<outputFormats>
-                			<!-- Sonar needs XML output -->
-	                		<outputFormat>XML</outputFormat>
-	                		<outputFormat>HTML</outputFormat>
-                		</outputFormats>
-                		<!-- Sonar expects reports to not have timestamps -->
-                		<timestampedReports>false</timestampedReports>
-                	</configuration>
                 </plugin>
 			</plugins>
 		</pluginManagement>
@@ -1429,6 +1348,7 @@
 		<guava.version>20.0</guava.version>	<!-- 2016-12-11 -->
 		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version> <!-- 2016-12-11 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
+		<immutables.version>2.3.10</immutables.version>	<!-- 2016-12-11 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
 		<jackson1.version>1.9.13</jackson1.version>	<!-- 2016-12-06 -->
 		<jackson-databind.version>2.8.5</jackson-databind.version>	<!-- 2016-12-06 -->
@@ -1450,7 +1370,7 @@
 		<logback.version>1.0.13</logback.version>
 		<logback-jackson.version>0.1.5</logback-jackson.version>	<!-- 2016-12-02 -->
 		<logstash.version>4.7</logstash.version>	<!-- 2016-07-07 -->
-		<lombok.version>1.12.5</lombok.version>
+		<lombok.version>1.16.12</lombok.version>	<!-- 2016-12-11 -->
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2016-12-11 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2016-12-11 -->
 		<maven-plugin-versions.version>3.3.8</maven-plugin-versions.version>	<!-- 2016-12-11 -->
@@ -2557,131 +2477,190 @@
 					<exists>${basedir}/src/main/java</exists>
 				</file>
 			</activation>
-			<dependencies>
-				<dependency>
-					<!--
-						Automatic generation of the Builder pattern for Java 1.6+
-						http://freebuilder.inferred.org
-						https://github.com/google/FreeBuilder
-					-->
-					<groupId>org.inferred</groupId>
-					<artifactId>freebuilder</artifactId>
-					<version>${freebuilder.version}</version>
-					<optional>true</optional>
-					<exclusions>
-						<exclusion>
-							<groupId>com.google.code.findbugs</groupId>
-							<artifactId>jsr305</artifactId>
-						</exclusion>
-						<exclusion>
-							<groupId>com.google.guava</groupId>
-							<artifactId>guava</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<!--
+							Automatic generation of the Builder pattern for Java 1.6+
+							http://freebuilder.inferred.org
+							https://github.com/google/FreeBuilder
+						-->
+						<groupId>org.inferred</groupId>
+						<artifactId>freebuilder</artifactId>
+						<version>${freebuilder.version}</version>
+						<optional>true</optional>
+						<exclusions>
+							<exclusion>
+								<groupId>com.google.code.findbugs</groupId>
+								<artifactId>jsr305</artifactId>
+							</exclusion>
+							<exclusion>
+								<groupId>com.google.guava</groupId>
+								<artifactId>guava</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
 
-				<dependency>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava</artifactId>
-					<version>${guava.version}</version>
-				</dependency>
+					<dependency>
+						<groupId>com.google.guava</groupId>
+						<artifactId>guava</artifactId>
+						<version>${guava.version}</version>
+					</dependency>
 
-				<!-- Logging Dependencies -->
-				<dependency>
-					<!-- @see http://engineering.godaddy.com/logging-the-easy-way/ -->
-					<!-- @see https://github.com/godaddy/godaddy-logger -->
-					<groupId>com.godaddy</groupId>
-					<artifactId>logging</artifactId>
-					<version>${gdlogger.version}</version>
-					<exclusions>
-						<exclusion>
-							<!-- included explicityly -->
-							<groupId>net.logstash.logback</groupId>
-							<artifactId>logstash-logback-encoder</artifactId>
-						</exclusion>
-						<exclusion>
-							<groupId>com.google.guava</groupId>
-							<artifactId>guava</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-				<dependency>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
-					<version>${logback.version}</version>
-					<scope>runtime</scope>
-					<exclusions>
-						<exclusion>
-							<groupId>org.slf4j</groupId>
-							<artifactId>slf4j-api</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-				<dependency>
-					<groupId>ch.qos.logback.contrib</groupId>
-					<artifactId>logback-jackson</artifactId>
-					<version>${logback-jackson.version}</version>
-					<exclusions>
-						<exclusion>
-							<groupId>ch.qos.logback</groupId>
-							<artifactId>logback-core</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-				<dependency>
-					<!-- A JaxB mapper is necessary for logback-ext-json-classic
-						you can use others though, it doesn't have to be jackson -->
-					<groupId>org.codehaus.jackson</groupId>
-					<artifactId>jackson-mapper-asl</artifactId>
-					<version>${jackson1.version}</version>
-					<scope>runtime</scope>
-				</dependency>
-				<dependency>
-					<!-- Used by logstash logback encoder -->
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-databind</artifactId>
-					<version>${jackson-databind.version}</version>
-					<scope>runtime</scope>
-				</dependency>
-				<dependency>
-					<!-- https://github.com/logstash/logstash-logback-encoder -->
-					<groupId>net.logstash.logback</groupId>
-					<artifactId>logstash-logback-encoder</artifactId>
-					<version>${logstash.version}</version>
-					<exclusions>
-						<exclusion>
-							<groupId>com.fasterxml.jackson.core</groupId>
-							<artifactId>jackson-databind</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-					<version>${slf4j.version}</version>
-					<scope>runtime</scope>
-				</dependency>
-				<dependency>
-					<!-- @see http://types.cs.washington.edu/checker-framework/current/checker-framework-manual.html#maven -->
-					<!-- annotations from the Checker Framework: nullness, interning, locking, ... -->
-					<groupId>org.checkerframework</groupId>
-					<artifactId>checker-qual</artifactId>
-					<version>${checkers.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.checkerframework</groupId>
-					<artifactId>checker</artifactId>
-					<version>${checkers.version}</version>
-				</dependency>
-				<dependency>
-					<!-- The annotated JDK to use (change to jdk7 if using Java 7) -->
-					<groupId>org.checkerframework</groupId>
-					<artifactId>jdk8</artifactId>
-					<version>${checkers.version}</version>
-				</dependency>
-			</dependencies>
+					<!-- Logging Dependencies -->
+					<dependency>
+						<!-- @see http://engineering.godaddy.com/logging-the-easy-way/ -->
+						<!-- @see https://github.com/godaddy/godaddy-logger -->
+						<groupId>com.godaddy</groupId>
+						<artifactId>logging</artifactId>
+						<version>${gdlogger.version}</version>
+						<exclusions>
+							<exclusion>
+								<!-- included explicityly -->
+								<groupId>net.logstash.logback</groupId>
+								<artifactId>logstash-logback-encoder</artifactId>
+							</exclusion>
+							<exclusion>
+								<groupId>com.google.guava</groupId>
+								<artifactId>guava</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>ch.qos.logback</groupId>
+						<artifactId>logback-classic</artifactId>
+						<version>${logback.version}</version>
+						<scope>runtime</scope>
+						<exclusions>
+							<exclusion>
+								<groupId>org.slf4j</groupId>
+								<artifactId>slf4j-api</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>ch.qos.logback.contrib</groupId>
+						<artifactId>logback-jackson</artifactId>
+						<version>${logback-jackson.version}</version>
+						<exclusions>
+							<exclusion>
+								<groupId>ch.qos.logback</groupId>
+								<artifactId>logback-core</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<!-- A JaxB mapper is necessary for logback-ext-json-classic
+							you can use others though, it doesn't have to be jackson -->
+						<groupId>org.codehaus.jackson</groupId>
+						<artifactId>jackson-mapper-asl</artifactId>
+						<version>${jackson1.version}</version>
+						<scope>runtime</scope>
+					</dependency>
+					<dependency>
+						<!-- Used by logstash logback encoder -->
+						<groupId>com.fasterxml.jackson.core</groupId>
+						<artifactId>jackson-databind</artifactId>
+						<version>${jackson-databind.version}</version>
+						<scope>runtime</scope>
+					</dependency>
+					<dependency>
+						<!-- https://github.com/logstash/logstash-logback-encoder -->
+						<groupId>net.logstash.logback</groupId>
+						<artifactId>logstash-logback-encoder</artifactId>
+						<version>${logstash.version}</version>
+						<exclusions>
+							<exclusion>
+								<groupId>com.fasterxml.jackson.core</groupId>
+								<artifactId>jackson-databind</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+						<version>${slf4j.version}</version>
+						<scope>runtime</scope>
+					</dependency>
+					<dependency>
+						<!-- @see http://types.cs.washington.edu/checker-framework/current/checker-framework-manual.html#maven -->
+						<!-- annotations from the Checker Framework: nullness, interning, locking, ... -->
+						<groupId>org.checkerframework</groupId>
+						<artifactId>checker-qual</artifactId>
+						<version>${checkers.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.checkerframework</groupId>
+						<artifactId>checker</artifactId>
+						<version>${checkers.version}</version>
+					</dependency>
+					<dependency>
+						<!-- The annotated JDK to use (change to jdk7 if using Java 7) -->
+						<groupId>org.checkerframework</groupId>
+						<artifactId>jdk8</artifactId>
+						<version>${checkers.version}</version>
+					</dependency>
+
+					<!-- Code Generation Dependencies -->
+					<dependency>
+						<!-- http://pojomatic.sourceforge.net/pojomatic/index.html -->
+						<groupId>org.pojomatic</groupId>
+						<artifactId>pojomatic</artifactId>
+						<version>${pojomatic.version}</version>
+					</dependency>
+
+					<dependency>
+						<groupId>org.immutables</groupId>
+						<artifactId>value</artifactId>
+						<version>${immutables.version}</version>
+						<scope>provided</scope>
+					</dependency>
+
+					<dependency>
+						<!-- Lombok requires Javac v1.6 compiler or higher -->
+						<!-- You still need to doubleclick the lombok.jar
+							 file downloaded by maven to install lombok into
+							 eclipse.
+						-->
+						<!-- http://projectlombok.org/features/index.html -->
+						<groupId>org.projectlombok</groupId>
+						<artifactId>lombok</artifactId>
+						<version>${lombok.version}</version>
+						<scope>provided</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-checkstyle-plugin</artifactId>
+						<version>${checkstyle.version}</version>
+						<configuration>
+							<configLocation>${checkstyle.ruleset.url}</configLocation>
+							<logViolationsToConsole>true</logViolationsToConsole>
+							<failOnViolation>true</failOnViolation>
+							<failsOnError>true</failsOnError>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>checkstyle</goal>
+								</goals>
+								<phase>pre-integration-test</phase>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jalopy-maven-plugin</artifactId>
+						<version>${jalopy.version}</version>
+						<configuration>
+							<convention>source-munge/jalopy.xml</convention>
+							<failOnError>false</failOnError>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -2762,6 +2741,27 @@
 								</configuration>
 							</execution>
 						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-maven</artifactId>
+						<version>${pitest.version}</version>
+						<configuration>
+							<targetClasses>
+								<targetClass>${project.parent.groupId}</targetClass>
+							</targetClasses>
+							<targetTests>
+								<targetTest>${project.parent.groupId}*Test</targetTest>
+							</targetTests>
+							<outputFormats>
+								<!-- Sonar needs XML output -->
+								<outputFormat>XML</outputFormat>
+								<outputFormat>HTML</outputFormat>
+							</outputFormats>
+							<!-- Sonar expects reports to not have timestamps -->
+							<timestampedReports>false</timestampedReports>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
