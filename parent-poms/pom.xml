@@ -142,7 +142,7 @@
             <!-- groupId>net.sourceforge.findbugs</groupId -->
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>annotations</artifactId>
-            <version>${findbugs-google.version}</version>
+            <version>${findbugs-google2.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -573,7 +573,7 @@
             <dependency>
                 <groupId>org.checkerframework</groupId>
                 <artifactId>checker-framework</artifactId>
-                <version>1.8.0</version>
+				<version>${checkers.version}</version>
             </dependency>
 			<dependency>
 				<!-- @see https://github.com/mauricio/postgresql-async -->
@@ -1019,7 +1019,18 @@
                 </dependencies>
 				<configuration>
 					<excludes>
-						<exclude>net.jcip:jcip-annotations:1.0</exclude>
+						<!-- no license specified -->
+							<exclude>net.jcip:jcip-annotations:jar:1.0</exclude>
+							<exclude>com.google.code.findbugs:annotations:jar:3.0.1u2</exclude>
+						<!-- non-distribute use only -->
+							<exclude>org.checkerframework:checker:jar:2.1.6</exclude>
+							<exclude>org.checkerframework:jdk8:jar:2.1.6</exclude>
+						<!-- dual license causes confusions -->
+							<exclude>ch.qos.logback:logback-classic:jar:1.0.13</exclude>
+							<exclude>ch.qos.logback.contrib:logback-jackson:jar:0.1.5</exclude>
+							<exclude>ch.qos.logback.contrib:logback-json-core:jar:0.1.5</exclude>
+							<exclude>ch.qos.logback:logback-core:jar:1.0.13</exclude>
+							<exclude>org.checkerframework:checker-qual:jar:2.1.6</exclude>
 					</excludes>
 				</configuration>
             </plugin>
@@ -1566,7 +1577,7 @@
 		<antrun.version>1.8</antrun.version>
 		<avro.version>1.7.7</avro.version>
 		<codequality.version>1.0.9</codequality.version>
-		<checkers.version>1.9.11</checkers.version>	<!-- 2016-02-18 -->
+		<checkers.version>2.1.6</checkers.version>	<!-- 2016-12-11 -->
 		<docker.version>0.4.1</docker.version>
 		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
 		<spring-boot.version>1.3.1.RELEASE</spring-boot.version>
@@ -1590,6 +1601,7 @@
 		<findbugs.version>3.0.4</findbugs.version>	<!-- 2016-12-11 -->
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
 		<findbugs-google.version>3.0.1</findbugs-google.version>	<!-- 2016-12-11 -->
+		<findbugs-google2.version>3.0.1u2</findbugs-google2.version>	<!-- 2016-12-11 -->
 		<flexy-pool.version>1.2.6</flexy-pool.version>	<!-- 2016-11-02 -->
 		<freebuilder.version>1.0-rc8</freebuilder.version> <!-- as of 2015-06-13 -->
 		<gdlogger.version>1.2.2</gdlogger.version>	<!-- 2016-07-04 -->
@@ -1661,7 +1673,6 @@
 		<ztexec.version>1.8</ztexec.version>
 		<docker.registry.url>https://index.docker.io/v1/</docker.registry.url>
 		<springboot.is.executable>true</springboot.is.executable>
-		<checker-version>1.8.2</checker-version>
 	</properties>
 
 	<profiles>
