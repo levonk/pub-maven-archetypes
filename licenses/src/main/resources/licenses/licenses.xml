@@ -2,6 +2,16 @@
 <licenses>
 	<valid>
 		<license>
+			<id>Eclipse Public License 1.0</id>
+			<description>Eclipse Public License 1.0</description>
+			<names>
+				<name>Eclipse Public License</name>
+			</names>
+			<urls>
+				<url>http://apache.org/licenses/LICENSE-2.0.txt</url>
+			</urls>
+		</license>
+		<license>
 			<id>Apache Software License 2.0</id>
 			<description>Apache Software License 2.0</description>
 			<names>
@@ -9,6 +19,7 @@
 				<name>Apache Software License 2.0</name>
 				<name>Apache Software License, Version 2.0</name>
 				<name>The Apache Software License, Version 2.0</name>
+				<name>ASF 2.0</name>
 			</names>
 			<urls>
 				<url>http://www.apache.org/licenses/LICENSE-2.0</url>
@@ -32,10 +43,25 @@
 		</license>
 
 		<license>
+			<id>MIT License</id>
+			<description>MIT</description>
+			<names>
+				<name>MIT</name>
+				<name>MIT License</name>
+				<name>The MIT License</name>
+			</names>
+			<urls>
+				<url>http://www.tobefilled.org/</url>
+			</urls>
+		</license>
+
+		<license>
 			<id>BSD License</id>
 			<description>Common Public License Version 1.0</description>
 			<names>
-				<name>To Be Filled</name>
+				<name>New BSD License</name>
+				<name>BSD License</name>
+				<name>BSD</name>
 			</names>
 			<urls>
 				<url>http://www.tobefilled.org/</url>
