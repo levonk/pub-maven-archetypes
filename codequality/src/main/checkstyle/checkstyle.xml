@@ -861,10 +861,11 @@
 			code where a test is wrapped in a synchronized
 			block that is wrapped in the same test, like in
 			the example above.
-		-->
+			@FIXME No longer seems to exist
 		<module name="DoubleCheckedLocking">
 			<property name="severity" value="error" />
 		</module>
+		-->
 
 		<!--
 			Detects empty statements (standalone ;).
@@ -1127,19 +1128,20 @@
 			Checks for redundant exceptions declared in throws
 			clause such as duplicates, unchecked exceptions
 			or subclasses of another declared exception.
-		-->
+			@FIXME No longer seems to exist
 		<module name="RedundantThrows">
+		-->
 			<!-- whether unchecked exceptions in throws are allowed or not
 				default: false
 				LZK: be explicit to the caller
 			-->
-			<property name="allowUnchecked" value="true" />
+			<!-- <property name="allowUnchecked" value="true" /> -->
 			<!-- whether subclass of another declared
 				exception is allowed in throws clause.
 				default: false
 				LZK: be explicit to the caller
 			-->
-			<property name="allowSubclasses" value="true" />
+			<!-- <property name="allowSubclasses" value="true" /> -->
 			<!-- This check may need to load exception
 				classes mentioned in the @throws tag to check
 				whether they are RuntimeExceptions. If loading
@@ -1154,8 +1156,10 @@
 				a configuration error).
 				default: true
 			-->
+			<!--
 			<property name="logLoadErrors" value="true" />
 			<property name="severity" value="error" />
+			-->
 			<!-- When logLoadErrors is set to true, the
 				TreeWalker completely processes a class and
 				displays any problems with loading exceptions
@@ -1165,9 +1169,9 @@
 				being reported as violations in the checkstyle
 				report.
 				default: false
-			-->
 			<property name="suppressLoadErrors" value="false" />
 		</module>
+			-->
 
 		<!--
 			Checks for overly complicated boolean
@@ -1409,8 +1413,9 @@
 			<!-- whether to ignore checking that the
 				package declaration matches the source directory
 				name. default: false
-			-->
+				@FIXME Property no longer seems to exist
 			<property name="ignoreDirectoryName" value="false" />
+			-->
 			<property name="severity" value="error" />
 		</module>
 
