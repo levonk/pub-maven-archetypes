@@ -799,7 +799,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.version}</version>
                 <configuration>
-                    <configLocation>google_checks.xml</configLocation>
+					<configLocation>${checkstyle.ruleset.url}</configLocation>
                     <logViolationsToConsole>true</logViolationsToConsole>
                     <failOnViolation>true</failOnViolation>
                     <failsOnError>true</failsOnError>
@@ -1456,7 +1456,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.version}</version>
                 <configuration>
-                    <configLocation>google_checks.xml</configLocation>
+					<configLocation>${checkstyle.ruleset.url}</configLocation>
                 </configuration>
             </plugin>
 
@@ -1544,8 +1544,9 @@
 		<!-- <typeAnnotationsJavac>${org.checkerframework:compiler:jar}</typeAnnotationsJavac> -->	
 		
 		<!-- ruleset block -->
-		<pmd.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/pmd/pmd.xml</pmd.ruleset.url>
+		<checkstyle.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/checkstyle/checkstyle.xml</checkstyle.ruleset.url>
 		<findbugs.excludeFilterFile.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/FindBugsFilter.xml</findbugs.excludeFilterFile.url>
+		<pmd.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/pmd/pmd.xml</pmd.ruleset.url>
 		<!-- @see http://www.mojohaus.org/versions-maven-plugin/rule.html -->
 		<versions.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/versions-maven-plugin/maven-version-rules.xml</versions.ruleset.url>
 
