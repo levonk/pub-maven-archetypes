@@ -423,6 +423,7 @@
 
 			<property name="closingParens" value="ignore" />
 			<!-- <property name="ClosingParens" value="never" /> -->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -430,7 +431,9 @@
 			is present and the @deprecated Javadoc tag is present
 			when either is present.
 		-->
-		<module name="MissingDeprecated" />
+		<module name="MissingDeprecated">
+			<property name="severity" value="warning" />
+		</module>
 
 		<!--
 			Verifies that the java.lang.Override annotation is
@@ -440,6 +443,7 @@
 			<!-- We'll be using Java 6 or higher -->
 			<property name="javaFiveCompatibility" value="false" />
 			<!-- <property name="javaFiveCompatibility" value="true" /> -->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -454,7 +458,9 @@
 			in the package-info.java file. See Java Language specification,
 			sections 7.4.1.1.
 		-->
-		<module name="PackageAnnotation"/>
+		<module name="PackageAnnotation">
+			<property name="severity" value="warning" />
+		</module>
 
 		<!--
 			This check allows you to specify what warnings that
@@ -495,6 +501,7 @@
 				METHOD_DEF CTOR_DEF
 			<property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF ENUM_CONSTANT_DEF PARAMETER_DEF VARIABLE_DEF METHOD_DEF CTOR_DEF" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!-- -->
@@ -526,6 +533,7 @@
 				default all tokens: LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, INSTANCE_INIT STATIC_INIT
 			<property name="tokens" value="LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, INSTANCE_INIT STATIC_INIT" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -548,6 +556,7 @@
 			<!-- Blocks to check: default all tokens:LASS_DEF, CTOR_DEF, INTERFACE_DEF, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF
 			<property name="tokens" value="CLASS_DEF, CTOR_DEF, INTERFACE_DEF, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -558,6 +567,7 @@
 				blocks to check.
 				default all tokens: LITERAL_DO, LITERAL_ELSE, LITERAL_IF, LITERAL_FOR, LITERAL_WHILE
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -580,6 +590,7 @@
 			<!-- should we check if '}' starts line. default is: true -->
 			<property name="shouldStartLine" value="true" />
 			<!-- <property name="shouldStartLine" value="false" /> -->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!-- -->
@@ -615,7 +626,9 @@
 			Checks that a class which has only private constructors
 			is declared as final.
 		-->
-		<module name="FinalClass" />
+		<module name="FinalClass">
+			<property name="severity" value="warning" />
+		</module>
 
 		<!--
 			Make sure that utility classes (classes that contain
@@ -643,7 +656,9 @@
 				}
 			}
 		-->
-		<module name="HideUtilityClassConstructor" />
+		<module name="HideUtilityClassConstructor">
+			<property name="severity" value="warning" />
+		</module>
 
 
 		<!--
@@ -670,7 +685,9 @@
 			interfaces like java.io.Serializable, that do not contain
 			methods or constants at all.
 		-->
-		<module name="InterfaceIsType" />
+		<module name="InterfaceIsType">
+			<property name="severity" value="warning" />
+		</module>
 
 		<!--
 			Ensures that exceptions (defined as any class name
@@ -698,6 +715,7 @@
 				default: "^.*Exception$|^.*Error$"
 			<property name="format" value="^.*Exception$|^.*Error$" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -744,6 +762,7 @@
 				default: "^serialVersionUID$"
 			<property name="publicMemberPattern" value="^serialVersionUID$" />
 			-->
+			<property name="severity" value="warning" />
 		</module>
 
 		<!-- -->
@@ -2499,7 +2518,7 @@
 				default: 4
 			<property name="caseIndent" value="4" />
 			-->
-			<property name="severity" value="ignore" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
