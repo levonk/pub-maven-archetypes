@@ -1494,8 +1494,10 @@
 		<module name="DeclarationOrder">
 			<!-- default: false -->
 			<property name="ignoreConstructors" value="false" />
-			<!-- default: false -->
+			<!-- default: false
+				 @FIXME No Longer exists
 			<property name="ignoreMethods" value="false" />
+				 -->
 			<!-- default: false -->
 			<property name="ignoreModifiers" value="false" />
 			<property name="severity" value="warning" />
