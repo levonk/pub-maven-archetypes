@@ -10,7 +10,7 @@
 				<name>Eclipse Public License - v 1.0</name>
 			</names>
 			<urls>
-				<url>http://www.tobefilled.org/</url>
+				<url>http://www.eclipse.org/legal/epl-v10.html</url>
 			</urls>
 		</license>
 		<license>
@@ -89,13 +89,14 @@
 
 	<warning>
 		<license>
-			<id>GNU Lesser Public License (GLGPL)</id>
-			<description>GNU Lesser General Public License (GLPGL)</description>
+			<id>GNU Lesser Public License</id>
+			<description>GNU Lesser General Public License</description>
 			<names>
 				<name>GNU Lesser Public License</name>
 			</names>
 			<urls>
-				<url>http://www.tobefilled.org/</url>
+				<url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html</url>
+				<url>http://www.gnu.org/licenses/lgpl.html</url>
 			</urls>
 		</license>
 		<license>
@@ -109,6 +110,7 @@
 			<urls>
 				<url>http://www.gnu.org/licenses/gpl-2.0.html</url>
 				<url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+				<url>http://www.gnu.org/software/classpath/license.html</url>
 			</urls>
 		</license>
 		<license>

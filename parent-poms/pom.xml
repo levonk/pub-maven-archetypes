@@ -1017,6 +1017,11 @@
                         <version>2.0.39-SNAPSHOT</version>
                      </dependency>
                 </dependencies>
+				<configuration>
+					<excludes>
+						<exclude>net.jcip:jcip-annotations:1.0</exclude>
+					</excludes>
+				</configuration>
             </plugin>
             
 			<plugin>
