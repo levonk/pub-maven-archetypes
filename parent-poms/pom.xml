@@ -13,7 +13,7 @@
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
     <url>none</url>
-    <version>2.0.41.437-34a94a6</version>
+    <version>2.0.42.438-b9a7668</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -125,28 +125,28 @@
                     -Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
         -->
 
-
-        <!-- Static Analysis -->
-        <dependency>
-            <!-- groupId>net.sourceforge.findbugs</groupId -->
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <version>${findbugs-google2.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <!-- groupId>net.sourceforge.findbugs</groupId -->
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>${findbugs-google.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
     </dependencies>
 
     <dependencyManagement>
 		<dependencies>
+
+			<!-- Type Safety Annotations -->
+			<dependency>
+				<!-- groupId>net.sourceforge.findbugs</groupId -->
+				<groupId>com.google.code.findbugs</groupId>
+				<artifactId>annotations</artifactId>
+				<version>${findbugs-google2.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<dependency>
+				<!-- groupId>net.sourceforge.findbugs</groupId -->
+				<groupId>com.google.code.findbugs</groupId>
+				<artifactId>jsr305</artifactId>
+				<version>${findbugs-google.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
 			<!-- Runtime Testing -->
 			<dependency>
 				<!-- https://github.com/rawls238/Scientist4J -->
@@ -820,7 +820,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.41.437-34a94a6</version>
+                        <version>2.0.42.438-b9a7668</version>
                      </dependency>
                 </dependencies>
 				<configuration>
