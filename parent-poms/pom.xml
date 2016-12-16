@@ -125,28 +125,28 @@
                     -Durl=scp://maven.levonk.com.:/maven/repo/path -DrepositoryId=levonk.internal
         -->
 
-
-        <!-- Static Analysis -->
-        <dependency>
-            <!-- groupId>net.sourceforge.findbugs</groupId -->
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <version>${findbugs-google2.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <!-- groupId>net.sourceforge.findbugs</groupId -->
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>${findbugs-google.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
     </dependencies>
 
     <dependencyManagement>
 		<dependencies>
+
+			<!-- Type Safety Annotations -->
+			<dependency>
+				<!-- groupId>net.sourceforge.findbugs</groupId -->
+				<groupId>com.google.code.findbugs</groupId>
+				<artifactId>annotations</artifactId>
+				<version>${findbugs-google2.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<dependency>
+				<!-- groupId>net.sourceforge.findbugs</groupId -->
+				<groupId>com.google.code.findbugs</groupId>
+				<artifactId>jsr305</artifactId>
+				<version>${findbugs-google.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
 			<!-- Runtime Testing -->
 			<dependency>
 				<!-- https://github.com/rawls238/Scientist4J -->
