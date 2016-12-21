@@ -231,9 +231,11 @@ node {
                 println "[Jenkinsfile] $userInput2"
 
                 sh """
-                    OUTPUT=\$( ${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
-                    echo [Jenkinsfile] \$OUTPUT ;
-                    ${mvnCmd} -X -e  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release
+                    STAGING_REPO_IN=\$( ${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release ) ;
+                    STAGING_REPO_FILTERED=\$( echo \$STAGING_REPO_IN | grep comlevonk ) ;
+                    STAGING_REPO=\$( echo \$STAGING_REPO_FILTERED | cut -d\\ -f2 );
+                    echo [Jenkinsfile] STAGING_REPO_FILTERED \$STAGING_REPO_FILTERED , STAGING_REPO \$STAGING_REPO ;
+                    ${mvnCmd} -X -e  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$STAGING_REPO -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release
                    """
             }
         }
