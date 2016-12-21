@@ -109,7 +109,7 @@ node {
 		pushd $tmpdir
 		tar -xzf /tmp/mvn.licenses.gnupgd.tgz Users/wangj117/.gnupg/
 		mv Users/wangj117/.gnupg ''' + workSpace + '''/.gnupg
-		chmod 700 ''' + workSpace + '''/.gnupg
+		chmod -R 0700 ''' + workSpace + '''/.gnupg
 		cd ''' + workSpace + '''/.gnupg
 		ls
 		pwd
@@ -232,7 +232,7 @@ node {
 
                 sh """
                     STAGING_REPO_IN=\$( ${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release ) ;
-                    STAGING_REPO_FILTERED=\$( echo \$STAGING_REPO_IN | grep comlevonk ) ;
+                    STAGING_REPO_FILTERED=\$( echo \$STAGING_REPO_IN | grep comlevonk | grep -m1 OPEN  ) ;
                     STAGING_REPO=\$( echo \$STAGING_REPO_FILTERED | cut -d\\ -f2 );
                     echo [Jenkinsfile] STAGING_REPO_FILTERED \$STAGING_REPO_FILTERED , STAGING_REPO \$STAGING_REPO ;
                     ${mvnCmd} -X -e  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$STAGING_REPO -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release
