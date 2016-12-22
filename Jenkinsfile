@@ -7,14 +7,11 @@ node {
 	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
 	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer "
 
-	println ">>workSpace = ${workSpace}"
-	//println ">>ENVIRONMENTS follow:"
-	//println env.getEnvironment()
+	println "[Jenkinsfile] workSpace = ${workSpace}"
 
 
 	stage '1. Prep'
-	// Figure out a way to delete the workspace completely.
-	// deleteDir() or bash script
+	// Figure out a way to delete the workspace completely.  deleteDir() or bash script
 	println "[Jenkinsfile] Show branches"
 	sshagent(['wdsds-at-github']) {
 		checkout scm
@@ -41,7 +38,6 @@ node {
 	}
 
 	println "[Jenkinsfile] Short Circuit, jgitflow insists on clean working directory and it has a symlink bug"
-	//sh '''find ''' + workSpace + ''' -type l && echo No Symlinks because of jgitflow bug && false '''
 	sh '''[[ ! -z $(find ''' + workSpace + ''' -type l) ]] && echo "No Symlinks because of jgitflow bug" && false || true'''
 
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
@@ -132,8 +128,8 @@ node {
                 git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'ssh://git@github.com/DGHLJ/pub-maven-archetypes.git'
 
                 sh('git rev-parse HEAD > GIT_COMMIT')
-                def gitCommit=readFile('GIT_COMMIT')
-                def shortCommit=gitCommit.substring(0, 7)
+                String gitCommit=readFile('GIT_COMMIT')
+                String shortCommit=gitCommit.substring(0, 7)
 
 
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
@@ -146,23 +142,11 @@ node {
                 println '[Jenkinsfile] Install Extensions'
                 sh """
 					git branch -a
-                    for i in \$(ls -d */);
-                    do
-                        if [ -f \${i}pom.xml ]; then
-                            echo "[Jenkinsfile] cd \${i}";
-                            cd \${i}
-                            if [ ! -f ".mvn/extensions.xml" ]; then
-                                ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
-                            fi
-                            cd ..
-                        fi
-                    done
 
                     ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
 					pushd .
 					cd parent-poms
-                    ${mvnCmd} -PbuildServerPrep validate || true
-					${mvnCmd} io.takari:maven:wrapper
+                    ${mvnCmd} -PbuildServerPrep validate io.takari:maven:wrapper || true
 					popd
                    """
 
@@ -172,22 +156,17 @@ node {
 				sh 'git branch -a && git status'
 
 				stage '3. Finish Release'
-                sh """
-                    ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
-                   """
-
-                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
-                    println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
-                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
+				"${mvnCmd}  jgitflow:release-finish".execute();
 
 				println '[Jenkinsfile] Switch to Master Branch'
+				println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
                 sh """
                     git checkout -f master ;
                     git pull
                    """
 
 				println '[Jenkinsfile] Clean & Install'
-                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install"
+                "${mvnCmd}  -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install".execute();
 
 
 				stage '4. Publish Unit Test Reports'
@@ -203,43 +182,40 @@ node {
                 step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
 				stage '7. Deploy to Maven Central'
-                def userInput1 = input 'Deploy to Maven Central?'
+                def userInput1 = input 'Deploy to Maven Central staging?'
                 println "[Jenkinsfile] $userInput1"
 
-		println "[Jenkinsfile] ***** FIX THIS!!! *****"
-		println "[Jenkinsfile] -Move Maven command below to def above."
-		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
-		println "[Jenkinsfile] ***** FIX THIS!!! *****"
-
-                sh """
-                    cd parent-poms ;
-                    pwd ;
-                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-                    cd ../codequality ;
-                    pwd ;
-                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-                    cd ../licenses ;
-                    pwd ;
-                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-                   """
+				"${mvnCmd} --also-make --projects 'parent-poms,codequality,licenses' -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;".execute();
 
                 stage '8. Promote Staged Repository'
 		println "[Jenkinsfile] @TODO Update Changemanagement"
-		println "[Jenkinsfile] @TODO Set Moniotring Markers"
-		println "[Jenkinsfile] @TODO Communicate Stage"
-                def userInput2 = input 'Promote stage repository to release repository?'
+		println "[Jenkinsfile] @TODO Set Moniotring NewRelic, etc... Markers"
+		println "[Jenkinsfile] @TODO Communicate Stage via Slack, etc..."
+
+
+				println "[Jenkinsfile] Use Maven to determine our nexus staging respository"
+				StringBuilder sout = new StringBuilder();
+				StringBuilder serr = new StringBuilder();
+				String cmdListOfNexusRepos = "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release";
+				Process proc = cmdListOfNexusRepos.execute();
+				proc.consumeProcessOutput( sout, serr );
+				proc.waitForOrKill( 5 * 60 * 1000 );
+				
+				println "[Jenkinsfile] using output of nexus-staging:rc-list find ours"
+				String myRepo;
+				sout.eachLine { line ->
+					String (repoid, repostate, repodescription ) = line.split( ' ' );
+					if ( "OPEN".equals(repostate) && (repoid =~ /comlevonk/) ) {
+						myRepo = repoid;
+						break;
+					}
+				}
+                def userInput2 = input "Promote stage repository \"${myRepo}\" to release repository?"
                 println "[Jenkinsfile] $userInput2"
 
-                sh """
-                    STAGING_REPO_IN=\$( ${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release ) ;
-                    STAGING_REPO_FILTERED=\$( echo "\$STAGING_REPO_IN" | grep comlevonk | grep -m1 OPEN  ) ;
-                    STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
-                    echo [Jenkinsfile] STAGING_REPO_FILTERED \$STAGING_REPO_FILTERED , STAGING_REPO \$STAGING_REPO ;
-                    ${mvnCmd} -X -e  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$STAGING_REPO -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release
-                   """
+                "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=$myRepo -P maven-central-release".execute();
             }
         }
-
     }
 }
 /* vi: set filetype=groovy syntax=groovy noexpandtab tabstop=4 shiftwidth=4: */
