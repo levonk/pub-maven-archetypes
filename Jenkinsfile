@@ -171,7 +171,7 @@ node {
 				sh 'git branch -a && git status'
 
 				stage '3. Finish Release'
-                "${mvnCmd}  jgitflow:release-finish".execute();
+                sh "${mvnCmd}  jgitflow:release-finish"
 
                     println "[Jenkinsfile] ***** FIX THIS!!! *****"
                     println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
@@ -184,7 +184,7 @@ node {
                    """
 
 				println '[Jenkinsfile] Clean & Install'
-                "${mvnCmd} -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install".execute();
+                sh "${mvnCmd} -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install"
 
 
 				stage '4. Publish Unit Test Reports'
@@ -208,7 +208,7 @@ node {
 		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
-                "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;".execute();
+                sh "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;"
 
                 stage '8. Promote Staged Repository'
 		println "[Jenkinsfile] @TODO Update Changemanagement"
