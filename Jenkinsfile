@@ -204,7 +204,7 @@ node {
 				println "[Jenkinsfile] using output of nexus-staging:rc-list find ours"
 				String myRepo;
 				sout.eachLine { line ->
-					String (repoid, repostate, repodescription ) = line.split( ' ' );
+					def (repoid, repostate, repodescription ) = line.split( ' ' );
 					if ( "OPEN".equals(repostate) && (repoid =~ /comlevonk/) ) {
 						myRepo = repoid;
 						break;
