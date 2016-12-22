@@ -144,6 +144,18 @@ node {
                 println '[Jenkinsfile] Install Extensions'
                 sh """
 					git branch -a
+                    for i in \$(ls -d */);
+                    do
+                        if [ -f \${i}pom.xml ]; then
+                            echo "[Jenkinsfile] cd \${i}";
+                            cd \${i}
+                            if [ ! -f ".mvn/extensions.xml" ]; then
+                                ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
+                            fi
+                            cd ..
+                        fi
+                    done
+
 
                     ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
 					pushd .
@@ -159,9 +171,7 @@ node {
 				sh 'git branch -a && git status'
 
 				stage '3. Finish Release'
-                sh """
-                    ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
-                   """
+                "${mvnCmd}  jgitflow:release-finish".execute();
 
                     println "[Jenkinsfile] ***** FIX THIS!!! *****"
                     println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
@@ -174,7 +184,7 @@ node {
                    """
 
 				println '[Jenkinsfile] Clean & Install'
-                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install"
+                "${mvnCmd} -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install".execute();
 
 
 				stage '4. Publish Unit Test Reports'
@@ -198,17 +208,7 @@ node {
 		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
-                sh """
-                    cd parent-poms ;
-                    pwd ;
-                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-                    cd ../codequality ;
-                    pwd ;
-                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-                    cd ../licenses ;
-                    pwd ;
-                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-                   """
+                "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;".execute();
 
                 stage '8. Promote Staged Repository'
 		println "[Jenkinsfile] @TODO Update Changemanagement"
