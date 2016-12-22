@@ -207,7 +207,6 @@ node {
 					def (repoid, repostate, repodescription ) = line.split( ' ' );
 					if ( "OPEN".equals(repostate) && (repoid =~ /comlevonk/) ) {
 						myRepo = repoid;
-						break;
 					}
 				}
                 def userInput2 = input "Promote stage repository \"${myRepo}\" to release repository?"
