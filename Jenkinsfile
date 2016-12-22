@@ -7,11 +7,13 @@ node {
 	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
 	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer "
 
-	println "[Jenkinsfile] workSpace = ${workSpace}"
+	println "[Jenkinsfile] >>workSpace = ${workSpace}"
+	//println ">>ENVIRONMENTS follow:"
+	//println env.getEnvironment()
 
 
 	stage '1. Prep'
-	// Figure out a way to delete the workspace completely.  deleteDir() or bash script
+	// Figure out a way to delete the workspace completely. deleteDir() or bash script
 	println "[Jenkinsfile] Show branches"
 	sshagent(['wdsds-at-github']) {
 		checkout scm
@@ -128,8 +130,8 @@ node {
                 git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'ssh://git@github.com/DGHLJ/pub-maven-archetypes.git'
 
                 sh('git rev-parse HEAD > GIT_COMMIT')
-                String gitCommit=readFile('GIT_COMMIT')
-                String shortCommit=gitCommit.substring(0, 7)
+                def gitCommit=readFile('GIT_COMMIT')
+                def shortCommit=gitCommit.substring(0, 7)
 
 
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
@@ -146,7 +148,8 @@ node {
                     ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
 					pushd .
 					cd parent-poms
-                    ${mvnCmd} -PbuildServerPrep validate io.takari:maven:wrapper || true
+                    ${mvnCmd} -PbuildServerPrep validate || true
+					${mvnCmd} io.takari:maven:wrapper
 					popd
                    """
 
@@ -156,17 +159,22 @@ node {
 				sh 'git branch -a && git status'
 
 				stage '3. Finish Release'
-				"${mvnCmd}  jgitflow:release-finish".execute();
+                sh """
+                    ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
+                   """
+
+                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
+                    println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
+                    println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
 				println '[Jenkinsfile] Switch to Master Branch'
-				println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
                 sh """
                     git checkout -f master ;
                     git pull
                    """
 
 				println '[Jenkinsfile] Clean & Install'
-                "${mvnCmd}  -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install".execute();
+                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install"
 
 
 				stage '4. Publish Unit Test Reports'
@@ -182,39 +190,43 @@ node {
                 step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
 				stage '7. Deploy to Maven Central'
-                def userInput1 = input 'Deploy to Maven Central staging?'
+                def userInput1 = input 'Deploy to Maven Central?'
                 println "[Jenkinsfile] $userInput1"
 
-				"${mvnCmd} --also-make --projects 'parent-poms,codequality,licenses' -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;".execute();
+		println "[Jenkinsfile] ***** FIX THIS!!! *****"
+		println "[Jenkinsfile] -Move Maven command below to def above."
+		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
+		println "[Jenkinsfile] ***** FIX THIS!!! *****"
+
+                sh """
+                    cd parent-poms ;
+                    pwd ;
+                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    cd ../codequality ;
+                    pwd ;
+                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                    cd ../licenses ;
+                    pwd ;
+                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
+                   """
 
                 stage '8. Promote Staged Repository'
 		println "[Jenkinsfile] @TODO Update Changemanagement"
-		println "[Jenkinsfile] @TODO Set Moniotring NewRelic, etc... Markers"
-		println "[Jenkinsfile] @TODO Communicate Stage via Slack, etc..."
-
-
-				println "[Jenkinsfile] Use Maven to determine our nexus staging respository"
-				StringBuilder sout = new StringBuilder();
-				StringBuilder serr = new StringBuilder();
-				String cmdListOfNexusRepos = "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release";
-				Process proc = cmdListOfNexusRepos.execute();
-				proc.consumeProcessOutput( sout, serr );
-				proc.waitForOrKill( 5 * 60 * 1000 );
-				
-				println "[Jenkinsfile] using output of nexus-staging:rc-list find ours"
-				String myRepo;
-				sout.eachLine { line ->
-					def (repoid, repostate, repodescription ) = line.split( ' ' );
-					if ( "OPEN".equals(repostate) && (repoid =~ /comlevonk/) ) {
-						myRepo = repoid;
-					}
-				}
-                def userInput2 = input "Promote stage repository \"${myRepo}\" to release repository?"
+		println "[Jenkinsfile] @TODO Set Moniotring Markers"
+		println "[Jenkinsfile] @TODO Communicate Stage"
+                def userInput2 = input 'Promote stage repository to release repository?'
                 println "[Jenkinsfile] $userInput2"
 
-                "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=$myRepo -P maven-central-release".execute();
+                sh """
+                    STAGING_REPO_IN=\$( ${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release ) ;
+                    STAGING_REPO_FILTERED=\$( echo "\$STAGING_REPO_IN" | grep comlevonk | grep -m1 OPEN  ) ;
+                    STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
+                    echo [Jenkinsfile] STAGING_REPO_FILTERED \$STAGING_REPO_FILTERED , STAGING_REPO \$STAGING_REPO ;
+                    ${mvnCmd} -X -e  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$STAGING_REPO -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release
+                   """
             }
         }
+
     }
 }
 /* vi: set filetype=groovy syntax=groovy noexpandtab tabstop=4 shiftwidth=4: */
