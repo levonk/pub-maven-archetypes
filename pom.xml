@@ -5,7 +5,7 @@
 	<artifactId>maven-codequalities-parent</artifactId>
 	<name>Root POM</name>
 	<packaging>pom</packaging>
-	<version>2.0.56.457-8a0063e-SNAPSHOT</version>
+	<version>2.0.56.457-8a0063e</version>
 
 	<licenses>
 		<license>
