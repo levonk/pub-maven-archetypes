@@ -13,7 +13,7 @@
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
     <url>none</url>
-    <version>2.0.55.456-0e3a434</version>
+    <version>2.0.56-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -820,7 +820,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.55.456-0e3a434</version>
+                        <version>2.0.56-SNAPSHOT</version>
                      </dependency>
                 </dependencies>
 				<configuration>
