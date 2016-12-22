@@ -7,14 +7,13 @@ node {
 	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
 	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer "
 
-	println ">>workSpace = ${workSpace}"
+	println "[Jenkinsfile] >>workSpace = ${workSpace}"
 	//println ">>ENVIRONMENTS follow:"
 	//println env.getEnvironment()
 
 
 	stage '1. Prep'
-	// Figure out a way to delete the workspace completely.
-	// deleteDir() or bash script
+	// Figure out a way to delete the workspace completely. deleteDir() or bash script
 	println "[Jenkinsfile] Show branches"
 	sshagent(['wdsds-at-github']) {
 		checkout scm
@@ -41,7 +40,6 @@ node {
 	}
 
 	println "[Jenkinsfile] Short Circuit, jgitflow insists on clean working directory and it has a symlink bug"
-	//sh '''find ''' + workSpace + ''' -type l && echo No Symlinks because of jgitflow bug && false '''
 	sh '''[[ ! -z $(find ''' + workSpace + ''' -type l) ]] && echo "No Symlinks because of jgitflow bug" && false || true'''
 
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
@@ -146,17 +144,6 @@ node {
                 println '[Jenkinsfile] Install Extensions'
                 sh """
 					git branch -a
-                    for i in \$(ls -d */);
-                    do
-                        if [ -f \${i}pom.xml ]; then
-                            echo "[Jenkinsfile] cd \${i}";
-                            cd \${i}
-                            if [ ! -f ".mvn/extensions.xml" ]; then
-                                ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
-                            fi
-                            cd ..
-                        fi
-                    done
 
                     ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
 					pushd .
