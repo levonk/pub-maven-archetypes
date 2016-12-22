@@ -130,8 +130,8 @@ node {
                 git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'ssh://git@github.com/DGHLJ/pub-maven-archetypes.git'
 
                 sh('git rev-parse HEAD > GIT_COMMIT')
-                def gitCommit=readFile('GIT_COMMIT')
-                def shortCommit=gitCommit.substring(0, 7)
+                String gitCommit=readFile('GIT_COMMIT')
+                String shortCommit=gitCommit.substring(0, 7)
 
 
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
@@ -200,8 +200,8 @@ node {
                 step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
 				stage '7. Deploy to Maven Central'
-                def userInput1 = input 'Deploy to Maven Central?'
-                println "[Jenkinsfile] $userInput1"
+                String userInputStaging = input 'Deploy to Maven Central Staging Repository?'
+                println "[Jenkinsfile] $userInputStaging"
 
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 		println "[Jenkinsfile] -Move Maven command below to def above."
@@ -214,16 +214,16 @@ node {
 		println "[Jenkinsfile] @TODO Update Changemanagement"
 		println "[Jenkinsfile] @TODO Set Moniotring Markers"
 		println "[Jenkinsfile] @TODO Communicate Stage"
-                def userInput2 = input 'Promote stage repository to release repository?'
-                println "[Jenkinsfile] $userInput2"
-
                 sh """
                     STAGING_REPO_IN=\$( ${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release ) ;
                     STAGING_REPO_FILTERED=\$( echo "\$STAGING_REPO_IN" | grep comlevonk | grep -m1 OPEN  ) ;
-                    STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
-                    echo [Jenkinsfile] STAGING_REPO_FILTERED \$STAGING_REPO_FILTERED , STAGING_REPO \$STAGING_REPO ;
-                    ${mvnCmd} -X -e  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$STAGING_REPO -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release
-                   """
+                    export STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
+                    echo [Jenkinsfile] STAGING_REPO \$STAGING_REPO ;
+				"""
+                String userInputProd = input 'Promote stage repository "${env.STAGING_REPO}" to release repository?'
+                println "[Jenkinsfile] Promote stage repo to ${env.STAGING_REPO} response $userInputProd"
+
+                sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$STAGING_REPO -P maven-central-release"
             }
         }
 
