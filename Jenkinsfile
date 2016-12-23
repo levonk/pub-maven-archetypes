@@ -243,7 +243,7 @@ def installCoreExtensions( String mvn ) {
 				cd ..
 			fi
 		done
-		// create a list and then add this directory to it and loop through list
+		# create a list and then add this directory to it and loop through list
 		(${mvn} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true) 2>&1 >/dev/null
 	"""
 }
