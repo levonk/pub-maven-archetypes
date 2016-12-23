@@ -31,8 +31,8 @@ node {
 			sh '''{
 				git branch
 				currBranch=`git symbolic-ref --short HEAD`
-				git checkout --depth=1 master && git pull
-				git checkout --depth=1 $currBranch
+				git checkout master && git pull
+				git checkout $currBranch
 				git branch
 				git status
 			}'''
@@ -171,7 +171,7 @@ node {
 
 				println '[Jenkinsfile] Switch to Master Branch'
                 sh """
-                    git checkout --depth=1 -f master ;
+                    git checkout -f master ;
                     git pull
                    """
 
