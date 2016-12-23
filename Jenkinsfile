@@ -149,6 +149,7 @@ node {
 
                 println '[Jenkinsfile] Install Extensions'
 				installCoreExtensions( mvnCmd );
+				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml"
 				sh """
 					pushd .
 					cd parent-poms
@@ -194,14 +195,14 @@ node {
 
 				stage '7. Deploy to Maven Central'
                 String userInputStaging = input "Deploy to Maven Central Staging Repository?"
-                println "[Jenkinsfile] $userInputStaging"
+                println "[Jenkinsfile] Deploy to Maven Central Staging Repo: $userInputStaging"
 
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 		println "[Jenkinsfile] -Move Maven command below to def above."
 		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
-				installCoreExtensions( mvnCmd );
+				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml"
                 sh "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;"
 
                 stage '8. Promote Staged Repository'
