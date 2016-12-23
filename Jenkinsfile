@@ -4,8 +4,8 @@ import hudson.util.*
 node {
 	def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
 	def workSpace = pwd()
-	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
-	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer "
+	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer " // -T1.5C
+
 
 	println "[Jenkinsfile] >>workSpace = ${workSpace}"
 	//println ">>ENVIRONMENTS follow:"
@@ -148,32 +148,14 @@ node {
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
                 println '[Jenkinsfile] Install Extensions'
-				/* */
-                sh """
-					git branch -a
-                    for i in \$(ls -d */ );
-                    do
-						echo "[Jenkinsfile] desire to run corext-maven-plugin:install for  \${i}";
-                        if [ -f \${i}pom.xml ]; then
-                            echo "[Jenkinsfile] RUNNING corext-maven-plugin:install for  \${i}";
-                            cd \${i}
-                            if [ ! -f ".mvn/extensions.xml" ]; then
-                                ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
-							else
-								echo "[Jenkinsfile] not running in \${i} as \${i}/.mvn/extensions.xml exists"
-                            fi
-                            cd ..
-                        fi
-                    done
-
-
-                    ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
+				installCoreExtensions( mvnCmd );
+				sh """
 					pushd .
 					cd parent-poms
                     ${mvnCmd} -PbuildServerPrep validate || true
 					${mvnCmd} io.takari:maven:wrapper
 					popd
-                   """
+				"""
 
 				stage '2. Start Release'
 				sh 'git branch -a && git status'
@@ -233,11 +215,36 @@ node {
 				"""
                 String userInputProd = input "Promote in stage repository "${env.STAGING_REPO}" to release repository?"
                 println "[Jenkinsfile] Promote stage repo to ${env.STAGING_REPO} response $userInputProd"
+				installCoreExtensions( mvnCmd );
+				sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\${STAGING_REPO} -P maven-central-release"
+			}
+		}
+	}
+}
 
-                sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\${STAGING_REPO} -P maven-central-release"
-            }
-        }
-
-    }
+def installCoreExtensions( String mvn ) {
+	println '[Jenkinsfile] Install Extensions'
+	/* */
+	sh """
+		git branch -a
+		for i in \$(ls -d */ );
+		do
+			echo "[Jenkinsfile] desire to run corext-maven-plugin:install for  \${i}";
+			if [ -f \${i}pom.xml ]; then
+				echo "[Jenkinsfile] RUNNING corext-maven-plugin:install for  \${i}";
+				cd \${i}
+				if [ ! -f ".mvn/extensions.xml" ]; then
+					(${mvn} com.github.sviperll:coreext-maven-plugin:check || \
+							${mvn} com.github.sviperll:coreext-maven-plugin:install || \
+							true) 2>&1 >/dev/null
+				else
+					echo "[Jenkinsfile] not running in \${i} as \${i}/.mvn/extensions.xml exists"
+				fi
+				cd ..
+			fi
+		done
+		# create a list and then add this directory to it and loop through list
+		(${mvn} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true) 2>&1 >/dev/null
+	"""
 }
 /* vi: set filetype=groovy syntax=groovy noexpandtab tabstop=4 shiftwidth=4: */
