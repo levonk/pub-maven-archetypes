@@ -201,6 +201,7 @@ node {
 		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
+				installCoreExtensions( mvnCmd );
                 sh "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;"
 
                 stage '8. Promote Staged Repository'
@@ -215,7 +216,6 @@ node {
 				"""
                 String userInputProd = input "Promote in stage repository "${env.STAGING_REPO}" to release repository?"
                 println "[Jenkinsfile] Promote stage repo to ${env.STAGING_REPO} response $userInputProd"
-				installCoreExtensions( mvnCmd );
 				sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\${STAGING_REPO} -P maven-central-release"
 			}
 		}
