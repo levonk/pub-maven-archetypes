@@ -167,11 +167,7 @@ node {
 
 				stage '2. Start Release'
 				sh 'git branch -a && git status'
-				String majorMinorVersion = "${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.";
-				String releaseVersion = "${majorMinorVersion}.${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit";
-				String developVersion = "${majorMinorVersion}.${parsedVersion.nextIncrementalVersion}-SNAPSHOT";
-
-                sh "${mvnCmd}  -X build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${releaseVersion} -DdevelopmentVersion=\\\${developVersion} -e || (git remote -v && git status --ignored -u --porcelain && git remote show origin && false)"
+                sh "${mvnCmd}  -X build-helper:parse-version jgitflow:release-start -DreleaseVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.incrementalVersion}.${currentBuild.number}-$shortCommit -DdevelopmentVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -e || (git remote -v && git status --ignored -u --porcelain && git remote show origin && false)"
 				sh 'git branch -a && git status'
 
 				stage '3. Finish Release'
@@ -204,7 +200,7 @@ node {
                 step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
 				stage '7. Deploy to Maven Central'
-                String userInputStaging = input "Deploy ${releaseVersion} to Maven Central Staging Repository?"
+                String userInputStaging = input "Deploy to Maven Central Staging Repository?"
                 println "[Jenkinsfile] $userInputStaging"
 
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
@@ -224,7 +220,7 @@ node {
                     export STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
                     echo [Jenkinsfile] STAGING_REPO \$STAGING_REPO ;
 				"""
-                String userInputProd = input "Promote ${releaseVersion} in stage repository "${env.STAGING_REPO}" to release repository?"
+                String userInputProd = input "Promote in stage repository "${env.STAGING_REPO}" to release repository?"
                 println "[Jenkinsfile] Promote stage repo to ${env.STAGING_REPO} response $userInputProd"
 
                 sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\${STAGING_REPO} -P maven-central-release"
