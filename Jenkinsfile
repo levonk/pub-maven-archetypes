@@ -1,12 +1,11 @@
 import hudson.model.*
 import hudson.util.*
 
-def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
-def workSpace = pwd()
-// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
-def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer "
-
 node {
+	def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
+	def workSpace = pwd()
+	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer " // -T1.5C
+
 
 	println "[Jenkinsfile] >>workSpace = ${workSpace}"
 	//println ">>ENVIRONMENTS follow:"
@@ -149,7 +148,7 @@ node {
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
                 println '[Jenkinsfile] Install Extensions'
-				installCoreExtensions();
+				installCoreExtensions( mvnCmd );
 				sh """
 					pushd .
 					cd parent-poms
@@ -216,14 +215,14 @@ node {
 				"""
                 String userInputProd = input "Promote in stage repository "${env.STAGING_REPO}" to release repository?"
                 println "[Jenkinsfile] Promote stage repo to ${env.STAGING_REPO} response $userInputProd"
-				installCoreExtensions();
+				installCoreExtensions( mvnCmd );
 				sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\${STAGING_REPO} -P maven-central-release"
 			}
 		}
 	}
 }
 
-def installCoreExtensions() {
+def installCoreExtensions( String mvn ) {
 	println '[Jenkinsfile] Install Extensions'
 	/* */
 	sh """
@@ -235,7 +234,7 @@ def installCoreExtensions() {
 				echo "[Jenkinsfile] RUNNING corext-maven-plugin:install for  \${i}";
 				cd \${i}
 				if [ ! -f ".mvn/extensions.xml" ]; then
-					(${mvnCmd} com.github.sviperll:coreext-maven-plugin:check || \
+					(${mvn} com.github.sviperll:coreext-maven-plugin:check || \
 							${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || \
 							true) 2>&1 >/dev/null
 				else
@@ -245,7 +244,7 @@ def installCoreExtensions() {
 			fi
 		done
 		// create a list and then add this directory to it and loop through list
-		(${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true) 2>&1 >/dev/null
+		(${mvn} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true) 2>&1 >/dev/null
 	"""
 }
 /* vi: set filetype=groovy syntax=groovy noexpandtab tabstop=4 shiftwidth=4: */
