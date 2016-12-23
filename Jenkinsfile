@@ -200,7 +200,7 @@ node {
                 step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
 				stage '7. Deploy to Maven Central'
-                String userInputStaging = input 'Deploy to Maven Central Staging Repository?'
+                String userInputStaging = input "Deploy to Maven Central Staging Repository?"
                 println "[Jenkinsfile] $userInputStaging"
 
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
@@ -220,10 +220,10 @@ node {
                     export STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
                     echo [Jenkinsfile] STAGING_REPO \$STAGING_REPO ;
 				"""
-                String userInputProd = input 'Promote stage repository "${env.STAGING_REPO}" to release repository?'
+                String userInputProd = input "Promote in stage repository "${env.STAGING_REPO}" to release repository?"
                 println "[Jenkinsfile] Promote stage repo to ${env.STAGING_REPO} response $userInputProd"
 
-                sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$STAGING_REPO -P maven-central-release"
+                sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\${STAGING_REPO} -P maven-central-release"
             }
         }
 
