@@ -142,7 +142,6 @@ node {
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
                 println '[Jenkinsfile] Install Extensions'
-				/*
                 sh """
 					git branch -a
                     for i in \$(ls -d * );
@@ -152,6 +151,8 @@ node {
                             cd \${i}
                             if [ ! -f ".mvn/extensions.xml" ]; then
                                 ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
+							else
+								echo "not running in \${i} as \${i}/.mvn/extensions.xml exists"
                             fi
                             cd ..
                         fi
@@ -165,8 +166,6 @@ node {
 					${mvnCmd} io.takari:maven:wrapper
 					popd
                    """
-				   */
-					sh "${mvnCmd} --projects parent-poms,codequality,licenses,test-project com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null"
 
 				stage '2. Start Release'
 				sh 'git branch -a && git status'
