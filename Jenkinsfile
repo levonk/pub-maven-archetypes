@@ -144,7 +144,7 @@ node {
                 println '[Jenkinsfile] Install Extensions'
                 sh """
 					git branch -a
-                    for i in \$(ls -d * );
+                    for i in \$(ls -d */ );
                     do
                         if [ -f \${i}pom.xml ]; then
                             echo "[Jenkinsfile] cd \${i}";
