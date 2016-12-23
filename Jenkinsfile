@@ -107,7 +107,9 @@ node {
 		pushd $tmpdir
 		tar -xzf /tmp/mvn.licenses.gnupgd.tgz Users/wangj117/.gnupg/
 		mv Users/wangj117/.gnupg ''' + workSpace + '''/.gnupg
+		chown -R "${USER}:$(id -gn)" ''' + workSpace + '''/.gnupg
 		chmod -R 0700 ''' + workSpace + '''/.gnupg
+		chmod -R 0600 ''' + workSpace + '''/.gnupg/*
 		cd ''' + workSpace + '''/.gnupg
 		ls
 		pwd
