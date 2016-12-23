@@ -142,9 +142,10 @@ node {
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
                 println '[Jenkinsfile] Install Extensions'
+				/*
                 sh """
 					git branch -a
-                    for i in \$(ls -d */);
+                    for i in \$(ls -d * );
                     do
                         if [ -f \${i}pom.xml ]; then
                             echo "[Jenkinsfile] cd \${i}";
@@ -164,6 +165,8 @@ node {
 					${mvnCmd} io.takari:maven:wrapper
 					popd
                    """
+				   */
+					sh "${mvnCmd} --projects parent-poms,codequality,licenses,test-project com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null"
 
 				stage '2. Start Release'
 				sh 'git branch -a && git status'
@@ -193,8 +196,9 @@ node {
 				stage '5. Publish Code Quality Reports'
                 step([$class: 'FindBugsPublisher', canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '', unHealthy: ''])
                 step([$class: 'CheckStylePublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
-                step([$class: 'PmdPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
                 step([$class: 'AnalysisPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''])
+				println "[Jenkinsfile] PMD plugin in Jenkins has problems with parsing our file for some reason"
+                step([$class: 'PmdPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
 
 				stage '6. Archive Artifacts'
                 step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
