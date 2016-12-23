@@ -55,6 +55,7 @@ node {
 	}'''
 
 	println "[Jenkinsfile] Ensure AWS CLI"
+	/* */
 	sh '''which aws || {
 			sudo=""
 			if [[ $EUID -ne 0 ]]; then
@@ -79,6 +80,7 @@ node {
 			eval $cmd
 		}
 	'''
+	/* */
 
 	println "[Jenkinsfile] Ensure jq"
 	sh '''which jq || {
@@ -100,6 +102,7 @@ node {
 	println "[Jenkinsfile] -Should not have to use a folder with wangj117 as the name."
 	println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
+	/* */
 	sh '''test -d ''' + workSpace + '''/.gnupg || {
 		aws s3 cp s3://studios-se-keys/bi/jenkins/mvn.licenses.gnupgd.tgz /tmp/mvn.licenses.gnupgd.tgz 
 		tmpdir=/tmp/gnupg.`date +%s`
@@ -115,6 +118,7 @@ node {
 		pwd
 		popd
 	}'''
+	/* */
 
 	println "[Jenkinsfile] Ensure Maven"
 
@@ -144,6 +148,7 @@ node {
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
                 println '[Jenkinsfile] Install Extensions'
+				/* */
                 sh """
 					git branch -a
                     for i in \$(ls -d */ );
