@@ -153,13 +153,14 @@ node {
 					git branch -a
                     for i in \$(ls -d */ );
                     do
+						echo "[Jenkinsfile] desire to run corext-maven-plugin:install for  \${i}";
                         if [ -f \${i}pom.xml ]; then
-                            echo "[Jenkinsfile] cd \${i}";
+                            echo "[Jenkinsfile] RUNNING corext-maven-plugin:install for  \${i}";
                             cd \${i}
                             if [ ! -f ".mvn/extensions.xml" ]; then
                                 ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
 							else
-								echo "not running in \${i} as \${i}/.mvn/extensions.xml exists"
+								echo "[Jenkinsfile] not running in \${i} as \${i}/.mvn/extensions.xml exists"
                             fi
                             cd ..
                         fi
