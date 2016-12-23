@@ -3,7 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.levonk</groupId>
 	<artifactId>maven-codequalities-parent</artifactId>
-	<name>Root POM</name>
+	<name>Internal Root POM</name>
+    <description>multi-module pom to distribute parent poms</description>
 	<packaging>pom</packaging>
 	<version>2.0.62-SNAPSHOT</version>
 

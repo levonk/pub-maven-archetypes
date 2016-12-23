@@ -12,6 +12,7 @@
 	<groupId>com.levonk.codequality</groupId>
     <artifactId>pom</artifactId>
     <name>Parent POM</name>
+    <description>Spring Boot LK Parent POM</description>
     <url>none</url>
     <version>2.0.62-SNAPSHOT</version>
     <packaging>pom</packaging>
