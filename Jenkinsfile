@@ -148,7 +148,7 @@ node {
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
                 println '[Jenkinsfile] Install Extensions'
-				installCoreExtensions( mvnCmd );
+				installCoreExtensions( this.mvnCmd );
 				sh """
 					pushd .
 					cd parent-poms
@@ -215,7 +215,7 @@ node {
 				"""
                 String userInputProd = input "Promote in stage repository "${env.STAGING_REPO}" to release repository?"
                 println "[Jenkinsfile] Promote stage repo to ${env.STAGING_REPO} response $userInputProd"
-				installCoreExtensions( mvnCmd );
+				installCoreExtensions( this.mvnCmd );
 				sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\${STAGING_REPO} -P maven-central-release"
 			}
 		}
