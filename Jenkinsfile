@@ -4,17 +4,16 @@ import hudson.util.*
 node {
 	def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
 	def workSpace = pwd()
-	// def mvnCmd = "${mvnHome}/bin/mvn -s settings.xml --show-version --fail-at-end --errors --batch-mode --strict-checksums -T 1.5C "
-	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer "
+	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer " // -T1.5C
 
-	println ">>workSpace = ${workSpace}"
+
+	println "[Jenkinsfile] >>workSpace = ${workSpace}"
 	//println ">>ENVIRONMENTS follow:"
 	//println env.getEnvironment()
 
 
 	stage '1. Prep'
-	// Figure out a way to delete the workspace completely.
-	// deleteDir() or bash script
+	// Figure out a way to delete the workspace completely. deleteDir() or bash script
 	println "[Jenkinsfile] Show branches"
 	sshagent(['wdsds-at-github']) {
 		checkout scm
@@ -41,7 +40,6 @@ node {
 	}
 
 	println "[Jenkinsfile] Short Circuit, jgitflow insists on clean working directory and it has a symlink bug"
-	//sh '''find ''' + workSpace + ''' -type l && echo No Symlinks because of jgitflow bug && false '''
 	sh '''[[ ! -z $(find ''' + workSpace + ''' -type l) ]] && echo "No Symlinks because of jgitflow bug" && false || true'''
 
 	println "[Jenkinsfile] Remove GPG Keys from Jenkins"
@@ -57,6 +55,7 @@ node {
 	}'''
 
 	println "[Jenkinsfile] Ensure AWS CLI"
+	/* */
 	sh '''which aws || {
 			sudo=""
 			if [[ $EUID -ne 0 ]]; then
@@ -81,6 +80,7 @@ node {
 			eval $cmd
 		}
 	'''
+	/* */
 
 	println "[Jenkinsfile] Ensure jq"
 	sh '''which jq || {
@@ -102,6 +102,7 @@ node {
 	println "[Jenkinsfile] -Should not have to use a folder with wangj117 as the name."
 	println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
+	/* */
 	sh '''test -d ''' + workSpace + '''/.gnupg || {
 		aws s3 cp s3://studios-se-keys/bi/jenkins/mvn.licenses.gnupgd.tgz /tmp/mvn.licenses.gnupgd.tgz 
 		tmpdir=/tmp/gnupg.`date +%s`
@@ -109,12 +110,15 @@ node {
 		pushd $tmpdir
 		tar -xzf /tmp/mvn.licenses.gnupgd.tgz Users/wangj117/.gnupg/
 		mv Users/wangj117/.gnupg ''' + workSpace + '''/.gnupg
-		chmod 700 ''' + workSpace + '''/.gnupg
+		chown -R "${USER}:$(id -gn)" ''' + workSpace + '''/.gnupg
+		chmod -R 0700 ''' + workSpace + '''/.gnupg
+		chmod -R 0600 ''' + workSpace + '''/.gnupg/*
 		cd ''' + workSpace + '''/.gnupg
 		ls
 		pwd
 		popd
 	}'''
+	/* */
 
 	println "[Jenkinsfile] Ensure Maven"
 
@@ -132,8 +136,8 @@ node {
                 git branch: 'develop', credentialsId: 'wdsds-at-github', url: 'ssh://git@github.com/DGHLJ/pub-maven-archetypes.git'
 
                 sh('git rev-parse HEAD > GIT_COMMIT')
-                def gitCommit=readFile('GIT_COMMIT')
-                def shortCommit=gitCommit.substring(0, 7)
+                String gitCommit=readFile('GIT_COMMIT')
+                String shortCommit=gitCommit.substring(0, 7)
 
 
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
@@ -144,27 +148,15 @@ node {
                 sh 'export AWS_SECRET_ACCESS_KEY=$( curl -s  169.254.169.254/latest/meta-data/iam/security-credentials/adm-wds-docker | jq -r .SecretAccessKey  )'
 
                 println '[Jenkinsfile] Install Extensions'
-                sh """
-					git branch -a
-                    for i in \$(ls -d */);
-                    do
-                        if [ -f \${i}pom.xml ]; then
-                            echo "[Jenkinsfile] cd \${i}";
-                            cd \${i}
-                            if [ ! -f ".mvn/extensions.xml" ]; then
-                                ${mvnCmd} com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
-                            fi
-                            cd ..
-                        fi
-                    done
-
-                    ${mvnCmd} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true 2>&1 >/dev/null
+				installCoreExtensions( mvnCmd );
+				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml"
+				sh """
 					pushd .
 					cd parent-poms
                     ${mvnCmd} -PbuildServerPrep validate || true
 					${mvnCmd} io.takari:maven:wrapper
 					popd
-                   """
+				"""
 
 				stage '2. Start Release'
 				sh 'git branch -a && git status'
@@ -172,9 +164,7 @@ node {
 				sh 'git branch -a && git status'
 
 				stage '3. Finish Release'
-                sh """
-                    ${mvnCmd}  jgitflow:release-finish -Denforcer.skip=true
-                   """
+                sh "${mvnCmd}  jgitflow:release-finish"
 
                     println "[Jenkinsfile] ***** FIX THIS!!! *****"
                     println "[Jenkinsfile] -Should checkout release/X.X.X.X-XXXXXX tag."
@@ -187,7 +177,7 @@ node {
                    """
 
 				println '[Jenkinsfile] Clean & Install'
-                sh "${mvnCmd}  -Dmaven.test.failure.ignore -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install"
+                sh "${mvnCmd} -Dmaven.multiModuleProjectDirectory=. -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg clean install"
 
 
 				stage '4. Publish Unit Test Reports'
@@ -196,48 +186,66 @@ node {
 				stage '5. Publish Code Quality Reports'
                 step([$class: 'FindBugsPublisher', canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '', unHealthy: ''])
                 step([$class: 'CheckStylePublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
-                step([$class: 'PmdPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
                 step([$class: 'AnalysisPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''])
+				println "[Jenkinsfile] PMD plugin in Jenkins has problems with parsing our file for some reason"
+                step([$class: 'PmdPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
 
 				stage '6. Archive Artifacts'
                 step([$class: 'ArtifactArchiver', artifacts: '**/*.*', excludes: null])
 
 				stage '7. Deploy to Maven Central'
-                def userInput1 = input 'Deploy to Maven Central?'
-                println "[Jenkinsfile] $userInput1"
+                String userInputStaging = input "Deploy to Maven Central Staging Repository?"
+                println "[Jenkinsfile] Deploy to Maven Central Staging Repo: $userInputStaging"
 
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 		println "[Jenkinsfile] -Move Maven command below to def above."
 		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
-                sh """
-                    cd parent-poms ;
-                    pwd ;
-                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-                    cd ../codequality ;
-                    pwd ;
-                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-                    cd ../licenses ;
-                    pwd ;
-                    ${mvnCmd} -Dmaven.test.failure.ignore -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;
-                   """
+				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml"
+                sh "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;"
 
                 stage '8. Promote Staged Repository'
 		println "[Jenkinsfile] @TODO Update Changemanagement"
 		println "[Jenkinsfile] @TODO Set Moniotring Markers"
 		println "[Jenkinsfile] @TODO Communicate Stage"
-                def userInput2 = input 'Promote stage repository to release repository?'
-                println "[Jenkinsfile] $userInput2"
-
                 sh """
-                    OUTPUT=\$( ${mvnCmd}  nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release | grep comlevonk | cut -d\\  -f2 ) ;
-                    echo [Jenkinsfile] \$OUTPUT ;
-                    ${mvnCmd}  nexus-staging:close nexus-staging:release -DstagingRepositoryId=\$OUTPUT -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release -e
-                   """
-            }
-        }
+                    STAGING_REPO_IN=\$( ${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release ) ;
+                    STAGING_REPO_FILTERED=\$( echo "\$STAGING_REPO_IN" | grep comlevonk | grep -m1 OPEN  ) ;
+                    export STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
+                    echo [Jenkinsfile] STAGING_REPO \$STAGING_REPO ;
+				"""
+                String userInputProd = input "Promote in stage repository "${env.STAGING_REPO}" to release repository?"
+                println "[Jenkinsfile] Promote stage repo to ${env.STAGING_REPO} response $userInputProd"
+				sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\${STAGING_REPO} -P maven-central-release"
+			}
+		}
+	}
+}
 
-    }
+def installCoreExtensions( String mvn ) {
+	println '[Jenkinsfile] Install Extensions'
+	/* */
+	sh """
+		git branch -a
+		for i in \$(ls -d */ );
+		do
+			echo "[Jenkinsfile] desire to run corext-maven-plugin:install for  \${i}";
+			if [ -f \${i}pom.xml ]; then
+				echo "[Jenkinsfile] RUNNING corext-maven-plugin:install for  \${i}";
+				cd \${i}
+				if [ ! -f ".mvn/extensions.xml" ]; then
+					(${mvn} com.github.sviperll:coreext-maven-plugin:check || \
+							${mvn} com.github.sviperll:coreext-maven-plugin:install || \
+							true) 2>&1 >/dev/null
+				else
+					echo "[Jenkinsfile] not running in \${i} as \${i}/.mvn/extensions.xml exists"
+				fi
+				cd ..
+			fi
+		done
+		# create a list and then add this directory to it and loop through list
+		(${mvn} -Dmaven.multiModuleProjectDirectory=. com.github.sviperll:coreext-maven-plugin:install || true) 2>&1 >/dev/null
+	"""
 }
 /* vi: set filetype=groovy syntax=groovy noexpandtab tabstop=4 shiftwidth=4: */
