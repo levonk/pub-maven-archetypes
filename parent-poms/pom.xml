@@ -394,6 +394,17 @@
                 <artifactId>spring-boot-starter-websocket</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server</artifactId>
+				<version>${spring-boot-admin-server.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server-ui</artifactId>
+				<version>${spring-boot-admin-server.version}</version>
+			</dependency>
+
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
@@ -1338,6 +1349,7 @@
 		<docker.version>0.4.1</docker.version>
 		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
 		<spring-boot.version>1.3.1.RELEASE</spring-boot.version>
+		<spring-boot-admin-server.version>1.4.4</spring-boot-admin-server.version>	<!-- 2016-12-28 -->
 		<checkstyle.version>2.17</checkstyle.version>	<!-- 2015-10-06 -->
 		<checkstylepuppycrawl.version>6.11.2</checkstylepuppycrawl.version>	<!-- 2015-10-06 -->
 		<commonslang.version>2.6</commonslang.version>
