@@ -203,8 +203,8 @@ node {
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
 				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml"
-				mavenCentralRelease = sh( returnStdOut: true, script: "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release" );
-			println "[Jenkinsfile] got output $mavenCentralRelease"
+				def mavenCentralRelease = sh( returnStdout: true, script: "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release" );
+			println "[Jenkinsfile] got output from mavenCentralRelease $mavenCentralRelease"
 				mavenCentralRelease.eachline { line ->
 					println "[Jenkinsfile] attempt match $line"
 					m = line =~ / staging repository with ID "(comlevonk-[0-9]+)".$/;
@@ -226,7 +226,7 @@ node {
 				"""
 */
 				// Begin attempt to groovyize above
-				nexusListOutput = sh( returnStdOut: true, script: "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release" );
+				def nexusListOutput = sh( returnStdout: true, script: "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release" );
 				String stagingRepo = "";
 			println "[Jenkinsfile] got output $nexusListOutput"
 				nexusListOutput.splitEachLine(' ') { items ->
