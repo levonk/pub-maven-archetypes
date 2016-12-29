@@ -288,6 +288,12 @@
                 </exclusions>
             </dependency>
 
+			<dependency>
+				<groupId>be.ordina</groupId>
+				<artifactId>microservices-dashboard-server</artifactId>
+				<version>${microservices-dashboard-server.version}</version>
+			</dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot</artifactId>
@@ -1375,6 +1381,7 @@
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2016-12-11 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2016-12-11 -->
 		<maven-plugin-versions.version>3.3.8</maven-plugin-versions.version>	<!-- 2016-12-11 -->
+		<microservices-dashboard-server.version>1.0.1</microservices-dashboard-server.version>	<!-- 2016-12-28 -->
 		<mockito.version>1.9.5</mockito.version>
 		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
 		<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
