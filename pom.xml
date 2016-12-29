@@ -6,7 +6,7 @@
 	<name>Internal Root POM</name>
     <description>multi-module pom to distribute parent poms</description>
 	<packaging>pom</packaging>
-	<version>2.0.70.483-147e1af</version>
+	<version>2.0.71.484-d50fc8c</version>
 
 	<licenses>
 		<license>
