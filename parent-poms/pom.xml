@@ -14,7 +14,7 @@
     <name>Parent POM</name>
     <description>Spring Boot LK Parent POM</description>
     <url>none</url>
-    <version>2.0.68.479-5fa7043</version>
+    <version>2.0.69.482-05eb2b8</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -288,6 +288,12 @@
                 </exclusions>
             </dependency>
 
+			<dependency>
+				<groupId>be.ordina</groupId>
+				<artifactId>microservices-dashboard-server</artifactId>
+				<version>${microservices-dashboard-server.version}</version>
+			</dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot</artifactId>
@@ -388,6 +394,17 @@
                 <artifactId>spring-boot-starter-websocket</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server</artifactId>
+				<version>${spring-boot-admin-server.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server-ui</artifactId>
+				<version>${spring-boot-admin-server.version}</version>
+			</dependency>
+
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
@@ -462,6 +479,19 @@
 					</goals>
 				</execution>
 			</executions>
+			<dependencies>
+				<dependency>
+					<!-- @see http://andriusvelykis.github.io/reflow-maven-skin/ -->
+					<groupId>lt.velykis.maven.skins</groupId>
+					<artifactId>reflow-velocity-tools</artifactId>
+					<version>${reflow-velocity-tools.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.velocity</groupId>
+					<artifactId>velocity</artifactId>
+					<version>${velocity.version}</version>
+				</dependency>
+			</dependencies>
 		</plugin>
             <!--http://jakub.marchwicki.pl/posts/2015/06/04/maven-wrapper/
                 run to initialize:   mvn  wrapper:wrapper -N
@@ -821,7 +851,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.68.479-5fa7043</version>
+                        <version>2.0.69.482-05eb2b8</version>
                      </dependency>
                 </dependencies>
 				<configuration>
@@ -1319,6 +1349,7 @@
 		<docker.version>0.4.1</docker.version>
 		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
 		<spring-boot.version>1.3.1.RELEASE</spring-boot.version>
+		<spring-boot-admin-server.version>1.4.4</spring-boot-admin-server.version>	<!-- 2016-12-28 -->
 		<checkstyle.version>2.17</checkstyle.version>	<!-- 2015-10-06 -->
 		<checkstylepuppycrawl.version>6.11.2</checkstylepuppycrawl.version>	<!-- 2015-10-06 -->
 		<commonslang.version>2.6</commonslang.version>
@@ -1356,7 +1387,7 @@
 		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
 		<jalopy.version>1.0-alpha-1</jalopy.version>
 		<jsonschema2pojo.version>0.4.24</jsonschema2pojo.version>	<!-- 2016-08-09 -->
-		<javadoc.version>2.10.3</javadoc.version>
+		<javadoc.version>2.10.4</javadoc.version>	<!-- 2016-10-24 -->
 		<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
 		<jclouds.version>2.0.0</jclouds.version>	<!-- 2016-12-06 -->
 		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
@@ -1375,6 +1406,7 @@
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2016-12-11 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2016-12-11 -->
 		<maven-plugin-versions.version>3.3.8</maven-plugin-versions.version>	<!-- 2016-12-11 -->
+		<microservices-dashboard-server.version>1.0.1</microservices-dashboard-server.version>	<!-- 2016-12-28 -->
 		<mockito.version>1.9.5</mockito.version>
 		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
 		<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
@@ -1390,6 +1422,7 @@
 		<proguard.version>2.0.6</proguard.version>
 		<proguardBase.version>4.9</proguardBase.version>
 		<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
+		<reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>	<!-- 2016-12-24 -->
 		<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
 		<scientist4j.version>0.3</scientist4j.version>	<!-- 2016-12-02 -->
 		<site.version>3.5</site.version>	<!-- 2016-02-19 -->
@@ -1406,6 +1439,7 @@
 		<togglz.version>2.3.0.RC1</togglz.version>	<!-- 2016-05-17 -->
 		<url-detector.version>0.1.17</url-detector.version>	<!-- 2016-11-28 -->
 		<validation-api.version>1.1.0.Final</validation-api.version>	<!-- 2016-12-11 -->
+		<velocity.version>1.7</velocity.version>	<!-- 2016-12-24 -->
 		<versioneye.version>3.1.0</versioneye.version>	<!-- 2016-06-28 -->
 		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
 		<wrapper.version>0.1.6</wrapper.version> <!-- 2016-11-02 -->

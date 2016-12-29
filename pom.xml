@@ -6,7 +6,7 @@
 	<name>Internal Root POM</name>
     <description>multi-module pom to distribute parent poms</description>
 	<packaging>pom</packaging>
-	<version>2.0.68.479-5fa7043</version>
+	<version>2.0.69.482-05eb2b8</version>
 
 	<licenses>
 		<license>
@@ -66,6 +66,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<coreext-maven-plugin.version>0.23-rc1</coreext-maven-plugin.version>	<!-- 2016-12-28 -->
+		<jgitflow-maven-plugin.version>1.0-m5.1</jgitflow-maven-plugin.version>	<!-- 2016-12-28 -->
+		<maven-profiledep-extension.version>0.23-rc1</maven-profiledep-extension.version>	<!-- 2016-12-28 -->
+		<nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>	<!-- 2016-12-28 -->
 	</properties>
 
 	<build>
@@ -73,7 +77,7 @@
 			<plugin>
 				<groupId>external.atlassian.jgitflow</groupId>
 				<artifactId>jgitflow-maven-plugin</artifactId>
-				<version>1.0-m5.1</version>
+				<version>${jgitflow-maven-plugin.version}</version>
 				<configuration>
 					<msgPrefix>[jgitflow-maven-plugin]</msgPrefix>
 					<enableFeatureVersions>true</enableFeatureVersions>
@@ -97,6 +101,45 @@
 					</flowInitContext>
 				</configuration>
 			</plugin>
+			<plugin>
+				<!-- @see https://github.com/sviperll/ozymandias/tree/master/coreext-maven-plugin -->
+				<groupId>com.github.sviperll</groupId>
+				<artifactId>coreext-maven-plugin</artifactId>
+				<version>${coreext-maven-plugin.version}</version>
+				<configuration>
+					<!-- Required core extensions: -->
+					<extensions combine.children="append">
+						<extension>
+							<groupId>com.github.sviperll</groupId>
+							<artifactId>maven-profiledep-extension</artifactId>
+							<version>${maven-profiledep-extension.version}</version>
+						</extension>
+					</extensions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>check-coreext</id>
+						<goals>
+							<!--
+								If we dont' meet the requirements of our enviornment then
+								stop everything and complain.   Within Jenkins we should have
+								a pipeline step that will make the enviornment what we expect to be.
+								Something like:
+									* mvn clean
+									* mvn coreext:install
+									* mvn compile
+									* mvn test
+									* mvn integration-test
+									* mvn pitest:run
+									* mvn package
+							-->
+							<goal>check</goal>
+						</goals>
+						<!-- default phase is: -->
+						<!--	<phase>validate</phase>	-->
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -108,7 +151,7 @@
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.7</version>
+						<version>${nexus-staging-maven-plugin}</version>
 						<extensions>true</extensions>
 						<configuration>
 							<!-- The Base URL of Nexus instance where we want to stage -->
