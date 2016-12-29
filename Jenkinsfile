@@ -203,21 +203,32 @@ node {
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
 				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml"
-                sh "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release;"
+				mavenCentralRelease = sh( returnStdOut: true, script: "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release" );
+			println "[Jenkinsfile] got output $mavenCentralRelease"
+				mavenCentralRelease.eachline { line ->
+					println "[Jenkinsfile] attempt match $line"
+					m = line =~ / staging repository with ID "(comlevonk-[0-9]+)".$/;
+					if ( m.matches() ) {
+						println "[Jenkinsfile] matched $m[0][1]"
+					}
+				}
 
                 stage '8. Promote Staged Repository'
 		println "[Jenkinsfile] @TODO Update Changemanagement"
 		println "[Jenkinsfile] @TODO Set Moniotring Markers"
 		println "[Jenkinsfile] @TODO Communicate Stage"
+/*
                 sh """
                     STAGING_REPO_IN=\$( ${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release ) ;
                     STAGING_REPO_FILTERED=\$( echo "\$STAGING_REPO_IN" | grep comlevonk | grep -m1 OPEN  ) ;
                     export STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
                     echo [Jenkinsfile] STAGING_REPO \$STAGING_REPO ;
 				"""
+*/
 				// Begin attempt to groovyize above
-				final String nexusListOutput = sh "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release"
+				final String nexusListOutput = sh( returnStdOut: true, script: "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release" );
 				String stagingRepo = "";
+			println "[Jenkinsfile] got output $nexusListOutput"
 				nexusListOutput.splitEachLine(' ') { items ->
 					items[1].trim(); items[2].trim();
 					println "[Jenkinsfile] DEBUG: repo '$items[1]' status '$items[2]'"
