@@ -226,7 +226,7 @@ node {
 				"""
 */
 				// Begin attempt to groovyize above
-				nexusListOutput = sh( returnStdOut: true, script: "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release" );
+				def nexusListOutput = sh( returnStdout: true, script: "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release" );
 				String stagingRepo = "";
 			println "[Jenkinsfile] got output $nexusListOutput"
 				nexusListOutput.splitEachLine(' ') { items ->
