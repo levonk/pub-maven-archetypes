@@ -215,7 +215,20 @@ node {
                     export STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
                     echo [Jenkinsfile] STAGING_REPO \$STAGING_REPO ;
 				"""
-                String userInputProd = input "Promote in stage repository '${env.STAGING_REPO}' to release repository?"
+				// Begin attempt to groovyize above
+				final String nexusListOutput = sh "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release"
+				String stagingRepo = "";
+				nexusListOutput.splitEachLine(' ') { items ->
+					if ( items[1].startsWith("comlevonk-") && (items[2].equals("OPEN") ) {
+						stagingRepo = items[1];
+					}
+				}
+				println "[Jenkinsfile] Target stagingRepo is '$stagingRepo'";
+				/*
+				*/
+
+				// End attempt to groovyize above
+                final String userInputProd = input "Promote in stage repository '${env.STAGING_REPO}' to release repository?"
                 println "[Jenkinsfile] Promote stage repo to '${env.STAGING_REPO}' response $userInputProd"
 				sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\\${STAGING_REPO} -P maven-central-release"
 			}
