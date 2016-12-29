@@ -219,7 +219,7 @@ node {
 				final String nexusListOutput = sh "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release"
 				String stagingRepo = "";
 				nexusListOutput.splitEachLine(' ') { items ->
-					if ( items[1].startsWith("comlevonk-") && (items[2].equals("OPEN") ) {
+					if ( (items[1].startsWith("comlevonk-")) && (items[2].equals("OPEN")) ) {
 						stagingRepo = items[1];
 					}
 				}
