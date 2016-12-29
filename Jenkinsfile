@@ -207,7 +207,8 @@ node {
 			println "[Jenkinsfile] got output $mavenCentralRelease"
 				mavenCentralRelease.eachline { line ->
 					println "[Jenkinsfile] attempt match $line"
-					if ( m = line =~ / staging repository with ID "(comlevonk-[0-9]+)".$/ ) {
+					m = line =~ / staging repository with ID "(comlevonk-[0-9]+)".$/;
+					if ( m.matches() ) {
 						println "[Jenkinsfile] matched $m[0][1]"
 					}
 				}
