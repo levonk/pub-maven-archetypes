@@ -97,6 +97,45 @@
 					</flowInitContext>
 				</configuration>
 			</plugin>
+			<plugin>
+				<!-- @see https://github.com/sviperll/ozymandias/tree/master/coreext-maven-plugin -->
+				<groupId>com.github.sviperll</groupId>
+				<artifactId>coreext-maven-plugin</artifactId>
+				<version>${coreext.version}</version>
+				<configuration>
+					<!-- Required core extensions: -->
+					<extensions combine.children="append">
+						<extension>
+							<groupId>com.github.sviperll</groupId>
+							<artifactId>maven-profiledep-extension</artifactId>
+							<version>${profiledep.version}</version>
+						</extension>
+					</extensions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>check-coreext</id>
+						<goals>
+							<!--
+								If we dont' meet the requirements of our enviornment then
+								stop everything and complain.   Within Jenkins we should have
+								a pipeline step that will make the enviornment what we expect to be.
+								Something like:
+									* mvn clean
+									* mvn coreext:install
+									* mvn compile
+									* mvn test
+									* mvn integration-test
+									* mvn pitest:run
+									* mvn package
+							-->
+							<goal>check</goal>
+						</goals>
+						<!-- default phase is: -->
+						<!--	<phase>validate</phase>	-->
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
