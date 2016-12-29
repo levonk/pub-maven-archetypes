@@ -215,8 +215,8 @@ node {
                     export STAGING_REPO=\$( echo "\$STAGING_REPO_FILTERED" | cut -d\\  -f2 );
                     echo [Jenkinsfile] STAGING_REPO \$STAGING_REPO ;
 				"""
-                String userInputProd = input "Promote in stage repository "${env.STAGING_REPO}" to release repository?"
-                println "[Jenkinsfile] Promote stage repo to ${env.STAGING_REPO} response $userInputProd"
+                String userInputProd = input "Promote in stage repository '${env.STAGING_REPO}' to release repository?"
+                println "[Jenkinsfile] Promote stage repo to '${env.STAGING_REPO}' response $userInputProd"
 				sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\\${STAGING_REPO} -P maven-central-release"
 			}
 		}
