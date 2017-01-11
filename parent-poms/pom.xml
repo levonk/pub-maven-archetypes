@@ -1442,9 +1442,11 @@
 		<velocity.version>1.7</velocity.version>	<!-- 2016-12-24 -->
 		<versioneye.version>3.1.0</versioneye.version>	<!-- 2016-06-28 -->
 		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
+		<wiremock.version>2.5.0</wiremock.version> <!-- 2017-01-10 -->
 		<wrapper.version>0.1.6</wrapper.version> <!-- 2016-11-02 -->
 		<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
 		<ztexec.version>1.8</ztexec.version>
+		
 		<docker.registry.url>https://index.docker.io/v1/</docker.registry.url>
 		<springboot.is.executable>true</springboot.is.executable>
 	</properties>
@@ -2735,6 +2737,12 @@
 					<groupId>org.mockito</groupId>
 					<artifactId>mockito-all</artifactId>
 					<version>${mockito.version}</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>com.github.tomakehurst</groupId>
+					<artifactId>wiremock-standalone</artifactId>
+					<version>${wiremock.version}</version>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
