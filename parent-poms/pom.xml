@@ -2831,6 +2831,36 @@
 			</build>
 		</profile>
 
+		<profile>
+			<id>jprincipale-static-analysis</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/jprinciple/jprinciple.yml</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.tindalos.principle</groupId>
+						<artifactId>principle</artifactId>
+						<version>${principle.version}</version>
+						<configuration>
+							<!-- The file that contains the rules relative to the project's root folder -->
+							<localtion>src/jprinciple/jprinciple.yml</localtion>
+						</configuration>
+						<executations>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>check</goal>
+								</goals>
+							</execution>
+						</executations>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 	</profiles>
 
     <!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
