@@ -1,0 +1,39 @@
+root_package: org.tindalos.principle
+
+checks:
+
+  layering:
+    layers: [infrastructure, app, domain]
+    violation_threshold: 0
+
+  third_party_restrictions:
+    allowed_libraries:
+      - layer: infrastructure
+        libraries: [org.apache.maven, org.json, org.yaml, com.google.common.collect, jdepend]
+      - layer: domain
+        libraries: [org.apache.commons]
+    violation_threshold: 0
+
+  package_coupling:
+    cyclic_dependencies_threshold: 0
+    acd_threshold: 0.35
+
+  modules:
+    # Map modules to packages
+    module-definitions:
+      EXPECTATIONS: [domain.expectations]
+      CORE: [domain.core]
+      AGENTSCORE: [domain.agentscore]
+      AGENTS: [domain.agents, infrastructure.reporters]
+      CHECKER: [domain.checker]
+    # Define dependencies between modules
+    module-dependencies:
+      EXPECTATIONS: []
+      CORE: [EXPECTATIONS]
+      AGENTSCORE: [CORE, EXPECTATIONS]
+      AGENTS: [CORE,AGENTSCORE,EXPECTATIONS]
+      CHECKER: [CORE, AGENTSCORE]
+
+    violation_threshold: 0
+
+structure_analysis_enabled: true

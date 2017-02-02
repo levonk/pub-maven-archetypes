@@ -14,7 +14,7 @@
     <name>Parent POM</name>
     <description>Spring Boot LK Parent POM</description>
     <url>none</url>
-    <version>2.0.77.495-e620f69</version>
+    <version>2.0.78.499-d4abb69</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -117,6 +117,147 @@
             <url>http://types.cs.washington.edu/m2-repo</url>
         </pluginRepository>
     </pluginRepositories>
+
+	<properties>
+		<start-class>com.levonk.springboot.App</start-class> <!-- should we look for some sort of property test? -->
+		<!-- clm.applicationId>${project.build.finalName}</clm.applicationId -->
+		
+		<sonar.exclusions>**/generated-sources/**</sonar.exclusions>
+		<sonar.pitest.mode>active</sonar.pitest.mode>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<maven.version>3.3.9</maven.version>
+		
+		<!-- Checker Framework -->
+		<!-- These properties will be set by the Maven Dependency plugin -->
+		<!-- Change to jdk7 if using Java 7 -->
+		<annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
+		<!-- The type annotations compiler is required if using Java 7. -->
+		<!-- Uncomment the following line if using Java 7. -->
+		<!-- <typeAnnotationsJavac>${org.checkerframework:compiler:jar}</typeAnnotationsJavac> -->	
+		
+		<!-- ruleset block -->
+		<checkstyle.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/checkstyle/checkstyle.xml</checkstyle.ruleset.url>
+		<findbugs.excludeFilterFile.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/FindBugsFilter.xml</findbugs.excludeFilterFile.url>
+		<pmd.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/pmd/pmd.xml</pmd.ruleset.url>
+		<!-- @see http://www.mojohaus.org/versions-maven-plugin/rule.html -->
+		<versions.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/versions-maven-plugin/maven-version-rules.xml</versions.ruleset.url>
+
+		<!-- version block -->
+		<android.version>2.8.4</android.version>
+		<autovalue.version>1.2</autovalue.version> <!-- 2016-07-07 -->
+		<antlr3.version>3.5.2</antlr3.version>	<!-- 2015-10-06 -->
+		<antlr4.version>4.5.1-1</antlr4.version>	<!-- 2015-10-06 -->
+		<antrun.version>1.8</antrun.version>
+		<avro.version>1.7.7</avro.version>
+		<codequality.version>1.0.9</codequality.version>
+		<checkers.version>2.1.6</checkers.version>	<!-- 2016-12-11 -->
+		<docker.version>0.4.1</docker.version>
+		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
+		<spring-boot.version>1.3.1.RELEASE</spring-boot.version>
+		<spring-boot-admin-server.version>1.4.4</spring-boot-admin-server.version>	<!-- 2016-12-28 -->
+		<checkstyle.version>2.17</checkstyle.version>	<!-- 2015-10-06 -->
+		<checkstylepuppycrawl.version>6.11.2</checkstylepuppycrawl.version>	<!-- 2015-10-06 -->
+		<commonslang.version>2.6</commonslang.version>
+		<commonslang3.version>3.2.1</commonslang3.version>
+		<compiler.version>3.6.0</compiler.version> <!-- as of 2016-11-01 -->
+		<concurrentrepo.version>0.11.2</concurrentrepo.version>	<!-- 2015-08-18 -->
+		<contract.version>0.0.1</contract.version>	<!-- 2016-04-21 -->
+		<coreext.version>0.22</coreext.version> <!-- as of 2016-12-11 -->
+		<dependency.version>3.0.0</dependency.version>	<!-- 2016-12-19 -->
+		<dependencycheck.version>1.4.4.1</dependencycheck.version> <!-- as of 2016-12-11 -->
+		<doclava.version>1.0.6</doclava.version>
+		<echo-maven-plugin.version>1.2.0</echo-maven-plugin.version> <!-- 2016-11-21 -->
+		<eclipse.version>2.9</eclipse.version>
+		<enforcer.version>1.4.1</enforcer.version> <!-- 2015-09-01 -->
+		<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
+		<equalsverifier.version>1.3.1</equalsverifier.version>
+		<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
+		<findbugs.version>3.0.4</findbugs.version>	<!-- 2016-12-11 -->
+		<findbugs-extra.version>1.3.9</findbugs-extra.version>
+		<findbugs-google.version>3.0.1</findbugs-google.version>	<!-- 2016-12-11 -->
+		<findbugs-google2.version>3.0.1u2</findbugs-google2.version>	<!-- 2016-12-11 -->
+		<flexy-pool.version>1.2.6</flexy-pool.version>	<!-- 2016-11-02 -->
+		<freebuilder.version>1.11</freebuilder.version>	<!-- 2016-12-11 -->
+		<gdlogger.version>1.2.2</gdlogger.version>	<!-- 2016-07-04 -->
+		<gpg.version>1.5</gpg.version>
+		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
+		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
+		<guava.version>20.0</guava.version>	<!-- 2016-12-11 -->
+		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version> <!-- 2016-12-11 -->
+		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
+		<immutables.version>2.3.10</immutables.version>	<!-- 2016-12-11 -->
+		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
+		<jackson1.version>1.9.13</jackson1.version>	<!-- 2016-12-06 -->
+		<jackson-databind.version>2.8.5</jackson-databind.version>	<!-- 2016-12-06 -->
+		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
+		<jalopy.version>1.0-alpha-1</jalopy.version>
+		<jsonschema2pojo.version>0.4.24</jsonschema2pojo.version>	<!-- 2016-08-09 -->
+		<javadoc.version>2.10.4</javadoc.version>	<!-- 2016-10-24 -->
+		<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
+		<jclouds.version>2.0.0</jclouds.version>	<!-- 2016-12-06 -->
+		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
+		<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
+		<jmeter.version>2.0.1</jmeter.version>	<!-- 2016-07-05 -->
+		<jqassistant.version>1.1.3</jqassistant.version>	<!-- 2016-07-20 -->
+		<!-- as of 2014-03-11 -->
+		<license.version>1.9</license.version>	<!-- 2016-05-29 -->
+		<licenseVerifier.version>0.4</licenseVerifier.version>
+		<log4jslf4j.version>2.7</log4jslf4j.version>	<!-- 2016-12-11 -->
+		<log4jcore.version>2.7</log4jcore.version>	<!-- 2016-12-11 -->
+		<logback.version>1.0.13</logback.version>
+		<logback-jackson.version>0.1.5</logback-jackson.version>	<!-- 2016-12-02 -->
+		<logstash.version>4.7</logstash.version>	<!-- 2016-07-07 -->
+		<lombok.version>1.16.12</lombok.version>	<!-- 2016-12-11 -->
+		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2016-12-11 -->
+		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2016-12-11 -->
+		<maven-plugin-versions.version>3.3.8</maven-plugin-versions.version>	<!-- 2016-12-11 -->
+		<microservices-dashboard-server.version>1.0.1</microservices-dashboard-server.version>	<!-- 2016-12-28 -->
+		<mockito.version>1.9.5</mockito.version>
+		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
+		<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
+		<nexusclm.version>2.4.1</nexusclm.version>	<!-- 2015-10-22 -->
+		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version> <!-- 2016-12-22 -->
+		<opentracing.version>0.16.0</opentracing.version>	<!-- 2016-10-23 -->
+		<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
+		<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
+		<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
+		<pmd.version>3.7</pmd.version>	<!-- 2016-12-11 -->
+		<pojava.version>3.0.0</pojava.version>	<!-- 2017-02-02 -->
+		<pojomatic.version>1.0</pojomatic.version>
+		<principle.version>0.37</principle.version>	<!-- 2017-02-02 -->
+		<profiledep.version>0.23-rc1</profiledep.version>	<!-- 2016-07-05 -->
+		<proguard.version>2.0.6</proguard.version>
+		<proguardBase.version>4.9</proguardBase.version>
+		<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
+		<reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>	<!-- 2016-12-24 -->
+		<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
+		<scientist4j.version>0.3</scientist4j.version>	<!-- 2016-12-02 -->
+		<site.version>3.5</site.version>	<!-- 2016-02-19 -->
+		<slf4j.version>1.7.21</slf4j.version>	<!-- 2016-12-11 -->
+		<smartbuilder.version>0.4.1</smartbuilder.version>	<!-- 2015-06-10 -->
+		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
+		<!-- as of 2012-09-17 -->
+		<source.version>3.0.1</source.version>	<!-- 2016-06-24 -->
+		<!-- as of 2014-03-11 -->
+		<surefire.version>2.16</surefire.version>
+		<!-- as of 2011-04-06 -->
+		<testng.version>6.10</testng.version>	<!-- 2016-12-11 -->
+		<threeten-extra.version>0.9</threeten-extra.version>	<!-- 2016-05-23 -->
+		<togglz.version>2.3.0.RC1</togglz.version>	<!-- 2016-05-17 -->
+		<url-detector.version>0.1.17</url-detector.version>	<!-- 2016-11-28 -->
+		<validation-api.version>1.1.0.Final</validation-api.version>	<!-- 2016-12-11 -->
+		<velocity.version>1.7</velocity.version>	<!-- 2016-12-24 -->
+		<versioneye.version>3.1.0</versioneye.version>	<!-- 2016-06-28 -->
+		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
+		<wiremock.version>2.5.0</wiremock.version> <!-- 2017-01-10 -->
+		<wrapper.version>0.1.6</wrapper.version> <!-- 2016-11-02 -->
+		<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
+		<ztexec.version>1.8</ztexec.version>
+		
+		<docker.registry.url>https://index.docker.io/v1/</docker.registry.url>
+		<springboot.is.executable>true</springboot.is.executable>
+	</properties>
 
     <dependencies>
 
@@ -466,7 +607,6 @@
 		</dependencies>
 	</dependencyManagement>
 
-
     <!--
         Specify all the version numbers of all dependencies here so we don't
         have to specify them in multiple children.
@@ -765,7 +905,6 @@
 						<phase>validate</phase>
                     </execution>
                 </executions>
-        
             </plugin>
 
             <plugin>
@@ -859,7 +998,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.77.495-e620f69</version>
+                        <version>2.0.78.499-d4abb69</version>
                      </dependency>
                 </dependencies>
 				<configuration>
@@ -1139,7 +1278,6 @@
 			</plugin>
         </plugins>
 
-
         <pluginManagement>
             <plugins>
                 <!-- android plugin -->
@@ -1260,7 +1398,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${pmd.version}</version>
             </plugin>
-           
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -1319,146 +1457,6 @@
 	</plugins>
 </reporting>
 
-
-	<properties>
-		<start-class>com.levonk.springboot.App</start-class> <!-- should we look for some sort of property test? -->
-		<!-- clm.applicationId>${project.build.finalName}</clm.applicationId -->
-		
-		<sonar.exclusions>**/generated-sources/**</sonar.exclusions>
-		<sonar.pitest.mode>active</sonar.pitest.mode>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
-		<maven.version>3.3.9</maven.version>
-		
-		<!-- Checker Framework -->
-		<!-- These properties will be set by the Maven Dependency plugin -->
-		<!-- Change to jdk7 if using Java 7 -->
-		<annotatedJdk>${org.checkerframework:jdk8:jar}</annotatedJdk>
-		<!-- The type annotations compiler is required if using Java 7. -->
-		<!-- Uncomment the following line if using Java 7. -->
-		<!-- <typeAnnotationsJavac>${org.checkerframework:compiler:jar}</typeAnnotationsJavac> -->	
-		
-		<!-- ruleset block -->
-		<checkstyle.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/checkstyle/checkstyle.xml</checkstyle.ruleset.url>
-		<findbugs.excludeFilterFile.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/FindBugsFilter.xml</findbugs.excludeFilterFile.url>
-		<pmd.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/pmd/pmd.xml</pmd.ruleset.url>
-		<!-- @see http://www.mojohaus.org/versions-maven-plugin/rule.html -->
-		<versions.ruleset.url>https://raw.githubusercontent.com/DGHLJ/pub-maven-archetypes/master/codequality/src/main/resources/codequality/versions-maven-plugin/maven-version-rules.xml</versions.ruleset.url>
-
-		<!-- version block -->
-		<android.version>2.8.4</android.version>
-		<autovalue.version>1.2</autovalue.version> <!-- 2016-07-07 -->
-		<antlr3.version>3.5.2</antlr3.version>	<!-- 2015-10-06 -->
-		<antlr4.version>4.5.1-1</antlr4.version>	<!-- 2015-10-06 -->
-		<antrun.version>1.8</antrun.version>
-		<avro.version>1.7.7</avro.version>
-		<codequality.version>1.0.9</codequality.version>
-		<checkers.version>2.1.6</checkers.version>	<!-- 2016-12-11 -->
-		<docker.version>0.4.1</docker.version>
-		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
-		<spring-boot.version>1.3.1.RELEASE</spring-boot.version>
-		<spring-boot-admin-server.version>1.4.4</spring-boot-admin-server.version>	<!-- 2016-12-28 -->
-		<checkstyle.version>2.17</checkstyle.version>	<!-- 2015-10-06 -->
-		<checkstylepuppycrawl.version>6.11.2</checkstylepuppycrawl.version>	<!-- 2015-10-06 -->
-		<commonslang.version>2.6</commonslang.version>
-		<commonslang3.version>3.2.1</commonslang3.version>
-		<compiler.version>3.6.0</compiler.version> <!-- as of 2016-11-01 -->
-		<concurrentrepo.version>0.11.2</concurrentrepo.version>	<!-- 2015-08-18 -->
-		<contract.version>0.0.1</contract.version>	<!-- 2016-04-21 -->
-		<coreext.version>0.22</coreext.version> <!-- as of 2016-12-11 -->
-		<dependency.version>3.0.0</dependency.version>	<!-- 2016-12-19 -->
-		<dependencycheck.version>1.4.4.1</dependencycheck.version> <!-- as of 2016-12-11 -->
-		<doclava.version>1.0.6</doclava.version>
-		<echo-maven-plugin.version>1.2.0</echo-maven-plugin.version> <!-- 2016-11-21 -->
-		<eclipse.version>2.9</eclipse.version>
-		<enforcer.version>1.4.1</enforcer.version> <!-- 2015-09-01 -->
-		<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
-		<equalsverifier.version>1.3.1</equalsverifier.version>
-		<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
-		<findbugs.version>3.0.4</findbugs.version>	<!-- 2016-12-11 -->
-		<findbugs-extra.version>1.3.9</findbugs-extra.version>
-		<findbugs-google.version>3.0.1</findbugs-google.version>	<!-- 2016-12-11 -->
-		<findbugs-google2.version>3.0.1u2</findbugs-google2.version>	<!-- 2016-12-11 -->
-		<flexy-pool.version>1.2.6</flexy-pool.version>	<!-- 2016-11-02 -->
-		<freebuilder.version>1.11</freebuilder.version>	<!-- 2016-12-11 -->
-		<gdlogger.version>1.2.2</gdlogger.version>	<!-- 2016-07-04 -->
-		<gpg.version>1.5</gpg.version>
-		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
-		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
-		<guava.version>20.0</guava.version>	<!-- 2016-12-11 -->
-		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version> <!-- 2016-12-11 -->
-		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
-		<immutables.version>2.3.10</immutables.version>	<!-- 2016-12-11 -->
-		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
-		<jackson1.version>1.9.13</jackson1.version>	<!-- 2016-12-06 -->
-		<jackson-databind.version>2.8.5</jackson-databind.version>	<!-- 2016-12-06 -->
-		<jacoco.version>0.7.6.201602180812</jacoco.version>	<!-- 2016-02-21 -->
-		<jalopy.version>1.0-alpha-1</jalopy.version>
-		<jsonschema2pojo.version>0.4.24</jsonschema2pojo.version>	<!-- 2016-08-09 -->
-		<javadoc.version>2.10.4</javadoc.version>	<!-- 2016-10-24 -->
-		<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
-		<jclouds.version>2.0.0</jclouds.version>	<!-- 2016-12-06 -->
-		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
-		<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
-		<jmeter.version>2.0.1</jmeter.version>	<!-- 2016-07-05 -->
-		<jqassistant.version>1.1.3</jqassistant.version>	<!-- 2016-07-20 -->
-		<!-- as of 2014-03-11 -->
-		<license.version>1.9</license.version>	<!-- 2016-05-29 -->
-		<licenseVerifier.version>0.4</licenseVerifier.version>
-		<log4jslf4j.version>2.7</log4jslf4j.version>	<!-- 2016-12-11 -->
-		<log4jcore.version>2.7</log4jcore.version>	<!-- 2016-12-11 -->
-		<logback.version>1.0.13</logback.version>
-		<logback-jackson.version>0.1.5</logback-jackson.version>	<!-- 2016-12-02 -->
-		<logstash.version>4.7</logstash.version>	<!-- 2016-07-07 -->
-		<lombok.version>1.16.12</lombok.version>	<!-- 2016-12-11 -->
-		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2016-12-11 -->
-		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2016-12-11 -->
-		<maven-plugin-versions.version>3.3.8</maven-plugin-versions.version>	<!-- 2016-12-11 -->
-		<microservices-dashboard-server.version>1.0.1</microservices-dashboard-server.version>	<!-- 2016-12-28 -->
-		<mockito.version>1.9.5</mockito.version>
-		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
-		<newrelic.version>3.21.0</newrelic.version>	<!-- 2015-10-06 -->
-		<nexusclm.version>2.4.1</nexusclm.version>	<!-- 2015-10-22 -->
-		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version> <!-- 2016-12-22 -->
-		<opentracing.version>0.16.0</opentracing.version>	<!-- 2016-10-23 -->
-		<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
-		<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
-		<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
-		<pmd.version>3.7</pmd.version>	<!-- 2016-12-11 -->
-		<pojava.version>3.0.0</pojava.version>	<!-- 2017-02-02 -->
-		<pojomatic.version>1.0</pojomatic.version>
-		<profiledep.version>0.23-rc1</profiledep.version>	<!-- 2016-07-05 -->
-		<proguard.version>2.0.6</proguard.version>
-		<proguardBase.version>4.9</proguardBase.version>
-		<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
-		<reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>	<!-- 2016-12-24 -->
-		<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
-		<scientist4j.version>0.3</scientist4j.version>	<!-- 2016-12-02 -->
-		<site.version>3.5</site.version>	<!-- 2016-02-19 -->
-		<slf4j.version>1.7.21</slf4j.version>	<!-- 2016-12-11 -->
-		<smartbuilder.version>0.4.1</smartbuilder.version>	<!-- 2015-06-10 -->
-		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
-		<!-- as of 2012-09-17 -->
-		<source.version>3.0.1</source.version>	<!-- 2016-06-24 -->
-		<!-- as of 2014-03-11 -->
-		<surefire.version>2.16</surefire.version>
-		<!-- as of 2011-04-06 -->
-		<testng.version>6.10</testng.version>	<!-- 2016-12-11 -->
-		<threeten-extra.version>0.9</threeten-extra.version>	<!-- 2016-05-23 -->
-		<togglz.version>2.3.0.RC1</togglz.version>	<!-- 2016-05-17 -->
-		<url-detector.version>0.1.17</url-detector.version>	<!-- 2016-11-28 -->
-		<validation-api.version>1.1.0.Final</validation-api.version>	<!-- 2016-12-11 -->
-		<velocity.version>1.7</velocity.version>	<!-- 2016-12-24 -->
-		<versioneye.version>3.1.0</versioneye.version>	<!-- 2016-06-28 -->
-		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
-		<wiremock.version>2.5.0</wiremock.version> <!-- 2017-01-10 -->
-		<wrapper.version>0.1.6</wrapper.version> <!-- 2016-11-02 -->
-		<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
-		<ztexec.version>1.8</ztexec.version>
-		
-		<docker.registry.url>https://index.docker.io/v1/</docker.registry.url>
-		<springboot.is.executable>true</springboot.is.executable>
-	</properties>
 
 	<profiles>
         <profile>
@@ -1581,7 +1579,7 @@
 				 <property><name>liquibase.url</name></property>
                 <!-- following should be dependent on enviornment in settings.xml -->
                 <!--<property><name>liquibase.driver</name></property>-->
-                
+
                 <!-- following should be only in settings.xml and not committed -->
                 <!--<property><name>liquibase.username</name></property>-->
                 <!--<property><name>liquibase.password</name></property>-->
@@ -2053,7 +2051,7 @@
                           <goals>
                             <goal>tag</goal>
                           </goals>
-                          
+
                         </execution>
                         <execution>
                           <id>push-image</id>
@@ -2061,8 +2059,8 @@
                           <goals>
                             <goal>push</goal>
                           </goals>
-                          
-                        </execution>        
+
+                        </execution>
                       </executions>
                       <configuration>
                             <imageName>${docker.image.prefix}/${project.artifactId}-${project.version}</imageName>
@@ -2084,7 +2082,6 @@
                         </configuration>
                     </plugin>
 
-                    
                 </plugins>
             </build>
         </profile>
@@ -2835,6 +2832,36 @@
 							<!-- The server "id" element from settings to use authentication from -->
 							<serverId>oss.sonatype.org</serverId>
 						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>jprincipale-static-analysis</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/jprinciple/jprinciple.yml</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.tindalos.principle</groupId>
+						<artifactId>principle</artifactId>
+						<version>${principle.version}</version>
+						<configuration>
+							<!-- The file that contains the rules relative to the project's root folder -->
+							<localtion>src/jprinciple/jprinciple.yml</localtion>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>check</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
