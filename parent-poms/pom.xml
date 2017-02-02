@@ -2841,7 +2841,7 @@
 			<id>jprincipale-static-analysis</id>
 			<activation>
 				<file>
-					<exists>${basedir}/src/jprinciple/jprinciple.yml</exists>
+					<exists>${basedir}/src/jprinciple/jprincipleDISABLE.yml</exists>
 				</file>
 			</activation>
 			<build>
