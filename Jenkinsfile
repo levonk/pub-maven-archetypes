@@ -149,7 +149,7 @@ node {
 
                 println '[Jenkinsfile] Install Extensions'
 				installCoreExtensions( mvnCmd );
-				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml"
+				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml || true"
 				sh """
 					pushd .
 					cd parent-poms
@@ -203,7 +203,7 @@ node {
 		println "[Jenkinsfile] -Could benefit from parallel run of deploy steps (via Maven) by parameterization of the command."
 		println "[Jenkinsfile] ***** FIX THIS!!! *****"
 
-				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml"
+				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml || true"
 				def mavenCentralRelease = sh( returnStdout: true, script: "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release" );
 			println "[Jenkinsfile] got output from mavenCentralRelease $mavenCentralRelease"
 				mavenCentralRelease.eachline { line ->
