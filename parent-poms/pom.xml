@@ -225,6 +225,7 @@
 		<pmd.version>3.7</pmd.version>	<!-- 2016-12-11 -->
 		<pojava.version>3.0.0</pojava.version>	<!-- 2017-02-02 -->
 		<pojomatic.version>1.0</pojomatic.version>
+		<principle.version>0.37</principle.version>	<!-- 2017-02-02 -->
 		<profiledep.version>0.23-rc1</profiledep.version>	<!-- 2016-07-05 -->
 		<proguard.version>2.0.6</proguard.version>
 		<proguardBase.version>4.9</proguardBase.version>
