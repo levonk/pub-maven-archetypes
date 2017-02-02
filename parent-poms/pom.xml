@@ -190,7 +190,15 @@
 				<version>${threeten-extra.version}</version>
 			</dependency>
 
-				<!-- Togglz Feature Flags for the Java platform -->
+			<!-- datetime auto detect date format -->
+			<!-- @see http://www.pojava.org/howto/datetime.html -->
+			<dependency>
+				<groupId>org.pojava</groupId>
+				<artifactId>pojava</artifactId>
+				<version>${pojava.version}</version>
+			</dependency>
+
+			<!-- Togglz Feature Flags for the Java platform -->
 				<!-- @see http://www.togglz.org/ -->
 			<!-- Togglz for Servlet environments (mandatory) -->
 			<dependency>
@@ -1417,6 +1425,7 @@
 		<plexusCompiler.version>2.5</plexusCompiler.version> <!-- 2015-03-27 -->
 		<plexusCompilerErrorProne.version>2.5</plexusCompilerErrorProne.version> <!-- 2015-03-27 -->
 		<pmd.version>3.7</pmd.version>	<!-- 2016-12-11 -->
+		<pojava.version>3.0.0</pojava.version>	<!-- 2017-02-02 -->
 		<pojomatic.version>1.0</pojomatic.version>
 		<profiledep.version>0.23-rc1</profiledep.version>	<!-- 2016-07-05 -->
 		<proguard.version>2.0.6</proguard.version>
