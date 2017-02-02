@@ -2853,14 +2853,14 @@
 							<!-- The file that contains the rules relative to the project's root folder -->
 							<localtion>src/jprinciple/jprinciple.yml</localtion>
 						</configuration>
-						<executations>
+						<executions>
 							<execution>
 								<phase>compile</phase>
 								<goals>
 									<goal>check</goal>
 								</goals>
 							</execution>
-						</executations>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
