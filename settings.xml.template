@@ -76,6 +76,15 @@
 	-->
 	<profiles>
 		<profile>
+			<id>settings</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<settingsxml.version>1.0</settingsxml.version>
+			</properties>
+		</profile>
+		<profile>
 			<id>sonar</id>
 			<activation>
 				<!-- You should be using SonarQube

@@ -2867,6 +2867,35 @@
 			</build>
 		</profile>
 
+		<profile>
+			<id>not-running-with-settingsxml</id>
+			<activation>
+				<property>
+					<name>!settingsxml.version</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.ekryd.echo-maven-plugin</groupId>
+						<artifactId>echo-maven-plugin</artifactId>
+						<version>${echo-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<phase>validate</phase>
+								<goals>
+									<goal>echo</goal>
+								</goals>
+								<configuration>
+									<message>Are you using ${user.home}/.m2/settings.xml? Can't find maven property "settingsxml.version" which is put in specifically to catch missing settings.xml file.</message>
+									<level>WARNING</level>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
     <!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
