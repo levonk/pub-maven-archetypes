@@ -186,6 +186,7 @@
 		<guava.version>20.0</guava.version>	<!-- 2016-12-11 -->
 		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version> <!-- 2016-12-11 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
+		<imageresolver.version>0.1.0</imageresolver.version>	<!-- 2017-02-05 -->
 		<immutables.version>2.3.10</immutables.version>	<!-- 2016-12-11 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
 		<jackson1.version>1.9.13</jackson1.version>	<!-- 2016-12-06 -->
@@ -603,7 +604,15 @@
 				<artifactId>url-detector</artifactId>
 				<version>${url-detector.version}</version>
 			</dependency>
-			
+
+			<!-- Get the main image from a URL -->
+			<!-- @see https://github.com/shekhargulati/image-resolver -->
+			<dependency>
+				<groupId>com.shekhargulati</groupId>
+				<artifactId>image-resolver</artifactId>
+				<version>${imageresolver.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
