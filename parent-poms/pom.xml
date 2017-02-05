@@ -245,6 +245,7 @@
 		<!-- as of 2011-04-06 -->
 		<testng.version>6.10</testng.version>	<!-- 2016-12-11 -->
 		<threeten-extra.version>0.9</threeten-extra.version>	<!-- 2016-05-23 -->
+		<thrift.version>0.1.11</thrift.version>	<!-- 2017-02-05 -->
 		<togglz.version>2.3.0.RC1</togglz.version>	<!-- 2016-05-17 -->
 		<url-detector.version>0.1.17</url-detector.version>	<!-- 2016-11-28 -->
 		<validation-api.version>1.1.0.Final</validation-api.version>	<!-- 2016-12-11 -->
@@ -1795,6 +1796,38 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>sonar-maven-plugin</artifactId>
 						<version>${sonar.version}</version>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>thrift</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/thrift</exists>
+				</file>
+				<file>
+					<exists>${thrift.executable}</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.thrift.tools</groupId>
+						<artifactId>maven-thrift-plugin</artifactId>
+						<version>${thrift.version}</version>
+						<executions>
+							<execution>
+								<id>thrift-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>compile</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<thriftExecutable>${thrift.executable}</thriftExecutable>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
