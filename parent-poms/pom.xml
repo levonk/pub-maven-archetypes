@@ -202,6 +202,7 @@
 		<jmeter.version>2.0.1</jmeter.version>	<!-- 2016-07-05 -->
 		<jqassistant.version>1.1.3</jqassistant.version>	<!-- 2016-07-20 -->
 		<!-- as of 2014-03-11 -->
+		<libthrift.version>0.10.0</libthrift.version>	<!-- 2017-02-05 -->
 		<license.version>1.9</license.version>	<!-- 2016-05-29 -->
 		<licenseVerifier.version>0.4</licenseVerifier.version>
 		<log4jslf4j.version>2.7</log4jslf4j.version>	<!-- 2016-12-11 -->
@@ -565,6 +566,11 @@
                 <groupId>org.apache.avro</groupId>
                 <artifactId>avro</artifactId>
                 <version>${avro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.thrift</groupId>
+                <artifactId>libthrift</artifactId>
+                <version>${libthrift.version}</version>
             </dependency>
 
             <!-- checker framework-->
