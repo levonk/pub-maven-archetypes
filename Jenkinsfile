@@ -32,6 +32,7 @@ node {
 				git branch
 				currBranch=`git symbolic-ref --short HEAD`
 				git checkout master && git pull
+				git clean -fdx
 				git checkout $currBranch
 				git clean -fdx
 				git branch
