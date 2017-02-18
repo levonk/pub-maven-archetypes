@@ -199,6 +199,7 @@
 		<jclouds.version>2.0.0</jclouds.version>	<!-- 2016-12-06 -->
 		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 		<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
+		<jdeps.version>3.0.0</jdeps.version>	<!-- 2017-02-18 -->
 		<jmeter.version>2.0.1</jmeter.version>	<!-- 2016-07-05 -->
 		<jqassistant.version>1.1.3</jqassistant.version>	<!-- 2016-07-20 -->
 		<!-- as of 2014-03-11 -->
@@ -2724,6 +2725,20 @@
 			</dependencyManagement>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jdeps-plugin</artifactId>
+						<version>${jdeps.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>jdkinternals</goal>
+									<goal>test-jdkinternals</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-checkstyle-plugin</artifactId>
