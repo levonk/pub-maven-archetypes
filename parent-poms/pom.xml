@@ -236,6 +236,7 @@
 		<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
 		<reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>	<!-- 2016-12-24 -->
 		<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
+		<scala-maven-plugin.version>3.2.2</scala-maven-plugin.version>	<!-- 2017-02-24 -->
 		<scientist4j.version>0.3</scientist4j.version>	<!-- 2016-12-02 -->
 		<site.version>3.5</site.version>	<!-- 2016-02-19 -->
 		<slf4j.version>1.7.21</slf4j.version>	<!-- 2016-12-11 -->
@@ -255,6 +256,8 @@
 		<velocity.version>1.7</velocity.version>	<!-- 2016-12-24 -->
 		<versioneye.version>3.1.0</versioneye.version>	<!-- 2016-06-28 -->
 		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
+		<wartremover.version>2.0.2</wartremover.version>	<!-- 2017-02-24 -->
+		<wartremover-contrib.version>1.0.0</wartremover-contrib.version>	<!-- 2017-02-24 -->
 		<wiremock.version>2.5.0</wiremock.version> <!-- 2017-01-10 -->
 		<wrapper.version>0.1.6</wrapper.version> <!-- 2016-11-02 -->
 		<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
@@ -1634,6 +1637,12 @@
 			</activation>
 			<dependencies>
 				<dependency>
+					<groupId>org.wartremover</groupId>
+					<artifactId>wartremover-contrib_2.11</artifactId>
+					<version>${wartremover-contrib.version}</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
 					<groupId>org.scala-lang</groupId>
 					<artifactId>scala-library</artifactId>
 					<version>2.7.2-rc2</version>
@@ -1641,6 +1650,32 @@
 			</dependencies>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>net.alchim31.maven</groupId>
+						<artifactId>scala-maven-plugin</artifactId>
+						<version>${scala-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>compile</goal>
+									<goal>testCompile</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<compilerPlugins>
+								<compilerPlugin>
+									<groupId>org.wartremover</groupId>
+									<artifactId>wartremover_2.11</artifactId>
+									<version>${wartremover.version}</version>
+								</compilerPlugin>
+							</compilerPlugins>
+							<args>
+								<arg>-P:wartremover:only-warn-traverser:org.wartremover.warts.Unsafe</arg>
+							</args>
+						</configuration>
+					</plugin>
+					<!--
 					<plugin>
 						<groupId>org.scala-tools</groupId>
 						<artifactId>maven-scala-plugin</artifactId>
@@ -1658,6 +1693,7 @@
 							<jvmArg>-Xmx1024m</jvmArg>
 						</configuration>
 					</plugin>
+					-->
 				</plugins>
 			</build>
 		</profile>
@@ -1821,9 +1857,9 @@
 				<file>
 					<exists>${basedir}/src/main/thrift</exists>
 				</file>
-				<file>
-					<exists>${thrift.executable}</exists>
-				</file>
+				<property>
+					<name>thrift.executable</name>
+				</property>
 			</activation>
 			<build>
 				<plugins>
