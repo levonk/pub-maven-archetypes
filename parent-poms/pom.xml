@@ -149,6 +149,7 @@
 		<antlr3.version>3.5.2</antlr3.version>	<!-- 2015-10-06 -->
 		<antlr4.version>4.5.1-1</antlr4.version>	<!-- 2015-10-06 -->
 		<antrun.version>1.8</antrun.version>
+		<archetype.version>3.0.0</archetype.version>	<!-- 2017-02-23 -->
 		<avro.version>1.7.7</avro.version>
 		<codequality.version>1.0.9</codequality.version>
 		<checkers.version>2.1.6</checkers.version>	<!-- 2016-12-11 -->
@@ -632,32 +633,38 @@
     -->
     <build>
         <plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-site-plugin</artifactId>
-			<version>${site.version}</version>
-			<executions>
-				<execution>
-					<id>attach-descriptor</id>
-					<goals>
-						<goal>attach-descriptor</goal>
-					</goals>
-				</execution>
-			</executions>
-			<dependencies>
-				<dependency>
-					<!-- @see http://andriusvelykis.github.io/reflow-maven-skin/ -->
-					<groupId>lt.velykis.maven.skins</groupId>
-					<artifactId>reflow-velocity-tools</artifactId>
-					<version>${reflow-velocity-tools.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.velocity</groupId>
-					<artifactId>velocity</artifactId>
-					<version>${velocity.version}</version>
-				</dependency>
-			</dependencies>
-		</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-archetype-plugin</artifactId>
+				<version>${archetype.version}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${site.version}</version>
+				<executions>
+					<execution>
+						<id>attach-descriptor</id>
+						<goals>
+							<goal>attach-descriptor</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<!-- @see http://andriusvelykis.github.io/reflow-maven-skin/ -->
+						<groupId>lt.velykis.maven.skins</groupId>
+						<artifactId>reflow-velocity-tools</artifactId>
+						<version>${reflow-velocity-tools.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.velocity</groupId>
+						<artifactId>velocity</artifactId>
+						<version>${velocity.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
             <!--http://jakub.marchwicki.pl/posts/2015/06/04/maven-wrapper/
                 run to initialize:   mvn  wrapper:wrapper -N
                 use mvnw afterward
