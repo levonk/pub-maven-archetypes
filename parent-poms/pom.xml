@@ -151,6 +151,7 @@
 		<antrun.version>1.8</antrun.version>
 		<archetype.version>3.0.0</archetype.version>	<!-- 2017-02-23 -->
 		<avro.version>1.7.7</avro.version>
+		<bijection.version>0.9.5</bijection.version>	<!-- 2017-03-06 -->
 		<codequality.version>1.0.9</codequality.version>
 		<checkers.version>2.1.6</checkers.version>	<!-- 2016-12-11 -->
 		<docker.version>0.4.1</docker.version>
@@ -2686,6 +2687,62 @@
 								<artifactId>logback-core</artifactId>
 							</exclusion>
 						</exclusions>
+					</dependency>
+					<!-- @see https://github.com/twitter/bijection/ -->
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-core</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-protobuf</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-thrift</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-guava</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-scrooge</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-json</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-util</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-clojure</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-netty</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-avro</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-hbase</artifactId>
+						<version>${bijection.version}</version>
 					</dependency>
 					<dependency>
 						<!-- A JaxB mapper is necessary for logback-ext-json-classic
