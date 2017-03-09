@@ -155,7 +155,7 @@ node {
 				sh """
 					pushd .
 					cd parent-poms
-                    ${mvnCmd} -PbuildServerPrep validate || true
+                    ${mvnCmd} -X -PbuildServerPrep validate || true
 					${mvnCmd} io.takari:maven:wrapper
 					popd
 				"""
