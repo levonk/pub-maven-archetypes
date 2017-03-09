@@ -4,7 +4,7 @@ import hudson.util.*
 node {
 	def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
 	def workSpace = pwd()
-	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer " // -T1.5C
+	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --debug --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer " // -T1.5C
 
 
 	println "[Jenkinsfile] >>workSpace = ${workSpace}"
