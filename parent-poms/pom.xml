@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.2.RELEASE</version>	<!-- 2016-12-11 -->
+		<version>1.5.1.RELEASE</version>	<!-- 2017-03-01 -->
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -14,7 +14,7 @@
     <name>Parent POM</name>
     <description>Spring Boot LK Parent POM</description>
     <url>none</url>
-    <version>2.0.80.501-9771775</version>
+    <version>2.0.81.502-54f136f</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -149,12 +149,14 @@
 		<antlr3.version>3.5.2</antlr3.version>	<!-- 2015-10-06 -->
 		<antlr4.version>4.5.1-1</antlr4.version>	<!-- 2015-10-06 -->
 		<antrun.version>1.8</antrun.version>
+		<archetype.version>3.0.0</archetype.version>	<!-- 2017-02-23 -->
 		<avro.version>1.7.7</avro.version>
+		<bijection.version>0.9.5</bijection.version>	<!-- 2017-03-06 -->
 		<codequality.version>1.0.9</codequality.version>
 		<checkers.version>2.1.6</checkers.version>	<!-- 2016-12-11 -->
 		<docker.version>0.4.1</docker.version>
 		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
-		<spring-boot.version>1.3.1.RELEASE</spring-boot.version>
+		<spring-boot.version>1.5.1.RELEASE</spring-boot.version>	<!-- 2017-03-01 -->
 		<spring-boot-admin-server.version>1.4.4</spring-boot-admin-server.version>	<!-- 2016-12-28 -->
 		<checkstyle.version>2.17</checkstyle.version>	<!-- 2015-10-06 -->
 		<checkstylepuppycrawl.version>6.11.2</checkstylepuppycrawl.version>	<!-- 2015-10-06 -->
@@ -165,7 +167,7 @@
 		<contract.version>0.0.1</contract.version>	<!-- 2016-04-21 -->
 		<coreext.version>0.22</coreext.version> <!-- as of 2016-12-11 -->
 		<dependency.version>3.0.0</dependency.version>	<!-- 2016-12-19 -->
-		<dependencycheck.version>1.4.4.1</dependencycheck.version> <!-- as of 2016-12-11 -->
+		<dependencycheck.version>1.4.5</dependencycheck.version> <!-- 2017-03-09 -->
 		<doclava.version>1.0.6</doclava.version>
 		<echo-maven-plugin.version>1.2.0</echo-maven-plugin.version> <!-- 2016-11-21 -->
 		<eclipse.version>2.9</eclipse.version>
@@ -186,6 +188,7 @@
 		<guava.version>20.0</guava.version>	<!-- 2016-12-11 -->
 		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version> <!-- 2016-12-11 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
+		<imageresolver.version>0.1.0</imageresolver.version>	<!-- 2017-02-05 -->
 		<immutables.version>2.3.10</immutables.version>	<!-- 2016-12-11 -->
 		<j2objc.version>1.1.2</j2objc.version>	<!-- 2016-05-25 -->
 		<jackson1.version>1.9.13</jackson1.version>	<!-- 2016-12-06 -->
@@ -198,9 +201,12 @@
 		<jclouds.version>2.0.0</jclouds.version>	<!-- 2016-12-06 -->
 		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 		<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
+		<jdeps.version>3.0.0</jdeps.version>	<!-- 2017-02-18 -->
 		<jmeter.version>2.0.1</jmeter.version>	<!-- 2016-07-05 -->
 		<jqassistant.version>1.1.3</jqassistant.version>	<!-- 2016-07-20 -->
+		<jxr.version>2.5</jxr.version>	<!-- 2017-03-09 -->
 		<!-- as of 2014-03-11 -->
+		<libthrift.version>0.10.0</libthrift.version>	<!-- 2017-02-05 -->
 		<license.version>1.9</license.version>	<!-- 2016-05-29 -->
 		<licenseVerifier.version>0.4</licenseVerifier.version>
 		<log4jslf4j.version>2.7</log4jslf4j.version>	<!-- 2016-12-11 -->
@@ -232,6 +238,7 @@
 		<pure4j.version>0.3.1</pure4j.version>	<!-- 2015-12-03 -->
 		<reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>	<!-- 2016-12-24 -->
 		<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
+		<scala-maven-plugin.version>3.2.2</scala-maven-plugin.version>	<!-- 2017-02-24 -->
 		<scientist4j.version>0.3</scientist4j.version>	<!-- 2016-12-02 -->
 		<site.version>3.5</site.version>	<!-- 2016-02-19 -->
 		<slf4j.version>1.7.21</slf4j.version>	<!-- 2016-12-11 -->
@@ -244,12 +251,15 @@
 		<!-- as of 2011-04-06 -->
 		<testng.version>6.10</testng.version>	<!-- 2016-12-11 -->
 		<threeten-extra.version>0.9</threeten-extra.version>	<!-- 2016-05-23 -->
+		<thrift.version>0.1.11</thrift.version>	<!-- 2017-02-05 -->
 		<togglz.version>2.3.0.RC1</togglz.version>	<!-- 2016-05-17 -->
 		<url-detector.version>0.1.17</url-detector.version>	<!-- 2016-11-28 -->
 		<validation-api.version>1.1.0.Final</validation-api.version>	<!-- 2016-12-11 -->
 		<velocity.version>1.7</velocity.version>	<!-- 2016-12-24 -->
 		<versioneye.version>3.1.0</versioneye.version>	<!-- 2016-06-28 -->
 		<versions.version>2.1</versions.version> <!-- 2015-12-29 -->
+		<wartremover.version>2.0.2</wartremover.version>	<!-- 2017-02-24 -->
+		<wartremover-contrib.version>1.0.0</wartremover-contrib.version>	<!-- 2017-02-24 -->
 		<wiremock.version>2.5.0</wiremock.version> <!-- 2017-01-10 -->
 		<wrapper.version>0.1.6</wrapper.version> <!-- 2016-11-02 -->
 		<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
@@ -564,6 +574,11 @@
                 <artifactId>avro</artifactId>
                 <version>${avro.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.thrift</groupId>
+                <artifactId>libthrift</artifactId>
+                <version>${libthrift.version}</version>
+            </dependency>
 
             <!-- checker framework-->
             <dependency>
@@ -603,7 +618,15 @@
 				<artifactId>url-detector</artifactId>
 				<version>${url-detector.version}</version>
 			</dependency>
-			
+
+			<!-- Get the main image from a URL -->
+			<!-- @see https://github.com/shekhargulati/image-resolver -->
+			<dependency>
+				<groupId>com.shekhargulati</groupId>
+				<artifactId>image-resolver</artifactId>
+				<version>${imageresolver.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -615,32 +638,39 @@
     -->
     <build>
         <plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-site-plugin</artifactId>
-			<version>${site.version}</version>
-			<executions>
-				<execution>
-					<id>attach-descriptor</id>
-					<goals>
-						<goal>attach-descriptor</goal>
-					</goals>
-				</execution>
-			</executions>
-			<dependencies>
-				<dependency>
-					<!-- @see http://andriusvelykis.github.io/reflow-maven-skin/ -->
-					<groupId>lt.velykis.maven.skins</groupId>
-					<artifactId>reflow-velocity-tools</artifactId>
-					<version>${reflow-velocity-tools.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.velocity</groupId>
-					<artifactId>velocity</artifactId>
-					<version>${velocity.version}</version>
-				</dependency>
-			</dependencies>
-		</plugin>
+			<plugin>
+				<!-- @see https://maven.apache.org/archetype/maven-archetype-plugin/ -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-archetype-plugin</artifactId>
+				<version>${archetype.version}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${site.version}</version>
+				<executions>
+					<execution>
+						<id>attach-descriptor</id>
+						<goals>
+							<goal>attach-descriptor</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<!-- @see http://andriusvelykis.github.io/reflow-maven-skin/ -->
+						<groupId>lt.velykis.maven.skins</groupId>
+						<artifactId>reflow-velocity-tools</artifactId>
+						<version>${reflow-velocity-tools.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.velocity</groupId>
+						<artifactId>velocity</artifactId>
+						<version>${velocity.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
             <!--http://jakub.marchwicki.pl/posts/2015/06/04/maven-wrapper/
                 run to initialize:   mvn  wrapper:wrapper -N
                 use mvnw afterward
@@ -820,10 +850,11 @@
                                     <excludes>
                                         <exclude>aspectj:aspectj*</exclude>
                                         <!-- Security Vulnerability in InvokerTransformer.class as of 2015-11-10
+						org.apache.commons:commons-collections4:4.1 fixes this
                                             @see org.apache.commons.collections.functors.InvokerTransformer.class
                                             @see http://foxglovesecurity.com/2015/11/06/what-do-weblogic-websphere-jboss-jenkins-opennms-and-your-application-have-in-common-this-vulnerability/
                                         -->
-                                        <exclude>org.apache.commons:commons-collections:,3.2.1]</exclude>
+                                        <exclude>org.apache.commons:commons-collections]</exclude>
                                         <exclude>commons-logging</exclude>
                                         <exclude>hsqldb:hsqldb</exclude>
                                         <exclude>javassist:javassist</exclude>
@@ -998,7 +1029,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.80.501-9771775</version>
+                        <version>2.0.81.502-54f136f</version>
                      </dependency>
                 </dependencies>
 				<configuration>
@@ -1365,6 +1396,11 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${javadoc.version}</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>${jxr.version}</version>
+            </plugin>
             <!-- testing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -1609,6 +1645,12 @@
 			</activation>
 			<dependencies>
 				<dependency>
+					<groupId>org.wartremover</groupId>
+					<artifactId>wartremover-contrib_2.11</artifactId>
+					<version>${wartremover-contrib.version}</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
 					<groupId>org.scala-lang</groupId>
 					<artifactId>scala-library</artifactId>
 					<version>2.7.2-rc2</version>
@@ -1616,6 +1658,32 @@
 			</dependencies>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>net.alchim31.maven</groupId>
+						<artifactId>scala-maven-plugin</artifactId>
+						<version>${scala-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>compile</goal>
+									<goal>testCompile</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<compilerPlugins>
+								<compilerPlugin>
+									<groupId>org.wartremover</groupId>
+									<artifactId>wartremover_2.11</artifactId>
+									<version>${wartremover.version}</version>
+								</compilerPlugin>
+							</compilerPlugins>
+							<args>
+								<arg>-P:wartremover:only-warn-traverser:org.wartremover.warts.Unsafe</arg>
+							</args>
+						</configuration>
+					</plugin>
+					<!--
 					<plugin>
 						<groupId>org.scala-tools</groupId>
 						<artifactId>maven-scala-plugin</artifactId>
@@ -1633,6 +1701,7 @@
 							<jvmArg>-Xmx1024m</jvmArg>
 						</configuration>
 					</plugin>
+					-->
 				</plugins>
 			</build>
 		</profile>
@@ -1786,6 +1855,38 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>sonar-maven-plugin</artifactId>
 						<version>${sonar.version}</version>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>thrift</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/thrift</exists>
+				</file>
+				<property>
+					<name>thrift.executable</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.thrift.tools</groupId>
+						<artifactId>maven-thrift-plugin</artifactId>
+						<version>${thrift.version}</version>
+						<executions>
+							<execution>
+								<id>thrift-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>compile</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<thriftExecutable>${thrift.executable}</thriftExecutable>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
@@ -2593,6 +2694,62 @@
 							</exclusion>
 						</exclusions>
 					</dependency>
+					<!-- @see https://github.com/twitter/bijection/ -->
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-core</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-protobuf</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-thrift</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-guava</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-scrooge</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-json</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-util</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-clojure</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-netty</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-avro</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.twitter</groupId>
+						<artifactId>bijection-hbase</artifactId>
+						<version>${bijection.version}</version>
+					</dependency>
 					<dependency>
 						<!-- A JaxB mapper is necessary for logback-ext-json-classic
 							you can use others though, it doesn't have to be jackson -->
@@ -2676,6 +2833,20 @@
 			</dependencyManagement>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jdeps-plugin</artifactId>
+						<version>${jdeps.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>jdkinternals</goal>
+									<goal>test-jdkinternals</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-checkstyle-plugin</artifactId>
@@ -2867,6 +3038,35 @@
 			</build>
 		</profile>
 
+		<profile>
+			<id>not-running-with-settingsxml</id>
+			<activation>
+				<property>
+					<name>!settingsxml.version</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.ekryd.echo-maven-plugin</groupId>
+						<artifactId>echo-maven-plugin</artifactId>
+						<version>${echo-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<phase>validate</phase>
+								<goals>
+									<goal>echo</goal>
+								</goals>
+								<configuration>
+									<message>Are you using ${user.home}/.m2/settings.xml? Can't find maven property "settingsxml.version" which is put in specifically to catch missing settings.xml file.</message>
+									<level>WARNING</level>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
     <!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->

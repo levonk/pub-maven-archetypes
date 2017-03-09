@@ -4,7 +4,7 @@ import hudson.util.*
 node {
 	def mvnHome = tool name: 'first-install-from-apache-3.3.9', type: 'hudson.tasks.Maven$MavenInstallation'
 	def workSpace = pwd()
-	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --errors --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer " // -T1.5C
+	def mvnCmd = "${mvnHome}/bin/mvn --show-version --fail-at-end --debug --batch-mode --strict-checksums -s ${workSpace}/settings.xml -DsetBuildServer " // -T1.5C
 
 
 	println "[Jenkinsfile] >>workSpace = ${workSpace}"
@@ -32,7 +32,9 @@ node {
 				git branch
 				currBranch=`git symbolic-ref --short HEAD`
 				git checkout master && git pull
+				git clean -fdx
 				git checkout $currBranch
+				git clean -fdx
 				git branch
 				git status
 			}'''
@@ -153,7 +155,7 @@ node {
 				sh """
 					pushd .
 					cd parent-poms
-                    ${mvnCmd} -PbuildServerPrep validate || true
+                    ${mvnCmd} -X -PbuildServerPrep validate || true
 					${mvnCmd} io.takari:maven:wrapper
 					popd
 				"""
@@ -228,24 +230,33 @@ node {
 */
 				// Begin attempt to groovyize above
 				def nexusListOutput = sh( returnStdout: true, script: "${mvnCmd} nexus-staging:rc-list -DserverId=oss.sonatype.org -DnexusUrl=https://oss.sonatype.org/ -P maven-central-release" );
-				String stagingRepo = "";
-			println "[Jenkinsfile] got output $nexusListOutput"
-				nexusListOutput.splitEachLine(' ') { items ->
-					items[1].trim(); items[2].trim();
-					println "[Jenkinsfile] DEBUG: repo '$items[1]' status '$items[2]'"
-					if ( (items[1].startsWith("comlevonk-")) && (items[2].equals("OPEN")) ) {
-						stagingRepo = items[1];
-					}
-				}
+				String stagingRepo = getStagingRepo( nexusListOutput );
 				println "[Jenkinsfile] Target stagingRepo is '$stagingRepo'";
-				/*
-				*/
 
 				// End attempt to groovyize above
                 final String userInputProd = input "Promote in stage repository '${env.STAGING_REPO}' to release repository?"
                 println "[Jenkinsfile] Promote stage repo to '${env.STAGING_REPO}' response $userInputProd"
 				sh "${mvnCmd} -X -e nexus-staging:close nexus-staging:release -DstagingRepositoryId=\\${STAGING_REPO} -P maven-central-release"
 			}
+		}
+	}
+}
+
+/**
+ * Get the staging repo from <code>mvn nexus-staging:rc-list</code> output.
+ *
+ * The command prints to stdout in mvn output, so we need
+ * to parse out the repo uploaded to.
+ */
+@NonCPS
+def getStagingRepo( String inNexusListOutput )
+{
+	println "[Jenkinsfile] got output $nexusListOutput"
+	nexusListOutput.splitEachLine(' ') { items ->
+		items[1].trim(); items[2].trim();
+		println "[Jenkinsfile] DEBUG: repo '$items[1]' status '$items[2]'"
+		if ( (items[1].startsWith("comlevonk-")) && (items[2].equals("OPEN")) ) {
+			return items[1];
 		}
 	}
 }
