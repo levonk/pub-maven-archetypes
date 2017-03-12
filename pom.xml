@@ -70,10 +70,17 @@
 		<jgitflow-maven-plugin.version>1.0-m5.1</jgitflow-maven-plugin.version>	<!-- 2016-12-28 -->
 		<maven-profiledep-extension.version>0.23-rc1</maven-profiledep-extension.version>	<!-- 2016-12-28 -->
 		<nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>	<!-- 2016-12-28 -->
+		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2017-03-12 -->
 	</properties>
 
 	<build>
 		<plugins>
+			<plugin>
+				<!-- AVOID: [WARNING] Report plugin org.apache.maven.plugins:maven-project-info-reports-plugin has an empty version. -->
+				<groupId>org.apache.maven.plugin</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${maven-project-info-reports-plugin.version}</version>
+			</plugin>
 			<plugin>
 				<groupId>external.atlassian.jgitflow</groupId>
 				<artifactId>jgitflow-maven-plugin</artifactId>
