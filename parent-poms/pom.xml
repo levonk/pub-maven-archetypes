@@ -585,11 +585,28 @@
             </dependency>
 
             <!-- checker framework-->
+			<!-- @see https://checkerframework.org/manual/#maven -->
             <dependency>
                 <groupId>org.checkerframework</groupId>
-                <artifactId>checker-framework</artifactId>
+                <artifactId>checker-qual</artifactId>
 				<version>${checkers.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checker</artifactId>
+				<version>${checkers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>compiler</artifactId>
+				<version>${checkers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>jdk8</artifactId>
+				<version>${checkers.version}</version>
+            </dependency>
+
 			<dependency>
 				<!-- @see https://github.com/mauricio/postgresql-async -->
 				<groupId>com.github.mauricio</groupId>
