@@ -198,6 +198,8 @@
 		<jsonschema2pojo.version>0.4.24</jsonschema2pojo.version>	<!-- 2016-08-09 -->
 		<javadoc.version>2.10.4</javadoc.version>	<!-- 2016-10-24 -->
 		<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
+		<javax-el.version>2.2.6</javax-el.version>	<!-- 2017-03-12 -->
+		<javax-el-api.version>3.0.1-b04</javax-el-api.version>	<!-- 2017-03-12 -->
 		<jclouds.version>2.0.0</jclouds.version>	<!-- 2016-12-06 -->
 		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 		<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
@@ -1591,12 +1593,12 @@
 				<dependency>
 					<groupId>javax.el</groupId>
 					<artifactId>javax.el-api</artifactId>
-					<version>${javax-el.version}</version>
+					<version>${javax-el-api.version}</version>
 				</dependency>
 				<dependency>
-					<groupId>javax-el</groupId>
+					<groupId>org.glassfish.web</groupId>
 					<artifactId>javax.el</artifactId>
-					<version>${java-el.version}</version>
+					<version>${javax-el.version}</version>
 				</dependency>
 			</dependencies>
 		</profile>
