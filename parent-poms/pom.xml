@@ -67,11 +67,6 @@
 
     
 	<repositories>
-        <repository>
-            <id>checker-framework-repo</id>
-			<name>Check Static Analysis Repo</name>
-            <url>http://types.cs.washington.edu/m2-repo</url>
-        </repository>
 		<repository>
 			<id>apache</id>
 			<name>Apache Releases Repository</name>
@@ -95,6 +90,11 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+		<repository>
+			<id>gemfire-repository</id>
+			<name>Prevent an error in dependency mangement</name>
+			<url>http://dist.gemstone.com/maven/release</url>
+		</repository>
    </repositories>
 
 	 <pluginRepositories>
@@ -111,10 +111,6 @@
         <pluginRepository>
             <id>spring-milestones</id>
             <url>http://repo.spring.io/milestone</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>checker-framework-repo</id>
-            <url>http://types.cs.washington.edu/m2-repo</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -156,7 +152,7 @@
 		<avro.version>1.7.7</avro.version>
 		<bijection.version>0.9.5</bijection.version>	<!-- 2017-03-06 -->
 		<codequality.version>1.0.9</codequality.version>
-		<checkers.version>2.1.6</checkers.version>	<!-- 2016-12-11 -->
+		<checkers.version>2.1.9</checkers.version>	<!-- 2017-03-12 -->
 		<docker.version>0.4.1</docker.version>
 		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
 		<spring-boot.version>1.5.1.RELEASE</spring-boot.version>	<!-- 2017-03-01 -->
@@ -1058,14 +1054,14 @@
 							<exclude>net.jcip:jcip-annotations:jar:1.0</exclude>
 							<exclude>com.google.code.findbugs:annotations:jar:3.0.1u2</exclude>
 						<!-- non-distribute use only -->
-							<exclude>org.checkerframework:checker:jar:2.1.6</exclude>
-							<exclude>org.checkerframework:jdk8:jar:2.1.6</exclude>
+							<exclude>org.checkerframework:checker:jar:${checkers.version}</exclude>
+							<exclude>org.checkerframework:jdk8:jar:${checkers.version}</exclude>
 						<!-- dual license causes confusions -->
 							<exclude>ch.qos.logback:logback-classic:jar:1.0.13</exclude>
 							<exclude>ch.qos.logback.contrib:logback-jackson:jar:0.1.5</exclude>
 							<exclude>ch.qos.logback.contrib:logback-json-core:jar:0.1.5</exclude>
 							<exclude>ch.qos.logback:logback-core:jar:1.0.13</exclude>
-							<exclude>org.checkerframework:checker-qual:jar:2.1.6</exclude>
+							<exclude>org.checkerframework:checker-qual:jar:${checkers.version}</exclude>
 					</excludes>
 				</configuration>
             </plugin>
