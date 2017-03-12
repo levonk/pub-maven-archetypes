@@ -1604,6 +1604,12 @@
 					<groupId>org.glassfish.web</groupId>
 					<artifactId>javax.el</artifactId>
 					<version>${javax-el.version}</version>
+					<exclusions>
+						<exclusion>
+							<groupId>javax.el</groupId>
+							<artifactId>javax.el-api</artifactId>
+						</exclusion>
+					</exclusions>
 				</dependency>
 			</dependencies>
 		</profile>
