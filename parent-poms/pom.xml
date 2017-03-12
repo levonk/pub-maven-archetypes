@@ -186,7 +186,7 @@
 		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
 		<guava.version>20.0</guava.version>	<!-- 2016-12-11 -->
-		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version> <!-- 2016-12-11 -->
+		<hibernate-validator.version>5.4.0.Final</hibernate-validator.version> <!-- 2017-02-14 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
 		<imageresolver.version>0.1.0</imageresolver.version>	<!-- 2017-02-05 -->
 		<immutables.version>2.3.10</immutables.version>	<!-- 2016-12-11 -->
@@ -1555,23 +1555,48 @@
 			</build>
 		</profile>
 		<profile>
-			<id>jsr303beanvalidation</id>
+			<!-- @MUSTUSE by having this in dependencies instead of depMgmt -->
+			<!-- @see http://www.baeldung.com/javax-validation -->
+			<id>jsr349beanvalidation</id>
 			<activation>
 				<file>
 					<exists>${basedir}/src/main/java</exists>
 				</file>
 			</activation>
 			<dependencies>
+				<!-- JSR303 API Dependency -->
 				<dependency>
 					<groupId>javax.validation</groupId>
 					<artifactId>validation-api</artifactId>
 					<version>${validation-api.version}</version>
 				</dependency>
+
+				<!-- JSR303 Reference Implementation provided by Hibernate -->
+				<!-- hibernate validator will not include the ORM -->
 				<dependency>
 					<groupId>org.hibernate</groupId>
 					<artifactId>hibernate-validator</artifactId>
 					<version>${hibernate-validator.version}</version>
 					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-validator-annotation-processor</artifactId>
+					<version>${hibernate-validator.version}</version>
+					<scope>runtime</scope>
+				</dependency>
+
+				<!-- JSR349 Reference Implementation provided by Glassfish -->
+				<!-- JSR349 adsd support for variables in violation messages -->
+				<dependency>
+					<groupId>javax.el</groupId>
+					<artifactId>javax.el-api</artifactId>
+					<version>${javax-el.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>javax-el</groupId>
+					<artifactId>javax.el</artifactId>
+					<version>${java-el.version}</version>
 				</dependency>
 			</dependencies>
 		</profile>
