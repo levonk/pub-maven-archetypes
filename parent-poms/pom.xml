@@ -1559,6 +1559,7 @@
 		<profile>
 			<!-- @MUSTUSE by having this in dependencies instead of depMgmt -->
 			<!-- @see http://www.baeldung.com/javax-validation -->
+			<!-- @see http://docs.oracle.com/javaee/6/tutorial/doc/gircz.html -->
 			<id>jsr349beanvalidation</id>
 			<activation>
 				<file>
