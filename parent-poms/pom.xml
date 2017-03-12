@@ -127,6 +127,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<maven.version>3.3.9</maven.version>
+		<!-- @see https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html -->
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.source>${maven.compiler.target}</maven.compiler.source>
 		
