@@ -178,6 +178,7 @@
 		<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
 		<equalsverifier.version>1.3.1</equalsverifier.version>
 		<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
+		<fb-contrib.version>6.8.3</fb-contrib.version>	<!-- 2017-03-11 -->
 		<findbugs.version>3.0.4</findbugs.version>	<!-- 2016-12-11 -->
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
 		<findbugs-google.version>3.0.1</findbugs-google.version>	<!-- 2016-12-11 -->
@@ -252,6 +253,7 @@
 		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 		<!-- as of 2012-09-17 -->
 		<source.version>3.0.1</source.version>	<!-- 2016-06-24 -->
+		<spotbugs.version>3.1.0-RC1</spotbugs.version>	<!-- 2017-03-11 -->
 		<!-- as of 2014-03-11 -->
 		<surefire.version>2.16</surefire.version>
 		<!-- as of 2011-04-06 -->
@@ -999,6 +1001,18 @@
 						<phase>pre-integration-test</phase>
                     </execution>
                 </executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.github.spotbugs</groupId>
+						<artifactId>spotbugs</artifactId>
+						<version>${spotbugs.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.mebigfatguy.fb-contrib</groupId>
+						<artifactId>fb-contrib</artifactId>
+						<version>${fb-contrib.version}</version>
+					</dependency>
+				</dependencies>
             </plugin>
 
 			<plugin>
