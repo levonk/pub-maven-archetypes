@@ -1007,7 +1007,8 @@
 			instances through factory methods rather than
 			calling the constructor.
 
-			A simple example is the java.lang.Boolean
+			A simple example is the java.lang.
+
 			class. In order to save memory and CPU cycles,
 			it is preferable to use the predefined constants
 			TRUE and FALSE. Constructor invocations should
@@ -1451,7 +1452,7 @@
 			<property name="format" value="^equals$" />
 			<!-- maximum allowed number of return statements. default: 2 -->
 			<property name="max" value="3" />
-			<property name="severity" value="error" />
+			<property name="severity" value="warning" />
 		</module>
 
 		<!--
@@ -2301,7 +2302,7 @@
 				operations in one expression.
 				default: 3
 			-->
-			<property name="max" value="2" />
+			<property name="max" value="4" />
 			<property name="severity" value="error" />
 			<!-- tokens to check.
 				default: LAND, BAND, LOR, BOR, BXOR
@@ -3224,7 +3225,7 @@
 			<!-- maximum allowable number of lines.
 				default: 150
 			-->
-			<property name="max" value="60" />
+			<property name="max" value="150" />
 			<property name="severity" value="error" />
 			<!-- blocks to check.
 				default: METHOD_DEF, CTOR_DEF
