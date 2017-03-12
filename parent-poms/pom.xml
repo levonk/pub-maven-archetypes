@@ -127,6 +127,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<maven.version>3.3.9</maven.version>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.compiler.source>${maven.compiler.target}</maven.compiler.source>
 		
 		<!-- Checker Framework -->
 		<!-- These properties will be set by the Maven Dependency plugin -->
@@ -735,8 +737,8 @@
                     <forceJavacCompilerUse>true</forceJavacCompilerUse>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <optimize>true</optimize>
                     <debug>true</debug>
                     <fork>true</fork>
