@@ -64,6 +64,7 @@
 <properties>
 			<gpg.version>1.5</gpg.version>
 
+		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2016-12-11 -->
 	</properties>
 
     <profiles>
@@ -221,6 +222,16 @@
 
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<!-- AVOID: [WARNING] Report plugin org.apache.maven.plugins:maven-project-info-reports-plugin has an empty version. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${maven-project-info-reports-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </project>
