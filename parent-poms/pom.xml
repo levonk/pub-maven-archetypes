@@ -14,7 +14,7 @@
     <name>Parent POM</name>
     <description>Spring Boot LK Parent POM</description>
     <url>none</url>
-    <version>2.0.84.509-667851e</version>
+    <version>2.0.85.510-51cff5e</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -1001,11 +1001,13 @@
                     <xmlOutput>true</xmlOutput>
 					<!-- @see http://gleclaire.github.io/findbugs-maven-plugin/usage.html#Using_Detectors_from_a_Repository -->
 					<plugins>
+						<!-- must wait until spotbugs group fixes issue with findbugs conflict
 						<plugin>
 							<groupId>com.github.spotbugs</groupId>
 							<artifactId>spotbugs</artifactId>
 							<version>${spotbugs.version}</version>
 						</plugin>
+						-->
 						<plugin>
 							<groupId>com.h3xstream.findsecbugs</groupId>
 							<artifactId>findsecbugs-plugin</artifactId>
@@ -1063,7 +1065,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.84.509-667851e</version>
+                        <version>2.0.85.510-51cff5e</version>
                      </dependency>
                 </dependencies>
 				<configuration>
