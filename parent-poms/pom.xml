@@ -1031,11 +1031,13 @@
 							<!-- <version>LATEST</version>	 Non Deterministic, but security related -->
 							<version>${findsecbugs-plugin}</version>
 						</plugin>
+						<!-- BUG: This will cause a EmptyVisitor Exception in findbugs if enabled at existing version
 						<plugin>
 							<groupId>com.timgroup</groupId>
 							<artifactId>findbugs4jmock</artifactId>
 							<version>${findbugs4jmock.version}</version>
 						</plugin>
+						-->
 					</plugins>
                 </configuration>
 				<executions>
