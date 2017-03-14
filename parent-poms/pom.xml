@@ -875,7 +875,16 @@
                                              @see http://jira.codehaus.org/browse/MVERSIONS-285
                                         -->
                                         <exclude>org.codehaus.mojo:versions-maven-plugin:2.2</exclude>
+										<!-- @see https://cwiki.apache.org/confluence/display/WW/S2-045 -->
+										<!-- Security Ban remote code execution Apache Struts <2.3.32 and <2.5.10.1 -->
+										<exclude>org.apache.struts:struts2-core:[1,2.3.31]</exclude>
+										<exclude>org.apache.struts:struts2-core:[2.5.0.0,2.5.10.0]</exclude>
                                     </excludes>
+                                    <includes>
+										<!-- Security allow structs >2.3.31 and >2.5.10.1 -->
+                                        <exclude>org.apache.struts:struts2-core:[2.3.32,2.3.99)</exclude>
+                                        <exclude>org.apache.struts:struts2-core:[2.5.10.1,2.5.10.99))</exclude>
+									</includes>
                                 </bannedDependencies>
                                 <dependencyConvergence />
                                 <requireMavenVersion>
