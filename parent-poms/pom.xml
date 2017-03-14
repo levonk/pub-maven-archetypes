@@ -14,7 +14,7 @@
     <name>Parent POM</name>
     <description>Spring Boot LK Parent POM</description>
     <url>none</url>
-    <version>2.0.83-SNAPSHOT</version>
+    <version>2.0.86-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -179,6 +179,8 @@
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
 		<findbugs-google.version>3.0.1</findbugs-google.version>	<!-- 2016-12-11 -->
 		<findbugs-google2.version>3.0.1u2</findbugs-google2.version>	<!-- 2016-12-11 -->
+		<findbugs4jmock.version>0.3</findbugs4jmock.version>	<!-- 2017-03-13 -->
+		<findsecbugs-plugin>1.5.0</findsecbugs-plugin>	<!-- 2017-03-13 -->
 		<flexy-pool.version>1.2.6</flexy-pool.version>	<!-- 2016-11-02 -->
 		<freebuilder.version>1.11</freebuilder.version>	<!-- 2016-12-11 -->
 		<gdlogger.version>1.2.2</gdlogger.version>	<!-- 2016-07-04 -->
@@ -890,7 +892,16 @@
                                              @see http://jira.codehaus.org/browse/MVERSIONS-285
                                         -->
                                         <exclude>org.codehaus.mojo:versions-maven-plugin:2.2</exclude>
+										<!-- @see https://cwiki.apache.org/confluence/display/WW/S2-045 -->
+										<!-- Security Ban remote code execution Apache Struts <2.3.32 and <2.5.10.1 -->
+										<exclude>org.apache.struts:struts2-core:[1,2.3.31]</exclude>
+										<exclude>org.apache.struts:struts2-core:[2.5.0.0,2.5.10.0]</exclude>
                                     </excludes>
+                                    <includes>
+										<!-- Security allow structs >2.3.31 and >2.5.10.1 -->
+                                        <exclude>org.apache.struts:struts2-core:[2.3.32,2.3.99)</exclude>
+                                        <exclude>org.apache.struts:struts2-core:[2.5.10.1,2.5.10.99))</exclude>
+									</includes>
                                 </bannedDependencies>
                                 <dependencyConvergence />
                                 <requireMavenVersion>
@@ -1005,6 +1016,27 @@
                     <effort>Max</effort>
                     <threshold>Low</threshold>
                     <xmlOutput>true</xmlOutput>
+					<!-- @see http://gleclaire.github.io/findbugs-maven-plugin/usage.html#Using_Detectors_from_a_Repository -->
+					<plugins>
+						<!-- must wait until spotbugs group fixes issue with findbugs conflict
+						<plugin>
+							<groupId>com.github.spotbugs</groupId>
+							<artifactId>spotbugs</artifactId>
+							<version>${spotbugs.version}</version>
+						</plugin>
+						-->
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<!-- <version>LATEST</version>	 Non Deterministic, but security related -->
+							<version>${findsecbugs-plugin}</version>
+						</plugin>
+						<plugin>
+							<groupId>com.timgroup</groupId>
+							<artifactId>findbugs4jmock</artifactId>
+							<version>${findbugs4jmock.version}</version>
+						</plugin>
+					</plugins>
                 </configuration>
 				<executions>
                     <execution>
@@ -1014,18 +1046,6 @@
 						<phase>pre-integration-test</phase>
                     </execution>
                 </executions>
-				<dependencies>
-					<dependency>
-						<groupId>com.github.spotbugs</groupId>
-						<artifactId>spotbugs</artifactId>
-						<version>${spotbugs.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>com.mebigfatguy.fb-contrib</groupId>
-						<artifactId>fb-contrib</artifactId>
-						<version>${fb-contrib.version}</version>
-					</dependency>
-				</dependencies>
             </plugin>
 
 			<plugin>
@@ -1062,7 +1082,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.83-SNAPSHOT</version>
+                        <version>2.0.86-SNAPSHOT</version>
                      </dependency>
                 </dependencies>
 				<configuration>
