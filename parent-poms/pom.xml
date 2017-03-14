@@ -1007,11 +1007,6 @@
 							<version>${spotbugs.version}</version>
 						</plugin>
 						<plugin>
-							<groupId>com.github.spotbugs</groupId>
-							<artifactId>spotbugs</artifactId>
-							<version>${spotbugs.version}</version>
-						</plugin>
-						<plugin>
 							<groupId>com.h3xstream.findsecbugs</groupId>
 							<artifactId>findsecbugs-plugin</artifactId>
 							<!-- <version>LATEST</version>	 Non Deterministic, but security related -->
