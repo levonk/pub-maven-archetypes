@@ -14,7 +14,7 @@
     <name>Parent POM</name>
     <description>Spring Boot LK Parent POM</description>
     <url>none</url>
-    <version>2.0.85.510-51cff5e</version>
+    <version>2.0.86.511-17927e9</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -587,11 +587,28 @@
             </dependency>
 
             <!-- checker framework-->
+			<!-- @see https://checkerframework.org/manual/#maven -->
             <dependency>
                 <groupId>org.checkerframework</groupId>
-                <artifactId>checker-framework</artifactId>
+                <artifactId>checker-qual</artifactId>
 				<version>${checkers.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checker</artifactId>
+				<version>${checkers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>compiler</artifactId>
+				<version>${checkers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>jdk8</artifactId>
+				<version>${checkers.version}</version>
+            </dependency>
+
 			<dependency>
 				<!-- @see https://github.com/mauricio/postgresql-async -->
 				<groupId>com.github.mauricio</groupId>
@@ -987,6 +1004,7 @@
                 </executions>
             </plugin>
 
+			<!-- TODO: @see http://gleclaire.github.io/findbugs-maven-plugin/examples/multi-module-config.html -->
             <plugin>
                 <!-- @see http://findbugs.sourceforge.net/ -->
                 <groupId>org.codehaus.mojo</groupId>
@@ -1014,11 +1032,13 @@
 							<!-- <version>LATEST</version>	 Non Deterministic, but security related -->
 							<version>${findsecbugs-plugin}</version>
 						</plugin>
+						<!-- BUG: This will cause a EmptyVisitor Exception in findbugs if enabled at existing version
 						<plugin>
 							<groupId>com.timgroup</groupId>
 							<artifactId>findbugs4jmock</artifactId>
 							<version>${findbugs4jmock.version}</version>
 						</plugin>
+						-->
 					</plugins>
                 </configuration>
 				<executions>
@@ -1065,7 +1085,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.85.510-51cff5e</version>
+                        <version>2.0.86.511-17927e9</version>
                      </dependency>
                 </dependencies>
 				<configuration>
