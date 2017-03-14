@@ -14,7 +14,7 @@
     <name>Parent POM</name>
     <description>Spring Boot LK Parent POM</description>
     <url>none</url>
-    <version>2.0.82.504-91b59c0</version>
+    <version>2.0.83.508-4910599</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -67,11 +67,6 @@
 
     
 	<repositories>
-        <repository>
-            <id>checker-framework-repo</id>
-			<name>Check Static Analysis Repo</name>
-            <url>http://types.cs.washington.edu/m2-repo</url>
-        </repository>
 		<repository>
 			<id>apache</id>
 			<name>Apache Releases Repository</name>
@@ -95,6 +90,11 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+		<repository>
+			<id>gemfire-repository</id>
+			<name>Prevent an error in dependency mangement</name>
+			<url>http://dist.gemstone.com/maven/release</url>
+		</repository>
    </repositories>
 
 	 <pluginRepositories>
@@ -112,10 +112,6 @@
             <id>spring-milestones</id>
             <url>http://repo.spring.io/milestone</url>
         </pluginRepository>
-        <pluginRepository>
-            <id>checker-framework-repo</id>
-            <url>http://types.cs.washington.edu/m2-repo</url>
-        </pluginRepository>
     </pluginRepositories>
 
 	<properties>
@@ -127,6 +123,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<maven.version>3.3.9</maven.version>
+		<!-- @see https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html -->
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven.compiler.source>${maven.compiler.target}</maven.compiler.source>
 		
 		<!-- Checker Framework -->
 		<!-- These properties will be set by the Maven Dependency plugin -->
@@ -153,7 +152,7 @@
 		<avro.version>1.7.7</avro.version>
 		<bijection.version>0.9.5</bijection.version>	<!-- 2017-03-06 -->
 		<codequality.version>1.0.9</codequality.version>
-		<checkers.version>2.1.6</checkers.version>	<!-- 2016-12-11 -->
+		<checkers.version>2.1.9</checkers.version>	<!-- 2017-03-12 -->
 		<docker.version>0.4.1</docker.version>
 		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
 		<spring-boot.version>1.5.1.RELEASE</spring-boot.version>	<!-- 2017-03-01 -->
@@ -175,10 +174,13 @@
 		<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
 		<equalsverifier.version>1.3.1</equalsverifier.version>
 		<errorprone.version>2.0.1</errorprone.version> <!-- as of 2015-03-27 -->
+		<fb-contrib.version>6.8.3</fb-contrib.version>	<!-- 2017-03-11 -->
 		<findbugs.version>3.0.4</findbugs.version>	<!-- 2016-12-11 -->
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
 		<findbugs-google.version>3.0.1</findbugs-google.version>	<!-- 2016-12-11 -->
 		<findbugs-google2.version>3.0.1u2</findbugs-google2.version>	<!-- 2016-12-11 -->
+		<findbugs4jmock.version>0.3</findbugs4jmock.version>	<!-- 2017-03-13 -->
+		<findsecbugs-plugin>1.5.0</findsecbugs-plugin>	<!-- 2017-03-13 -->
 		<flexy-pool.version>1.2.6</flexy-pool.version>	<!-- 2016-11-02 -->
 		<freebuilder.version>1.11</freebuilder.version>	<!-- 2016-12-11 -->
 		<gdlogger.version>1.2.2</gdlogger.version>	<!-- 2016-07-04 -->
@@ -186,7 +188,7 @@
 		<guage-java.version>0.2.2</guage-java.version>	<!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version>	<!-- 2016-04-09 -->
 		<guava.version>20.0</guava.version>	<!-- 2016-12-11 -->
-		<hibernate-validator.version>5.3.4.Final</hibernate-validator.version> <!-- 2016-12-11 -->
+		<hibernate-validator.version>5.4.0.Final</hibernate-validator.version> <!-- 2017-02-14 -->
 		<kotlin.version>1.0.2</kotlin.version>	<!-- 2016-05-30 -->
 		<imageresolver.version>0.1.0</imageresolver.version>	<!-- 2017-02-05 -->
 		<immutables.version>2.3.10</immutables.version>	<!-- 2016-12-11 -->
@@ -198,6 +200,8 @@
 		<jsonschema2pojo.version>0.4.24</jsonschema2pojo.version>	<!-- 2016-08-09 -->
 		<javadoc.version>2.10.4</javadoc.version>	<!-- 2016-10-24 -->
 		<javancss.version>2.1</javancss.version>	<!-- 2015-10-06 -->
+		<javax-el.version>2.2.6</javax-el.version>	<!-- 2017-03-12 -->
+		<javax-el-api.version>3.0.1-b04</javax-el-api.version>	<!-- 2017-03-12 -->
 		<jclouds.version>2.0.0</jclouds.version>	<!-- 2016-12-06 -->
 		<jdbcasync.version>0.2.18</jdbcasync.version>	<!-- 2015-10-07 -->
 		<jdepend.version>2.0</jdepend.version>	<!-- 2015-10-06 -->
@@ -218,6 +222,7 @@
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>	<!-- 2016-12-11 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2016-12-11 -->
 		<maven-plugin-versions.version>3.3.8</maven-plugin-versions.version>	<!-- 2016-12-11 -->
+		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>	<!-- 2017-03-11 -->
 		<microservices-dashboard-server.version>1.0.1</microservices-dashboard-server.version>	<!-- 2016-12-28 -->
 		<mockito.version>1.9.5</mockito.version>
 		<modernizer.version>1.4.0</modernizer.version> <!-- 2015-10-06 -->
@@ -246,6 +251,7 @@
 		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 		<!-- as of 2012-09-17 -->
 		<source.version>3.0.1</source.version>	<!-- 2016-06-24 -->
+		<spotbugs.version>3.1.0-RC1</spotbugs.version>	<!-- 2017-03-11 -->
 		<!-- as of 2014-03-11 -->
 		<surefire.version>2.16</surefire.version>
 		<!-- as of 2011-04-06 -->
@@ -733,8 +739,8 @@
                     <forceJavacCompilerUse>true</forceJavacCompilerUse>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <optimize>true</optimize>
                     <debug>true</debug>
                     <fork>true</fork>
@@ -869,7 +875,16 @@
                                              @see http://jira.codehaus.org/browse/MVERSIONS-285
                                         -->
                                         <exclude>org.codehaus.mojo:versions-maven-plugin:2.2</exclude>
+										<!-- @see https://cwiki.apache.org/confluence/display/WW/S2-045 -->
+										<!-- Security Ban remote code execution Apache Struts <2.3.32 and <2.5.10.1 -->
+										<exclude>org.apache.struts:struts2-core:[1,2.3.31]</exclude>
+										<exclude>org.apache.struts:struts2-core:[2.5.0.0,2.5.10.0]</exclude>
                                     </excludes>
+                                    <includes>
+										<!-- Security allow structs >2.3.31 and >2.5.10.1 -->
+                                        <exclude>org.apache.struts:struts2-core:[2.3.32,2.3.99)</exclude>
+                                        <exclude>org.apache.struts:struts2-core:[2.5.10.1,2.5.10.99))</exclude>
+									</includes>
                                 </bannedDependencies>
                                 <dependencyConvergence />
                                 <requireMavenVersion>
@@ -984,6 +999,30 @@
                     <effort>Max</effort>
                     <threshold>Low</threshold>
                     <xmlOutput>true</xmlOutput>
+					<!-- @see http://gleclaire.github.io/findbugs-maven-plugin/usage.html#Using_Detectors_from_a_Repository -->
+					<plugins>
+						<plugin>
+							<groupId>com.github.spotbugs</groupId>
+							<artifactId>spotbugs</artifactId>
+							<version>${spotbugs.version}</version>
+						</plugin>
+						<plugin>
+							<groupId>com.github.spotbugs</groupId>
+							<artifactId>spotbugs</artifactId>
+							<version>${spotbugs.version}</version>
+						</plugin>
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<!-- <version>LATEST</version>	 Non Deterministic, but security related -->
+							<version>${findsecbugs-plugin}</version>
+						</plugin>
+						<plugin>
+							<groupId>com.timgroup</groupId>
+							<artifactId>findbugs4jmock</artifactId>
+							<version>${findbugs4jmock.version}</version>
+						</plugin>
+					</plugins>
                 </configuration>
 				<executions>
                     <execution>
@@ -1029,7 +1068,7 @@
                     <dependency>
                         <groupId>com.levonk.codequality</groupId>
                         <artifactId>licenses</artifactId>
-                        <version>2.0.82.504-91b59c0</version>
+                        <version>2.0.83.508-4910599</version>
                      </dependency>
                 </dependencies>
 				<configuration>
@@ -1038,14 +1077,14 @@
 							<exclude>net.jcip:jcip-annotations:jar:1.0</exclude>
 							<exclude>com.google.code.findbugs:annotations:jar:3.0.1u2</exclude>
 						<!-- non-distribute use only -->
-							<exclude>org.checkerframework:checker:jar:2.1.6</exclude>
-							<exclude>org.checkerframework:jdk8:jar:2.1.6</exclude>
+							<exclude>org.checkerframework:checker:jar:${checkers.version}</exclude>
+							<exclude>org.checkerframework:jdk8:jar:${checkers.version}</exclude>
 						<!-- dual license causes confusions -->
 							<exclude>ch.qos.logback:logback-classic:jar:1.0.13</exclude>
 							<exclude>ch.qos.logback.contrib:logback-jackson:jar:0.1.5</exclude>
 							<exclude>ch.qos.logback.contrib:logback-json-core:jar:0.1.5</exclude>
 							<exclude>ch.qos.logback:logback-core:jar:1.0.13</exclude>
-							<exclude>org.checkerframework:checker-qual:jar:2.1.6</exclude>
+							<exclude>org.checkerframework:checker-qual:jar:${checkers.version}</exclude>
 					</excludes>
 				</configuration>
             </plugin>
@@ -1555,23 +1594,55 @@
 			</build>
 		</profile>
 		<profile>
-			<id>jsr303beanvalidation</id>
+			<!-- @MUSTUSE by having this in dependencies instead of depMgmt -->
+			<!-- @see http://www.baeldung.com/javax-validation -->
+			<!-- @see http://docs.oracle.com/javaee/6/tutorial/doc/gircz.html -->
+			<id>jsr349beanvalidation</id>
 			<activation>
 				<file>
 					<exists>${basedir}/src/main/java</exists>
 				</file>
 			</activation>
 			<dependencies>
+				<!-- JSR303 API Dependency -->
 				<dependency>
 					<groupId>javax.validation</groupId>
 					<artifactId>validation-api</artifactId>
 					<version>${validation-api.version}</version>
 				</dependency>
+
+				<!-- JSR303 Reference Implementation provided by Hibernate -->
+				<!-- hibernate validator will not include the ORM -->
 				<dependency>
 					<groupId>org.hibernate</groupId>
 					<artifactId>hibernate-validator</artifactId>
 					<version>${hibernate-validator.version}</version>
 					<scope>runtime</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-validator-annotation-processor</artifactId>
+					<version>${hibernate-validator.version}</version>
+					<scope>runtime</scope>
+				</dependency>
+
+				<!-- JSR349 Reference Implementation provided by Glassfish -->
+				<!-- JSR349 adsd support for variables in violation messages -->
+				<dependency>
+					<groupId>javax.el</groupId>
+					<artifactId>javax.el-api</artifactId>
+					<version>${javax-el-api.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.glassfish.web</groupId>
+					<artifactId>javax.el</artifactId>
+					<version>${javax-el.version}</version>
+					<exclusions>
+						<exclusion>
+							<groupId>javax.el</groupId>
+							<artifactId>javax.el-api</artifactId>
+						</exclusion>
+					</exclusions>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -3042,6 +3113,7 @@
 			<id>not-running-with-settingsxml</id>
 			<activation>
 				<property>
+					<!-- Include this property in ~/m2/settings.xml to subside this warning -->
 					<name>!settingsxml.version</name>
 				</property>
 			</activation>
@@ -3063,6 +3135,29 @@
 								</configuration>
 							</execution>
 						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>resource-defaults</id>
+			<activation>
+				<file>
+					<missing>${basedir}/src/main/resoruces</missing>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- @see https://maven.apache.org/plugins/maven-resoruces-plugin/resources-mojo.html -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>${maven-resources-plugin.version}</version>
+						<configuration>
+							<!-- prevent running this unless there data, complimentary profile -->
+							<skip>true</skip>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>

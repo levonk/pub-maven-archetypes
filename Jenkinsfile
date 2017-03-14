@@ -208,7 +208,7 @@ node {
 				sh "ls -lR ; cat parent-poms/.mvn/extensions.xml || true"
 				def mavenCentralRelease = sh( returnStdout: true, script: "${mvnCmd} --also-make --projects parent-poms,codequality,licenses -Dgpg.passphrase=${env.GPG_PASSWORD} -Dgpg.homedir=${workSpace}/.gnupg deploy -P maven-central-release" );
 			println "[Jenkinsfile] got output from mavenCentralRelease $mavenCentralRelease"
-				@Whitelisted mavenCentralRelease.eachline { line ->
+				mavenCentralRelease.eachline { line ->
 					println "[Jenkinsfile] attempt match $line"
 					m = line =~ / staging repository with ID "(comlevonk-[0-9]+)".$/;
 					if ( m.matches() ) {
