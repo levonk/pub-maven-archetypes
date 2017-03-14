@@ -1001,11 +1001,13 @@
                     <xmlOutput>true</xmlOutput>
 					<!-- @see http://gleclaire.github.io/findbugs-maven-plugin/usage.html#Using_Detectors_from_a_Repository -->
 					<plugins>
+						<!-- must wait until spotbugs group fixes issue with findbugs conflict
 						<plugin>
 							<groupId>com.github.spotbugs</groupId>
 							<artifactId>spotbugs</artifactId>
 							<version>${spotbugs.version}</version>
 						</plugin>
+						-->
 						<plugin>
 							<groupId>com.h3xstream.findsecbugs</groupId>
 							<artifactId>findsecbugs-plugin</artifactId>
