@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.1.RELEASE</version>	<!-- 2017-03-01 -->
+		<version>1.5.2.RELEASE</version>	<!-- 2017-03-14 -->
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -155,7 +155,7 @@
 		<checkers.version>2.1.9</checkers.version>	<!-- 2017-03-12 -->
 		<docker.version>0.4.1</docker.version>
 		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
-		<spring-boot.version>1.5.1.RELEASE</spring-boot.version>	<!-- 2017-03-01 -->
+		<spring-boot.version>1.5.2.RELEASE</spring-boot.version>	<!-- 2017-03-14 -->
 		<spring-boot-admin-server.version>1.4.4</spring-boot-admin-server.version>	<!-- 2016-12-28 -->
 		<checkstyle.version>2.17</checkstyle.version>	<!-- 2015-10-06 -->
 		<checkstylepuppycrawl.version>6.11.2</checkstylepuppycrawl.version>	<!-- 2015-10-06 -->
@@ -246,7 +246,7 @@
 		<scala-maven-plugin.version>3.2.2</scala-maven-plugin.version>	<!-- 2017-02-24 -->
 		<scientist4j.version>0.3</scientist4j.version>	<!-- 2016-12-02 -->
 		<maven-site-plugin.version>3.6</maven-site-plugin.version>	<!-- 2017-03-14 -->
-		<slf4j.version>1.7.21</slf4j.version>	<!-- 2016-12-11 -->
+		<slf4j.version>1.7.24</slf4j.version>	<!-- 2017-03-14 -->
 		<smartbuilder.version>0.4.1</smartbuilder.version>	<!-- 2015-06-10 -->
 		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 		<!-- as of 2012-09-17 -->
