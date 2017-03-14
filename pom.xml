@@ -7,6 +7,7 @@
     <description>multi-module pom to distribute parent poms</description>
 	<packaging>pom</packaging>
 	<version>2.0.87-SNAPSHOT</version>
+	<url>https://github.com/DGHLJ/pub-maven-archetypes</url>
 
 	<licenses>
 		<license>
@@ -27,7 +28,7 @@
 			<id>levonk</id>
 			<name>Levon K</name>
 			<email>none</email>
-			<url>none</url>
+			<url>http://twitter.com/LevonK</url>
 		</developer>
 		
 		
@@ -71,6 +72,7 @@
 		<maven-profiledep-extension.version>0.23-rc1</maven-profiledep-extension.version>	<!-- 2016-12-28 -->
 		<nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>	<!-- 2016-12-28 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2017-03-12 -->
+		<maven-site-plugin.version>3.6</maven-site-plugin.version>	<!-- 2017-03-14 -->
 	</properties>
 
 	<build>
@@ -147,6 +149,12 @@
 	<reporting>
 		<plugins>
 			<plugin>
+				<!-- AVOID: [ERROR] Left side ($hTexts.size()) of '>' operation has null value at META-INF/maven/site.vm[line 1309, column 49] -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven-site-plugin.version}</version>
+			</plugin>
+			<plugin>
 				<!-- AVOID: [WARNING] Report plugin org.apache.maven.plugins:maven-project-info-reports-plugin has an empty version. -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
@@ -171,6 +179,33 @@
 							<!-- The server "id" element from settings to use authentication from -->
 							<serverId>oss.sonatype.org</serverId>
 						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>signed-release</id>
+			<activation>
+				<property>
+					<name>gpg.passphrase</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${gpg.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
