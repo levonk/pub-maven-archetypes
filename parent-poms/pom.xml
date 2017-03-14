@@ -245,7 +245,7 @@
 		<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
 		<scala-maven-plugin.version>3.2.2</scala-maven-plugin.version>	<!-- 2017-02-24 -->
 		<scientist4j.version>0.3</scientist4j.version>	<!-- 2016-12-02 -->
-		<site.version>3.6</site.version>	<!-- 2017-03-14 -->
+		<maven-site-plugin.version>3.6</maven-site-plugin.version>	<!-- 2017-03-14 -->
 		<slf4j.version>1.7.21</slf4j.version>	<!-- 2016-12-11 -->
 		<smartbuilder.version>0.4.1</smartbuilder.version>	<!-- 2015-06-10 -->
 		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
@@ -671,7 +671,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>${site.version}</version>
+				<version>${maven-site-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-descriptor</id>
