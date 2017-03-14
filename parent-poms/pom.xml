@@ -1004,6 +1004,7 @@
                 </executions>
             </plugin>
 
+			<!-- TODO: @see http://gleclaire.github.io/findbugs-maven-plugin/examples/multi-module-config.html -->
             <plugin>
                 <!-- @see http://findbugs.sourceforge.net/ -->
                 <groupId>org.codehaus.mojo</groupId>
