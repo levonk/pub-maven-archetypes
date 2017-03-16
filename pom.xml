@@ -6,7 +6,7 @@
 	<name>Internal Root POM</name>
     <description>multi-module pom to distribute parent poms</description>
 	<packaging>pom</packaging>
-	<version>2.0.87.512-adcb053</version>
+	<version>2.0.88.513-059305c</version>
 	<url>https://github.com/DGHLJ/pub-maven-archetypes</url>
 
 	<licenses>
@@ -73,6 +73,7 @@
 		<nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>	<!-- 2016-12-28 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2017-03-12 -->
 		<maven-site-plugin.version>3.6</maven-site-plugin.version>	<!-- 2017-03-14 -->
+	    <gpg.version>1.5</gpg.version>
 	</properties>
 
 	<build>
