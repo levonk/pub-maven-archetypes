@@ -1063,7 +1063,7 @@
 							<goal>download-licenses</goal>
 							<goal>aggregate-add-third-party</goal>
 						</goals>
-						<phase>pre-integration-test</phase>
+						<phase>site</phase>
 					</execution>
 				</executions>
 			</plugin>
