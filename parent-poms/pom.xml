@@ -6,7 +6,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.2.RELEASE</version>
 		<!-- 2017-03-14 -->
-		<relativePath/>
+		<relativePath />
 		<!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.levonk.codequality</groupId>
@@ -14,7 +14,7 @@
 	<name>Parent POM</name>
 	<description>Spring Boot LK Parent POM</description>
 	<url>none</url>
-	<version>2.0.88-SNAPSHOT</version>
+	<version>2.0.89-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<licenses>
 		<license>
@@ -857,7 +857,7 @@
 										<exclude>org.apache.struts:struts2-core:[2.5.10.1,2.5.10.99))</exclude>
 									</includes>
 								</bannedDependencies>
-								<dependencyConvergence/>
+								<dependencyConvergence />
 								<requireMavenVersion>
 									<version>[3.1.0,)</version>
 								</requireMavenVersion>
@@ -1041,7 +1041,7 @@
 					<dependency>
 						<groupId>com.levonk.codequality</groupId>
 						<artifactId>licenses</artifactId>
-						<version>2.0.88-SNAPSHOT</version>
+						<version>2.0.89-SNAPSHOT</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -1185,7 +1185,7 @@
 						<phase>process-sources</phase>
 						<configuration>
 							<target>
-								<depend srcDir="${project.build.sourceDirectory}" destDir="${project.build.outputDirectory}" cache="${project.build.outputDirectory}"/>
+								<depend srcDir="${project.build.sourceDirectory}" destDir="${project.build.outputDirectory}" cache="${project.build.outputDirectory}" />
 							</target>
 						</configuration>
 						<goals>
@@ -1198,7 +1198,7 @@
 						<phase>process-test-sources</phase>
 						<configuration>
 							<target>
-								<depend srcDir="${project.build.testSourceDirectory}" destDir="${project.build.testOutputDirectory}" cache="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}"/>
+								<depend srcDir="${project.build.testSourceDirectory}" destDir="${project.build.testOutputDirectory}" cache="${project.build.testOutputDirectory}" classpath="${project.build.outputDirectory}" />
 							</target>
 						</configuration>
 						<goals>
