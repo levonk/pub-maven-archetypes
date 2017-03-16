@@ -73,6 +73,7 @@
 		<nexus-staging-maven-plugin>1.6.7</nexus-staging-maven-plugin>	<!-- 2016-12-28 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>	<!-- 2017-03-12 -->
 		<maven-site-plugin.version>3.6</maven-site-plugin.version>	<!-- 2017-03-14 -->
+	    <gpg.version>1.5</gpg.version>
 	</properties>
 
 	<build>
