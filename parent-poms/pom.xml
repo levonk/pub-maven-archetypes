@@ -205,6 +205,7 @@
 		<logback-jackson.version>0.1.5</logback-jackson.version> <!-- 2016-12-02 -->
 		<logstash.version>4.7</logstash.version> <!-- 2016-07-07 -->
 		<lombok.version>1.16.12</lombok.version> <!-- 2016-12-11 -->
+		<maven-buildtime-extension.version>3.0.0</maven-buildtime-extension.version>	<!-- 2017-04-01 -->
 		<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>	<!-- 2017-03-16 -->
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version> <!-- 2016-12-11 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version> <!-- 2016-12-11 -->
@@ -1227,6 +1228,15 @@
 							<groupId>com.github.sviperll</groupId>
 							<artifactId>maven-profiledep-extension</artifactId>
 							<version>${profiledep.version}</version>
+						</extension>
+						<extension>
+							<!-- @see https://github.com/timgifford/maven-buildtime-extension -->
+							<!-- add -Dbuiltime.output.log=true to get timings on normal build instead of just debug -->
+							<!-- add -Dbuiltime.output.csv=true to get timings in CSV -->
+							<!-- add -Dbuiltime.output.csv.file=classes\buildtimes.csv to get timings in CSV -->
+							<groupId>co.leantechniques</groupId>
+							<artifactId>maven-buildtime-extension</artifactId>
+							<version>${maven-buildtime-extension.version}</version>
 						</extension>
 						<!--
 					            This seems to have been replaced
