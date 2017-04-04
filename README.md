@@ -47,3 +47,8 @@ mvn archetype:generate -DarchetypeRepository=https://github.com/DGHLJ/pub-maven-
 
 ##spring batch
 mvn archetype:generate -DarchetypeRepository=https://github.com/DGHLJ/pub-maven-archetypes-repo/raw/master/releases -DarchetypeGroupId=com.archetype -DarchetypeArtifactId=spring-batch -DarchetypeVersion=1.0 -DgroupId=<submodule group id> -DartifactId=&lt;submodule artifact Id&gt;
+
+# Outstanding issues
+reflow-maven-skin causes the following non-breaking issue:
+https://github.com/andriusvelykis/reflow-maven-skin/issues/51
+Investigate https://github.com/vackosar/gitflow-incremental-builder
