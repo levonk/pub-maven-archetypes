@@ -3137,7 +3137,7 @@
 				</plugins>
 			</build>
 		</profile>
-		<profile>
+		<!-- <profile>
 			<id>resource-defaults</id>
 			<activation>
 				<file>
@@ -3147,18 +3147,18 @@
 			<build>
 				<plugins>
 					<plugin>
-						<!-- @see https://maven.apache.org/plugins/maven-resoruces-plugin/resources-mojo.html -->
+						[!-- @see https://maven.apache.org/plugins/maven-resoruces-plugin/resources-mojo.html --]
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-resources-plugin</artifactId>
 						<version>${maven-resources-plugin.version}</version>
 						<configuration>
-							<!-- prevent running this unless there data, complimentary profile -->
+							[!-- prevent running this unless there data, complimentary profile --]
 							<skip>true</skip>
 						</configuration>
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
+		</profile> -->
 	</profiles>
 	<!-- vim: set noexpandtab tabstop=4 shiftwidth=4: -->
 </project>
