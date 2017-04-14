@@ -189,7 +189,7 @@ node {
                 step([$class: 'FindBugsPublisher', canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', pattern: '', unHealthy: ''])
                 step([$class: 'CheckStylePublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
                 step([$class: 'AnalysisPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', unHealthy: ''])
-		sh "curl -s https://codecov.io/bash | bash"
+//sh "curl -s https://codecov.io/bash | bash"
 				println "[Jenkinsfile] PMD plugin in Jenkins has problems with parsing our file for some reason"
                 step([$class: 'PmdPublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''])
 

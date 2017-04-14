@@ -146,6 +146,7 @@
 		<spring-boot-admin-server.version>1.4.4</spring-boot-admin-server.version> <!-- 2016-12-28 -->
 		<checkstyle.version>2.17</checkstyle.version> <!-- 2015-10-06 -->
 		<checkstylepuppycrawl.version>6.11.2</checkstylepuppycrawl.version> <!-- 2015-10-06 -->
+		<clover-maven-plugin.version>4.1.2</clover-maven-plugin.version>	<!-- 2017-04-12 look for OSS version -->
 		<commonslang.version>2.6</commonslang.version>
 		<commonslang3.version>3.2.1</commonslang3.version>
 		<compiler.version>3.6.1</compiler.version> <!-- 2017-03-29 -->
@@ -1325,6 +1326,12 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>com.atlassian.maven.plugins</groupId>
+					<artifactId>clover-maven-plugin</artifactId>
+					<version>${clover-maven-plugin.version}</version>
+				</plugin>
+
 				<!-- android plugin -->
 				<plugin>
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
@@ -1853,8 +1860,38 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>com.atlassian.maven.plugins</groupId>
+						<artifactId>clover-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>main</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>instrument</goal>
+									<goal>aggregate</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>site</id>
+								<phase>pre-site</phase>
+								<goals>
+									<goal>instrument</goal>
+									<goal>aggregate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
+			<reporting>
+				<plugins>
+					<plugin>
+						<groupId>com.atlassian.maven.plugins</groupId>
+						<artifactId>clover-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</reporting>
 		</profile>
 		<profile>
 			<id>nexusclm</id>
@@ -2952,8 +2989,38 @@
 							<failOnError>false</failOnError>
 						</configuration>
 					</plugin>
+					<plugin>
+						<groupId>com.atlassian.maven.plugins</groupId>
+						<artifactId>clover-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>main</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>instrument</goal>
+									<goal>aggregate</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>site</id>
+								<phase>pre-site</phase>
+								<goals>
+									<goal>instrument</goal>
+									<goal>aggregate</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
+			<reporting>
+				<plugins>
+					<plugin>
+						<groupId>com.atlassian.maven.plugins</groupId>
+						<artifactId>clover-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</reporting>
 		</profile>
 		<profile>
 			<id>java-tests</id>
