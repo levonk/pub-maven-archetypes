@@ -67,6 +67,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<coreext-maven-plugin.version>0.23-rc1</coreext-maven-plugin.version>	<!-- 2016-12-28 -->
 		<jgitflow-maven-plugin.version>1.0-m5.1</jgitflow-maven-plugin.version>	<!-- 2016-12-28 -->
 		<maven-profiledep-extension.version>0.23-rc1</maven-profiledep-extension.version>	<!-- 2016-12-28 -->
