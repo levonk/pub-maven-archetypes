@@ -110,6 +110,7 @@
 		<sonar.exclusions>**/generated-sources/**</sonar.exclusions>
 		<sonar.pitest.mode>active</sonar.pitest.mode>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<maven.version>3.3.9</maven.version>
 		<!-- @see https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html -->
@@ -240,7 +241,7 @@
 		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 		<source.version>3.0.1</source.version> <!-- 2016-06-24 -->
 		<spotbugs.version>3.1.0-RC1</spotbugs.version> <!-- 2017-03-11 -->
-		<surefire.version>2.16</surefire.version> <!-- as of 2011-04-06 -->
+		<surefire.version>2.20</surefire.version> <!-- 2017-04-15 -->
 		<testng.version>6.10</testng.version> <!-- 2016-12-11 -->
 		<threeten-extra.version>0.9</threeten-extra.version> <!-- 2016-05-23 -->
 		<thrift.version>0.1.11</thrift.version> <!-- 2017-02-05 -->
@@ -881,6 +882,9 @@
 										<plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
 										<plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
 										<plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+										<plugin>org.apache.maven.plugins:surefire-junit</plugin>
+										<plugin>org.apache.maven.plugins:surefire-junit47</plugin>
+										<plugin>org.apache.maven.plugins:surefire-testng</plugin>
 									</plugins>
 								</requireSameVersions>
 								<requireSameVersions>
@@ -1691,8 +1695,8 @@
 			</reporting>
 		</profile>
 		<profile>
-			<!-- @see http://www.yegor256.com/2014/07/20/liquibase-in-maven.html -->
 			<id>with-liquibase</id>
+			<!-- @see http://www.yegor256.com/2014/07/20/liquibase-in-maven.html -->
 			<activation>
 				<file>
 					<exists>${basedir}/src/main/liquibase/master.xml</exists>
@@ -2214,6 +2218,7 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>docker</id>
 			<!--  
                 https://github.com/spotify/docker-maven-plugin
 
@@ -2232,7 +2237,6 @@
                 </servers>
 
             -->
-			<id>docker</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -2492,9 +2496,9 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>j2objc</id>
 			<!-- Generate ObjectiveC cocde from java -->
 			<!-- @see https://github.com/smoope/j2objc-maven-plugin#maven-plugin-for-j2objc-library -->
-			<id>j2objc</id>
 			<activation>
 				<file>
 					<exists>${basedir}/bin/j2objc</exists>
@@ -2518,8 +2522,8 @@
 			</build>
 		</profile>
 		<profile>
-			<!-- @see http://kotlinlang.org/docs/reference/using-maven.html -->
 			<id>kotlin</id>
+			<!-- @see http://kotlinlang.org/docs/reference/using-maven.html -->
 			<activation>
 				<file>
 					<exists>${basedir}/src/main/kotlin</exists>
@@ -2552,8 +2556,8 @@
 			</build>
 		</profile>
 		<profile>
-			<!-- @see http://kotlinlang.org/docs/reference/using-maven.html -->
 			<id>kotlin-test</id>
+			<!-- @see http://kotlinlang.org/docs/reference/using-maven.html -->
 			<activation>
 				<file>
 					<exists>${basedir}/src/test/kotlin</exists>
@@ -2586,10 +2590,10 @@
 			</build>
 		</profile>
 		<profile>
+			<id>json-schema</id>
 			<!-- Generate POJOs from JSON Schemas -->
 			<!-- @see http://json-schema.org/ -->
 			<!-- @see https://github.com/joelittlejohn/jsonschema2pojo/ -->
-			<id>json-schema</id>
 			<activation>
 				<file>
 					<exists>${basedir}/src/main/jsonschema</exists>
@@ -2632,6 +2636,7 @@
 			<properties>
 				<isBuildServer>fase</isBuildServer>
 				<isNotBuildServer>true</isNotBuildServer>
+				<maven-failsafe-plugin.skipAfterFailureCount>1</maven-failsafe-plugin.skipAfterFailureCount>
 			</properties>
 			<build>
 				<plugins>
@@ -2665,6 +2670,7 @@
 			<properties>
 				<isBuildServer>true</isBuildServer>
 				<isNotBuildServer>false</isNotBuildServer>
+				<maven-failsafe-plugin.skipAfterFailureCount>65535</maven-failsafe-plugin.skipAfterFailureCount>
 			</properties>
 			<build>
 				<plugins>
@@ -3102,6 +3108,31 @@
 								</configuration>
 							</execution>
 						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>${surefire.version}</version>
+						<configuration>
+							<properties>
+								<property>
+									<name>skipAfterFailureCount</name>
+									<value>${maven-failsafe-plugin.skipAfterFailureCount}</value>
+								</property>
+								<property>
+									<name>parallel</name>
+									<value>methods</value>
+								</property>
+								<property>
+									<name>dataproviderthreadcount</name>
+									<value>30</value>
+								</property>
+								<property>
+									<name>surefire.testng.verbose</name>
+									<value>10</value>
+								</property>
+							</properties>
+						</configuration>
 					</plugin>
 					<plugin>
 						<groupId>org.pitest</groupId>
