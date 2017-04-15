@@ -1614,10 +1614,64 @@
 			</build>
 		</profile>
 		<profile>
+			<id>resources</id>
+			<!-- do not do filtering of resources in this directory,
+				 put those in src/main/resources-filtered -->
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/resources</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>${maven-resources-plugin.version}</version>
+						<configuration>
+							<encoding>${project.build.sourceEncoding}</encoding>
+						</configuration>
+					</plugin>
+				</plugins>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>false</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>resources-filtered</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/main/resources-filtered</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>${maven-resources-plugin.version}</version>
+						<configuration>
+							<encoding>${project.build.sourceEncoding}</encoding>
+						</configuration>
+					</plugin>
+				</plugins>
+				<resources>
+					<resource>
+						<directory>src/main/resources-filtered</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>jsr349-bean-validation</id>
 			<!-- @MUSTUSE by having this in dependencies instead of depMgmt -->
 			<!-- @see http://www.baeldung.com/javax-validation -->
 			<!-- @see http://docs.oracle.com/javaee/6/tutorial/doc/gircz.html -->
-			<id>jsr349beanvalidation</id>
 			<activation>
 				<file>
 					<exists>${basedir}/src/main/java</exists>
