@@ -135,11 +135,11 @@
 		<antlr4.version>4.5.1-1</antlr4.version> <!-- 2015-10-06 -->
 		<antrun.version>1.8</antrun.version>
 		<archetype.version>3.0.0</archetype.version> <!-- 2017-02-23 -->
-		<avro.version>1.7.7</avro.version>
+		<avro.version>1.8.1</avro.version>	<!-- 2017-04-15 -->
 		<bijection.version>0.9.5</bijection.version> <!-- 2017-03-06 -->
 		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>	<!-- 2017-03-16 -->
 		<codequality.version>1.0.9</codequality.version>
-		<checkers.version>2.1.9</checkers.version> <!-- 2017-03-12 -->
+		<checkers.version>2.1.10</checkers.version> <!-- 2017-04-15 -->
 		<docker.version>0.4.1</docker.version>
 		<duplicate.version>1.2.1</duplicate.version> <!-- 2015-10-06 -->
 		<spring-boot.version>1.5.2.RELEASE</spring-boot.version> <!-- 2017-03-14 -->
@@ -151,7 +151,7 @@
 		<commonslang3.version>3.2.1</commonslang3.version>
 		<compiler.version>3.6.1</compiler.version> <!-- 2017-03-29 -->
 		<concurrentrepo.version>0.11.2</concurrentrepo.version> <!-- 2015-08-18 -->
-		<contract.version>0.0.1</contract.version> <!-- 2016-04-21 -->
+		<contract.version>0.0.6</contract.version>	<!-- 2017-04-15 -->
 		<coreext.version>0.22</coreext.version> <!-- as of 2016-12-11 -->
 		<dependency.version>3.0.0</dependency.version> <!-- 2016-12-19 -->
 		<dependencycheck.version>1.4.5</dependencycheck.version> <!-- 2017-03-09 -->
@@ -165,7 +165,7 @@
 		<fb-contrib.version>6.8.3</fb-contrib.version> <!-- 2017-03-11 -->
 		<findbugs.version>3.0.4</findbugs.version> <!-- 2016-12-11 -->
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
-		<findbugs-google.version>3.0.1</findbugs-google.version> <!-- 2016-12-11 -->
+		<findbugs-google.version>3.0.2</findbugs-google.version> <!-- 2016-12-11 -->
 		<findbugs-google2.version>3.0.1u2</findbugs-google2.version> <!-- 2016-12-11 -->
 		<findbugs4jmock.version>0.3</findbugs4jmock.version> <!-- 2017-03-13 -->
 		<findsecbugs-plugin>1.5.0</findsecbugs-plugin> <!-- 2017-03-13 -->
@@ -176,7 +176,8 @@
 		<guage-java.version>0.2.2</guage-java.version> <!-- 2016-04-09 -->
 		<guage-maven-plugin.version>1.0.3</guage-maven-plugin.version> <!-- 2016-04-09 -->
 		<guava.version>20.0</guava.version> <!-- 2016-12-11 -->
-		<hibernate-validator.version>5.4.0.Final</hibernate-validator.version> <!-- 2017-02-14 -->
+		<groovy.version>2.5.0-alpha-1</groovy.version>	<!-- 2017-04-15 -->
+		<hibernate-validator.version>6.0.0.Alpha2</hibernate-validator.version>	<!-- 2017-04-15 -->
 		<kotlin.version>1.0.2</kotlin.version> <!-- 2016-05-30 -->
 		<imageresolver.version>0.1.0</imageresolver.version> <!-- 2017-02-05 -->
 		<immutables.version>2.3.10</immutables.version> <!-- 2016-12-11 -->
@@ -189,9 +190,9 @@
 		<javadoc.version>2.10.4</javadoc.version> <!-- 2016-10-24 -->
 		<javancss.version>2.1</javancss.version> <!-- 2015-10-06 -->
 		<javax-el.version>2.2.6</javax-el.version> <!-- 2017-03-12 -->
-		<javax-el-api.version>3.0.1-b04</javax-el-api.version> <!-- 2017-03-12 -->
-		<jclouds.version>2.0.0</jclouds.version> <!-- 2016-12-06 -->
-		<jdbcasync.version>0.2.18</jdbcasync.version> <!-- 2015-10-07 -->
+		<javax-el-api.version>3.0.1-b04</javax-el-api.version>	<!-- 2017-04-15 -->
+		<jclouds.version>2.0.1</jclouds.version>	<!-- 2017-04-15 -->
+		<jdbcasync.version>0.2.21</jdbcasync.version>	<!-- 2017-04-15 -->
 		<jdepend.version>2.0</jdepend.version> <!-- 2015-10-06 -->
 		<jdeps.version>3.0.0</jdeps.version> <!-- 2017-02-18 -->
 		<jmeter.version>2.0.1</jmeter.version> <!-- 2016-07-05 -->
@@ -202,10 +203,10 @@
 		<licenseVerifier.version>0.4</licenseVerifier.version>
 		<log4jslf4j.version>2.7</log4jslf4j.version> <!-- 2016-12-11 -->
 		<log4jcore.version>2.7</log4jcore.version> <!-- 2016-12-11 -->
-		<logback.version>1.0.13</logback.version>
+		<logback.version>1.2.3</logback.version> <!-- 2017-04-15 -->
 		<logback-jackson.version>0.1.5</logback-jackson.version> <!-- 2016-12-02 -->
 		<logstash.version>4.7</logstash.version> <!-- 2016-07-07 -->
-		<lombok.version>1.16.12</lombok.version> <!-- 2016-12-11 -->
+		<lombok.version>1.16.16</lombok.version>	<!-- 2017-04-15 -->
 		<maven-buildtime-extension.version>3.0.0</maven-buildtime-extension.version>	<!-- 2017-04-01 -->
 		<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>	<!-- 2017-03-16 -->
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version> <!-- 2016-12-11 -->
@@ -218,12 +219,12 @@
 		<newrelic.version>3.21.0</newrelic.version> <!-- 2015-10-06 -->
 		<nexusclm.version>2.4.1</nexusclm.version> <!-- 2015-10-22 -->
 		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version> <!-- 2016-12-22 -->
-		<opentracing.version>0.16.0</opentracing.version> <!-- 2016-10-23 -->
+		<opentracing.version>0.21.0</opentracing.version>	<!-- 2017-04-15 -->
 		<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 		<plexusCompiler.version>2.8.1</plexusCompiler.version> <!-- 2017-03-28 -->
 		<plexusCompilerErrorProne.version>2.8.1</plexusCompilerErrorProne.version> <!-- 2017-03-28 -->
 		<pmd.version>3.7</pmd.version> <!-- 2016-12-11 -->
-		<pojava.version>3.0.0</pojava.version> <!-- 2017-02-02 -->
+		<pojava.version>3.0.3</pojava.version>	<!-- 2017-04-15 -->
 		<pojomatic.version>1.0</pojomatic.version>
 		<principle.version>0.37</principle.version> <!-- 2017-02-02 -->
 		<profiledep.version>0.23-rc1</profiledep.version> <!-- 2016-07-05 -->
@@ -231,20 +232,20 @@
 		<proguardBase.version>4.9</proguardBase.version>
 		<pure4j.version>0.3.1</pure4j.version> <!-- 2015-12-03 -->
 		<reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version> <!-- 2016-12-24 -->
-		<restassured.version>2.5.0</restassured.version> <!-- 2015-08-27 -->
+		<restassured.version>2.9.0</restassured.version>	<!-- 2017-04-15 -->
 		<scala-maven-plugin.version>3.2.2</scala-maven-plugin.version> <!-- 2017-02-24 -->
-		<scientist4j.version>0.3</scientist4j.version> <!-- 2016-12-02 -->
+		<scientist4j.version>0.4</scientist4j.version>	<!-- 2017-04-15 -->
 		<maven-site-plugin.version>3.6</maven-site-plugin.version> <!-- 2017-03-14 -->
-		<slf4j.version>1.7.24</slf4j.version> <!-- 2017-03-14 -->
+		<slf4j.version>1.8.0-alpha1</slf4j.version>	<!-- 2017-04-15 -->
 		<smartbuilder.version>0.4.1</smartbuilder.version> <!-- 2015-06-10 -->
 		<sonar.version>2.3</sonar.version> <!-- 2015-09-29 -->
 		<source.version>3.0.1</source.version> <!-- 2016-06-24 -->
 		<spotbugs.version>3.1.0-RC1</spotbugs.version> <!-- 2017-03-11 -->
 		<surefire.version>2.16</surefire.version> <!-- as of 2011-04-06 -->
 		<testng.version>6.10</testng.version> <!-- 2016-12-11 -->
-		<threeten-extra.version>0.9</threeten-extra.version> <!-- 2016-05-23 -->
+		<threeten-extra.version>1.0</threeten-extra.version>	<!-- 2017-04-15 -->
 		<thrift.version>0.1.11</thrift.version> <!-- 2017-02-05 -->
-		<togglz.version>2.3.0.RC1</togglz.version> <!-- 2016-05-17 -->
+		<togglz.version>2.4.1.Final</togglz.version>	<!-- 2017-04-15 -->
 		<url-detector.version>0.1.17</url-detector.version> <!-- 2016-11-28 -->
 		<validation-api.version>1.1.0.Final</validation-api.version> <!-- 2016-12-11 -->
 		<velocity.version>1.7</velocity.version> <!-- 2016-12-24 -->
@@ -255,7 +256,7 @@
 		<wiremock.version>2.5.0</wiremock.version> <!-- 2017-01-10 -->
 		<wrapper.version>0.1.6</wrapper.version> <!-- 2016-11-02 -->
 		<zeroallochash.version>0.4</zeroallochash.version> <!-- 2015-09-12 -->
-		<ztexec.version>1.8</ztexec.version>
+		<ztexec.version>1.9</ztexec.version>	<!-- 2017-04-15 -->
 		<docker.registry.url>https://index.docker.io/v1/</docker.registry.url>
 		<springboot.is.executable>true</springboot.is.executable>
 	</properties>
