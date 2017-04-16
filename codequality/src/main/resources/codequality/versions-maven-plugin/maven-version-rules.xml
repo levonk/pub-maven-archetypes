@@ -4,18 +4,18 @@
 		comparisonMethod="maven"
 		xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 http://mojo.codehaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd">
     <ignoreVersions>
-        <ignoreVersion type="regex">.*[.-][Ii]ncubating\d*</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Dd]ev-\d+</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Aa]lpha\d*</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Bb]eta\d*</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Bb]eta-\d+</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Bb]\d+</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Bb]eta\d*</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Ee][Aa]\d+</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Pp]review</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Pp][Rr]\d*</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Mm]\d+</ignoreVersion>
-        <ignoreVersion type="regex">.*[.-][Rr][Cc]\d*</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Ii]ncubating\d*$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Dd]ev-\d+$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Aa]lpha\d*$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Bb]eta\d*$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Bb]eta-\d+$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Bb]\d+$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Bb]eta\d*$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Ee][Aa]\d+$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Pp]review\d*$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Pp][Rr]\d*$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Mm]\d+$</ignoreVersion>
+        <ignoreVersion type="regex">.*[.-][Rr][Cc]\d*$</ignoreVersion>
     </ignoreVersions>
     <rules>
         <rule groupId="antlr" artifactId="antlr">
@@ -36,6 +36,12 @@
         <rule groupId="org.jboss.spec" artifactId="jboss-javaee-6.0" comparisonMethod="maven">
             <ignoreVersions>
                 <ignoreVersion type="regex">^((?!1\.0\.0\.Final).)*$</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="org.webjars" artifactId="hal-browser" comparisonMethod="maven">
+			<!-- They use a hash to do versioning -->
+            <ignoreVersions>
+                <ignoreVersion type="regex">^[0-9abcdef-]+$</ignoreVersion>
             </ignoreVersions>
         </rule>
     </rules>
