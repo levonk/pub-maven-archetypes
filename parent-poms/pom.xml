@@ -14,7 +14,7 @@
 	<name>Parent POM</name>
 	<description>Spring Boot LK Parent POM</description>
 	<url>none</url>
-	<version>2.0.97-SNAPSHOT</version>
+	<version>2.0.96.521-304fa7c</version>
 	<packaging>pom</packaging>
 	<licenses>
 		<license>
@@ -1048,7 +1048,7 @@
 					<dependency>
 						<groupId>com.levonk.codequality</groupId>
 						<artifactId>licenses</artifactId>
-						<version>2.0.97-SNAPSHOT</version>
+						<version>2.0.96.521-304fa7c</version>
 					</dependency>
 				</dependencies>
 				<configuration>
