@@ -14,7 +14,7 @@
 	<name>Parent POM</name>
 	<description>Spring Boot LK Parent POM</description>
 	<url>none</url>
-	<version>2.0.96.521-304fa7c</version>
+	<version>2.0.97.524-5cb930f</version>
 	<packaging>pom</packaging>
 	<licenses>
 		<license>
@@ -135,7 +135,7 @@
 		<antlr3.version>3.5.2</antlr3.version> <!-- 2015-10-06 -->
 		<antlr4.version>4.5.1-1</antlr4.version> <!-- 2015-10-06 -->
 		<antrun.version>1.8</antrun.version>
-		<archetype.version>3.0.0</archetype.version> <!-- 2017-02-23 -->
+		<archetype.version>3.0.1</archetype.version> <!-- 2017-04-19 -->
 		<avro.version>1.8.1</avro.version>	<!-- 2017-04-15 -->
 		<bijection.version>0.9.5</bijection.version> <!-- 2017-03-06 -->
 		<build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>	<!-- 2017-03-16 -->
@@ -159,8 +159,9 @@
 		<doclava.version>1.0.6</doclava.version>
 		<echo-maven-plugin.version>1.2.0</echo-maven-plugin.version> <!-- 2016-11-21 -->
 		<eclipse.version>2.9</eclipse.version>
-		<enforcer.version>1.4.1</enforcer.version> <!-- 2015-09-01 -->
 		<enforcerextra.version>1.0-beta-4-SNAPSHOT</enforcerextra.version> <!-- 2015-10-06 -->
+		<maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>	<!-- 2017-04-14 -->
+		<enforce-victims-rule.version>1.3.4</enforce-victims-rule.version>	<!-- 2017-04-14 -->
 		<equalsverifier.version>2.2.2</equalsverifier.version>	<!-- 2017-04-16 -->
 		<errorprone.version>2.0.19</errorprone.version> <!-- 2017-03-29 -->
 		<fb-contrib.version>6.8.3</fb-contrib.version> <!-- 2017-03-11 -->
@@ -196,7 +197,7 @@
 		<jdbcasync.version>0.2.21</jdbcasync.version>	<!-- 2017-04-15 -->
 		<jdepend.version>2.0</jdepend.version> <!-- 2015-10-06 -->
 		<jdeps.version>3.0.0</jdeps.version> <!-- 2017-02-18 -->
-		<jmeter.version>2.0.1</jmeter.version> <!-- 2016-07-05 -->
+		<jmeter.version>2.1.0</jmeter.version> <!-- 2017-04-17 -->
 		<jqassistant.version>1.1.3</jqassistant.version> <!-- 2016-07-20 -->
 		<jxr.version>2.5</jxr.version> <!-- 2017-03-09 -->
 		<libthrift.version>0.10.0</libthrift.version> <!-- 2017-02-05 -->
@@ -221,6 +222,7 @@
 		<nexusclm.version>2.4.1</nexusclm.version> <!-- 2015-10-22 -->
 		<nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version> <!-- 2016-12-22 -->
 		<opentracing.version>0.21.0</opentracing.version>	<!-- 2017-04-15 -->
+		<ossindex-maven-plugin.version>2.1.1</ossindex-maven-plugin.version>	<!-- 2017-04-14 -->
 		<pitest.version>1.1.6</pitest.version> <!-- 2015-09-29 -->
 		<plexusCompiler.version>2.8.1</plexusCompiler.version> <!-- 2017-03-28 -->
 		<plexusCompilerErrorProne.version>2.8.1</plexusCompilerErrorProne.version> <!-- 2017-03-28 -->
@@ -815,8 +817,52 @@
 				<!-- @see http://maven.apache.org/enforcer/enforcer-rules/index.html -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>${enforcer.version}</version>
+				<version>${maven-enforcer-plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.redhat.victims</groupId>
+						<artifactId>enforce-victims-rule</artifactId>
+						<version>${enforce-victims-rule.version}</version>
+						<type>jar</type>
+					</dependency>
+				</dependencies>
 				<executions>
+					<execution>
+						<id>enforce-victims-rule</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<!-- @see https://github.com/victims/victims-enforcer -->
+								<rule implementation="com.redhat.victims.VictimsRule">
+									<!-- Gap: depedency may not be "referenced product" (CPE) but still impacted by CVE -->
+									<!-- Check the projects dependencies against the database using name & version. 
+										 Options:
+										 disabled: Rule is still run but only INFO level messages and no errors.
+										 warning: (default) Rule will spit out a warning message but doesn't result in a failure.
+										 fatal: Rule will spit out an error message and fail the build.
+									-->
+									<metadata>warning</metadata>
+									<!-- Check the projects dependencies against the database using SHA-512 checksum of the artifact.
+										 Options:
+										 disabled: Rule is still run but only INFO level messages and no errors.
+										 warning: Rule will spit out a warning message but doesn't result in a failure.
+										 fatal: (default) Rule will spit out an error message and fail the build.
+									-->
+									<fingerprint>warning</fingerprint>
+									<!-- Schedule the synchronization mechansim
+										 Options:
+										 auto: Automatically update the database entries on each build.
+										 daily: update the database entries once per day.
+										 weekly: update the database entries once per week.
+										 offline: Disable the synchronization mechansim.
+									-->
+									<updates>weekly</updates>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
 					<execution>
 						<id>enforce-banned-dependencies</id>
 						<goals>
@@ -1048,7 +1094,7 @@
 					<dependency>
 						<groupId>com.levonk.codequality</groupId>
 						<artifactId>licenses</artifactId>
-						<version>2.0.96.521-304fa7c</version>
+						<version>2.0.97.524-5cb930f</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -1304,8 +1350,29 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<!-- @see https://github.com/OSSIndex/ossindex-maven-plugin -->
 				<!-- Security scan -->
+				<!-- Gap: hand stiched "referenced product" (CPE) to dependency, gap may be hand tuning not listed -->
+				<groupId>net.ossindex</groupId>
+				<artifactId>ossindex-maven-plugin</artifactId>
+				<version>${ossindex-maven-plugin.version}</version>
+				<configuration>
+					<failOnError>false</failOnError>
+					<output>ossindex.xml,ossindex.json</output>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>audit</goal>
+						</goals>
+						<phase>verify</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<!-- @see http://jeremylong.github.io/DependencyCheck/dependency-check-maven/index.html -->
+				<!-- Security scan -->
+				<!-- Gap: depedency may not be "referenced product" (CPE) but still impacted by CVE -->
 				<groupId>org.owasp</groupId>
 				<artifactId>dependency-check-maven</artifactId>
 				<version>${dependencycheck.version}</version>
@@ -2509,7 +2576,7 @@
 						<version>${jmeter.version}</version>
 						<executions>
 							<execution>
-								<id>integration-test</id>
+								<id>jmeter-tests</id>
 								<phase>verify</phase>
 								<goals>
 									<goal>jmeter</goal>
