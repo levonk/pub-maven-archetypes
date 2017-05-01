@@ -1002,7 +1002,7 @@
 					<targetJdk>${java.version}</targetJdk>
 					<linkXRef>false</linkXRef>
 					<failurePriority>2</failurePriority>
-					<failOnViolation>true</failOnViolation>
+					<failOnViolation>false</failOnViolation>
 					<printFailingErrors>true</printFailingErrors>
 				</configuration>
 				<executions>
@@ -3096,7 +3096,7 @@
 						<configuration>
 							<configLocation>${checkstyle.ruleset.url}</configLocation>
 							<logViolationsToConsole>true</logViolationsToConsole>
-							<failOnViolation>true</failOnViolation>
+							<failOnViolation>false</failOnViolation>
 							<failsOnError>true</failsOnError>
 						</configuration>
 						<executions>
