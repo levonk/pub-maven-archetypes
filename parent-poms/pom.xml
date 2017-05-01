@@ -1560,6 +1560,9 @@
 				<version>${checkstyle.version}</version>
 				<configuration>
 					<configLocation>${checkstyle.ruleset.url}</configLocation>
+					<logViolationsToConsole>true</logViolationsToConsole>
+					<failOnViolation>false</failOnViolation>
+					<failsOnError>true</failsOnError>
 				</configuration>
 			</plugin>
 			<plugin>
