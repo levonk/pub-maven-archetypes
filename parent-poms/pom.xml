@@ -1562,7 +1562,7 @@
 					<configLocation>${checkstyle.ruleset.url}</configLocation>
 					<logViolationsToConsole>true</logViolationsToConsole>
 					<failOnViolation>false</failOnViolation>
-					<failsOnError>true</failsOnError>
+					<failsOnError>false</failsOnError>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -3100,7 +3100,7 @@
 							<configLocation>${checkstyle.ruleset.url}</configLocation>
 							<logViolationsToConsole>true</logViolationsToConsole>
 							<failOnViolation>false</failOnViolation>
-							<failsOnError>true</failsOnError>
+							<failsOnError>false</failsOnError>
 						</configuration>
 						<executions>
 							<execution>
