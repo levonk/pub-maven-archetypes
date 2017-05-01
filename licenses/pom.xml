@@ -4,14 +4,14 @@
 
 	<groupId>com.levonk.codequality</groupId>
 	<artifactId>licenses</artifactId>
-	<version>2.0.100-SNAPSHOT</version>
+	<version>2.0.100.527-b7456ef-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>Automatically validate licenses in the dependencies.</description>
 	<name>Licenses Config File</name>
 	<parent>
 		<groupId>com.levonk</groupId>
 		<artifactId>maven-codequalities-parent</artifactId>
-		<version>2.0.100-SNAPSHOT</version>
+		<version>2.0.100.527-b7456ef-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
 
