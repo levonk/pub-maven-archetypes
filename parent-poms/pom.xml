@@ -14,7 +14,7 @@
 	<name>Parent POM</name>
 	<description>Spring Boot LK Parent POM</description>
 	<url>none</url>
-	<version>2.0.97.524-5cb930f</version>
+	<version>2.0.98.525-f356d70</version>
 	<packaging>pom</packaging>
 	<licenses>
 		<license>
@@ -1002,7 +1002,7 @@
 					<targetJdk>${java.version}</targetJdk>
 					<linkXRef>false</linkXRef>
 					<failurePriority>2</failurePriority>
-					<failOnViolation>true</failOnViolation>
+					<failOnViolation>false</failOnViolation>
 					<printFailingErrors>true</printFailingErrors>
 				</configuration>
 				<executions>
@@ -1094,7 +1094,7 @@
 					<dependency>
 						<groupId>com.levonk.codequality</groupId>
 						<artifactId>licenses</artifactId>
-						<version>2.0.97.524-5cb930f</version>
+						<version>2.0.98.525-f356d70</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -3096,7 +3096,7 @@
 						<configuration>
 							<configLocation>${checkstyle.ruleset.url}</configLocation>
 							<logViolationsToConsole>true</logViolationsToConsole>
-							<failOnViolation>true</failOnViolation>
+							<failOnViolation>false</failOnViolation>
 							<failsOnError>true</failsOnError>
 						</configuration>
 						<executions>
