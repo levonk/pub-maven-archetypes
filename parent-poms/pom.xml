@@ -209,7 +209,7 @@
 		<logback-jackson.version>0.1.5</logback-jackson.version> <!-- 2016-12-02 -->
 		<logstash.version>4.7</logstash.version> <!-- 2016-07-07 -->
 		<lombok.version>1.16.16</lombok.version>	<!-- 2017-04-15 -->
-		<maven-buildtime-extension.version>3.0.0</maven-buildtime-extension.version>	<!-- 2017-04-01 -->
+		<maven-buildtime-extension.version>3.0.1</maven-buildtime-extension.version>	<!-- 2017-05-01 -->
 		<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>	<!-- 2017-03-16 -->
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version> <!-- 2016-12-11 -->
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version> <!-- 2016-12-11 -->
