@@ -1402,6 +1402,9 @@
 					<groupId>com.atlassian.maven.plugins</groupId>
 					<artifactId>clover-maven-plugin</artifactId>
 					<version>${clover-maven-plugin.version}</version>
+					<configuration>
+						<skipGroverJar>true</skipGroverJar>
+					</configuration>
 				</plugin>
 
 				<!-- android plugin -->
@@ -2010,6 +2013,9 @@
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+							<skipGroverJar>false</skipGroverJar>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
