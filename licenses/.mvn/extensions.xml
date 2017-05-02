@@ -5,4 +5,9 @@
         <artifactId>maven-profiledep-extension</artifactId>
         <version>0.23-rc1</version>
     </extension>
+    <extension>
+        <groupId>co.leantechniques</groupId>
+        <artifactId>maven-buildtime-extension</artifactId>
+        <version>3.0.1</version>
+    </extension>
 </extensions>
