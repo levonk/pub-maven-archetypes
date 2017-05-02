@@ -208,8 +208,6 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-.mvn/extensions.xml
-*/.mvn/extensions.xml
 
 
 ### Gradle ###
@@ -419,4 +417,3 @@ cookbooks/
 settings.xml
 GIT_COMMIT
 .gnupg
-.mvn/extensions.xml
