@@ -190,7 +190,7 @@
 		<jacoco.version>0.7.6.201602180812</jacoco.version> <!-- 2016-02-21 -->
 		<jalopy.version>1.0-alpha-1</jalopy.version>
 		<jsonschema2pojo.version>0.4.24</jsonschema2pojo.version> <!-- 2016-08-09 -->
-		<javadoc.version>2.10.4</javadoc.version> <!-- 2016-10-24 -->
+		<javadoc.version>3.0.0</javadoc.version> <!-- 2017-12-07 -->
 		<javancss.version>2.1</javancss.version> <!-- 2015-10-06 -->
 		<javax-el.version>2.2.6</javax-el.version> <!-- 2017-03-12 -->
 		<javax-el-api.version>3.0.1-b04</javax-el-api.version>	<!-- 2017-04-15 -->
