@@ -1001,7 +1001,7 @@
 		<javadoc.version>2.9.1</javadoc.version>
 		<licenseVerifier.version>0.4</licenseVerifier.version>
 		<licenses.version>1.0</licenses.version>
-		<logback.version>1.0.13</logback.version>
+		<logback.version>1.2.0</logback.version>
 		<logback-jackson.version>0.1.2</logback-jackson.version>
 		<logstash.version>2.4</logstash.version>
 		<lombok.version>1.12.5</lombok.version>
