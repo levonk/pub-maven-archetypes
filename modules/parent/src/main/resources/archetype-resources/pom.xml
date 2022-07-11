@@ -982,7 +982,7 @@
 		<antrun.version>1.7</antrun.version>
 		<codequality.version>1.0.9</codequality.version>
 		<checkers.version>1.7.2</checkers.version> <!-- as of 2014-01-22 -->
- 		<spring-boot.version>1.0.0.RC1</spring-boot.version>
+ 		<spring-boot.version>2.2.11.BUILD-SNAPSHOT</spring-boot.version>
 		<checkstyle.version>2.9.1</checkstyle.version>
 		<cobertura.version>2.5.2</cobertura.version>
 		<commonslang3.version>3.2.1</commonslang3.version>
