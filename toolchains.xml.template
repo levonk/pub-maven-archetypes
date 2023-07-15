@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF8"?>
 <toolchains>
 	<!-- This file belongs in ${user.home}/.m2/toolchains.xml -->
+	<!-- Doc: https://maven.apache.org/guides/mini/guide-using-toolchains.html -->
 	<!-- Change the paths below to your enviornment -->
 
 	<!-- JDK toolchains -->
