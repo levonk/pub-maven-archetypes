@@ -982,7 +982,7 @@
 		<antrun.version>1.7</antrun.version>
 		<codequality.version>1.0.9</codequality.version>
 		<checkers.version>1.7.2</checkers.version> <!-- as of 2014-01-22 -->
- 		<spring-boot.version>2.5.12</spring-boot.version>
+ 		<spring-boot.version>3.0.0</spring-boot.version>
 		<checkstyle.version>2.9.1</checkstyle.version>
 		<cobertura.version>2.5.2</cobertura.version>
 		<commonslang3.version>3.2.1</commonslang3.version>
@@ -1001,12 +1001,12 @@
 		<javadoc.version>2.9.1</javadoc.version>
 		<licenseVerifier.version>0.4</licenseVerifier.version>
 		<licenses.version>1.0</licenses.version>
-		<logback.version>1.2.0</logback.version>
+		<logback.version>1.2.13</logback.version>
 		<logback-jackson.version>0.1.2</logback-jackson.version>
 		<logstash.version>2.4</logstash.version>
 		<lombok.version>1.12.5</lombok.version>
 		<mockito.version>1.9.5</mockito.version>
-		<owasp.version>1.2.8</owasp.version> <!-- as of 2015-02-15 -->
+		<owasp.version>3.2.0</owasp.version> <!-- as of 2015-02-15 -->
 		<pmd.version>3.0.1</pmd.version>
 		<pojomatic.version>1.0</pojomatic.version>
 		<site.version>3.2</site.version>
