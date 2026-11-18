@@ -7,7 +7,7 @@
 	<parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>1.0.0.RC1</version>
+        <version>4.1.2</version>
     </parent>
 
 	<groupId>${groupId}</groupId>
@@ -976,16 +976,17 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.7</java.version>
+		<java.version>17</java.version>
 		<!-- version block -->
 		<android.version>2.8.4</android.version>
 		<antrun.version>1.7</antrun.version>
 		<codequality.version>1.0.9</codequality.version>
 		<checkers.version>1.7.2</checkers.version> <!-- as of 2014-01-22 -->
- 		<spring-boot.version>2.5.12</spring-boot.version>
+ 		<spring-boot.version>4.1.2</spring-boot.version>
+		<spring.version>7.0.10</spring.version>
 		<checkstyle.version>2.9.1</checkstyle.version>
 		<cobertura.version>2.5.2</cobertura.version>
-		<commonslang3.version>3.2.1</commonslang3.version>
+		<commonslang3.version>3.22.0</commonslang3.version>
 		<compiler.version>3.1</compiler.version>
 		<dependency.version>2.8</dependency.version>
 		<doclava.version>2.9.1</doclava.version>
@@ -994,23 +995,23 @@
 		<equalsverifier.version>1.3.1</equalsverifier.version>
 		<findbugs.version>2.5.2</findbugs.version>
 		<findbugs-extra.version>1.3.9</findbugs-extra.version>
-		<guava.version>16.0</guava.version>
+		<guava.version>33.8.0-jre</guava.version>
 		<jackson1.version>1.9.13</jackson1.version>
 		<jacoco.version>0.6.4.201312101107</jacoco.version>
 		<jalopy.version>1.0-alpha-1</jalopy.version>
 		<javadoc.version>2.9.1</javadoc.version>
 		<licenseVerifier.version>0.4</licenseVerifier.version>
 		<licenses.version>1.0</licenses.version>
-		<logback.version>1.2.0</logback.version>
-		<logback-jackson.version>0.1.2</logback-jackson.version>
-		<logstash.version>2.4</logstash.version>
+		<logback.version>1.6.7</logback.version>
+		<logback-jackson.version>0.1.5</logback-jackson.version>
+		<logstash.version>9.0</logstash.version>
 		<lombok.version>1.12.5</lombok.version>
 		<mockito.version>1.9.5</mockito.version>
-		<owasp.version>1.2.8</owasp.version> <!-- as of 2015-02-15 -->
+		<owasp.version>13.0.0</owasp.version> <!-- as of 2015-02-15 -->
 		<pmd.version>3.0.1</pmd.version>
 		<pojomatic.version>1.0</pojomatic.version>
 		<site.version>3.2</site.version>
-		<slf4j.version>1.7.5</slf4j.version> <!-- as of 2012-09-17 -->
+		<slf4j.version>2.0.20</slf4j.version> <!-- as of 2012-09-17 -->
 		<surefire.version>2.16</surefire.version> <!-- as of 2011-04-06 -->
 		<testng.version>6.8.7</testng.version>
 		<victims.version>1.3.4</victims.version> <!-- as of 2015-02-15 -->
